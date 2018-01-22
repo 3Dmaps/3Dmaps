@@ -31,7 +31,7 @@ Add additional notes about how to deploy this on a live system. Not defined yet.
 
 ## Built With
 
-Tool list. Not defined yet.
+Tool list.
 * [Unity](https://unity3d.com/) - Game engine
 
 ## Versioning
@@ -53,7 +53,6 @@ List of contributors.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
 
 ## Acknowledgments
--
