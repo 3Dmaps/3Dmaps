@@ -1,6 +1,6 @@
 # 3Dmaps
 
-http://unitybuildbadge.azurewebsites.net/api/status/d77432ac-865d-4a94-926c-ed95aab68f87
+![Build Status](http://unitybuildbadge.azurewebsites.net/api/status/d77432ac-865d-4a94-926c-ed95aab68f87)
 
 3DMaps in augmented reality. Software production project course / Univ. of Helsinki, spring 2018
 
