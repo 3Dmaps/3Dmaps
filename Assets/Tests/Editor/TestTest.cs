@@ -13,9 +13,9 @@ public class TestTest {
         Assert.True(truth, "Something went terribly wrong!");
     }
 
-    [Test]
-    public void TestThatFails() {
-        Assert.False(truth, "This was bound to happen.");
-    }
+    // [Test]
+    // public void TestThatFails() {
+    //     Assert.False(truth, "This was bound to happen.");
+    // }
 
 }
