@@ -6,7 +6,7 @@ public class MapGenerator : MonoBehaviour {
 	public enum DrawMode {NoiseMap, ColourMap, Mesh};
 	public DrawMode drawMode;
 
-    public const int mapChunkSize = 241;
+    public const int mapChunkSize = 121;
     [Range(0, 6)]
     public int levelOfDetail;
     public float noiseScale;
@@ -24,7 +24,12 @@ public class MapGenerator : MonoBehaviour {
 
 	public TerrainType[] regions;
 
-	public void GenerateMap() {
+    public void Start()
+    {
+        GenerateMap();
+    }
+
+    public void GenerateMap() {
 
         //Just for demo. We can remove this and use real world height data.
 		float[,] noiseMap = Noise.GenerateNoiseMap (mapChunkSize, mapChunkSize, seed, noiseScale, octaves, persistance, lacunarity, offset);
