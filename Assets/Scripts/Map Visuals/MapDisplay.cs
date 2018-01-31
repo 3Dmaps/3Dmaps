@@ -1,6 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
+/// <summary>
+/// Combines the mesh with a texture.
+/// </summary>
+
 public class MapDisplay : MonoBehaviour {
 
 	public Renderer textureRender;
