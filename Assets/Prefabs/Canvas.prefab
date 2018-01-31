@@ -145,8 +145,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af432290e4b28ba448428ac969eb81fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  map: {fileID: 0}
-  multiplier: 0.8
+  target: {fileID: 0}
+  multiplier: 1.25
 --- !u!114 &114397394331148984
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -187,7 +187,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114997801034089316}
-        m_MethodName: ZoomMap
+        m_MethodName: ZoomTarget
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -255,7 +255,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114149678666852624}
-        m_MethodName: ZoomMap
+        m_MethodName: ZoomTarget
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -386,8 +386,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af432290e4b28ba448428ac969eb81fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  map: {fileID: 0}
-  multiplier: 1.2
+  target: {fileID: 0}
+  multiplier: 0.8
 --- !u!222 &222139213462223392
 CanvasRenderer:
   m_ObjectHideFlags: 1
