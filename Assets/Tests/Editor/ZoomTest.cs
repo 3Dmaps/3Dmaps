@@ -15,7 +15,7 @@ public class ZoomTest {
 		target.transform.localScale = new Vector3(10f,10f,10f);
 		zoomer.target = target;
 		zoomer.multiplier = 2f;
-		zoomer.ZoomMap ();
+		zoomer.ZoomTarget ();
 		Assert.True (Mathf.Approximately(target.transform.localScale.x, 20f));
 
 
