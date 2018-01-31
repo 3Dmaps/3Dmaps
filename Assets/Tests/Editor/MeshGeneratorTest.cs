@@ -9,19 +9,9 @@ public class MeshGeneratorTest {
     [Test]
     public void MeshGeneratorTopLeftVerticeAltitudeCorrect() {
         float[,] heightMap = new float[3, 3];
-        for (int x = 0; x < heightMap.GetLength(0); x++)
-        {
-            for (int y = 0; y < heightMap.GetLength(1); y++)
-            {
-                if (x == 0)
-                {
-                    heightMap[x, y] = 2;
-                }
-                else
-                {
-                    heightMap[x, y] = 3;
-                }
-
+        for (int x = 0; x < heightMap.GetLength(0); x++) {
+            for (int y = 0; y < heightMap.GetLength(1); y++) {
+                heightMap[x, y] = (x == 0) ? 2 : 3;
             }
         }
 
