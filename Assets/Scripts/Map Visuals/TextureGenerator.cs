@@ -1,6 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Generates textures for the mesh. 
+/// TextureFromHeightMap: Black & white texture created from height values.
+/// TextureFromColourMap: Creates a texture from colour map.
+/// </summary>
+
 public static class TextureGenerator {
 
 	public static Texture2D TextureFromColourMap(Color[] colourMap, int width, int height) {

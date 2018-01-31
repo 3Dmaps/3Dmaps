@@ -1,6 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Generates the mesh from height data.
+/// All data used by the mesh is stored in the MeshData class for easy access.
+/// </summary>
+
 public static class MeshGenerator {
 
 	public static MeshData GenerateTerrainMesh(float[,] heightMap, float heightMultiplier, int levelOfDetail) {

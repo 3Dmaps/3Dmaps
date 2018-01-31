@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Creates test height data that can be used for debugging.
+/// </summary>
+
 public static class Noise {
 
 	public static float[,] GenerateNoiseMap(int mapWidth, int mapHeight, int seed, float scale, int octaves, float persistance, float lacunarity, Vector2 offset) {
