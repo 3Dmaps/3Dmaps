@@ -18,7 +18,7 @@ public class Zoom : MonoBehaviour {
 		
 	}
 
-	public void ZoomMap() {
+	public void ZoomTarget() {
 		Vector3 scale = target.transform.localScale;
 		scale = scale * multiplier;
 		target.transform.localScale = scale;
