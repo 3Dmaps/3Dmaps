@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 /// <summary>
 /// Generates the visual map to the scene.
@@ -28,15 +29,22 @@ public class MapGenerator : MonoBehaviour {
 
 	public TerrainType[] regions;
 
+	private float[,] mapData;
+	private Dictionary<string, float> mapMetadata;
+	private const string mapDataPath = "Assets/Resources/grandcanyon.txt";
+
     public void Start()
     {
+		mapMetadata = MapDataImporter.ReadMetadata(mapDataPath);
+		mapData = MapDataImporter.ReadMapData(mapDataPath, mapMetadata);
         GenerateMap();
     }
 
     public void GenerateMap() {
 
         //Just for demo. We can remove this and use real world height data.
-		float[,] noiseMap = Noise.GenerateNoiseMap (mapChunkSize, mapChunkSize, seed, noiseScale, octaves, persistance, lacunarity, offset);
+		//float[,] noiseMap = Noise.GenerateNoiseMap (mapChunkSize, mapChunkSize, seed, noiseScale, octaves, persistance, lacunarity, offset);
+		float[,] noiseMap = mapData;
 
 		Color[] colourMap = new Color[mapChunkSize * mapChunkSize];
 		for (int y = 0; y < mapChunkSize; y++) {
@@ -57,7 +65,9 @@ public class MapGenerator : MonoBehaviour {
 		} else if (drawMode == DrawMode.ColourMap) {
 			display.DrawTexture (TextureGenerator.TextureFromColourMap (colourMap, mapChunkSize, mapChunkSize));
 		} else if (drawMode == DrawMode.Mesh) {
-			display.DrawMesh (MeshGenerator.GenerateTerrainMesh (noiseMap, meshHeightMultiplier, levelOfDetail), TextureGenerator.TextureFromColourMap (colourMap, mapChunkSize, mapChunkSize));
+			float minH = (mapMetadata.ContainsKey(MapDataImporter.minheightKey) && mapMetadata[MapDataImporter.minheightKey] != mapMetadata[MapDataImporter.nodatavalueKey]) ? mapMetadata[MapDataImporter.minheightKey] : 0f;
+			Debug.Log(minH);
+			display.DrawMesh (MeshGenerator.GenerateTerrainMesh (noiseMap, meshHeightMultiplier, levelOfDetail, minH), TextureGenerator.TextureFromColourMap (colourMap, mapChunkSize, mapChunkSize));
 		}
 	}
 
