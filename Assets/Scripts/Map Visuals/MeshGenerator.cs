@@ -8,14 +8,20 @@ using System.Collections;
 
 public static class MeshGenerator {
 
-	public static MeshData GenerateTerrainMesh(float[,] heightMap, float heightMultiplier, int levelOfDetail, float minHeight = 0f) {
-		int width  = heightMap.GetLength (0);
-		int height = heightMap.GetLength (1);
-		float topLeftX = (width - 1) / -2f;
-		float topLeftZ = (height - 1) / 2f;
+	private const int meshSize = 255;
+
+	public static MeshData GenerateTerrainMesh(MapData mapData, float heightMultiplier, int levelOfDetail, float minHeight = 0f) {
+		//int width  = heightMap.GetLength (0);
+		//int height = heightMap.GetLength (1);
+		int width = mapData.GetWidth();
+		int height = mapData.GetHeight();
+		Vector2 topLeft = mapData.GetTopLeft();
+		float topLeftX = topLeft.x;
+		float topLeftZ = topLeft.y;
 
         int meshSimplificationIncrement = (levelOfDetail == 0) ? 1 : levelOfDetail * 2;
         int verticesPerLine = (width - 1) / meshSimplificationIncrement + 1;
+
 
         MeshData meshData = new MeshData (width, height);
 		int vertexIndex = 0;
@@ -23,7 +29,9 @@ public static class MeshGenerator {
 		for (int y = 0; y < height; y+= meshSimplificationIncrement) {
 			for (int x = 0; x < width; x+= meshSimplificationIncrement) {
 
-				meshData.vertices [vertexIndex] = new Vector3 (topLeftX + x, (heightMap [x, y] - minHeight) * heightMultiplier, topLeftZ - y);
+				//Debug.Log((topLeftX + x) + ", " + (topLeftZ - y) + " --> " + (heightMap [x, y] - minHeight) * heightMultiplier);
+
+				meshData.vertices [vertexIndex] = new Vector3 (topLeftX + x, mapData.GetNormalized(x, y), topLeftZ - y);
 				meshData.uvs [vertexIndex]      = new Vector2 (x / (float)width, y / (float)height);
 
 				if (x < width - 1 && y < height - 1) {
@@ -38,6 +46,7 @@ public static class MeshGenerator {
 }
 
 public class MeshData {
+
 	public Vector3[] vertices;
 	public int[]     triangles;
 	public Vector2[] uvs;

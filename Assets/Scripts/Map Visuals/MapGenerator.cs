@@ -29,8 +29,10 @@ public class MapGenerator : MonoBehaviour {
 
 	public TerrainType[] regions;
 
-	private float[,] mapData;
-	private Dictionary<string, float> mapMetadata;
+	public GameObject visual;
+
+	private MapData mapData;
+	private MapMetadata mapMetadata;
 	private const string mapDataPath = "Assets/Resources/grandcanyon.txt";
 
     public void Start()
@@ -44,30 +46,34 @@ public class MapGenerator : MonoBehaviour {
 
         //Just for demo. We can remove this and use real world height data.
 		//float[,] noiseMap = Noise.GenerateNoiseMap (mapChunkSize, mapChunkSize, seed, noiseScale, octaves, persistance, lacunarity, offset);
-		float[,] noiseMap = mapData;
+		//float[,] noiseMap = mapData;
+		foreach(MapData slice in mapData.GetSlices(255)) {
+			int width = slice.GetWidth();
+			int height = slice.GetHeight();
 
-		Color[] colourMap = new Color[mapChunkSize * mapChunkSize];
-		for (int y = 0; y < mapChunkSize; y++) {
-			for (int x = 0; x < mapChunkSize; x++) {
-				float currentHeight = noiseMap [x, y];
-				for (int i = 0; i < regions.Length; i++) {
-					if (currentHeight <= regions [i].height) {
-						colourMap [y * mapChunkSize + x] = regions [i].colour;
-						break;
+			Color[] colourMap = new Color[width * height];
+			for (int y = 0; y < height; y++) {
+				for (int x = 0; x < width; x++) {
+					float currentHeight = slice.GetSquished(x, y);
+					for (int i = 0; i < regions.Length; i++) {
+						if (currentHeight <= regions [i].height) {
+							colourMap [y * width + x] = regions [i].colour;
+							break;
+						}
 					}
 				}
 			}
-		}
 
-		MapDisplay display = FindObjectOfType<MapDisplay> ();
-		if (drawMode == DrawMode.NoiseMap) {
-			display.DrawTexture (TextureGenerator.TextureFromHeightMap (noiseMap));
-		} else if (drawMode == DrawMode.ColourMap) {
-			display.DrawTexture (TextureGenerator.TextureFromColourMap (colourMap, mapChunkSize, mapChunkSize));
-		} else if (drawMode == DrawMode.Mesh) {
-			float minH = (mapMetadata.ContainsKey(MapDataImporter.minheightKey) && mapMetadata[MapDataImporter.minheightKey] != mapMetadata[MapDataImporter.nodatavalueKey]) ? mapMetadata[MapDataImporter.minheightKey] : 0f;
-			Debug.Log(minH);
-			display.DrawMesh (MeshGenerator.GenerateTerrainMesh (noiseMap, meshHeightMultiplier, levelOfDetail, minH), TextureGenerator.TextureFromColourMap (colourMap, mapChunkSize, mapChunkSize));
+			//MapDisplay display = FindObjectOfType<MapDisplay> ();
+			MapDisplay display = gameObject.AddComponent(typeof(MapDisplay)) as MapDisplay;
+			display.CreateVisual(visual);
+			if (drawMode == DrawMode.NoiseMap) {
+				display.DrawTexture (TextureGenerator.TextureFromHeightMap (slice), slice.GetScale());
+			} else if (drawMode == DrawMode.ColourMap) {
+				display.DrawTexture (TextureGenerator.TextureFromColourMap (colourMap, width, height), slice.GetScale());
+			} else if (drawMode == DrawMode.Mesh) {
+				display.DrawMesh (MeshGenerator.GenerateTerrainMesh (slice, meshHeightMultiplier, levelOfDetail), TextureGenerator.TextureFromColourMap (colourMap, width, height), slice.GetScale());
+			}
 		}
 	}
 

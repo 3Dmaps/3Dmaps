@@ -6,41 +6,39 @@ using UnityEngine;
 
 public static class MapDataImporter {
 
-	public const string nrowsKey = "nrows", ncolsKey = "ncols", nodatavalueKey = "NODATA_value", minheightKey = "minheight";
-	public static Dictionary<string, float> ReadMetadata(string path) {
-		Dictionary<string, float> metadata = new Dictionary<string, float>();
+//	public const string nrowsKey = "nrows", ncolsKey = "ncols", nodatavalueKey = "NODATA_value", minheightKey = "minheight", maxheightKey = "maxheight";
+
+	public static MapMetadata ReadMetadata(string path) {
+		MapMetadata metadata = new MapMetadata();
 		using(StreamReader input = new StreamReader(path)) {
 			string line;
 			bool keepGoing = true;
 			while (keepGoing && (line = input.ReadLine()) != null) {
 				switch(line[0]) {
 					case ' ':
-						keepGoing = false;
+						keepGoing = false; // We hit the actual data, stop reading
 						break;
 					default:
 						string[] keyValue = line.Split(new char[]{' '}, StringSplitOptions.RemoveEmptyEntries);
-						metadata.Add(keyValue[0], float.Parse(keyValue[1]));
+						metadata.Set(keyValue[0], keyValue[1]);
 						break;
 				}
-			}
-			foreach(string key in metadata.Keys) {
-				Debug.Log(key + ", " + metadata[key]);
 			}
 		}
 		return metadata;
 	}
 
-	public static float[,] ReadMapData(string path, Dictionary<string, float> metadata) {
-		if(!metadata.ContainsKey(nrowsKey) || !metadata.ContainsKey(ncolsKey)) {
+	public static MapData ReadMapData(string path, MapMetadata metadata) {
+		if(metadata.nrows < 1 || metadata.ncols < 1) {
 			return null;
 		}
-		float[,] mapData = new float[(int) metadata[nrowsKey], (int) metadata[ncolsKey]];
-		float minHeight = metadata[nodatavalueKey];
+		float[,] mapData = new float[metadata.ncols, metadata.nrows];
+		float minHeight = metadata.nodatavalue, maxHeight = metadata.nodatavalue;
 		using(StreamReader input = new StreamReader(path)) {
 			string line;
 			int x = 0, y = 0;
 			while ((line = input.ReadLine()) != null) {
-				if(line[0] == ' ') {
+				if(line[0] == ' ') { // Data lines start with a space
 					string[] values = line.Split(new char[]{' '}, StringSplitOptions.RemoveEmptyEntries);
 					x = 0;
 					foreach(string value in values) {
@@ -48,10 +46,15 @@ public static class MapDataImporter {
 							float height = float.Parse(value);
 							if (height < minHeight) {
 								minHeight = height;
-							} else if (minHeight == metadata[nodatavalueKey]) {
+							} else if (minHeight == metadata.nodatavalue) {
 								minHeight = height;
 							}
-							mapData[y, x] = height;
+							if (height > maxHeight) {
+								maxHeight = height;
+							} else if (maxHeight == metadata.nodatavalue) {
+								maxHeight = height;
+							}
+							mapData[x, y] = height;
 						} catch (Exception e) {
 							Debug.Log(x + ", " + y);
 							Debug.Log(e.ToString());
@@ -62,8 +65,9 @@ public static class MapDataImporter {
 				}
 			}
 		}
-		metadata.Add(minheightKey, minHeight);
-		return mapData;
+		metadata.Set(MapMetadata.minheightKey, minHeight.ToString());
+		metadata.Set(MapMetadata.maxheightKey, maxHeight.ToString());
+		return new MapData(mapData, metadata);
 	}
 
 }
