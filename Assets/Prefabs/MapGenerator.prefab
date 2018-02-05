@@ -60,21 +60,37 @@ MonoBehaviour:
   seed: 0
   offset: {x: 0, y: 0}
   meshHeightMultiplier: 0.095
-  autoUpdate: 1
+  autoUpdate: 0
+  regionsSmoothCount: 100
   regions:
   - name: 
+    height: 0.1
+    colour: {r: 0.32941177, g: 0.27450982, b: 0.25882354, a: 1}
+  - name: 
     height: 0.2
-    colour: {r: 0.21323532, g: 0.17941178, b: 0.0689879, a: 0}
+    colour: {r: 0.64705884, g: 0.53333336, b: 0.47058824, a: 1}
+  - name: 
+    height: 0.3
+    colour: {r: 0.5411765, g: 0.46666667, b: 0.4392157, a: 1}
   - name: 
     height: 0.4
-    colour: {r: 0.3455882, g: 0.29897237, b: 0.10418468, a: 0}
+    colour: {r: 0.5294118, g: 0.43616316, b: 0.40873706, a: 1}
+  - name: 
+    height: 0.5
+    colour: {r: 0.7294118, g: 0.5921569, b: 0.5176471, a: 1}
   - name: 
     height: 0.6
-    colour: {r: 0.5, g: 0.3721095, b: 0.14338234, a: 0}
+    colour: {r: 0.9137255, g: 0.75686276, b: 0.654902, a: 1}
+  - name: 
+    height: 0.7
+    colour: {r: 0.7764706, g: 0.65882355, b: 0.6156863, a: 1}
   - name: 
     height: 0.8
-    colour: {r: 0.58823526, g: 0.49397442, b: 0.24653977, a: 0}
+    colour: {r: 0.84313726, g: 0.67058825, b: 0.5647059, a: 1}
+  - name: 
+    height: 0.9
+    colour: {r: 0.875, g: 0.7663167, b: 0.5661765, a: 1}
   - name: 
     height: 1
-    colour: {r: 0.8308824, g: 0.7038062, b: 0.51319206, a: 0}
+    colour: {r: 0.88235295, g: 0.79930794, b: 0.6747405, a: 1}
   visual: {fileID: 1564701394338744, guid: 0eacb9f7020c9bc4bb8d0bd5fc0953f3, type: 2}
