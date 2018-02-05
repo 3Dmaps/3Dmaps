@@ -8,28 +8,21 @@ using System.Collections;
 
 public static class MeshGenerator {
 
-	private const int meshSize = 255;
-
 	public static MeshData GenerateTerrainMesh(MapData mapData, float heightMultiplier, int levelOfDetail, float minHeight = 0f) {
-		//int width  = heightMap.GetLength (0);
-		//int height = heightMap.GetLength (1);
-		int width = mapData.GetWidth();
-		int height = mapData.GetHeight();
+		int width       = mapData.GetWidth();
+		int height      = mapData.GetHeight();
 		Vector2 topLeft = mapData.GetTopLeft();
-		float topLeftX = topLeft.x;
-		float topLeftZ = topLeft.y;
+		float topLeftX  = topLeft.x;
+		float topLeftZ  = topLeft.y;
 
         int meshSimplificationIncrement = (levelOfDetail == 0) ? 1 : levelOfDetail * 2;
         int verticesPerLine = (width - 1) / meshSimplificationIncrement + 1;
-
 
         MeshData meshData = new MeshData (width, height);
 		int vertexIndex = 0;
 
 		for (int y = 0; y < height; y+= meshSimplificationIncrement) {
 			for (int x = 0; x < width; x+= meshSimplificationIncrement) {
-
-				//Debug.Log((topLeftX + x) + ", " + (topLeftZ - y) + " --> " + (heightMap [x, y] - minHeight) * heightMultiplier);
 
 				meshData.vertices [vertexIndex] = new Vector3 (topLeftX + x, mapData.GetNormalized(x, y), topLeftZ - y);
 				meshData.uvs [vertexIndex]      = new Vector2 (x / (float)width, y / (float)height);

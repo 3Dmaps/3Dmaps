@@ -16,18 +16,7 @@ public class MapGenerator : MonoBehaviour {
     public const int mapChunkSize = 121;
     [Range(0, 6)]
     public int levelOfDetail;
-    public float noiseScale;
-
-	public int octaves;
-	[Range(0,1)]
-	public float persistance;
-	public float lacunarity;
-
-	public int seed;
-	public Vector2 offset;
     public float meshHeightMultiplier;
-
-	public bool autoUpdate;
 
     [Range(1, 1000)]
     public int regionsSmoothCount = 100;
@@ -71,9 +60,9 @@ public class MapGenerator : MonoBehaviour {
 
     public void GenerateMap() {
 
-        //Just for demo. We can remove this and use real world height data.
+        // GenerateNoiseMap returns noise, if need it create a new MapData with fake MapMetaData
 		//float[,] noiseMap = Noise.GenerateNoiseMap (mapChunkSize, mapChunkSize, seed, noiseScale, octaves, persistance, lacunarity, offset);
-		//float[,] noiseMap = mapData;
+
 		foreach(MapData slice in mapData.GetSlices(121)) {
 			int width  = slice.GetWidth();
 			int height = slice.GetHeight();
@@ -91,9 +80,9 @@ public class MapGenerator : MonoBehaviour {
 				}
 			}
 
-			//MapDisplay display = FindObjectOfType<MapDisplay> ();
 			MapDisplay display = gameObject.AddComponent(typeof(MapDisplay)) as MapDisplay;
-			display.CreateVisual(visual);
+			GameObject visualObject = display.CreateVisual(visual);
+            visualObject.transform.parent = this.transform;
 			if (drawMode == DrawMode.NoiseMap) {
 				display.DrawTexture (TextureGenerator.TextureFromHeightMap (slice), slice.GetScale());
 			} else if (drawMode == DrawMode.ColourMap) {
@@ -101,15 +90,6 @@ public class MapGenerator : MonoBehaviour {
 			} else if (drawMode == DrawMode.Mesh) {
 				display.DrawMesh (MeshGenerator.GenerateTerrainMesh (slice, meshHeightMultiplier, levelOfDetail), TextureGenerator.TextureFromColourMap (colourMap, width, height), slice.GetScale());
 			}
-		}
-	}
-
-	void OnValidate() {
-		if (lacunarity < 1) {
-			lacunarity = 1;
-		}
-		if (octaves < 0) {
-			octaves = 0;
 		}
 	}
 }
