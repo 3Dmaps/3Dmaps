@@ -7,18 +7,22 @@ using UnityEngine;
 public class Zoom : MonoBehaviour {
 	public GameObject target;
 	public float multiplier = 0.8f;
-    public static int zoomLevel = 0;
+    private static int zoomLevel = 0;
     public int zoomLimit = 5;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public static int ZoomLevel
+    {
+        get
+        {
+            return zoomLevel;
+        }
+
+        set
+        {
+            zoomLevel = value;
+        }
+    }
+
 
 	public void ZoomTarget() {
         if (zoomingAllowed()) {
@@ -29,14 +33,14 @@ public class Zoom : MonoBehaviour {
      }
 
     private bool zoomingAllowed() {
-        if (multiplier < 1 && (zoomLevel + zoomLimit) > 0)
+        if (multiplier < 1 && (ZoomLevel + zoomLimit) > 0)
         {
-            zoomLevel--;
+            ZoomLevel--;
             return true;
         }
-        if (multiplier > 1 && zoomLevel < zoomLimit)
+        if (multiplier > 1 && ZoomLevel < zoomLimit)
         {
-            zoomLevel++;
+            ZoomLevel++;
             return true;
         }
         return false;
