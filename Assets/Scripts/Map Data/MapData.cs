@@ -3,7 +3,7 @@ using UnityEngine;
 public class MapData {
     protected float[,] data;
     private float scale;
-    private MapMetadata metadata;
+    protected MapMetadata metadata;
 
     public MapData(MapData mapData) : this(mapData.data, mapData.metadata){
     }
