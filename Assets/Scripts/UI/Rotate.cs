@@ -15,15 +15,14 @@ public class Rotate : MonoBehaviour {
 	void Update () {
 		if (isPressed) {
 			RotateTarget (turningSpeed * Time.deltaTime);
-			print ("jee");
 		}
 	
 	}
 
 	public void RotateTarget(float amount) {
 		target.transform.Rotate(Vector3.up, amount);
-
 	}
+
 	///<summary>
 	/// EventTrigger calls onPointerDown and OnPointerUp  
 	/// </summary>
