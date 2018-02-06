@@ -9,10 +9,10 @@ public class MapDataSlice : MapData {
     }
 
     public override int GetWidth() {
-        return topLeftX + width > base.GetWidth() ? base.GetWidth() - topLeftX : width + 1;
+        return topLeftX + width > base.GetWidth() ? base.GetWidth() - topLeftX : width;
     }
     public override int GetHeight() {
-        return topLeftY + height > base.GetHeight() ? base.GetHeight() - topLeftY : height + 1;
+        return topLeftY + height > base.GetHeight() ? base.GetHeight() - topLeftY : height;
     }
 
     public override Vector2 GetTopLeft(){
@@ -21,7 +21,7 @@ public class MapDataSlice : MapData {
 
     public override float GetRaw(int x, int y) {
         if(x >= GetWidth() || y >= GetHeight() || x < 0 || y < 0) {
-            throw new System.ArgumentException("Index out of bounds!");
+            throw new System.ArgumentException("Index out of bounds! (" + x + ", " + y + ")");
         }
         return data[x + this.topLeftX, y + this.topLeftY];
     }

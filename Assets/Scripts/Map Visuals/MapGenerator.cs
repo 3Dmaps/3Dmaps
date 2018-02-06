@@ -13,7 +13,7 @@ public class MapGenerator : MonoBehaviour {
 	public enum DrawMode {NoiseMap, ColourMap, Mesh};
 	public DrawMode drawMode;
 
-    public const int mapChunkSize = 121;
+    public const int mapChunkSize = 255;
     [Range(0, 6)]
     public int levelOfDetail;
     public float meshHeightMultiplier;
@@ -58,35 +58,42 @@ public class MapGenerator : MonoBehaviour {
         regions = smoothedRegions;
     }
 
+	private Color[] CalculateColourMap(MapData mapData) {
+		int width  = mapData.GetWidth();
+		int height = mapData.GetHeight();
+		Color[] colourMap = new Color[width * height];
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < width; x++) {
+				float currentHeight = mapData.GetSquished(x, y);
+				for (int i = 0; i < regions.Length; i++) {
+					if (currentHeight <= regions [i].height) {
+						colourMap [y * width + x] = regions [i].colour;
+						break;
+					}
+				}
+			}
+		}
+		return colourMap;
+	}
+
     public void GenerateMap() {
 
         // GenerateNoiseMap returns noise, if need it create a new MapData with fake MapMetaData
 		//float[,] noiseMap = Noise.GenerateNoiseMap (mapChunkSize, mapChunkSize, seed, noiseScale, octaves, persistance, lacunarity, offset);
 
-		foreach(MapData slice in mapData.GetSlices(121)) {
+		foreach(MapData slice in (drawMode == DrawMode.Mesh ? mapData : new NoiseMapData(mapChunkSize)).GetSlices(121)) {
 			int width  = slice.GetWidth();
 			int height = slice.GetHeight();
 
-			Color[] colourMap = new Color[width * height];
-			for (int y = 0; y < height; y++) {
-				for (int x = 0; x < width; x++) {
-					float currentHeight = slice.GetSquished(x, y);
-					for (int i = 0; i < regions.Length; i++) {
-						if (currentHeight <= regions [i].height) {
-							colourMap [y * width + x] = regions [i].colour;
-							break;
-						}
-					}
-				}
-			}
+			Color[] colourMap = CalculateColourMap(slice);
 
 			MapDisplay display = gameObject.AddComponent(typeof(MapDisplay)) as MapDisplay;
 			GameObject visualObject = display.CreateVisual(visual);
             visualObject.transform.parent = this.transform;
 			if (drawMode == DrawMode.NoiseMap) {
-				display.DrawTexture (TextureGenerator.TextureFromHeightMap (slice), slice.GetScale());
+				display.DrawMesh (MeshGenerator.GenerateTerrainMesh (slice, meshHeightMultiplier, levelOfDetail), TextureGenerator.TextureFromHeightMap (slice), slice.GetScale());
 			} else if (drawMode == DrawMode.ColourMap) {
-				display.DrawTexture (TextureGenerator.TextureFromColourMap (colourMap, width, height), slice.GetScale());
+				display.DrawMesh (MeshGenerator.GenerateTerrainMesh (slice, meshHeightMultiplier, levelOfDetail), TextureGenerator.TextureFromColourMap (colourMap, width, height), slice.GetScale());
 			} else if (drawMode == DrawMode.Mesh) {
 				display.DrawMesh (MeshGenerator.GenerateTerrainMesh (slice, meshHeightMultiplier, levelOfDetail), TextureGenerator.TextureFromColourMap (colourMap, width, height), slice.GetScale());
 			}

@@ -57,7 +57,7 @@ public class MapData {
         List<MapData> slices = new List<MapData>();
         for(int y = 0; y < GetHeight(); y += sliceSize) {
             for(int x = 0; x < GetWidth(); x += sliceSize) {
-                slices.Add(new MapDataSlice(this, x, y, sliceSize, sliceSize));
+                slices.Add(new MapDataSlice(this, x, y, sliceSize + 1, sliceSize + 1));
             }
         }
         return slices;
