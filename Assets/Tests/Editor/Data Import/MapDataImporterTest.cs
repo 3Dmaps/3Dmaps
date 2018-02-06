@@ -4,20 +4,19 @@ using UnityEngine.TestTools;
 using NUnit.Framework;
 using System.Collections;
 
-public class MapDataImporterTest : IPrebuildSetup {
+public class MapDataImporterTest {
 
     public MapMetadata metadata;
     public MapData mapdata;
 
-    public void Setup()
-    {
+    [OneTimeSetUp]
+    public void Setup() {
         this.metadata = MapDataImporter.ReadMetadata("Assets/Resources/testData.txt");
         this.mapdata = MapDataImporter.ReadMapData("Assets/Resources/testData.txt", metadata);
     }
 
     [Test]
     public void MetaDataFromSampleFileWorks() {
-        Setup();
         Assert.True(metadata.cellsize == 1.0F, "Cellsize not correct.");
         Assert.True(metadata.ncols == 3, "ncols not correct.");
         Assert.True(metadata.nrows == 3, "nrows not correct.");
@@ -27,9 +26,15 @@ public class MapDataImporterTest : IPrebuildSetup {
     }
 
     [Test]
-    public void DataFromSampleFileWorks()
-    {
-        
+    public void DataFromSampleFileWorks() {
+        Assert.True(mapdata.GetRaw(2, 0) == 2.0F, "Altitude (2,0) not correct.");
+        Assert.True(mapdata.GetRaw(2, 2) == 5.0F, "Altitude (2,2) not correct.");
     }
 
+    [Test]
+    public void DataFromSampleFileReturnsNullWhenNcolsIsZero() {
+        MapMetadata metadata2 = MapDataImporter.ReadMetadata("Assets/Resources/testData2_badDataForTesting.txt");
+        MapData mapdata2 = MapDataImporter.ReadMapData("Assets/Resources/testData2_badDataForTesting.txt", metadata2);
+        Assert.True(mapdata2 == null, "MapDataImporter did not return null when source data ncols was 0.");
+    }
 }
