@@ -1,3 +1,8 @@
+
+/// <summary>
+/// Container for various height map metadata
+/// </summary>
+
 public class MapMetadata {
 
     public const string nrowsKey = "nrows", ncolsKey = "ncols", cellsizeKey = "cellsize", nodatavalueKey = "NODATA_value", minheightKey = "minheight", maxheightKey = "maxheight";

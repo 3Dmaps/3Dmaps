@@ -2,6 +2,10 @@ using UnityEngine;
 using System;
 using System.Linq;
 
+/// <summary>
+/// Generates and contains randomly generated height data
+/// </summary>
+
 public class NoiseMapData : MapData {
 
     private const int seed = 0, octaves = 4;

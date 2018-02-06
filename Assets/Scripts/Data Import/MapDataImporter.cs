@@ -4,9 +4,13 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public static class MapDataImporter {
 
-//	public const string nrowsKey = "nrows", ncolsKey = "ncols", nodatavalueKey = "NODATA_value", minheightKey = "minheight", maxheightKey = "maxheight";
+/// <summary>
+/// Reads height data and related metadata from an "Arc/Info ASCII grid"-file
+/// The data is stored in a MapData object and the metadata in a MapMetadata object
+/// </summary>
+
+public static class MapDataImporter {
 
 	public static MapMetadata ReadMetadata(string path) {
 		MapMetadata metadata = new MapMetadata();

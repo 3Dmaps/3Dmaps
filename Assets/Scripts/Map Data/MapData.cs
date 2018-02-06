@@ -2,6 +2,11 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
+
+/// <summary>
+/// Contains and handles access to map height data and related metadata (stored in a MapMetadata object)
+/// </summary>
+
 public class MapData {
     protected float[,] data;
     private float scale;

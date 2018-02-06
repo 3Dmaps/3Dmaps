@@ -1,4 +1,10 @@
 using UnityEngine;
+
+/// <summary>
+/// Part of a bigger MapData; gives access to only a portion of the data, handles like
+/// a complete MapData object
+/// </summary>
+
 public class MapDataSlice : MapData {
 
     private int topLeftX, topLeftY, width, height;
