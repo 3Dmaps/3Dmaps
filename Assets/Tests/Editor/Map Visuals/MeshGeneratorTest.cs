@@ -18,15 +18,7 @@ public class MeshGeneratorTest {
         float heightMultiplier = 1F;
         int levelOfDetail = 0;
 
-        MapMetadata mapMetaData = new MapMetadata();
-        mapMetaData.Set("nrows", "3");
-        mapMetaData.Set("ncols", "3");
-        mapMetaData.Set("cellsize", "1");
-        mapMetaData.Set("NODATA_value", "" + int.MinValue);
-        mapMetaData.Set("minheight", "2");
-        mapMetaData.Set("maxheight", "3");
-
-        MapData mapData = new MapData(heightMap, mapMetaData);
+        MapData mapData = MapData.ForTesting(heightMap);
 
         MeshData meshdata = MeshGenerator.GenerateTerrainMesh(mapData, heightMultiplier, levelOfDetail);
         Assert.True(meshdata.vertices[2].y == 1, "Meshdata vertice [2] altitude (y) not correct.");

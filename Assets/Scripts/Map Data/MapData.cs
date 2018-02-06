@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 public class MapData {
@@ -15,6 +17,14 @@ public class MapData {
         this.data = data;
         scale = 1 / (float)Mathf.Max(data.GetLength(0), data.GetLength(1));
         this.metadata = metadata;
+    }
+
+    public static MapData ForTesting(float[,] data) {
+        MapMetadata metadata = new MapMetadata();
+        metadata.Set(MapMetadata.minheightKey, data.Cast<float>().Min().ToString());
+        metadata.Set(MapMetadata.maxheightKey, data.Cast<float>().Max().ToString());
+        metadata.Set(MapMetadata.cellsizeKey, "1");
+        return new MapData(data, metadata);
     }
 
     public void Set(int x, int y, float h) {
@@ -55,9 +65,9 @@ public class MapData {
 
     public List<MapData> GetSlices(int sliceSize) {
         List<MapData> slices = new List<MapData>();
-        for(int y = 0; y < GetHeight(); y += sliceSize) {
-            for(int x = 0; x < GetWidth(); x += sliceSize) {
-                slices.Add(new MapDataSlice(this, x, y, sliceSize + 1, sliceSize + 1));
+        for(int y = 0; y < GetHeight(); y += sliceSize - 1) {
+            for(int x = 0; x < GetWidth(); x += sliceSize - 1) {
+                slices.Add(new MapDataSlice(this, x, y, sliceSize, sliceSize));
             }
         }
         return slices;
