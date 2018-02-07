@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 
-[TestFixture]
 public class MapDataTest {
     public MapData mapdata;
     private double precision = 0.00001;
