@@ -56,7 +56,6 @@ GameObject:
   - component: {fileID: 222879604491440202}
   - component: {fileID: 114994385730133882}
   - component: {fileID: 114792905248099730}
-  - component: {fileID: 114846509771014536}
   m_Layer: 5
   m_Name: ButtonNeg
   m_TagString: Untagged
@@ -75,7 +74,6 @@ GameObject:
   - component: {fileID: 222908919201712016}
   - component: {fileID: 114425000380469856}
   - component: {fileID: 114637846149837324}
-  - component: {fileID: 114591332382826676}
   m_Layer: 5
   m_Name: ButtonPlus
   m_TagString: Untagged
@@ -131,8 +129,9 @@ GameObject:
   - component: {fileID: 223208451662807578}
   - component: {fileID: 114848418921726968}
   - component: {fileID: 114992807953593560}
+  - component: {fileID: 114827856906201460}
   m_Layer: 5
-  m_Name: Canvas 1
+  m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -430,19 +429,6 @@ MonoBehaviour:
       m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
         Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   delegates: []
---- !u!114 &114591332382826676
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1261005658304126}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af432290e4b28ba448428ac969eb81fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  multiplier: 1.25
 --- !u!114 &114637846149837324
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -482,13 +468,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114591332382826676}
+      - m_Target: {fileID: 114827856906201460}
         m_MethodName: ZoomTarget
-        m_Mode: 1
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -641,19 +627,35 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114846509771014536}
+      - m_Target: {fileID: 114827856906201460}
         m_MethodName: ZoomTarget
-        m_Mode: 1
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: -1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114827856906201460
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1521339330707140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af432290e4b28ba448428ac969eb81fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  zoomInmultiplier: 0.8
+  zoomOutmultiplier: 1.25
+  zoomLimitMax: 5
+  zoomLimitMin: -5
 --- !u!114 &114830210898142856
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -695,19 +697,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &114846509771014536
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1145283176933434}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af432290e4b28ba448428ac969eb81fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  multiplier: 0.8
 --- !u!114 &114848418921726968
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -902,7 +891,7 @@ RectTransform:
   m_Children:
   - {fileID: 224338454123920952}
   m_Father: {fileID: 224545543060614308}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -939,7 +928,7 @@ RectTransform:
   m_Children:
   - {fileID: 224083841351017816}
   m_Father: {fileID: 224545543060614308}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -958,7 +947,7 @@ RectTransform:
   m_Children:
   - {fileID: 224117318939790764}
   m_Father: {fileID: 224545543060614308}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -976,9 +965,9 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 224833512476471708}
+  - {fileID: 224128049200590572}
   - {fileID: 224372600692745878}
   - {fileID: 224473647725926084}
-  - {fileID: 224128049200590572}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
