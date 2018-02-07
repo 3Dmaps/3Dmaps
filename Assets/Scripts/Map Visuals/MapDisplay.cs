@@ -8,18 +8,31 @@ using System.Collections;
 
 public class MapDisplay : MonoBehaviour {
 
+	public GameObject visualMap;
 	public Renderer textureRender;
 	public MeshFilter meshFilter;
 	public MeshRenderer meshRenderer;
+	public GameObject visual;
 
-	public void DrawTexture(Texture2D texture) {
-		textureRender.sharedMaterial.mainTexture = texture;
-		textureRender.transform.localScale = new Vector3 (0.01F, 1, 0.01F);
+	public GameObject CreateVisual(GameObject visual) {
+		visualMap     = Instantiate(visual) as GameObject;
+		textureRender = visualMap.GetComponent(typeof(Renderer)) as Renderer;
+		meshFilter    = visualMap.GetComponent(typeof(MeshFilter)) as MeshFilter;
+		meshRenderer  = visualMap.GetComponent(typeof(MeshRenderer)) as MeshRenderer;
+        return visualMap;
 	}
 
-	public void DrawMesh(MeshData meshData, Texture2D texture) {
-		meshFilter.sharedMesh = meshData.CreateMesh ();
-		meshRenderer.sharedMaterial.mainTexture = texture;
+	public void DrawTexture(Texture2D texture, float scale = 1f) {
+		textureRender.sharedMaterial.mainTexture = texture;
+		textureRender.transform.localScale = new Vector3 (scale, 1F, scale);
+	}
+
+	public void DrawMesh(MeshData meshData, Texture2D texture, float scale = 1f) {
+		meshFilter.sharedMesh             = meshData.CreateMesh ();
+		Material material                 = new Material(meshRenderer.sharedMaterial);
+		material.mainTexture              = texture;
+		meshRenderer.sharedMaterial       = material;
+		meshRenderer.transform.localScale = new Vector3(scale, 1F, scale);
 	}
 
 }
