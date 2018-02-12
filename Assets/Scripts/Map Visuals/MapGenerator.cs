@@ -13,8 +13,8 @@ public class MapGenerator : MonoBehaviour {
 	public enum DrawMode {NoiseMap, ColourMap, Mesh};
 	public DrawMode drawMode;
 
-    public const int mapChunkSize = 255;
-    [Range(0, 6)]
+    public const int mapChunkSize = 241;
+    [Range(0, 24)]
     public int levelOfDetail;
     public float meshHeightMultiplier;
 
@@ -26,13 +26,14 @@ public class MapGenerator : MonoBehaviour {
 
 	private MapData mapData;
 	private MapMetadata mapMetadata;
-	private const string mapDataPath = "Assets/Resources/grandcanyon.txt";
+    //private const string mapDataPath = "Assets/Resources/20x20.txt";
+    private const string mapDataPath = "Assets/Resources/grandcanyon.txt";
 
     public void Start()
     {
         SmoothRegions(regionsSmoothCount);
 		mapMetadata = MapDataImporter.ReadMetadata(mapDataPath);
-		mapData     = MapDataImporter.ReadMapData(mapDataPath, mapMetadata);
+        mapData     = MapDataImporter.ReadMapData(mapDataPath, mapMetadata);
         GenerateMap();
     }
 
@@ -81,7 +82,7 @@ public class MapGenerator : MonoBehaviour {
         // GenerateNoiseMap returns noise, if need it create a new MapData with fake MapMetaData
 		//float[,] noiseMap = Noise.GenerateNoiseMap (mapChunkSize, mapChunkSize, seed, noiseScale, octaves, persistance, lacunarity, offset);
 
-		foreach(MapData slice in (drawMode == DrawMode.Mesh ? mapData : new NoiseMapData(mapChunkSize)).GetSlices(121)) {
+		foreach(MapData slice in (drawMode == DrawMode.Mesh ? mapData : new NoiseMapData(mapChunkSize)).GetSlices(241, levelOfDetail)) {
 			int width  = slice.GetWidth();
 			int height = slice.GetHeight();
 

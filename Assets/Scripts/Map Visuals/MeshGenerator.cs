@@ -11,6 +11,7 @@ public static class MeshGenerator {
 	public static MeshData GenerateTerrainMesh(MapData mapData, float heightMultiplier, int levelOfDetail, float minHeight = 0f) {
 		int width       = mapData.GetWidth();
 		int height      = mapData.GetHeight();
+        //Debug.Log("w: " + width + "  h:" + height);
 		Vector2 topLeft = mapData.GetTopLeft();
 		float topLeftX  = topLeft.x;
 		float topLeftZ  = topLeft.y;

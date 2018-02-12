@@ -20,7 +20,7 @@ public class MapData {
 
     public MapData(float[,] data, MapMetadata metadata) {
         this.data = data;
-        scale = 1 / (float)Mathf.Max(data.GetLength(0), data.GetLength(1));
+        scale = 1;/// (float)Mathf.Max(data.GetLength(0), data.GetLength(1));
         this.metadata = metadata;
     }
 
@@ -68,14 +68,13 @@ public class MapData {
         return (GetRaw(x, y) - metadata.minheight) / (metadata.maxheight - metadata.minheight);
     }
 
-    public List<MapData> GetSlices(int sliceSize) {
+    public List<MapData> GetSlices(int sliceSize, int LOD) {
         List<MapData> slices = new List<MapData>();
         for(int y = 0; y < GetHeight(); y += sliceSize - 1) {
             for(int x = 0; x < GetWidth(); x += sliceSize - 1) {
-                slices.Add(new MapDataSlice(this, x, y, sliceSize, sliceSize));
+                slices.Add(new MapDataSlice(this, x, y, sliceSize, sliceSize, LOD));
             }
         }
         return slices;
     }
-
 }
