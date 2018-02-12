@@ -18,8 +18,9 @@ public static class MeshGenerator {
 
         int meshSimplificationIncrement = (levelOfDetail == 0) ? 1 : levelOfDetail * 2;
         int verticesPerLine = (width - 1) / meshSimplificationIncrement + 1;
+        int verticesPerColumn = (height - 1) / meshSimplificationIncrement + 1;
 
-        MeshData meshData = new MeshData (width, height);
+        MeshData meshData = new MeshData (verticesPerLine + 1, verticesPerColumn + 1);
 		int vertexIndex = 0;
 
 		for (int y = 0; y < height; y+= meshSimplificationIncrement) {
