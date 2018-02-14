@@ -9,10 +9,9 @@ using System.Collections;
 public class MapDisplay : MonoBehaviour {
 
 	public GameObject visualMap;
-	public Renderer textureRender;
-	public MeshFilter meshFilter;
-	public MeshRenderer meshRenderer;
-	public GameObject visual;
+	private Renderer textureRender;
+	private MeshFilter meshFilter;
+	private MeshRenderer meshRenderer;
 
 	public GameObject CreateVisual(GameObject visual) {
 		visualMap     = Instantiate(visual) as GameObject;

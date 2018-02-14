@@ -7,36 +7,38 @@ using UnityEngine;
 
 public class MapDataSlice : MapData {
 
-    private int topLeftX, topLeftY, width, height, LOD;
+    protected int topLeftX, topLeftY, width, height;
 
-    public MapDataSlice(MapData mapData, int topLeftX, int topLeftY, int width, int height, int LOD) : base(mapData){
+    public MapDataSlice(MapData mapData, int topLeftX, int topLeftY, int width, int height) : base(mapData){
         this.topLeftX = topLeftX; this.topLeftY = topLeftY;
         this.width = width; this.height = height;
-        this.LOD = LOD;
+    }
+
+    public MapDataSlice(MapDataSlice slice) : this(slice, slice.topLeftX, slice.topLeftY, slice.width, slice.height) {
+    }
+
+    public int GetX() {
+        return topLeftX;
+    }
+
+    public int GetY() {
+        return topLeftY;
+    }
+
+    public void SetX(int x) {
+        topLeftX = x;
+    }
+
+    public void SetY(int y) {
+        topLeftY = y;
     }
 
     public override int GetWidth() {
-
-        if (topLeftX + width <= base.GetWidth()) return width;
-
-        int trueValue = base.GetWidth() - topLeftX;
-        int lod = LOD == 0 ? 1 : LOD * 2;
-        int remain = trueValue % lod;
-        return (remain == 0 ? trueValue : trueValue - remain) + 1;
-
-        //return topLeftX + width > base.GetWidth() ? base.GetWidth() - topLeftX : width;
+        return topLeftX + width > base.GetWidth() ? base.GetWidth() - topLeftX : width;
     }
 
     public override int GetHeight() {
-
-        if (topLeftY + height <= base.GetHeight()) return height;
-
-        int trueValue = base.GetHeight() - topLeftY;
-        int lod = LOD == 0 ? 1 : LOD * 2;
-        int remain = trueValue % lod;
-        return (remain == 0 ? trueValue : trueValue - remain) + 1;
-
-        //return topLeftY + height > base.GetHeight() ? base.GetHeight() - topLeftY : height;
+        return topLeftY + height > base.GetHeight() ? base.GetHeight() - topLeftY : height;
     }
 
     public override Vector2 GetTopLeft(){

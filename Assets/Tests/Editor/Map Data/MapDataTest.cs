@@ -70,7 +70,7 @@ public class MapDataTest {
 
     [Test]
     public void GetSlices_SliceHeightCorrect() {
-        List<MapData> slices = mapdata.GetSlices(2, 0);
+        List<MapData> slices = mapdata.GetSlices(2);
         MapData slice = slices.ElementAt(0);
         int sliceHeight = slice.GetHeight();
         Assert.True(sliceHeight == 2, "Slice GetHeight() returns incorrect value.");
@@ -78,7 +78,7 @@ public class MapDataTest {
 
     [Test]
     public void GetSlices_SliceWidthCorrect() {
-        List<MapData> slices = mapdata.GetSlices(2, 0);
+        List<MapData> slices = mapdata.GetSlices(2);
         MapData slice = slices.ElementAt(0);
         int sliceWidth = slice.GetWidth();
         Assert.True(sliceWidth == 2, "Slice GetWidth() returns incorrect value.");
@@ -86,7 +86,7 @@ public class MapDataTest {
 
     [Test]
     public void GetSlices_GetTopLeftCorrect() {
-        List<MapData> slices = mapdata.GetSlices(2, 0);
+        List<MapData> slices = mapdata.GetSlices(2);
         MapData slice = slices.ElementAt(2);
         Vector2 sliceTopLeft = slice.GetTopLeft();
         Assert.True(Mathf.Approximately(sliceTopLeft.x, -0.5F), "Slice GetTopLeft() returns incorrect x value:" + sliceTopLeft.x);
@@ -95,7 +95,7 @@ public class MapDataTest {
 
     [Test]
     public void GetSlices_GetRawCorrect() {
-        List<MapData> slices = mapdata.GetSlices(2, 0);
+        List<MapData> slices = mapdata.GetSlices(2);
         MapData slice = slices.ElementAt(0);
         float altitude = slice.GetRaw(1,1);
         Assert.True(altitude == 5F, "Slice GetRaw(1,1) returns incorrect value.");

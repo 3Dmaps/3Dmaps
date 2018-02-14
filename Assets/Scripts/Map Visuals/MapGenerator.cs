@@ -81,8 +81,20 @@ public class MapGenerator : MonoBehaviour {
 
         // GenerateNoiseMap returns noise, if need it create a new MapData with fake MapMetaData
 		//float[,] noiseMap = Noise.GenerateNoiseMap (mapChunkSize, mapChunkSize, seed, noiseScale, octaves, persistance, lacunarity, offset);
+		int[,] lodMatrix = new int[7, 7] {
+			{3, 3, 3, 3, 3, 3, 3,},
+			{3, 2, 2, 2, 2, 2, 3,},
+			{3, 2, 1, 1, 1, 2, 3,},
+			{3, 2, 1, 0, 1, 2, 3,},
+			{3, 2, 1, 1, 1, 2, 3,},
+			{3, 2, 2, 2, 2, 2, 3,},
+			{3, 3, 3, 3, 3, 3, 3,},
+		};
 
-		foreach(MapData slice in (drawMode == DrawMode.Mesh ? mapData : new NoiseMapData(mapChunkSize)).GetSlices(241, levelOfDetail)) {
+		MapData actualMapData = drawMode == DrawMode.Mesh ? mapData : new NoiseMapData(mapChunkSize);
+
+		foreach(DisplayReadySlice slice in actualMapData.GetDisplayReadySlices(
+			actualMapData.GetWidth(), actualMapData.GetHeight(), 10, 10, lodMatrix)) {
 			int width  = slice.GetWidth();
 			int height = slice.GetHeight();
 
@@ -92,11 +104,11 @@ public class MapGenerator : MonoBehaviour {
 			GameObject visualObject = display.CreateVisual(visual);
             visualObject.transform.parent = this.transform;
 			if (drawMode == DrawMode.NoiseMap) {
-				display.DrawMesh (MeshGenerator.GenerateTerrainMesh (slice, meshHeightMultiplier, levelOfDetail), TextureGenerator.TextureFromHeightMap (slice), slice.GetScale());
+				display.DrawMesh (MeshGenerator.GenerateTerrainMesh (slice, meshHeightMultiplier, slice.lod), TextureGenerator.TextureFromHeightMap (slice), slice.GetScale());
 			} else if (drawMode == DrawMode.ColourMap) {
-				display.DrawMesh (MeshGenerator.GenerateTerrainMesh (slice, meshHeightMultiplier, levelOfDetail), TextureGenerator.TextureFromColourMap (colourMap, width, height), slice.GetScale());
+				display.DrawMesh (MeshGenerator.GenerateTerrainMesh (slice, meshHeightMultiplier, slice.lod), TextureGenerator.TextureFromColourMap (colourMap, width, height), slice.GetScale());
 			} else if (drawMode == DrawMode.Mesh) {
-				display.DrawMesh (MeshGenerator.GenerateTerrainMesh (slice, meshHeightMultiplier, levelOfDetail), TextureGenerator.TextureFromColourMap (colourMap, width, height), slice.GetScale());
+				display.DrawMesh (MeshGenerator.GenerateTerrainMesh (slice, meshHeightMultiplier, slice.lod), TextureGenerator.TextureFromColourMap (colourMap, width, height), slice.GetScale());
 			}
 		}
 	}
