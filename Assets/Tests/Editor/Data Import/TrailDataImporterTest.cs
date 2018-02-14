@@ -10,7 +10,7 @@ public class TrailDataImporterTest {
 
     [OneTimeSetUp]
     public void Setup() {
-        trailData = TrailDataImporter.ReadTrailData("Assets/Resources/testTrailData.xml");
+        trailData = TrailDataImporter.ReadTrailData("Assets/Resources/testData/testTrailData.xml");
         precision = 0.0001F;        
     }
     
