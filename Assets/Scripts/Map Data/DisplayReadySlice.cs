@@ -1,6 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
+/// <summary>
+/// A MapDataSlice with LOD-related functionality included
+/// </summary>
+
 public class DisplayReadySlice : MapDataSlice {
 
 	public int lod;
