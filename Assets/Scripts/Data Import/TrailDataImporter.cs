@@ -12,6 +12,9 @@ public class TrailDataImporter {
     public TrailData ReadTrailData(string path) {
         XmlDocument xmlDoc = new XmlDocument();
 
+		Dictionary<long, TrailNode> trailNodes = new Dictionary<long, TrailNode> ();
+		List<Way> ways = new List<Way> ();
+
         try {
             xmlDoc.Load(path);
         }
@@ -28,19 +31,37 @@ public class TrailDataImporter {
         foreach (XmlElement node in rootNode) {
             count++;
 
-            TrailNode trailNode = new TrailNode() { id = int.Parse(node.GetAttribute("id")), lat = 0, lon = 0 };
-            //Debug.Log(trailNode.id);
+			if (node.LocalName.Equals("way")) {
+				Debug.Log("way element found!");
+				Way way = new Way () { id = long.Parse (node.GetAttribute ("id")), nodes = new List<long>() };
+				foreach (XmlElement childNode in node.ChildNodes) {
+					if (childNode.LocalName.Equals ("nd")) {
+						way.nodes.Add (long.Parse(childNode.GetAttribute ("ref")));
+					}
+				}
+				Debug.Log ("Number of nodes in way: " + way.nodes.Count);
+				ways.Add (way);
+			}
+
+			if (node.LocalName.Equals ("node")) {
+				TrailNode trailNode = new TrailNode () { id = long.Parse (node.GetAttribute ("id")), 
+					lat = float.Parse(node.GetAttribute ("lat")), lon = float.Parse(node.GetAttribute ("lon")) };
+				trailNodes.Add(trailNode.id, trailNode);
+				//Debug.Log (trailNode.id);
+			}
+
             if (count == 50) {
-                break;
+                //break;
             }
         }
-        
-        
+		Debug.Log ("Number of nodes: " + trailNodes.Count);
+		Debug.Log ("Number of ways: " + ways.Count);
+
         return trailData;
     }
-
 }
+
 public struct Way {
-    int id;
-    List<int> nodes;
+    public long id;
+    public List<long> nodes;
 } 

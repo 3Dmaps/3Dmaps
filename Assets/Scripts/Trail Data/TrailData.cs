@@ -18,7 +18,7 @@ public class TrailData {
 
 
 public struct TrailNode {
-    public int id;
+    public long id;
     public float lat;
     public float lon;
 }
