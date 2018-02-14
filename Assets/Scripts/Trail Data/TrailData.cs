@@ -2,23 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Holds a list of all trails from an OpenStreetMap XML file.
+/// </summary>
+
 public class TrailData {
-    List<TrailNode> nodeList;
-    int id;
 
-    public TrailData (int id) {
-        nodeList = new List<TrailNode>();
-        this.id = id;
+    public List<Trail> trails;
+
+    public TrailData () {
+        this.trails = new List<Trail>();
     }
 
-    public void AddNode (TrailNode trailNode) {
-        nodeList.Add(trailNode);
+    public void AddTrail (Trail trail) {
+        if (!this.trails.Contains(trail)) {
+            this.trails.Add(trail);
+        }
     }
-}
-
-
-public struct TrailNode {
-    public long id;
-    public float lat;
-    public float lon;
 }

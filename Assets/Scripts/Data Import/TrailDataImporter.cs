@@ -4,17 +4,66 @@ using UnityEngine;
 using System.Xml;
 using System;
 
+/// <summary>
+/// Reads trail and node data from a OpenStreetMap XML-file. The input file must 
+/// have the ending .xml. The data is stored in a TrailData object. Currently
+/// the "node and ""way"-tagged elements are read in and formed into Trails.
+/// </summary>
+
 public class TrailDataImporter {
-    public TrailDataImporter() {
-
-    }
-
-    public TrailData ReadTrailData(string path) {
+    public static TrailData ReadTrailData(string path) {
         XmlDocument xmlDoc = new XmlDocument();
 
-		Dictionary<long, TrailNode> trailNodes = new Dictionary<long, TrailNode> ();
-		List<Way> ways = new List<Way> ();
+        Dictionary<long, TrailNode> trailNodes = new Dictionary<long, TrailNode>();
+        TrailData trailData = new TrailData();
 
+        ReadXmlDocument(path, xmlDoc);
+
+        XmlElement rootNode = xmlDoc.DocumentElement;
+        
+        foreach (XmlElement node in rootNode) {
+            string nodeType = node.LocalName;
+            switch (nodeType) {
+                case "way":
+                    ReadTrail(trailData, node);
+                    break;
+                case "node":
+                    ReadTrailNode(trailNodes, node);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        foreach (Trail trail in trailData.trails) {
+            FillInTrailNodeLatLon(trail, trailNodes);
+        }
+
+        return trailData;
+    }
+
+    private static void ReadTrailNode(Dictionary<long, TrailNode> trailNodes, XmlElement node) {
+        TrailNode trailNode = new TrailNode();
+        trailNode.setId(long.Parse(node.GetAttribute("id")));
+        trailNode.setLat(float.Parse(node.GetAttribute("lat")));
+        trailNode.setLon(float.Parse(node.GetAttribute("lon")));
+        trailNodes.Add(trailNode.getId(), trailNode);
+    }
+
+    private static void ReadTrail(TrailData trailData, XmlElement node) {
+        Trail trail = new Trail(long.Parse(node.GetAttribute("id")));
+
+        foreach (XmlElement childNode in node.ChildNodes) {
+            if (childNode.LocalName.Equals("nd")) {
+                TrailNode trailNode = new TrailNode();
+                trailNode.setId(long.Parse(childNode.GetAttribute("ref")));
+                trail.AddNode(trailNode);
+            }
+        }
+        trailData.AddTrail(trail);
+    }
+
+    private static void ReadXmlDocument(string path, XmlDocument xmlDoc) {
         try {
             xmlDoc.Load(path);
         }
@@ -22,46 +71,12 @@ public class TrailDataImporter {
             Debug.Log("Got an exception in reading trail data file.");
             Debug.Log(e.ToString());
         }
+    }
 
-        TrailData trailData = new TrailData(1);
-
-        XmlElement rootNode = xmlDoc.DocumentElement;
-        Debug.Log(rootNode);
-        int count = 0;
-        foreach (XmlElement node in rootNode) {
-            count++;
-
-			if (node.LocalName.Equals("way")) {
-				Debug.Log("way element found!");
-				Way way = new Way () { id = long.Parse (node.GetAttribute ("id")), nodes = new List<long>() };
-				foreach (XmlElement childNode in node.ChildNodes) {
-					if (childNode.LocalName.Equals ("nd")) {
-						way.nodes.Add (long.Parse(childNode.GetAttribute ("ref")));
-					}
-				}
-				Debug.Log ("Number of nodes in way: " + way.nodes.Count);
-				ways.Add (way);
-			}
-
-			if (node.LocalName.Equals ("node")) {
-				TrailNode trailNode = new TrailNode () { id = long.Parse (node.GetAttribute ("id")), 
-					lat = float.Parse(node.GetAttribute ("lat")), lon = float.Parse(node.GetAttribute ("lon")) };
-				trailNodes.Add(trailNode.id, trailNode);
-				//Debug.Log (trailNode.id);
-			}
-
-            if (count == 50) {
-                //break;
-            }
+    private static void FillInTrailNodeLatLon(Trail trail, Dictionary<long, TrailNode> trailNodes) {
+        foreach (TrailNode trailNode in trail.getNodeList()) {
+            trailNode.setLat(trailNodes[trailNode.getId()].getLat());
+            trailNode.setLon(trailNodes[trailNode.getId()].getLon());
         }
-		Debug.Log ("Number of nodes: " + trailNodes.Count);
-		Debug.Log ("Number of ways: " + ways.Count);
-
-        return trailData;
     }
 }
-
-public struct Way {
-    public long id;
-    public List<long> nodes;
-} 
