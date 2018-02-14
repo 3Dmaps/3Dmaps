@@ -100,4 +100,28 @@ public class MapDataTest {
         float altitude = slice.GetRaw(1,1);
         Assert.True(altitude == 5F, "Slice GetRaw(1,1) returns incorrect value.");
     }
+
+    [Test]
+    public void GetSlices_WithOffsetCorrect() {
+        List<MapDataSlice> slices = mapdata.GetSlices(1, 2, 2, 3, 2, 2);
+        Assert.True(Mathf.Approximately(6.0F, slices[0].GetRaw(0, 0)), 
+            "Slice with offset 0 GetRaw(0, 0) == " + slices[0].GetRaw(0, 0) + "; should be 6.0");
+    }
+
+    [Test]
+    public void GetDisplayReadySlices_CountAndLODsCorrect() {
+        // Other display ready slicing functionality will be tested in further tasks when it will actually be used
+        int[,] lodMatrix = new int[2,2] {
+            {1,2}, {3,4}
+        };
+        List<DisplayReadySlice> slices = mapdata.GetDisplayReadySlices(2, 3, 0, 0, lodMatrix);
+        Assert.True(slices.Count == 4, "Incorrect number of slices after GetDisplayReadySlices (was " + slices.Count + ", should be 4)");
+        for(int y = 0; y < lodMatrix.GetLength(1); y++) {
+            for(int x = 0; x < lodMatrix.GetLength(0); x++) {
+                Assert.True(lodMatrix[x, y] == slices[y * lodMatrix.GetLength(0) + x].lod, "LOD was incorrect for piece at " + x + ", " + y 
+                + " (was " + slices[y * lodMatrix.GetLength(0) + x].lod + ", should be " + lodMatrix[x, y] + ")");
+            }
+        }
+    }
+
 }

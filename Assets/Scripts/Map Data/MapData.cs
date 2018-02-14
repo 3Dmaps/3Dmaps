@@ -69,6 +69,9 @@ public class MapData {
     }
 
     public List<MapDataSlice> GetSlices(int topLeftX, int topLeftY, int bottomRightX, int bottomRightY, int sliceWidth, int sliceHeight, bool doOffset = true) {
+        if(sliceHeight <= (doOffset ? 1 : 0) || sliceWidth <= (doOffset ? 1 : 0)) {
+            throw new System.ArgumentException("Too small slice width (" + sliceWidth + ") or height (" + sliceHeight + ")");
+        }
         List<MapDataSlice> slices = new List<MapDataSlice>();
         for(int y = topLeftY; y < bottomRightY; y += sliceHeight - (doOffset ? 1 : 0)) {
             for(int x = topLeftX; x < bottomRightX; x += sliceWidth - (doOffset ? 1: 0)) {
