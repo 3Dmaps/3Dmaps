@@ -26,8 +26,8 @@ public class MapGenerator : MonoBehaviour {
 
 	private MapData mapData;
 	private MapMetadata mapMetadata;
-    //private const string mapDataPath = "Assets/Resources/20x20.txt";
-    private const string mapDataPath = "Assets/Resources/grandcanyon.txt";
+    private const string mapDataPath = "Assets/Resources/20x20.txt";
+    //private const string mapDataPath = "Assets/Resources/grandcanyon.txt";
 
     public void Start()
     {
@@ -81,20 +81,20 @@ public class MapGenerator : MonoBehaviour {
 
         // GenerateNoiseMap returns noise, if need it create a new MapData with fake MapMetaData
 		//float[,] noiseMap = Noise.GenerateNoiseMap (mapChunkSize, mapChunkSize, seed, noiseScale, octaves, persistance, lacunarity, offset);
-		int[,] lodMatrix = new int[7, 7] {
-			{3, 3, 3, 3, 3, 3, 3,},
-			{3, 2, 2, 2, 2, 2, 3,},
-			{3, 2, 1, 1, 1, 2, 3,},
-			{3, 2, 1, 0, 1, 2, 3,},
-			{3, 2, 1, 1, 1, 2, 3,},
-			{3, 2, 2, 2, 2, 2, 3,},
-			{3, 3, 3, 3, 3, 3, 3,},
+		int[,] lodMatrix = new int[7, 7] { // Is there some cleaner way to do this >:
+			{levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail,},
+			{levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail,},
+			{levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail,},
+			{levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail,},
+			{levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail,},
+			{levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail,},
+			{levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail,},
 		};
 
 		MapData actualMapData = drawMode == DrawMode.Mesh ? mapData : new NoiseMapData(mapChunkSize);
 
 		foreach(DisplayReadySlice slice in actualMapData.GetDisplayReadySlices(
-			actualMapData.GetWidth(), actualMapData.GetHeight(), 10, 10, lodMatrix)) {
+			actualMapData.GetWidth(), actualMapData.GetHeight(), 0, 0, lodMatrix)) {
 			int width  = slice.GetWidth();
 			int height = slice.GetHeight();
 
