@@ -68,6 +68,10 @@ public class MapData {
         return (GetRaw(x, y) - metadata.minheight) / (metadata.maxheight - metadata.minheight);
     }
 
+    public MapDataSlice AsSlice() {
+        return new MapDataSlice(this, 0, 0, GetWidth(), GetHeight());
+    }
+
     public List<MapDataSlice> GetSlices(int topLeftX, int topLeftY, int bottomRightX, int bottomRightY, int sliceWidth, int sliceHeight, bool doOffset = true) {
         if(sliceHeight <= (doOffset ? 1 : 0) || sliceWidth <= (doOffset ? 1 : 0)) {
             throw new System.ArgumentException("Too small slice width (" + sliceWidth + ") or height (" + sliceHeight + ")");
@@ -86,21 +90,14 @@ public class MapData {
     }
 
     public List<DisplayReadySlice> GetDisplayReadySlices(int displayWidth, int displayHeight, int topLeftX, int topLeftY, int[,] lodMatrix) {
-        int sliceWidth = displayWidth / lodMatrix.GetLength(0);
-        int sliceHeight = displayHeight / lodMatrix.GetLength(1);
-        List<MapDataSlice> slices = GetSlices(topLeftX, topLeftY, topLeftX + displayWidth - (displayWidth % lodMatrix.GetLength(0)), topLeftY + displayHeight - (displayHeight % lodMatrix.GetLength(1)), sliceWidth, sliceHeight, false);
+        int sliceWidth = displayWidth / lodMatrix.GetLength(0) + lodMatrix.GetLength(0);
+        int sliceHeight = displayHeight / lodMatrix.GetLength(1) + lodMatrix.GetLength(1);
+        List<MapDataSlice> slices = GetSlices(topLeftX, topLeftY, topLeftX + displayWidth - (displayWidth % lodMatrix.GetLength(0)), topLeftY + displayHeight - (displayHeight % lodMatrix.GetLength(1)), sliceWidth, sliceHeight);
+        // List<DisplayReadySlice> displayReadies = slices.ConvertAll(s => s.AsDisplayReadySlice(lodMatrix[0,0])); // TODO: Get rid of lodMatrix
         List<DisplayReadySlice> displayReadies = new List<DisplayReadySlice>();
         for(int y = 0; y < lodMatrix.GetLength(1); y++) {
             for(int x = 0; x < lodMatrix.GetLength(0); x++) {
                 MapDataSlice slice = slices[y * lodMatrix.GetLength(0) + x];
-                if(x != 0) {
-                    MapDataSlice previous = displayReadies[y * lodMatrix.GetLength(0) + x - 1];
-                    slice.SetX(previous.GetX() + previous.GetWidth() - 1);
-                }
-                if(y != 0) {
-                    MapDataSlice previous = displayReadies[(y - 1) * lodMatrix.GetLength(0) + x];
-                    slice.SetY(previous.GetY() + previous.GetHeight() - 1);
-                }
                 displayReadies.Add(new DisplayReadySlice(slice, lodMatrix[x, y]));
             }
         }

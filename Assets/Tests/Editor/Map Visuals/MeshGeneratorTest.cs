@@ -20,7 +20,7 @@ public class MeshGeneratorTest {
 
         MapData mapData = MapData.ForTesting(heightMap);
 
-        MeshData meshdata = MeshGenerator.GenerateTerrainMesh(mapData, heightMultiplier, levelOfDetail);
+        MeshData meshdata = MeshGenerator.GenerateTerrainMesh(mapData.AsSlice().AsDisplayReadySlice(0), heightMultiplier, levelOfDetail);
         Assert.True(meshdata.vertices[2].y == 1, "Meshdata vertice [2] altitude (y) not correct.");
         Assert.True(meshdata.vertices[0].y == 0, "Meshdata vertice [0] altitude (y) not correct.");
 

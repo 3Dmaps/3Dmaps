@@ -26,8 +26,8 @@ public class MapGenerator : MonoBehaviour {
 
 	private MapData mapData;
 	private MapMetadata mapMetadata;
-    private const string mapDataPath = "Assets/Resources/20x20.txt";
-    //private const string mapDataPath = "Assets/Resources/grandcanyon.txt";
+    //private const string mapDataPath = "Assets/Resources/20x20.txt";
+    private const string mapDataPath = "Assets/Resources/grandcanyon.txt";
 
     public void Start()
     {
@@ -83,11 +83,11 @@ public class MapGenerator : MonoBehaviour {
 		//float[,] noiseMap = Noise.GenerateNoiseMap (mapChunkSize, mapChunkSize, seed, noiseScale, octaves, persistance, lacunarity, offset);
 		int[,] lodMatrix = new int[7, 7] { // Is there some cleaner way to do this >:
 			{levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail,},
-			{levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail,},
-			{levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail,},
-			{levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail,},
-			{levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail,},
-			{levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail,},
+			{levelOfDetail, 2, 2, 2, 2, 2, levelOfDetail,},
+			{levelOfDetail, 2, 1, 1, 1, 2, levelOfDetail,},
+			{levelOfDetail, 2, 1, 0, 1, 2, levelOfDetail,},
+			{levelOfDetail, 2, 1, 1, 1, 2, levelOfDetail,},
+			{levelOfDetail, 2, 2, 2, 2, 2, levelOfDetail,},
 			{levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail,},
 		};
 

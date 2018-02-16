@@ -17,6 +17,10 @@ public class MapDataSlice : MapData {
     public MapDataSlice(MapDataSlice slice) : this(slice, slice.topLeftX, slice.topLeftY, slice.width, slice.height) {
     }
 
+    public DisplayReadySlice AsDisplayReadySlice(int lod) {
+        return new DisplayReadySlice(this, lod);
+    }
+
     public int GetX() {
         return topLeftX;
     }
