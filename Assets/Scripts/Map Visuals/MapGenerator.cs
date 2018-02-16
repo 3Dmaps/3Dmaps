@@ -81,7 +81,7 @@ public class MapGenerator : MonoBehaviour {
 	}
 
 	public void UpdateLOD(int zoomValue) {
-		int newLod = Mathf.Max(levelOfDetail - zoomValue, 1);
+		int newLod = Mathf.Max(levelOfDetail - zoomValue, 0);
 		foreach(MapDisplay display in displays) {
 			display.UpdateLOD(newLod);
 		}
