@@ -13,8 +13,8 @@ public class MapGenerator : MonoBehaviour {
 	public enum DrawMode {NoiseMap, ColourMap, Mesh};
 	public DrawMode drawMode;
 
-    public const int mapChunkSize = 255;
-    [Range(0, 6)]
+    public const int mapChunkSize = 241;
+    [Range(0, 24)]
     public int levelOfDetail;
     public float meshHeightMultiplier;
 
@@ -26,13 +26,14 @@ public class MapGenerator : MonoBehaviour {
 
 	private MapData mapData;
 	private MapMetadata mapMetadata;
-	private const string mapDataPath = "Assets/Resources/grandcanyon.txt";
+    private const string mapDataPath = "Assets/Resources/20x20.txt";
+    //private const string mapDataPath = "Assets/Resources/grandcanyon.txt";
 
     public void Start()
     {
         SmoothRegions(regionsSmoothCount);
 		mapMetadata = MapDataImporter.ReadMetadata(mapDataPath);
-		mapData     = MapDataImporter.ReadMapData(mapDataPath, mapMetadata);
+        mapData     = MapDataImporter.ReadMapData(mapDataPath, mapMetadata);
         GenerateMap();
     }
 
@@ -80,8 +81,20 @@ public class MapGenerator : MonoBehaviour {
 
         // GenerateNoiseMap returns noise, if need it create a new MapData with fake MapMetaData
 		//float[,] noiseMap = Noise.GenerateNoiseMap (mapChunkSize, mapChunkSize, seed, noiseScale, octaves, persistance, lacunarity, offset);
+		int[,] lodMatrix = new int[7, 7] { // Is there some cleaner way to do this >:
+			{levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail,},
+			{levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail,},
+			{levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail,},
+			{levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail,},
+			{levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail,},
+			{levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail,},
+			{levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail,},
+		};
 
-		foreach(MapData slice in (drawMode == DrawMode.Mesh ? mapData : new NoiseMapData(mapChunkSize)).GetSlices(121)) {
+		MapData actualMapData = drawMode == DrawMode.Mesh ? mapData : new NoiseMapData(mapChunkSize);
+
+		foreach(DisplayReadySlice slice in actualMapData.GetDisplayReadySlices(
+			actualMapData.GetWidth(), actualMapData.GetHeight(), 0, 0, lodMatrix)) {
 			int width  = slice.GetWidth();
 			int height = slice.GetHeight();
 
@@ -91,11 +104,11 @@ public class MapGenerator : MonoBehaviour {
 			GameObject visualObject = display.CreateVisual(visual);
             visualObject.transform.parent = this.transform;
 			if (drawMode == DrawMode.NoiseMap) {
-				display.DrawMesh (MeshGenerator.GenerateTerrainMesh (slice, meshHeightMultiplier, levelOfDetail), TextureGenerator.TextureFromHeightMap (slice), slice.GetScale());
+				display.DrawMesh (MeshGenerator.GenerateTerrainMesh (slice, meshHeightMultiplier, slice.lod), TextureGenerator.TextureFromHeightMap (slice), slice.GetScale());
 			} else if (drawMode == DrawMode.ColourMap) {
-				display.DrawMesh (MeshGenerator.GenerateTerrainMesh (slice, meshHeightMultiplier, levelOfDetail), TextureGenerator.TextureFromColourMap (colourMap, width, height), slice.GetScale());
+				display.DrawMesh (MeshGenerator.GenerateTerrainMesh (slice, meshHeightMultiplier, slice.lod), TextureGenerator.TextureFromColourMap (colourMap, width, height), slice.GetScale());
 			} else if (drawMode == DrawMode.Mesh) {
-				display.DrawMesh (MeshGenerator.GenerateTerrainMesh (slice, meshHeightMultiplier, levelOfDetail), TextureGenerator.TextureFromColourMap (colourMap, width, height), slice.GetScale());
+				display.DrawMesh (MeshGenerator.GenerateTerrainMesh (slice, meshHeightMultiplier, slice.lod), TextureGenerator.TextureFromColourMap (colourMap, width, height), slice.GetScale());
 			}
 		}
 	}

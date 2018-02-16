@@ -11,14 +11,16 @@ public static class MeshGenerator {
 	public static MeshData GenerateTerrainMesh(MapData mapData, float heightMultiplier, int levelOfDetail, float minHeight = 0f) {
 		int width       = mapData.GetWidth();
 		int height      = mapData.GetHeight();
+        //Debug.Log("w: " + width + "  h:" + height);
 		Vector2 topLeft = mapData.GetTopLeft();
 		float topLeftX  = topLeft.x;
 		float topLeftZ  = topLeft.y;
 
         int meshSimplificationIncrement = (levelOfDetail == 0) ? 1 : levelOfDetail * 2;
         int verticesPerLine = (width - 1) / meshSimplificationIncrement + 1;
+        int verticesPerColumn = (height - 1) / meshSimplificationIncrement + 1;
 
-        MeshData meshData = new MeshData (width, height);
+        MeshData meshData = new MeshData (verticesPerLine + 1, verticesPerColumn + 1);
 		int vertexIndex = 0;
 
 		for (int y = 0; y < height; y+= meshSimplificationIncrement) {

@@ -7,16 +7,36 @@ using UnityEngine;
 
 public class MapDataSlice : MapData {
 
-    private int topLeftX, topLeftY, width, height;
+    protected int topLeftX, topLeftY, width, height;
 
     public MapDataSlice(MapData mapData, int topLeftX, int topLeftY, int width, int height) : base(mapData){
         this.topLeftX = topLeftX; this.topLeftY = topLeftY;
         this.width = width; this.height = height;
     }
 
+    public MapDataSlice(MapDataSlice slice) : this(slice, slice.topLeftX, slice.topLeftY, slice.width, slice.height) {
+    }
+
+    public int GetX() {
+        return topLeftX;
+    }
+
+    public int GetY() {
+        return topLeftY;
+    }
+
+    public void SetX(int x) {
+        topLeftX = x;
+    }
+
+    public void SetY(int y) {
+        topLeftY = y;
+    }
+
     public override int GetWidth() {
         return topLeftX + width > base.GetWidth() ? base.GetWidth() - topLeftX : width;
     }
+
     public override int GetHeight() {
         return topLeftY + height > base.GetHeight() ? base.GetHeight() - topLeftY : height;
     }
