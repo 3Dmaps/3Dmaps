@@ -52,15 +52,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   drawMode: 2
-  levelOfDetail: 0
-  noiseScale: 25
-  octaves: 4
-  persistance: 0.5
-  lacunarity: 2
-  seed: 0
-  offset: {x: 0, y: 0}
+  mapSliceSize: 200
+  levelOfDetail: 7
   meshHeightMultiplier: 0.095
-  autoUpdate: 0
   regionsSmoothCount: 100
   regions:
   - name: 

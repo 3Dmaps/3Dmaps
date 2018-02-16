@@ -89,18 +89,9 @@ public class MapData {
         return GetSlices(0, 0, GetWidth(), GetHeight(), sliceSize, sliceSize).ConvertAll(s => (MapData) s);
     }
 
-    public List<DisplayReadySlice> GetDisplayReadySlices(int displayWidth, int displayHeight, int topLeftX, int topLeftY, int[,] lodMatrix) {
-        int sliceWidth = displayWidth / lodMatrix.GetLength(0) + lodMatrix.GetLength(0);
-        int sliceHeight = displayHeight / lodMatrix.GetLength(1) + lodMatrix.GetLength(1);
-        List<MapDataSlice> slices = GetSlices(topLeftX, topLeftY, topLeftX + displayWidth - (displayWidth % lodMatrix.GetLength(0)), topLeftY + displayHeight - (displayHeight % lodMatrix.GetLength(1)), sliceWidth, sliceHeight);
-        // List<DisplayReadySlice> displayReadies = slices.ConvertAll(s => s.AsDisplayReadySlice(lodMatrix[0,0])); // TODO: Get rid of lodMatrix
-        List<DisplayReadySlice> displayReadies = new List<DisplayReadySlice>();
-        for(int y = 0; y < lodMatrix.GetLength(1); y++) {
-            for(int x = 0; x < lodMatrix.GetLength(0); x++) {
-                MapDataSlice slice = slices[y * lodMatrix.GetLength(0) + x];
-                displayReadies.Add(new DisplayReadySlice(slice, lodMatrix[x, y]));
-            }
-        }
+    public List<DisplayReadySlice> GetDisplayReadySlices(int sliceSize, int lod) {
+        List<MapDataSlice> slices = GetSlices(sliceSize).ConvertAll(s => (MapDataSlice) s); // TODO: Get rid of these double conversions
+        List<DisplayReadySlice> displayReadies = slices.ConvertAll(s => s.AsDisplayReadySlice(lod));
         return displayReadies;
     }
 }

@@ -5,7 +5,7 @@ using System.Linq;
 using System;
 
 /// <summary>
-/// Generates the visual map to the scene.
+/// Generates the visual map to the scene and handles the pieces of said visual map.
 /// </summary>
 
 public class MapGenerator : MonoBehaviour {
@@ -13,7 +13,7 @@ public class MapGenerator : MonoBehaviour {
 	public enum DrawMode {NoiseMap, ColourMap, Mesh};
 	public DrawMode drawMode;
 
-    public const int mapChunkSize = 241;
+    public int mapSliceSize = 200;
     [Range(0, 24)]
     public int levelOfDetail;
     public float meshHeightMultiplier;
@@ -26,14 +26,16 @@ public class MapGenerator : MonoBehaviour {
 
 	private MapData mapData;
 	private MapMetadata mapMetadata;
-    //private const string mapDataPath = "Assets/Resources/20x20.txt";
-    private const string mapDataPath = "Assets/Resources/grandcanyon.txt";
+	private List<MapDisplay> displays;
+    private const string mapDataPath = "Assets/Resources/20x20.txt";
+    //private const string mapDataPath = "Assets/Resources/grandcanyon.txt";
 
     public void Start()
     {
         SmoothRegions(regionsSmoothCount);
 		mapMetadata = MapDataImporter.ReadMetadata(mapDataPath);
         mapData     = MapDataImporter.ReadMapData(mapDataPath, mapMetadata);
+		displays	= new List<MapDisplay>();
         GenerateMap();
     }
 
@@ -59,57 +61,29 @@ public class MapGenerator : MonoBehaviour {
         regions = smoothedRegions;
     }
 
-	private Color[] CalculateColourMap(MapData mapData) {
-		int width  = mapData.GetWidth();
-		int height = mapData.GetHeight();
-		Color[] colourMap = new Color[width * height];
-		for (int y = 0; y < height; y++) {
-			for (int x = 0; x < width; x++) {
-				float currentHeight = mapData.GetSquished(x, y);
-				for (int i = 0; i < regions.Length; i++) {
-					if (currentHeight <= regions [i].height) {
-						colourMap [y * width + x] = regions [i].colour;
-						break;
-					}
-				}
-			}
-		}
-		return colourMap;
-	}
-
     public void GenerateMap() {
 
-        // GenerateNoiseMap returns noise, if need it create a new MapData with fake MapMetaData
-		//float[,] noiseMap = Noise.GenerateNoiseMap (mapChunkSize, mapChunkSize, seed, noiseScale, octaves, persistance, lacunarity, offset);
-		int[,] lodMatrix = new int[7, 7] { // Is there some cleaner way to do this >:
-			{levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail,},
-			{levelOfDetail, 2, 2, 2, 2, 2, levelOfDetail,},
-			{levelOfDetail, 2, 1, 1, 1, 2, levelOfDetail,},
-			{levelOfDetail, 2, 1, 0, 1, 2, levelOfDetail,},
-			{levelOfDetail, 2, 1, 1, 1, 2, levelOfDetail,},
-			{levelOfDetail, 2, 2, 2, 2, 2, levelOfDetail,},
-			{levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail, levelOfDetail,},
-		};
+		MapData actualMapData = drawMode == DrawMode.Mesh ? mapData : new NoiseMapData(mapSliceSize * 2);
 
-		MapData actualMapData = drawMode == DrawMode.Mesh ? mapData : new NoiseMapData(mapChunkSize);
-
-		foreach(DisplayReadySlice slice in actualMapData.GetDisplayReadySlices(
-			actualMapData.GetWidth(), actualMapData.GetHeight(), 0, 0, lodMatrix)) {
-			int width  = slice.GetWidth();
-			int height = slice.GetHeight();
-
-			Color[] colourMap = CalculateColourMap(slice);
+		foreach(DisplayReadySlice slice in actualMapData.GetDisplayReadySlices(mapSliceSize, levelOfDetail)) {
 
 			MapDisplay display = gameObject.AddComponent(typeof(MapDisplay)) as MapDisplay;
 			GameObject visualObject = display.CreateVisual(visual);
             visualObject.transform.parent = this.transform;
-			if (drawMode == DrawMode.NoiseMap) {
-				display.DrawMesh (MeshGenerator.GenerateTerrainMesh (slice, meshHeightMultiplier, slice.lod), TextureGenerator.TextureFromHeightMap (slice), slice.GetScale());
-			} else if (drawMode == DrawMode.ColourMap) {
-				display.DrawMesh (MeshGenerator.GenerateTerrainMesh (slice, meshHeightMultiplier, slice.lod), TextureGenerator.TextureFromColourMap (colourMap, width, height), slice.GetScale());
-			} else if (drawMode == DrawMode.Mesh) {
-				display.DrawMesh (MeshGenerator.GenerateTerrainMesh (slice, meshHeightMultiplier, slice.lod), TextureGenerator.TextureFromColourMap (colourMap, width, height), slice.GetScale());
-			}
+
+			display.SetRegions(regions);
+			display.SetMapData(slice);
+			display.DrawMap();
+
+			displays.Add(display);
+
+		}
+	}
+
+	public void UpdateLOD(int zoomValue) {
+		int newLod = Mathf.Max(levelOfDetail - zoomValue, 1);
+		foreach(MapDisplay display in displays) {
+			display.UpdateLOD(newLod);
 		}
 	}
 }

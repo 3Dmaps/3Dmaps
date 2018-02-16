@@ -8,7 +8,7 @@ using System.Collections;
 
 public static class MeshGenerator {
 
-	public static MeshData GenerateTerrainMesh(DisplayReadySlice mapData, float heightMultiplier, int levelOfDetail, float minHeight = 0f) {
+	public static MeshData GenerateTerrainMesh(DisplayReadySlice mapData, float heightMultiplier = 0f, int levelOfDetail = 0, float minHeight = 0f) {
 		int width       = mapData.GetWidth();
 		int height      = mapData.GetHeight();
         //Debug.Log("w: " + width + "  h:" + height);
@@ -16,9 +16,9 @@ public static class MeshGenerator {
 		float topLeftX  = topLeft.x;
 		float topLeftZ  = topLeft.y;
 
-        int meshSimplificationIncrement = (levelOfDetail == 0) ? 1 : levelOfDetail * 2;
-        int verticesPerLine = levelOfDetail > 0 ? (width - 2) / meshSimplificationIncrement + 2 : width;
-        int verticesPerColumn = levelOfDetail > 0 ? (height - 2) / meshSimplificationIncrement + 2 : height;
+        int meshSimplificationIncrement = (mapData.lod == 0) ? 1 : mapData.lod * 2;
+        int verticesPerLine = mapData.lod > 0 ? (width - 2) / meshSimplificationIncrement + 2 : width;
+        int verticesPerColumn = mapData.lod > 0 ? (height - 2) / meshSimplificationIncrement + 2 : height;
 
         MeshData meshData = new MeshData (verticesPerLine, verticesPerColumn);
 		int vertexIndex = 0;
