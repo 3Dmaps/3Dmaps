@@ -14,27 +14,27 @@ public class TrailNode {
     public TrailNode() {
     }
 
-    public long getId() {
+    public long GetId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void SetId(long id) {
         this.id = id;
     }
 
-    public float getLat() {
+    public float GetLat() {
         return lat;
     }
 
-    public void setLat(float lat) {
+    public void SetLat(float lat) {
         this.lat = lat;
     }
 
-    public float getLon() {
+    public float GetLon() {
         return lon;
     }
 
-    public void setLon(float lon) {
+    public void SetLon(float lon) {
         this.lon = lon;
     }
 }

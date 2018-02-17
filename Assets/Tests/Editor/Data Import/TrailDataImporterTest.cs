@@ -21,12 +21,14 @@ public class TrailDataImporterTest {
 
     [Test]
     public void TrailNodeIdCorrect() {
-        Assert.True(trailData.trails[0].getNodeList()[0].getId() == 173886087, "TrailNode id incorrect.");
+        Assert.True(trailData.trails[0].GetNodeList()[0].GetId() == 173886087, "TrailNode id incorrect.");
+        Assert.True(trailData.trails[0].GetNodeList()[1].GetId() == 173895047, "TrailNode id incorrect.");
+        Assert.True(trailData.trails[0].GetNodeList()[2].GetId() == 173910289, "TrailNode id incorrect.");
     }
 
     [Test]
     public void TrailNodeLatLonCorrect() {
-        Assert.True(Mathf.Abs(trailData.trails[1].getNodeList()[2].getLat() - 37.0383775F) < precision, "TrailNode lat incorrect.");
-        Assert.True(Mathf.Abs(trailData.trails[1].getNodeList()[2].getLon() - (-111.1872653F)) < precision, "TrailNode lon incorrect.");
+        Assert.True(Mathf.Abs(trailData.trails[1].GetNodeList()[2].GetLat() - 37.0383775F) < precision, "TrailNode lat incorrect.");
+        Assert.True(Mathf.Abs(trailData.trails[1].GetNodeList()[2].GetLon() - (-111.1872653F)) < precision, "TrailNode lon incorrect.");
     }
 }

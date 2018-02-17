@@ -11,6 +11,9 @@ using System;
 /// </summary>
 
 public class TrailDataImporter {
+    private const string wayElement = "way", nodeElement = "node", childNodeElement = "nd";
+    private const string idAttribute = "id", latAttribute = "lat", lonAttribute = "lon", refAttribute = "ref";
+
     public static TrailData ReadTrailData(string path) {
         XmlDocument xmlDoc = new XmlDocument();
 
@@ -22,12 +25,12 @@ public class TrailDataImporter {
         XmlElement rootNode = xmlDoc.DocumentElement;
         
         foreach (XmlElement node in rootNode) {
-            string nodeType = node.LocalName;
-            switch (nodeType) {
-                case "way":
+            string childNodeType = node.LocalName;
+            switch (childNodeType) {
+                case wayElement:
                     ReadTrail(trailData, node);
                     break;
-                case "node":
+                case nodeElement:
                     ReadTrailNode(trailNodes, node);
                     break;
                 default:
@@ -44,19 +47,19 @@ public class TrailDataImporter {
 
     private static void ReadTrailNode(Dictionary<long, TrailNode> trailNodes, XmlElement node) {
         TrailNode trailNode = new TrailNode();
-        trailNode.setId(long.Parse(node.GetAttribute("id")));
-        trailNode.setLat(float.Parse(node.GetAttribute("lat")));
-        trailNode.setLon(float.Parse(node.GetAttribute("lon")));
-        trailNodes.Add(trailNode.getId(), trailNode);
+        trailNode.SetId(long.Parse(node.GetAttribute(idAttribute)));
+        trailNode.SetLat(float.Parse(node.GetAttribute(latAttribute)));
+        trailNode.SetLon(float.Parse(node.GetAttribute(lonAttribute)));
+        trailNodes.Add(trailNode.GetId(), trailNode);
     }
 
     private static void ReadTrail(TrailData trailData, XmlElement node) {
-        Trail trail = new Trail(long.Parse(node.GetAttribute("id")));
+        Trail trail = new Trail(long.Parse(node.GetAttribute(idAttribute)));
 
         foreach (XmlElement childNode in node.ChildNodes) {
-            if (childNode.LocalName.Equals("nd")) {
+            if (childNode.LocalName.Equals(childNodeElement)) {
                 TrailNode trailNode = new TrailNode();
-                trailNode.setId(long.Parse(childNode.GetAttribute("ref")));
+                trailNode.SetId(long.Parse(childNode.GetAttribute(refAttribute)));
                 trail.AddNode(trailNode);
             }
         }
@@ -74,9 +77,9 @@ public class TrailDataImporter {
     }
 
     private static void FillInTrailNodeLatLon(Trail trail, Dictionary<long, TrailNode> trailNodes) {
-        foreach (TrailNode trailNode in trail.getNodeList()) {
-            trailNode.setLat(trailNodes[trailNode.getId()].getLat());
-            trailNode.setLon(trailNodes[trailNode.getId()].getLon());
+        foreach (TrailNode trailNode in trail.GetNodeList()) {
+            trailNode.SetLat(trailNodes[trailNode.GetId()].GetLat());
+            trailNode.SetLon(trailNodes[trailNode.GetId()].GetLon());
         }
     }
 }

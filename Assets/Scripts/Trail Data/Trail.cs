@@ -26,7 +26,7 @@ public class Trail {
                id == trail.id;
     }
 
-    public List<TrailNode> getNodeList() {
+    public List<TrailNode> GetNodeList() {
         return nodeList;
     }
 }
