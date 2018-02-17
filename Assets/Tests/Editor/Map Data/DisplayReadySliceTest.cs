@@ -1,3 +1,4 @@
+using System;
 using NUnit.Framework;
 
 public class DisplayReadySliceTest {
@@ -16,15 +17,23 @@ public class DisplayReadySliceTest {
     }
 
     [Test]
-    public void GetWidthCorrect() {
-        DisplayReadySlice slice = new DisplayReadySlice(new MapDataSlice(data, 2, 2, 5, 5), 2);
-        Assert.True(slice.GetWidth() == 1, "DisplayReadySlice width was " + slice.GetWidth() + ", should have been 1");
+    public void SimplificationIncrementForYCorrect() {
+        DisplayReadySlice slice = new MapDataSlice(data, 0, 0, 4, 5).AsDisplayReadySlice(2);
+        Action<int, int> check = (expected, y) => {
+            Assert.True(expected == slice.SimplificationIncrementForY(y), 
+            "SimplificationIncrementForY wrong at " + y + "; should be " + expected + ", was " + slice.SimplificationIncrementForY(y));
+        };
+        check(4, 0); check(3, 1); check(2, 2); check(1, 3); check(1, 4);
     }
 
     [Test]
-    public void GetHeightCorrect() {
-        DisplayReadySlice slice = new DisplayReadySlice(new MapDataSlice(data, 3, 0, 5, 5), 2);
-        Assert.True(slice.GetHeight() == 5, "DisplayReadySlice width was " + slice.GetHeight() + ", should have been 5");
+    public void SimplificationIncrementForXCorrect() {
+        DisplayReadySlice slice = new MapDataSlice(data, 1, 0, 5, 3).AsDisplayReadySlice(1);
+        Action<int, int> check = (expected, x) => {
+            Assert.True(expected == slice.SimplificationIncrementForX(x), 
+            "SimplificationIncrementForX wrong at " + x + "; should be " + expected + ", was " + slice.SimplificationIncrementForX(x));
+        };
+        check(2, 0); check(2, 1); check(1, 2); check(1, 3);
     }
 
 }

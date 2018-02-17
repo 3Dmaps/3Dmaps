@@ -93,4 +93,8 @@ public struct TerrainType {
 	public string name;
 	public float height;
 	public Color colour;
+
+    public TerrainType(string name, float height, Color colour) {
+        this.name = name; this.height = height; this.colour = colour;
+    }
 }

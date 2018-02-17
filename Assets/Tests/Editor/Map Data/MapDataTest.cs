@@ -109,18 +109,11 @@ public class MapDataTest {
     }
 
     [Test]
-    public void GetDisplayReadySlices_CountAndLODsCorrect() { // TODO: New and fixed tests
-        // Other display ready slicing functionality will be tested in further tasks when it will actually be used
-        int[,] lodMatrix = new int[2,2] {
-            {1,2}, {3,4}
-        };
-        List<DisplayReadySlice> slices = mapdata.GetDisplayReadySlices(3, 0);
-        Assert.True(slices.Count == 4, "Incorrect number of slices after GetDisplayReadySlices (was " + slices.Count + ", should be 4)");
-        for(int y = 0; y < lodMatrix.GetLength(1); y++) {
-            for(int x = 0; x < lodMatrix.GetLength(0); x++) {
-                Assert.True(lodMatrix[x, y] == slices[y * lodMatrix.GetLength(0) + x].lod, "LOD was incorrect for piece at " + x + ", " + y 
-                + " (was " + slices[y * lodMatrix.GetLength(0) + x].lod + ", should be " + lodMatrix[x, y] + ")");
-            }
+    // Used to be "count and lods", now just tests the lods as the actual count of slices is done as with MapDataSlice and that's already tested
+    public void GetDisplayReadySlices_LODsCorrect() {
+        List<DisplayReadySlice> slices = mapdata.GetDisplayReadySlices(2, 1);
+        foreach(DisplayReadySlice slice in slices) {
+            Assert.True(1 == slice.lod, "LOD was incorrect for a slice! (should be 1, was " + slice.lod + ")");
         }
     }
 
