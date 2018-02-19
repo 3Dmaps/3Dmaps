@@ -1,20 +1,24 @@
 # 3Dmaps
 3DMaps in augmented reality. Software production project course / Univ. of Helsinki, spring 2018
 
+## Project background information and definition
+
+In Labtool: https://studies.cs.helsinki.fi/ohtuprojekti/topic_descriptions/199
+
 ## Backlogs
 
-Google sheets: https://docs.google.com/spreadsheets/d/15aIlJD48ZQKQ7nGFM40B4Lvwt3_bHjMlxDbJSRVtRH8
+In Google sheets: https://docs.google.com/spreadsheets/d/15aIlJD48ZQKQ7nGFM40B4Lvwt3_bHjMlxDbJSRVtRH8
 
 ## Project notes
 
-Google drive: https://drive.google.com/drive/folders/1dDglKWNlMnkj2in2mZXfWaNzyCIiN0KJ
+In Google drive: https://drive.google.com/drive/folders/1dDglKWNlMnkj2in2mZXfWaNzyCIiN0KJ
 
 ## Definition of Done
 
-Google sheets: https://docs.google.com/spreadsheets/d/15aIlJD48ZQKQ7nGFM40B4Lvwt3_bHjMlxDbJSRVtRH8/edit#gid=2061537297
+In Google sheets: https://docs.google.com/spreadsheets/d/15aIlJD48ZQKQ7nGFM40B4Lvwt3_bHjMlxDbJSRVtRH8/edit#gid=2061537297
 
 ## Workflow
-Basic workflow: https://docs.google.com/spreadsheets/d/15aIlJD48ZQKQ7nGFM40B4Lvwt3_bHjMlxDbJSRVtRH8/edit#gid=1868766105
+Basic workflow in Google sheets: https://docs.google.com/spreadsheets/d/15aIlJD48ZQKQ7nGFM40B4Lvwt3_bHjMlxDbJSRVtRH8/edit#gid=1868766105
 
 ## Installing
 
