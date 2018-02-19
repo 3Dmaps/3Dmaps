@@ -8,7 +8,7 @@ using System.Collections;
 
 public static class MeshGenerator {
 
-	public static MeshData GenerateTerrainMesh(MapData mapData, float heightMultiplier, int levelOfDetail, float minHeight = 0f) {
+	public static MeshData GenerateTerrainMesh(DisplayReadySlice mapData, float heightMultiplier = 0f, int levelOfDetail = 0, float minHeight = 0f) {
 		int width       = mapData.GetWidth();
 		int height      = mapData.GetHeight();
         //Debug.Log("w: " + width + "  h:" + height);
@@ -16,15 +16,15 @@ public static class MeshGenerator {
 		float topLeftX  = topLeft.x;
 		float topLeftZ  = topLeft.y;
 
-        int meshSimplificationIncrement = (levelOfDetail == 0) ? 1 : levelOfDetail * 2;
-        int verticesPerLine = (width - 1) / meshSimplificationIncrement + 1;
-        int verticesPerColumn = (height - 1) / meshSimplificationIncrement + 1;
+        int meshSimplificationIncrement = (mapData.lod == 0) ? 1 : mapData.lod * 2;
+        int verticesPerLine = mapData.lod > 0 ? (width - 2) / meshSimplificationIncrement + 2 : width;
+        int verticesPerColumn = mapData.lod > 0 ? (height - 2) / meshSimplificationIncrement + 2 : height;
 
-        MeshData meshData = new MeshData (verticesPerLine + 1, verticesPerColumn + 1);
+        MeshData meshData = new MeshData (verticesPerLine, verticesPerColumn);
 		int vertexIndex = 0;
 
-		for (int y = 0; y < height; y+= meshSimplificationIncrement) {
-			for (int x = 0; x < width; x+= meshSimplificationIncrement) {
+		for (int y = 0; y < height; y += mapData.SimplificationIncrementForY(y)) {
+			for (int x = 0; x < width; x += mapData.SimplificationIncrementForX(x)) {
 
 				meshData.vertices [vertexIndex] = new Vector3 (topLeftX + x, mapData.GetNormalized(x, y), topLeftZ - y);
 				meshData.uvs [vertexIndex]      = new Vector2 (x / (float)width, y / (float)height);
