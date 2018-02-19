@@ -11,9 +11,9 @@ public class MapDisplay : MonoBehaviour {
 	public GameObject visualMap;
 	private Renderer textureRender;
 	private MeshFilter meshFilter;
-	private MeshRenderer meshRenderer;
+	public MeshRenderer meshRenderer;
 
-	private DisplayReadySlice mapData;
+	public DisplayReadySlice mapData;
 	private TerrainType[] regions;
 
 	private Texture2D texture;

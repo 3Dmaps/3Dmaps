@@ -16,7 +16,6 @@ public class MapGenerator : MonoBehaviour {
     public int mapSliceSize = 200;
     [Range(0, 24)]
     public int levelOfDetail;
-    public float meshHeightMultiplier;
 
     [Range(1, 1000)]
     public int regionsSmoothCount = 100;
@@ -29,6 +28,8 @@ public class MapGenerator : MonoBehaviour {
 	private List<MapDisplay> displays;
     private const string mapDataPath = "Assets/Resources/20x20.txt";
     //private const string mapDataPath = "Assets/Resources/grandcanyon.txt";
+
+    public Vector2 mapViewerPosition = Vector2.zero;
 
     public void Start()
     {
@@ -74,16 +75,26 @@ public class MapGenerator : MonoBehaviour {
 			display.SetRegions(regions);
 			display.SetMapData(slice);
 			display.DrawMap();
-
 			displays.Add(display);
-
 		}
 	}
 
 	public void UpdateLOD(int zoomValue) {
-		int newLod = Mathf.Max(levelOfDetail - zoomValue, 0);
+        Plane[] planes = GeometryUtility.CalculateFrustumPlanes(Camera.main);
+        int newLod = Mathf.Max(levelOfDetail - zoomValue, 0);
 		foreach(MapDisplay display in displays) {
-			display.UpdateLOD(newLod);
+            Bounds renderBounds = display.meshRenderer.bounds;
+            Vector3 center = renderBounds.center;
+            float distanceToCamera = Vector2.Distance(mapViewerPosition, new Vector2(center.x, center.z));
+            int distanceBasedLod = newLod + (int)distanceToCamera * 2;
+            if (GeometryUtility.TestPlanesAABB(planes, renderBounds)) {
+                display.UpdateLOD(distanceBasedLod);
+                display.visualMap.SetActive(true);
+            }
+            else
+            {
+                display.visualMap.SetActive(false);
+            }
 		}
 	}
 }
