@@ -52,6 +52,22 @@ public class MapData {
         return new Vector2((GetWidth() - 1) / -2f, (GetHeight() - 1) / 2f);
     }
 
+    // Work in progress as of 19.2.2018.
+    public virtual MapPoint GetWebMercatorCoordinates(Vector2 positionOnMap) {
+        //return new Vector2((GetWidth() - 1) / -2f, (GetHeight() - 1) / 2f);
+        //MapPoint actualTopLeftCorner = new MapPoint(this.GetTopLeft().x - 0.5f, this.GetTopLeft().y - 0.5f);
+        //MapPoint originalMapRelativePosition = new MapPoint();
+
+        MapPoint lowerLefthandCornerInWebMercator = CoordinateConverter.ProjectPointToWebMercator(new MapPoint(this.metadata.xllcorner,this.metadata.yllcorner));
+        //MapPoint topLefthandCornerInWebMercator = CoordinateConverter.ProjectPointToWebMercator(new MapPoint(this.metadata.xllcorner, this.metadata.yllcorner));
+        // Currently return the lower left hand corner.
+        return lowerLefthandCornerInWebMercator;
+    }
+
+    public virtual Vector2 GetMapSpecificCoordinates(MapPoint lanLongPoint) {
+        return new Vector2(0F, 0F);
+    }
+
     public virtual float GetRaw(int x, int y) {
         return data[x, y];
     }
