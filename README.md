@@ -13,6 +13,9 @@ Google drive: https://drive.google.com/drive/folders/1dDglKWNlMnkj2in2mZXfWaNzyC
 
 Google sheets: https://docs.google.com/spreadsheets/d/15aIlJD48ZQKQ7nGFM40B4Lvwt3_bHjMlxDbJSRVtRH8/edit#gid=2061537297
 
+## Workflow
+Basic workflow: https://docs.google.com/spreadsheets/d/15aIlJD48ZQKQ7nGFM40B4Lvwt3_bHjMlxDbJSRVtRH8/edit#gid=1868766105
+
 ## Installing
 
 To get a development env running:
@@ -43,7 +46,6 @@ Add additional notes about how to deploy this on a live system. *Not defined yet
 
 ## Built With
 
-Tool list.
 * [Unity](https://unity3d.com/) - Game engine
 * [C#/.NET](https://www.microsoft.com/net/)
 
