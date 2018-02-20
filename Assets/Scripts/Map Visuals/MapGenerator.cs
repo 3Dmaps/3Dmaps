@@ -78,6 +78,7 @@ public class MapGenerator : MonoBehaviour {
 
 			display.SetRegions(regions);
 			display.SetMapData(slice);
+            display.SetStatus(MapDisplayStatus.VISIBLE);
 			display.DrawMap();
 			displays.Add(display);
 		}
@@ -98,7 +99,8 @@ public class MapGenerator : MonoBehaviour {
     {
         MapDisplay display = ud.display;
         display.UpdateLOD(ud.lod);
-        display.visualMap.SetActive(true);
+        display.SetStatus(MapDisplayStatus.VISIBLE);
+        display.DrawMap();
     }
 
     public void UpdateZoomLevel(int newVal)
@@ -118,10 +120,15 @@ public class MapGenerator : MonoBehaviour {
             int distanceBasedLod = newLod + (int)distanceToCamera * 2;
             if (GeometryUtility.TestPlanesAABB(planes, renderBounds)) {
                 unupdatedDisplays.Enqueue(new UnupdatedDisplay(distanceBasedLod, display), distanceBasedLod);
+                if(display.status == MapDisplayStatus.HIDDEN) {
+                    display.SetStatus(MapDisplayStatus.LOW_LOD);
+                    display.DrawMap();
+                }
             }
             else
             {
-                display.visualMap.SetActive(false);
+                display.SetStatus(MapDisplayStatus.HIDDEN);
+                display.DrawMap();
             }
 		}
 	}

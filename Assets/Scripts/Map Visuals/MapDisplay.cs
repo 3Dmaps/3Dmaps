@@ -8,6 +8,8 @@ using System.Collections;
 
 public class MapDisplay : MonoBehaviour {
 
+	private const int lowLod = 20;
+
 	public GameObject visualMap;
 	private Renderer textureRender;
 	private MeshFilter meshFilter;
@@ -18,6 +20,8 @@ public class MapDisplay : MonoBehaviour {
 
 	private Texture2D texture;
 	private Mesh mesh;
+	private Mesh lowLodMesh;
+	public MapDisplayStatus status;
 
 	public GameObject CreateVisual(GameObject visual) {
 		visualMap     = Instantiate(visual) as GameObject;
@@ -47,10 +51,18 @@ public class MapDisplay : MonoBehaviour {
 
 	public void SetMapData(DisplayReadySlice mapData) {
 		this.mapData = mapData;
+		int originalLod = mapData.lod;
+		mapData.lod = lowLod;
+		lowLodMesh = GenerateMesh();
+		mapData.lod = originalLod;
 	}
 
 	public void SetRegions(TerrainType[] regions) {
 		this.regions = regions;
+	}
+
+	public void SetStatus(MapDisplayStatus newStatus) {
+		this.status = newStatus;
 	}
 
 	private Mesh GenerateMesh() {
@@ -66,15 +78,26 @@ public class MapDisplay : MonoBehaviour {
 
 	public void DrawMap() {
 		if(texture == null) texture = GenerateTexture();
-		if(mesh == null) mesh = GenerateMesh();
-		DrawMesh(mesh, texture, mapData.GetScale());
+		switch(this.status) {
+			case MapDisplayStatus.VISIBLE:
+				if(mesh == null) mesh = GenerateMesh();
+				this.visualMap.SetActive(true);
+				DrawMesh(mesh, texture, mapData.GetScale());
+				break;
+			case MapDisplayStatus.LOW_LOD:
+				this.visualMap.SetActive(true);
+				DrawMesh(lowLodMesh, texture, mapData.GetScale());
+				break;
+			case MapDisplayStatus.HIDDEN:
+				this.visualMap.SetActive(false);
+				break;
+		}
 	} 
 
 	public void UpdateLOD(int lod) {
 		if(mapData.lod != lod) {
 			mapData.lod = lod;
 			mesh = GenerateMesh();
-			DrawMap();
 		}
 	}
 
@@ -91,4 +114,8 @@ public class MapDisplay : MonoBehaviour {
 		meshRenderer.transform.localScale = new Vector3(scale, 1F, scale);
 	}
 
+}
+
+public enum MapDisplayStatus {
+	HIDDEN, LOW_LOD, VISIBLE
 }
