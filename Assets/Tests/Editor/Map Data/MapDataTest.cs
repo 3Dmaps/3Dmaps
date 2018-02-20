@@ -10,6 +10,7 @@ using System;
 public class MapDataTest {
     public MapData mapdata;
     private double precision = 0.00001;
+    private double meterInDegrees = 0.0000092592592593;
 
     [SetUp]
     public void Setup() {
@@ -17,6 +18,8 @@ public class MapDataTest {
         metadata.Set("cellsize", "2");
         metadata.Set("minheight", "1");
         metadata.Set("maxheight", "6");
+        metadata.Set("xllcorner", "0");
+        metadata.Set("yllcorner", "0");
         float[,] data = new float[2, 3] { { 1.0F, 2.0F, 3.0F }, { 4.0F, 5.0F, 6.0F } };
         this.mapdata = new MapData(data, metadata);
     }
@@ -50,17 +53,17 @@ public class MapDataTest {
 
     [Test]
     public void GetRawWorks() {
-        Assert.True(mapdata.GetRaw(1,0) == 4.0F, "GetRaw(1,0) returns incorrect value.");
+        Assert.True(mapdata.GetRaw(1, 0) == 4.0F, "GetRaw(1,0) returns incorrect value.");
     }
 
     [Test]
     public void GetHeightMultiplierWorks() {
-        Assert.True(mapdata.GetHeightMultiplier() - 0.16666666F < precision , "GetHeightMultiplier() returns incorrect value.");
+        Assert.True(mapdata.GetHeightMultiplier() - 0.16666666F < precision, "GetHeightMultiplier() returns incorrect value.");
     }
 
     [Test]
     public void GetNormalizedWorks() {
-        Assert.True(mapdata.GetNormalized(1,2) - 0.83333333F< precision, "GetNormalized(1,2) returns incorrect value.");
+        Assert.True(mapdata.GetNormalized(1, 2) - 0.83333333F < precision, "GetNormalized(1,2) returns incorrect value.");
     }
 
     [Test]
@@ -97,14 +100,14 @@ public class MapDataTest {
     public void GetSlices_GetRawCorrect() {
         List<MapData> slices = mapdata.GetSlices(2);
         MapData slice = slices.ElementAt(0);
-        float altitude = slice.GetRaw(1,1);
+        float altitude = slice.GetRaw(1, 1);
         Assert.True(altitude == 5F, "Slice GetRaw(1,1) returns incorrect value.");
     }
 
     [Test]
     public void GetSlices_WithOffsetCorrect() {
         List<MapDataSlice> slices = mapdata.GetSlices(1, 2, 2, 3, 2, 2);
-        Assert.True(Mathf.Approximately(6.0F, slices[0].GetRaw(0, 0)), 
+        Assert.True(Mathf.Approximately(6.0F, slices[0].GetRaw(0, 0)),
             "Slice with offset 0 GetRaw(0, 0) == " + slices[0].GetRaw(0, 0) + "; should be 6.0");
     }
 
@@ -112,9 +115,58 @@ public class MapDataTest {
     // Used to be "count and lods", now just tests the lods as the actual count of slices is done as with MapDataSlice and that's already tested
     public void GetDisplayReadySlices_LODsCorrect() {
         List<DisplayReadySlice> slices = mapdata.GetDisplayReadySlices(2, 1);
-        foreach(DisplayReadySlice slice in slices) {
+        foreach (DisplayReadySlice slice in slices) {
             Assert.True(1 == slice.lod, "LOD was incorrect for a slice! (should be 1, was " + slice.lod + ")");
         }
     }
 
+    [Test]
+    public void GetTopLeftAsLatLonPointCorrect() {
+        MapPoint topLeftAsLatLon = mapdata.GetTopLeftLatLonPoint();
+        Assert.True(topLeftAsLatLon.x - meterInDegrees < precision, "Top left x in lat-lon incorrect.");
+        Assert.True(topLeftAsLatLon.y - (5 * meterInDegrees) < precision, "Top left y in lat-lon incorrect.");
+    }
+
+    [Test]
+    public void GetTopLeftAsWebMercatorCorrect() {
+        MapPoint topLeftAsWebMercator = mapdata.GetTopLeftAsWebMercator();
+        Assert.True(topLeftAsWebMercator.x - 1.03073602586816 < precision, "Top left x in web mercator incorrect.");
+        Assert.True(topLeftAsWebMercator.y - 5.15368012900574 < precision, "Top left y in web mercator incorrect.");
+    }
+
+    [Test]
+    public void GetLatLonCoordinatesCorrect() {
+        MapPoint pointAsLatLon = mapdata.GetLatLonCoordinates(new Vector2(1, -1));
+        Assert.True(pointAsLatLon.x - (3 * meterInDegrees) < precision);
+        Assert.True(pointAsLatLon.y - (3 * meterInDegrees) < precision);
+    }
+
+    [Test]
+    public void GetWebMercatorCoordinatesCorrect() {
+        MapPoint pointAsWebMercator = mapdata.GetWebMercatorCoordinates(new Vector2(1, -1));
+        Assert.True(pointAsWebMercator.x - 3.09220807760449 < precision);
+        Assert.True(pointAsWebMercator.y - 3.09220807760449 < precision);
+    }
+
+    [Test]
+    public void Slice_GetWebMercatorCoordinatesCorrect() {
+        MapMetadata metadataTest = new MapMetadata();
+        metadataTest.Set("cellsize", "2");
+        metadataTest.Set("minheight", "1");
+        metadataTest.Set("maxheight", "6");
+        metadataTest.Set("xllcorner", "0");
+        metadataTest.Set("yllcorner", "0");
+        float[,] data = new float[4, 6] { { 1.0F, 2.0F, 3.0F, 1.0F, 2.0F, 3.0F }, { 4.0F, 5.0F, 6.0F, 4.0F, 5.0F, 6.0F }
+        , { 1.0F, 2.0F, 3.0F, 1.0F, 2.0F, 3.0F }, { 4.0F, 5.0F, 6.0F, 4.0F, 5.0F, 6.0F }};
+        MapData mapdataTest = new MapData(data, metadataTest);
+
+        List<MapData> slices = mapdataTest.GetSlices(4);
+        MapData slice = slices.ElementAt(1);
+        MapPoint pointAsWebMercator = slice.GetWebMercatorCoordinates(new Vector2(0f, 0f));
+        //Debug.Log("Logging slice point:");
+        //Debug.Log(pointAsWebMercator.x);
+        //Debug.Log(pointAsWebMercator.y);
+        Assert.True(pointAsWebMercator.x - 7.21515218107713 < precision);
+        Assert.True(pointAsWebMercator.y - 11.3380962851156 < precision);
+    }
 }

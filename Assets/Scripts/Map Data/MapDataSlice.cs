@@ -55,4 +55,5 @@ public class MapDataSlice : MapData {
         }
         return data[x + this.topLeftX, y + this.topLeftY];
     }
+    
 }

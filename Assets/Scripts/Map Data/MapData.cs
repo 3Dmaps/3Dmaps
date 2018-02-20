@@ -11,8 +11,9 @@ public class MapData {
     protected float[,] data;
     private float scale;
     protected MapMetadata metadata;
+    protected CoordinateConverter converter;
 
-    public MapData(MapData mapData) : this(mapData.data, mapData.metadata){
+    public MapData(MapData mapData) : this(mapData.data, mapData.metadata) {
     }
 
     public MapData(int width, int height, MapMetadata metadata) : this(new float[width, height], metadata) {
@@ -22,6 +23,7 @@ public class MapData {
         this.data = data;
         scale = 1 / (float)Mathf.Max(data.GetLength(0), data.GetLength(1));
         this.metadata = metadata;
+        this.converter = new CoordinateConverter(this.metadata.cellsize);
     }
 
     public static MapData ForTesting(float[,] data) {
@@ -52,18 +54,47 @@ public class MapData {
         return new Vector2((GetWidth() - 1) / -2f, (GetHeight() - 1) / 2f);
     }
 
-    // Work in progress as of 19.2.2018.
-    public virtual MapPoint GetWebMercatorCoordinates(Vector2 positionOnMap) {
-        //return new Vector2((GetWidth() - 1) / -2f, (GetHeight() - 1) / 2f);
-        //MapPoint actualTopLeftCorner = new MapPoint(this.GetTopLeft().x - 0.5f, this.GetTopLeft().y - 0.5f);
-        //MapPoint originalMapRelativePosition = new MapPoint();
-
-        MapPoint lowerLefthandCornerInWebMercator = CoordinateConverter.ProjectPointToWebMercator(new MapPoint(this.metadata.xllcorner,this.metadata.yllcorner));
-        //MapPoint topLefthandCornerInWebMercator = CoordinateConverter.ProjectPointToWebMercator(new MapPoint(this.metadata.xllcorner, this.metadata.yllcorner));
-        // Currently return the lower left hand corner.
-        return lowerLefthandCornerInWebMercator;
+    /// <summary>
+    /// Returns the MapPoint(lon,lat) of the center of the top left cell of this map.
+    /// </summary>
+    public virtual MapPoint GetTopLeftLatLonPoint() {
+        Vector2 topLeftVector = this.GetTopLeft();
+        double centerXRelativeToLowerLeftCorner = data.GetLength(0) / 2;
+        double centerYRelativeToLowerLeftCorner = data.GetLength(1) / 2;
+        double topLeftLon = converter.TransformCoordinateByDistanceInDouble(centerXRelativeToLowerLeftCorner + topLeftVector.x, this.metadata.xllcorner);
+        double topLeftLat = converter.TransformCoordinateByDistanceInDouble(centerYRelativeToLowerLeftCorner + topLeftVector.y, this.metadata.yllcorner);
+        return new MapPoint(topLeftLon, topLeftLat);
     }
 
+    /// <summary>
+    /// Returns the MapPoint(x,y) of the center of the top left cell of this map in 
+    /// WebMercator.
+    /// </summary>
+    public MapPoint GetTopLeftAsWebMercator() {
+        MapPoint topLeftCorner = GetTopLeftLatLonPoint();
+        return converter.ProjectPointToWebMercator(topLeftCorner);
+    }
+
+    /// <summary>
+    /// Returns the MapPoint(lon,lat) of the center of the cell that is at position x,y
+    /// elative to the center of the top left cell of the map. 
+    /// </summary>
+    public MapPoint GetLatLonCoordinates(Vector2 positionOnMap) {
+        if (positionOnMap.x < -0.5 || positionOnMap.x > this.GetWidth() - 0.5 
+            || positionOnMap.y > 0.5 || positionOnMap.y < -this.GetHeight() + 0.5) {
+            throw new System.ArgumentException("Index out of bounds! (" + positionOnMap.x + ", " + positionOnMap.y + ")");
+        }
+        MapPoint topLeft = this.GetTopLeftLatLonPoint();
+        double x = converter.TransformCoordinateByDistance(positionOnMap.x, topLeft.x);
+        double y = converter.TransformCoordinateByDistance(positionOnMap.y, topLeft.y);
+        return new MapPoint(x, y);
+    }
+    public MapPoint GetWebMercatorCoordinates(Vector2 positionOnMap) {
+        MapPoint latLonPoint = this.GetLatLonCoordinates(positionOnMap);
+        return converter.ProjectPointToWebMercator(latLonPoint);
+    }
+
+    // Do we need this?
     public virtual Vector2 GetMapSpecificCoordinates(MapPoint lanLongPoint) {
         return new Vector2(0F, 0F);
     }
@@ -76,7 +107,7 @@ public class MapData {
         return (1 / metadata.cellsize) * scale;
     }
 
-    public float GetNormalized(int x, int y){
+    public float GetNormalized(int x, int y) {
         return (GetRaw(x, y) - metadata.minheight) * GetHeightMultiplier();
     }
 
@@ -89,12 +120,12 @@ public class MapData {
     }
 
     public List<MapDataSlice> GetSlices(int topLeftX, int topLeftY, int bottomRightX, int bottomRightY, int sliceWidth, int sliceHeight, bool doOffset = true) {
-        if(sliceHeight <= (doOffset ? 1 : 0) || sliceWidth <= (doOffset ? 1 : 0)) {
+        if (sliceHeight <= (doOffset ? 1 : 0) || sliceWidth <= (doOffset ? 1 : 0)) {
             throw new System.ArgumentException("Too small slice width (" + sliceWidth + ") or height (" + sliceHeight + ")");
         }
         List<MapDataSlice> slices = new List<MapDataSlice>();
-        for(int y = topLeftY; y < bottomRightY; y += sliceHeight - (doOffset ? 1 : 0)) {
-            for(int x = topLeftX; x < bottomRightX; x += sliceWidth - (doOffset ? 1: 0)) {
+        for (int y = topLeftY; y < bottomRightY; y += sliceHeight - (doOffset ? 1 : 0)) {
+            for (int x = topLeftX; x < bottomRightX; x += sliceWidth - (doOffset ? 1 : 0)) {
                 slices.Add(new MapDataSlice(this, x, y, sliceWidth, sliceHeight));
             }
         }
@@ -102,11 +133,11 @@ public class MapData {
     }
 
     public List<MapData> GetSlices(int sliceSize) {
-        return GetSlices(0, 0, GetWidth(), GetHeight(), sliceSize, sliceSize).ConvertAll(s => (MapData) s);
+        return GetSlices(0, 0, GetWidth(), GetHeight(), sliceSize, sliceSize).ConvertAll(s => (MapData)s);
     }
 
     public List<DisplayReadySlice> GetDisplayReadySlices(int sliceSize, int lod) {
-        List<MapDataSlice> slices = GetSlices(sliceSize).ConvertAll(s => (MapDataSlice) s); // TODO: Get rid of these double conversions
+        List<MapDataSlice> slices = GetSlices(sliceSize).ConvertAll(s => (MapDataSlice)s); // TODO: Get rid of these double conversions
         List<DisplayReadySlice> displayReadies = slices.ConvertAll(s => s.AsDisplayReadySlice(lod));
         return displayReadies;
     }
