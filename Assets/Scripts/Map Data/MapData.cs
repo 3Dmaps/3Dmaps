@@ -57,12 +57,12 @@ public class MapData {
     /// <summary>
     /// Returns the MapPoint(lon,lat) of the center of the top left cell of this map.
     /// </summary>
-    public virtual MapPoint GetTopLeftLatLonPoint() {
+    public MapPoint GetTopLeftLatLonPoint() {
         Vector2 topLeftVector = this.GetTopLeft();
         double centerXRelativeToLowerLeftCorner = data.GetLength(0) / 2;
         double centerYRelativeToLowerLeftCorner = data.GetLength(1) / 2;
-        double topLeftLon = converter.TransformCoordinateByDistanceInDouble(centerXRelativeToLowerLeftCorner + topLeftVector.x, this.metadata.xllcorner);
-        double topLeftLat = converter.TransformCoordinateByDistanceInDouble(centerYRelativeToLowerLeftCorner + topLeftVector.y, this.metadata.yllcorner);
+        double topLeftLon = converter.TransformCoordinateByDistance(centerXRelativeToLowerLeftCorner + topLeftVector.x, this.metadata.xllcorner);
+        double topLeftLat = converter.TransformCoordinateByDistance(centerYRelativeToLowerLeftCorner + topLeftVector.y, this.metadata.yllcorner);
         return new MapPoint(topLeftLon, topLeftLat);
     }
 
@@ -80,13 +80,13 @@ public class MapData {
     /// elative to the center of the top left cell of the map. 
     /// </summary>
     public MapPoint GetLatLonCoordinates(Vector2 positionOnMap) {
-        if (positionOnMap.x < -0.5 || positionOnMap.x > this.GetWidth() - 0.5 
+        if (positionOnMap.x < -0.5 || positionOnMap.x > this.GetWidth() - 0.5
             || positionOnMap.y > 0.5 || positionOnMap.y < -this.GetHeight() + 0.5) {
             throw new System.ArgumentException("Index out of bounds! (" + positionOnMap.x + ", " + positionOnMap.y + ")");
         }
         MapPoint topLeft = this.GetTopLeftLatLonPoint();
-        double x = converter.TransformCoordinateByDistance(positionOnMap.x, topLeft.x);
-        double y = converter.TransformCoordinateByDistance(positionOnMap.y, topLeft.y);
+        double x = converter.TransformCoordinateByDistance((double)positionOnMap.x, (double)topLeft.x);
+        double y = converter.TransformCoordinateByDistance((double)positionOnMap.y, (double)topLeft.y);
         return new MapPoint(x, y);
     }
     public MapPoint GetWebMercatorCoordinates(Vector2 positionOnMap) {
@@ -94,9 +94,26 @@ public class MapData {
         return converter.ProjectPointToWebMercator(latLonPoint);
     }
 
-    // Do we need this?
-    public virtual Vector2 GetMapSpecificCoordinates(MapPoint lanLongPoint) {
-        return new Vector2(0F, 0F);
+    // NOT WORKING PROPERLY FOR SLICES.
+    public virtual Vector2 GetMapSpecificCoordinatesFromLatLon(MapPoint latLonPoint) {
+        float maxXDistance = (float)converter.TransformCoordinateByDistance(0, (this.GetWidth() / 2.0));
+        float maxYDistance = (float)converter.TransformCoordinateByDistance(0, (this.GetHeight() / 2.0));
+        if (Math.Abs(latLonPoint.x) > maxXDistance | Math.Abs(latLonPoint.y) > maxYDistance) {
+            throw new System.ArgumentException("Index out of bounds! (" + latLonPoint.x + ", " + latLonPoint.y + ")");
+        }
+
+        MapPoint sliceTopLeft = this.GetTopLeftLatLonPoint();
+        double sliceCenterLon = converter.TransformCoordinateByDistance(((this.GetWidth() - 1) / 2.0), sliceTopLeft.x);
+        double sliceCenterLat = converter.TransformCoordinateByDistance(-((this.GetHeight() - 1) / 2.0), sliceTopLeft.y);
+        
+        float xVectorFromCenter = converter.DistanceBetweenCoordinates(sliceCenterLon, latLonPoint.x);
+        float yVectorFromCenter = converter.DistanceBetweenCoordinates(sliceCenterLat, latLonPoint.y);
+        return new Vector2(xVectorFromCenter, yVectorFromCenter);
+
+        //double centerLonWholeMap = converter.TransformCoordinateByDistance((data.GetLength(0) / 2.0), metadata.xllcorner);
+        //double centerLatWholeMap = converter.TransformCoordinateByDistance((data.GetLength(1) / 2.0), metadata.yllcorner);
+        //double centerLonSlice = converter.TransformCoordinateByDistance((data.GetLength(0) / 2.0), metadata.xllcorner);
+        //double centerLatSlice = converter.TransformCoordinateByDistance((data.GetLength(1) / 2.0), metadata.yllcorner);
     }
 
     public virtual float GetRaw(int x, int y) {

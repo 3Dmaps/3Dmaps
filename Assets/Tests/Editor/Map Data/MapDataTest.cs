@@ -163,10 +163,39 @@ public class MapDataTest {
         List<MapData> slices = mapdataTest.GetSlices(4);
         MapData slice = slices.ElementAt(1);
         MapPoint pointAsWebMercator = slice.GetWebMercatorCoordinates(new Vector2(0f, 0f));
-        //Debug.Log("Logging slice point:");
-        //Debug.Log(pointAsWebMercator.x);
-        //Debug.Log(pointAsWebMercator.y);
         Assert.True(pointAsWebMercator.x - 7.21515218107713 < precision);
         Assert.True(pointAsWebMercator.y - 11.3380962851156 < precision);
+    }
+
+    [Test]
+    public void GetMapSpecificCoordinatesFromLatLonCorrect() {
+        Vector2 mapSpecificVector = mapdata.GetMapSpecificCoordinatesFromLatLon(new MapPoint(3 * meterInDegrees, 3 * meterInDegrees));
+        Assert.True(mapSpecificVector.x - 0.5f < precision);
+        Assert.True(mapSpecificVector.y < precision);
+    }
+
+    [Test]
+    public void Slice_GetMapSpecificCoordinatesFromLatLonCorrect() {
+        List<MapData> slices = mapdata.GetSlices(2);
+        MapData slice = slices.ElementAt(1);
+        Vector2 mapSpecificVector = slice.GetMapSpecificCoordinatesFromLatLon(new MapPoint(3 * meterInDegrees, 5 * meterInDegrees));
+        Debug.Log("Logging slice map specific coordinates.");
+        Debug.Log(mapSpecificVector.x);
+        Debug.Log(mapSpecificVector.y);
+
+        MapPoint sliceTopLeft = slice.GetTopLeftLatLonPoint();
+        Debug.Log("Logging slice top left coordinates.");
+        Debug.Log(sliceTopLeft.x);
+        Debug.Log(sliceTopLeft.y);
+
+        CoordinateConverter converter = new CoordinateConverter(2);
+        double sliceCenterLon = converter.TransformCoordinateByDistance(((slice.GetWidth() - 1) / 2.0), sliceTopLeft.x);
+        double sliceCenterLat = converter.TransformCoordinateByDistance(-((slice.GetHeight() - 1) / 2.0), sliceTopLeft.y);
+        Debug.Log("Logging slice center coordinates.");
+        Debug.Log(sliceCenterLon);
+        Debug.Log(sliceCenterLat);
+
+        Assert.True(mapSpecificVector.x < precision);
+        Assert.True(mapSpecificVector.y < precision);
     }
 }

@@ -51,7 +51,7 @@ public class CoordinateConverter {
 
         return new MapPoint(x, y);
     }
-
+    
     /// <summary>
     /// Takes a lat or lon coordinate and transforms it by a number of cells using 
     /// the cellsize and meter value specified in the constructor. Returns the 
@@ -60,32 +60,20 @@ public class CoordinateConverter {
     /// <param name="cells">The number of map cells to transform the coordinate by</param>
     /// <param name="startCoordinate">The start coordinate in lat or lon</param>
     /// <returns>The transformed coordinate in lat or lon</returns>
-    public double TransformCoordinateByDistance(int cells, double startCoordinate) {
+    public double TransformCoordinateByDistance(double cells, double startCoordinate) {
         return startCoordinate + (meterAsLatLonDegrees * cells * cellsize);
     }
 
     /// <summary>
-    /// Takes a lat or lon coordinate and transforms it by a number of cells using 
-    /// the cellsize and meter value specified in the constructor. Returns the 
-    /// transformed lat or lon coordinate.
+    /// Takes two lat or lon coordinates and calculates the distance in map cells between
+    /// the coordinates. Returns the distance in cells.
     /// </summary>
-    /// <param name="cells">The number of map cells to transform the coordinate by</param>
     /// <param name="startCoordinate">The start coordinate in lat or lon</param>
-    /// <returns>The transformed coordinate in lat or lon</returns>
-    public double TransformCoordinateByDistance(float cells, double startCoordinate) {
-        return startCoordinate + (meterAsLatLonDegrees * cells * cellsize);
-    }
-
-    /// <summary>
-    /// Takes a lat or lon coordinate and transforms it by a number of cells using 
-    /// the cellsize and meter value specified in the constructor. Returns the 
-    /// transformed lat or lon coordinate.
-    /// </summary>
-    /// <param name="cells">The number of map cells to transform the coordinate by</param>
-    /// <param name="startCoordinate">The start coordinate in lat or lon</param>
-    /// <returns>The transformed coordinate in lat or lon</returns>
-    public double TransformCoordinateByDistanceInDouble(double cells, double startCoordinate) {
-        return startCoordinate + (meterAsLatLonDegrees * cells * cellsize);
+    /// <param name="endCoordinate">The end coordinate in lat or lon</param>
+    /// <returns>The distance in map cells</returns>
+    public float DistanceBetweenCoordinates(double startCoordinate, double endCoordinate) {
+        double coordinateChange = endCoordinate - startCoordinate;
+        double distance = coordinateChange * (1 / meterAsLatLonDegrees);
+        return (float) (distance / cellsize);
     }
 }
-
