@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Converts a MapPoint in degrees to a MapPoint (x,y) in Web Mercator coordinates.
+/// Converts coordinates between degrees in latitude-longitude and Web Mercator. Also
+/// calculates distances between coordinates in lat-lon.
 /// </summary>
 public class CoordinateConverter {
     double meterAsLatLonDegrees;
@@ -28,6 +29,9 @@ public class CoordinateConverter {
         this.cellsize = cellsize;
     }
 
+    /// <summary>
+    /// User defines meter as lan/lon degrees and the cellsize as parameters. 
+    /// </summary>
     public CoordinateConverter(double meterAsLatLonDegrees, float cellsize) {
         this.meterAsLatLonDegrees = meterAsLatLonDegrees;
         this.cellsize = cellsize;

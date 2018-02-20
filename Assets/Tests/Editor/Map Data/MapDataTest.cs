@@ -177,25 +177,10 @@ public class MapDataTest {
     [Test]
     public void Slice_GetMapSpecificCoordinatesFromLatLonCorrect() {
         List<MapData> slices = mapdata.GetSlices(2);
-        MapData slice = slices.ElementAt(1);
+        MapData slice = slices.ElementAt(0);
         Vector2 mapSpecificVector = slice.GetMapSpecificCoordinatesFromLatLon(new MapPoint(3 * meterInDegrees, 5 * meterInDegrees));
-        Debug.Log("Logging slice map specific coordinates.");
-        Debug.Log(mapSpecificVector.x);
-        Debug.Log(mapSpecificVector.y);
 
-        MapPoint sliceTopLeft = slice.GetTopLeftLatLonPoint();
-        Debug.Log("Logging slice top left coordinates.");
-        Debug.Log(sliceTopLeft.x);
-        Debug.Log(sliceTopLeft.y);
-
-        CoordinateConverter converter = new CoordinateConverter(2);
-        double sliceCenterLon = converter.TransformCoordinateByDistance(((slice.GetWidth() - 1) / 2.0), sliceTopLeft.x);
-        double sliceCenterLat = converter.TransformCoordinateByDistance(-((slice.GetHeight() - 1) / 2.0), sliceTopLeft.y);
-        Debug.Log("Logging slice center coordinates.");
-        Debug.Log(sliceCenterLon);
-        Debug.Log(sliceCenterLat);
-
-        Assert.True(mapSpecificVector.x < precision);
-        Assert.True(mapSpecificVector.y < precision);
+        Assert.True(mapSpecificVector.x - 0.5 < precision);
+        Assert.True(mapSpecificVector.y - 0.5 < precision);
     }
 }

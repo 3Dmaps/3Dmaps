@@ -59,8 +59,8 @@ public class MapData {
     /// </summary>
     public MapPoint GetTopLeftLatLonPoint() {
         Vector2 topLeftVector = this.GetTopLeft();
-        double centerXRelativeToLowerLeftCorner = data.GetLength(0) / 2;
-        double centerYRelativeToLowerLeftCorner = data.GetLength(1) / 2;
+        double centerXRelativeToLowerLeftCorner = data.GetLength(0) / 2.0;
+        double centerYRelativeToLowerLeftCorner = data.GetLength(1) / 2.0;
         double topLeftLon = converter.TransformCoordinateByDistance(centerXRelativeToLowerLeftCorner + topLeftVector.x, this.metadata.xllcorner);
         double topLeftLat = converter.TransformCoordinateByDistance(centerYRelativeToLowerLeftCorner + topLeftVector.y, this.metadata.yllcorner);
         return new MapPoint(topLeftLon, topLeftLat);
@@ -76,8 +76,8 @@ public class MapData {
     }
 
     /// <summary>
-    /// Returns the MapPoint(lon,lat) of the center of the cell that is at position x,y
-    /// elative to the center of the top left cell of the map. 
+    /// Returns the MapPoint(lon,lat) of the center of the cell that is at position 
+    /// Vector2(x,y) relative to the center of the top left cell of the map. 
     /// </summary>
     public MapPoint GetLatLonCoordinates(Vector2 positionOnMap) {
         if (positionOnMap.x < -0.5 || positionOnMap.x > this.GetWidth() - 0.5
@@ -89,13 +89,21 @@ public class MapData {
         double y = converter.TransformCoordinateByDistance((double)positionOnMap.y, (double)topLeft.y);
         return new MapPoint(x, y);
     }
+
+    /// <summary>
+    /// Returns the MapPoint(x,y) in WebMercator of the center of the cell that 
+    /// is at positionVector2(x,y) relative to the center of the top left cell of the map. 
+    /// </summary>
     public MapPoint GetWebMercatorCoordinates(Vector2 positionOnMap) {
         MapPoint latLonPoint = this.GetLatLonCoordinates(positionOnMap);
         return converter.ProjectPointToWebMercator(latLonPoint);
     }
 
-    // NOT WORKING PROPERLY FOR SLICES.
-    public virtual Vector2 GetMapSpecificCoordinatesFromLatLon(MapPoint latLonPoint) {
+    /// <summary>
+    /// Takes a MapPoint(lon,lat) as parameter and returns a Vector2(x,y) that gives 
+    /// the map-specific coordinates relative to the center point of the map. 
+    /// </summary>
+    public Vector2 GetMapSpecificCoordinatesFromLatLon(MapPoint latLonPoint) {
         float maxXDistance = (float)converter.TransformCoordinateByDistance(0, (this.GetWidth() / 2.0));
         float maxYDistance = (float)converter.TransformCoordinateByDistance(0, (this.GetHeight() / 2.0));
         if (Math.Abs(latLonPoint.x) > maxXDistance | Math.Abs(latLonPoint.y) > maxYDistance) {
@@ -109,11 +117,6 @@ public class MapData {
         float xVectorFromCenter = converter.DistanceBetweenCoordinates(sliceCenterLon, latLonPoint.x);
         float yVectorFromCenter = converter.DistanceBetweenCoordinates(sliceCenterLat, latLonPoint.y);
         return new Vector2(xVectorFromCenter, yVectorFromCenter);
-
-        //double centerLonWholeMap = converter.TransformCoordinateByDistance((data.GetLength(0) / 2.0), metadata.xllcorner);
-        //double centerLatWholeMap = converter.TransformCoordinateByDistance((data.GetLength(1) / 2.0), metadata.yllcorner);
-        //double centerLonSlice = converter.TransformCoordinateByDistance((data.GetLength(0) / 2.0), metadata.xllcorner);
-        //double centerLatSlice = converter.TransformCoordinateByDistance((data.GetLength(1) / 2.0), metadata.yllcorner);
     }
 
     public virtual float GetRaw(int x, int y) {

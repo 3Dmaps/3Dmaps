@@ -29,4 +29,11 @@ public class Trail {
     public List<TrailNode> GetNodeList() {
         return nodeList;
     }
+
+    public override int GetHashCode() {
+        var hashCode = 476340561;
+        hashCode = hashCode * -1521134295 + EqualityComparer<List<TrailNode>>.Default.GetHashCode(nodeList);
+        hashCode = hashCode * -1521134295 + id.GetHashCode();
+        return hashCode;
+    }
 }
