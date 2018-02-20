@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using Priority_Queue;
 
 /// <summary>
 /// Generates the visual map to the scene and handles the pieces of said visual map.
@@ -29,7 +30,10 @@ public class MapGenerator : MonoBehaviour {
     private const string mapDataPath = "Assets/Resources/20x20.txt";
     //private const string mapDataPath = "Assets/Resources/grandcanyon.txt";
 
+    private int currentZoomValue  = 0;
+    public  int displayUpdateRate = 4;
     public Vector2 mapViewerPosition = Vector2.zero;
+    SimplePriorityQueue<UnupdatedDisplay> unupdatedDisplays = new SimplePriorityQueue<UnupdatedDisplay>();
 
     public void Start()
     {
@@ -79,17 +83,41 @@ public class MapGenerator : MonoBehaviour {
 		}
 	}
 
-	public void UpdateLOD(int zoomValue) {
+    public void FixedUpdate()
+    {
+        int displaysUpdated = 0;
+        
+        while (displaysUpdated < displayUpdateRate && unupdatedDisplays.Any())
+        {
+            UpdateDisplay(unupdatedDisplays.Dequeue());
+            displaysUpdated++;
+        }
+    }
+
+    private void UpdateDisplay(UnupdatedDisplay ud)
+    {
+        MapDisplay display = ud.display;
+        display.UpdateLOD(ud.lod);
+        display.visualMap.SetActive(true);
+    }
+
+    public void UpdateZoomLevel(int newVal)
+    {
+        currentZoomValue = newVal;
+        UpdateLOD();
+    }
+
+    public void UpdateLOD() {
+        unupdatedDisplays.Clear();
         Plane[] planes = GeometryUtility.CalculateFrustumPlanes(Camera.main);
-        int newLod = Mathf.Max(levelOfDetail - zoomValue, 0);
+        int newLod = Mathf.Max(levelOfDetail - currentZoomValue, 0);
 		foreach(MapDisplay display in displays) {
             Bounds renderBounds = display.meshRenderer.bounds;
             Vector3 center = renderBounds.center;
-            float distanceToCamera = Vector2.Distance(mapViewerPosition, new Vector2(center.x, center.z));
+            float distanceToCamera = Vector2.Distance(new Vector2(mapViewerPosition.x, mapViewerPosition.y - 0.35F), new Vector2(center.x, center.z));
             int distanceBasedLod = newLod + (int)distanceToCamera * 2;
             if (GeometryUtility.TestPlanesAABB(planes, renderBounds)) {
-                display.UpdateLOD(distanceBasedLod);
-                display.visualMap.SetActive(true);
+                unupdatedDisplays.Enqueue(new UnupdatedDisplay(distanceBasedLod, display), distanceBasedLod);
             }
             else
             {
@@ -107,5 +135,15 @@ public struct TerrainType {
 
     public TerrainType(string name, float height, Color colour) {
         this.name = name; this.height = height; this.colour = colour;
+    }
+}
+
+public struct UnupdatedDisplay {
+    public int lod;
+    public MapDisplay display;
+
+    public UnupdatedDisplay(int lod, MapDisplay display)
+    {
+        this.lod = lod; this.display = display;
     }
 }
