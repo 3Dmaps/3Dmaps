@@ -11,13 +11,8 @@ public class MapDisplay : MonoBehaviour {
 	public GameObject visualMap;
 	private Renderer textureRender;
 	private MeshFilter meshFilter;
-	private MeshRenderer meshRenderer;
-
-	private DisplayReadySlice mapData;
-	private TerrainType[] regions;
-
-	private Texture2D texture;
-	private Mesh mesh;
+	public MeshRenderer meshRenderer;
+	private MapDisplayData displayData;
 
 	public GameObject CreateVisual(GameObject visual) {
 		visualMap     = Instantiate(visual) as GameObject;
@@ -27,55 +22,38 @@ public class MapDisplay : MonoBehaviour {
         return visualMap;
 	}
 
-	private Color[] CalculateColourMap(MapData mapData) {
-		int width  = mapData.GetWidth();
-		int height = mapData.GetHeight();
-		Color[] colourMap = new Color[width * height];
-		for (int y = 0; y < height; y++) {
-			for (int x = 0; x < width; x++) {
-				float currentHeight = mapData.GetSquished(x, y);
-				for (int i = 0; i < regions.Length; i++) {
-					if (currentHeight <= regions [i].height) {
-						colourMap [y * width + x] = regions [i].colour;
-						break;
-					}
-				}
-			}
-		}
-		return colourMap;
-	}
-
 	public void SetMapData(DisplayReadySlice mapData) {
-		this.mapData = mapData;
+		if(this.displayData == null ) this.displayData = new MapDisplayData(mapData);
+		else this.displayData.SetMapData(mapData);
 	}
 
 	public void SetRegions(TerrainType[] regions) {
-		this.regions = regions;
+		if(this.displayData == null) {
+			this.displayData = new MapDisplayData();
+			this.displayData.SetRegions(regions);
+		} else displayData.SetRegions(regions);
 	}
 
-	private Mesh GenerateMesh() {
-		return MeshGenerator.GenerateTerrainMesh(mapData).CreateMesh();
+	public MapDisplayStatus GetStatus() {
+		return displayData.status;
 	}
 
-	private Texture2D GenerateTexture() {
-		if (regions != null)
-			return TextureGenerator.TextureFromColourMap(CalculateColourMap(mapData), mapData.GetWidth(), mapData.GetHeight());
-		else
-			return TextureGenerator.TextureFromHeightMap(mapData);
+	public void SetStatus(MapDisplayStatus newStatus) {
+		displayData.SetStatus(newStatus);
 	}
 
 	public void DrawMap() {
-		if(texture == null) texture = GenerateTexture();
-		if(mesh == null) mesh = GenerateMesh();
-		DrawMesh(mesh, texture, mapData.GetScale());
+		MapDisplayStatus status = displayData.PrepareDraw();
+		if(status == MapDisplayStatus.HIDDEN) {
+			this.visualMap.SetActive(false);
+		} else {
+			this.visualMap.SetActive(true);
+			DrawMesh(displayData.GetMesh(), displayData.GetTexture(), displayData.GetScale());
+		}
 	} 
 
 	public void UpdateLOD(int lod) {
-		if(mapData.lod != lod) {
-			mapData.lod = lod;
-			mesh = GenerateMesh();
-			DrawMap();
-		}
+		displayData.UpdateLOD(lod);
 	}
 
 	public void DrawTexture(Texture2D texture, float scale = 1f) {
@@ -91,4 +69,8 @@ public class MapDisplay : MonoBehaviour {
 		meshRenderer.transform.localScale = new Vector3(scale, 1F, scale);
 	}
 
+}
+
+public enum MapDisplayStatus {
+	HIDDEN, LOW_LOD, VISIBLE
 }

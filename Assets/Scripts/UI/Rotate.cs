@@ -9,12 +9,25 @@ public class Rotate : MonoBehaviour {
 	public GameObject target;
 	public bool isPressed = false;
     public float turningSpeed = 30f;
+	public int lodUpdateInterval = 5;
 
-	
-	// Update is called once per frame
-	void Update () {
+    private MapGenerator generator;
+	private int lodUpdateCounter = 0;
+
+    private void Start()
+    {
+        generator = target.GetComponent<MapGenerator>();
+    }
+
+
+    // Update is called once per frame
+    void Update () {
 		if (isPressed) {
 			RotateTarget (turningSpeed * Time.deltaTime);
+			if(generator != null && ++lodUpdateCounter > lodUpdateInterval) {
+				generator.UpdateLOD();
+				lodUpdateCounter = 0;
+			}
 		}
 	
 	}
@@ -31,5 +44,6 @@ public class Rotate : MonoBehaviour {
 	}
 	public void OnPointerUp() {
 		isPressed = false;
-	}
+        if(generator != null) generator.UpdateLOD();
+    }
 }

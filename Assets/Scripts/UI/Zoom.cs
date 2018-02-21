@@ -31,7 +31,7 @@ public class Zoom : MonoBehaviour
             scale = scale * multiplier;
             target.transform.localScale = scale;
             currentZoomLevel += zoomValue;
-            if(generator != null) generator.UpdateLOD(currentZoomLevel);
+            if(generator != null) generator.UpdateZoomLevel(currentZoomLevel);
         }
     }
 }
