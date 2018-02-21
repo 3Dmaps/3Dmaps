@@ -11,7 +11,7 @@ public class CoordinateConverter {
     public const double radiansPerDegree = Math.PI / 180;
     public const double degreeEqualsRadians = 0.017453292519943;
     public const double earthsRadius = 6378137;
-    
+
     public const double defaultMeterAsLatLonDegrees = 0.0000092592592593;
     public const float defaultCellsize = 10f;
     double meterAsLatLonDegrees;
@@ -54,7 +54,7 @@ public class CoordinateConverter {
 
         return new MapPoint(x, y);
     }
-    
+
     /// <summary>
     /// Takes a lat or lon coordinate and transforms it by a number of cells using 
     /// the cellsize and meter value specified in the constructor. Returns the 
@@ -77,6 +77,6 @@ public class CoordinateConverter {
     public float DistanceBetweenCoordinates(double startCoordinate, double endCoordinate) {
         double coordinateChange = endCoordinate - startCoordinate;
         double distance = coordinateChange * (1 / meterAsLatLonDegrees);
-        return (float) (distance / cellsize);
+        return (float)(distance / cellsize);
     }
 }

@@ -1,4 +1,4 @@
-
+﻿
 /// <summary>
 /// Container for various height map metadata
 /// </summary>
@@ -11,7 +11,7 @@ public class MapMetadata {
     public double xllcorner = 0, yllcorner = 0;
     public float cellsize = 0f, nodatavalue = -9999f, minheight = 0f, maxheight = 1000f;
     public void Set(string key, string value) {
-        switch(key) {
+        switch (key) {
             case nrowsKey:
                 nrows = int.Parse(value);
                 break;

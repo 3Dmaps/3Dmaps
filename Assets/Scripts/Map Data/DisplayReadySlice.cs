@@ -7,14 +7,14 @@ using System.Collections.Generic;
 
 public class DisplayReadySlice : MapDataSlice {
 
-	public int lod;
-	public DisplayReadySlice(MapDataSlice slice, int lod) : base(slice) {
-		this.lod = lod;
-	}
+    public int lod;
+    public DisplayReadySlice(MapDataSlice slice, int lod) : base(slice) {
+        this.lod = lod;
+    }
 
-	private int GetActualLOD() {
-		return lod == 0 ? 1 : lod * 2;
-	}
+    private int GetActualLOD() {
+        return lod == 0 ? 1 : lod * 2;
+    }
 
     private int SimplificationIncrement(int coordinate, int dimension) {
         int actualLOD = GetActualLOD();
@@ -29,5 +29,5 @@ public class DisplayReadySlice : MapDataSlice {
     public int SimplificationIncrementForX(int x) {
         return SimplificationIncrement(x, GetWidth());
     }
-	
+
 }
