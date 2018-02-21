@@ -954,6 +954,9 @@
     <nd ref="4326826932"/>
     <nd ref="4326826902"/>
     <nd ref="4326826899"/>
+    <tag k="zmeucolor" v="red" />
+  </way>
+<way id="534743875" version="1" timestamp="2016-07-29T12:52:57Z" uid="463545" user="Shinigami" changeset="41108758">
     <nd ref="4326826895"/>
     <nd ref="4326826893"/>
     <nd ref="4326826890"/>
@@ -1038,5 +1041,6 @@
     <nd ref="4326826502"/>
     <nd ref="4326826501"/>
     <nd ref="4326826500"/>
+    <tag k="zmeucolor" v="yellow" />
   </way>
 </osm>
