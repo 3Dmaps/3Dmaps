@@ -12,7 +12,10 @@ using System;
 
 public class TrailDataImporter {
     private const string wayElement = "way", nodeElement = "node", childNodeElement = "nd";
-    private const string idAttribute = "id", latAttribute = "lat", lonAttribute = "lon", refAttribute = "ref";
+	private const string idAttribute = "id", latAttribute = "lat", lonAttribute = "lon", 
+			refAttribute = "ref", colorKeyValue = "zmeucolor";
+	private const string tagElement = "tag";
+
 
     public static TrailData ReadTrailData(string path) {
         XmlDocument xmlDoc = new XmlDocument();
@@ -62,6 +65,9 @@ public class TrailDataImporter {
                 trailNode.SetId(long.Parse(childNode.GetAttribute(refAttribute)));
                 trail.AddNode(trailNode);
             }
+			if (childNode.LocalName.Equals (tagElement) && childNode.GetAttribute("k").Equals(colorKeyValue))  {
+				trail.colorName = childNode.GetAttribute ("v");
+			}
         }
         trailData.AddTrail(trail);
     }

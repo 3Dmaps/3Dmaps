@@ -31,4 +31,10 @@ public class TrailDataImporterTest {
         Assert.True(Mathf.Abs(trailData.trails[1].GetNodeList()[2].GetLat() - 37.0383775F) < precision, "TrailNode lat incorrect.");
         Assert.True(Mathf.Abs(trailData.trails[1].GetNodeList()[2].GetLon() - (-111.1872653F)) < precision, "TrailNode lon incorrect.");
     }
+
+	[Test]
+	public void TrailColorCorrect() {
+		Assert.True(trailData.trails[0].colorName == "unnamedRouteColorName");
+	}
+
 }

@@ -13,11 +13,6 @@ public class TrailGenerator : MonoBehaviour {
 		StartCoroutine(StartInit (60));
 	}
 
-	// Update is called once per frame
-	void Update () {
-
-	}
-
 	IEnumerator StartInit(int counter) {
 		for (int val = 0; val <= counter; val += 1) {
 			yield return null;
@@ -32,12 +27,12 @@ public class TrailGenerator : MonoBehaviour {
 		display = this.GetComponent<TrailDisplay> ();
 		display.mapData = mapData;
 
-		print ("map data found, top left is " + mapData.GetTopLeftLatLonPoint ().x + "/" + mapData.GetTopLeftLatLonPoint ().y);
-		print ("?" + mapData.GetMapSpecificCoordinatesFromLatLon(mapData.GetTopLeftLatLonPoint()).x);
+		ColorHandler colorHandler = new ColorHandler ();
 
 		TrailData trailData = TrailDataImporter.ReadTrailData ("Assets/Resources/testData/testTrailData2.xml");
 
 		foreach (Trail trail in trailData.trails) {
+			display.trailColor = colorHandler.selectColor(trail.colorName);
 			display.DisplayNodes(TranslateTrail (trail));
 		}
 	}
@@ -47,8 +42,7 @@ public class TrailGenerator : MonoBehaviour {
 
 		foreach (TrailNode node in trail.GetNodeList()) {
 			Vector2 point = mapData.GetMapSpecificCoordinatesFromLatLon (new MapPoint((double) node.GetLon(), (double) node.GetLat ()));
-			print ("node lat/lon: " + node.GetLat() + "/" + node.GetLon());
-			print ("Point: " + point.x + "/" + point.y);
+
 			DisplayNode displayNode = new DisplayNode((int) point.x, (int) point.y);
 			displayNodes.Add (displayNode);
 		}
