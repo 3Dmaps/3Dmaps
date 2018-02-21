@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Switches Trail color names to corresponding Color objects.  
+/// </summary>
+
 public class ColorHandler {
 
 	private Dictionary<string, Color> colors;

@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Handles full Trail pipeline from loading XML file to converting coordinates
+/// to displaying trails in Unity.  
+/// </summary>
+
 public class TrailGenerator : MonoBehaviour {
 
 	public MapGenerator mapGenerator;
@@ -32,7 +37,7 @@ public class TrailGenerator : MonoBehaviour {
 		TrailData trailData = TrailDataImporter.ReadTrailData ("Assets/Resources/testData/testTrailData2.xml");
 
 		foreach (Trail trail in trailData.trails) {
-			display.trailColor = colorHandler.selectColor(trail.colorName);
+			display.trailColor = colorHandler.SelectColor(trail.colorName);
 			display.DisplayNodes(TranslateTrail (trail));
 		}
 	}
