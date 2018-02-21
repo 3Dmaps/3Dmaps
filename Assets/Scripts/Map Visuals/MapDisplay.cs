@@ -8,20 +8,11 @@ using System.Collections;
 
 public class MapDisplay : MonoBehaviour {
 
-	private const int lowLod = 20;
-
 	public GameObject visualMap;
 	private Renderer textureRender;
 	private MeshFilter meshFilter;
 	public MeshRenderer meshRenderer;
-
-	public DisplayReadySlice mapData;
-	private TerrainType[] regions;
-
-	private Texture2D texture;
-	private Mesh mesh;
-	private Mesh lowLodMesh;
-	public MapDisplayStatus status;
+	private MapDisplayData displayData;
 
 	public GameObject CreateVisual(GameObject visual) {
 		visualMap     = Instantiate(visual) as GameObject;
@@ -31,74 +22,38 @@ public class MapDisplay : MonoBehaviour {
         return visualMap;
 	}
 
-	private Color[] CalculateColourMap(MapData mapData) {
-		int width  = mapData.GetWidth();
-		int height = mapData.GetHeight();
-		Color[] colourMap = new Color[width * height];
-		for (int y = 0; y < height; y++) {
-			for (int x = 0; x < width; x++) {
-				float currentHeight = mapData.GetSquished(x, y);
-				for (int i = 0; i < regions.Length; i++) {
-					if (currentHeight <= regions [i].height) {
-						colourMap [y * width + x] = regions [i].colour;
-						break;
-					}
-				}
-			}
-		}
-		return colourMap;
-	}
-
 	public void SetMapData(DisplayReadySlice mapData) {
-		this.mapData = mapData;
-		int originalLod = mapData.lod;
-		mapData.lod = lowLod;
-		lowLodMesh = GenerateMesh();
-		mapData.lod = originalLod;
+		if(this.displayData == null ) this.displayData = new MapDisplayData(mapData);
+		else this.displayData.SetMapData(mapData);
 	}
 
 	public void SetRegions(TerrainType[] regions) {
-		this.regions = regions;
+		if(this.displayData == null) {
+			this.displayData = new MapDisplayData();
+			this.displayData.SetRegions(regions);
+		} else displayData.SetRegions(regions);
+	}
+
+	public MapDisplayStatus GetStatus() {
+		return displayData.status;
 	}
 
 	public void SetStatus(MapDisplayStatus newStatus) {
-		this.status = newStatus;
-	}
-
-	private Mesh GenerateMesh() {
-		return MeshGenerator.GenerateTerrainMesh(mapData).CreateMesh();
-	}
-
-	private Texture2D GenerateTexture() {
-		if (regions != null)
-			return TextureGenerator.TextureFromColourMap(CalculateColourMap(mapData), mapData.GetWidth(), mapData.GetHeight());
-		else
-			return TextureGenerator.TextureFromHeightMap(mapData);
+		displayData.SetStatus(newStatus);
 	}
 
 	public void DrawMap() {
-		if(texture == null) texture = GenerateTexture();
-		switch(this.status) {
-			case MapDisplayStatus.VISIBLE:
-				if(mesh == null) mesh = GenerateMesh();
-				this.visualMap.SetActive(true);
-				DrawMesh(mesh, texture, mapData.GetScale());
-				break;
-			case MapDisplayStatus.LOW_LOD:
-				this.visualMap.SetActive(true);
-				DrawMesh(lowLodMesh, texture, mapData.GetScale());
-				break;
-			case MapDisplayStatus.HIDDEN:
-				this.visualMap.SetActive(false);
-				break;
+		MapDisplayStatus status = displayData.PrepareDraw();
+		if(status == MapDisplayStatus.HIDDEN) {
+			this.visualMap.SetActive(false);
+		} else {
+			this.visualMap.SetActive(true);
+			DrawMesh(displayData.GetMesh(), displayData.GetTexture(), displayData.GetScale());
 		}
 	} 
 
 	public void UpdateLOD(int lod) {
-		if(mapData.lod != lod) {
-			mapData.lod = lod;
-			mesh = GenerateMesh();
-		}
+		displayData.UpdateLOD(lod);
 	}
 
 	public void DrawTexture(Texture2D texture, float scale = 1f) {

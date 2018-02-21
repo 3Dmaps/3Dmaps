@@ -90,7 +90,7 @@ public class MapGenerator : MonoBehaviour {
             int distanceBasedLod = newLod + (int)distanceToCamera * 2;
             if (GeometryUtility.TestPlanesAABB(planes, renderBounds)) {
                 displayUpdater.Add(new UnupdatedDisplay(distanceBasedLod, display), distanceBasedLod);
-                if(display.status == MapDisplayStatus.HIDDEN) {
+                if(display.GetStatus() == MapDisplayStatus.HIDDEN) {
                     display.SetStatus(MapDisplayStatus.LOW_LOD);
                     display.DrawMap();
                 }
