@@ -11,8 +11,9 @@ public class MapData {
     protected float[,] data;
     private float scale;
     protected MapMetadata metadata;
+    protected CoordinateConverter converter;
 
-    public MapData(MapData mapData) : this(mapData.data, mapData.metadata){
+    public MapData(MapData mapData) : this(mapData.data, mapData.metadata) {
     }
 
     public MapData(int width, int height, MapMetadata metadata) : this(new float[width, height], metadata) {
@@ -22,6 +23,7 @@ public class MapData {
         this.data = data;
         scale = 1 / (float)Mathf.Max(data.GetLength(0), data.GetLength(1));
         this.metadata = metadata;
+        this.converter = new CoordinateConverter(this.metadata.cellsize);
     }
 
     public static MapData ForTesting(float[,] data) {
@@ -52,6 +54,71 @@ public class MapData {
         return new Vector2((GetWidth() - 1) / -2f, (GetHeight() - 1) / 2f);
     }
 
+    /// <summary>
+    /// Returns the MapPoint(lon,lat) of the center of the top left cell of this map.
+    /// </summary>
+    public MapPoint GetTopLeftLatLonPoint() {
+        Vector2 topLeftVector = this.GetTopLeft();
+        double centerXRelativeToLowerLeftCorner = data.GetLength(0) / 2.0;
+        double centerYRelativeToLowerLeftCorner = data.GetLength(1) / 2.0;
+        double topLeftLon = converter.TransformCoordinateByDistance(centerXRelativeToLowerLeftCorner + topLeftVector.x, this.metadata.xllcorner);
+        double topLeftLat = converter.TransformCoordinateByDistance(centerYRelativeToLowerLeftCorner + topLeftVector.y, this.metadata.yllcorner);
+        return new MapPoint(topLeftLon, topLeftLat);
+    }
+
+    /// <summary>
+    /// Returns the MapPoint(x,y) of the center of the top left cell of this map in 
+    /// WebMercator.
+    /// </summary>
+    public MapPoint GetTopLeftAsWebMercator() {
+        MapPoint topLeftCorner = GetTopLeftLatLonPoint();
+        return converter.ProjectPointToWebMercator(topLeftCorner);
+    }
+
+    /// <summary>
+    /// Returns the MapPoint(lon,lat) of the center of the cell that is at position 
+    /// Vector2(x,y) relative to the center of the top left cell of the map. 
+    /// </summary>
+    public MapPoint GetLatLonCoordinates(Vector2 positionOnMap) {
+        if (positionOnMap.x < -0.5 || positionOnMap.x > this.GetWidth() - 0.5
+            || positionOnMap.y > 0.5 || positionOnMap.y < -this.GetHeight() + 0.5) {
+            throw new System.ArgumentException("Index out of bounds! (" + positionOnMap.x + ", " + positionOnMap.y + ")");
+        }
+        MapPoint topLeft = this.GetTopLeftLatLonPoint();
+        double x = converter.TransformCoordinateByDistance((double)positionOnMap.x, (double)topLeft.x);
+        double y = converter.TransformCoordinateByDistance((double)positionOnMap.y, (double)topLeft.y);
+        return new MapPoint(x, y);
+    }
+
+    /// <summary>
+    /// Returns the MapPoint(x,y) in WebMercator of the center of the cell that 
+    /// is at positionVector2(x,y) relative to the center of the top left cell of the map. 
+    /// </summary>
+    public MapPoint GetWebMercatorCoordinates(Vector2 positionOnMap) {
+        MapPoint latLonPoint = this.GetLatLonCoordinates(positionOnMap);
+        return converter.ProjectPointToWebMercator(latLonPoint);
+    }
+
+    /// <summary>
+    /// Takes a MapPoint(lon,lat) as parameter and returns a Vector2(x,y) that gives 
+    /// the map-specific coordinates relative to the center point of the map. 
+    /// </summary>
+    public Vector2 GetMapSpecificCoordinatesFromLatLon(MapPoint latLonPoint) {
+        float maxXDistance = (float)converter.TransformCoordinateByDistance(0, (this.GetWidth() / 2.0));
+        float maxYDistance = (float)converter.TransformCoordinateByDistance(0, (this.GetHeight() / 2.0));
+        if (Math.Abs(latLonPoint.x) > maxXDistance | Math.Abs(latLonPoint.y) > maxYDistance) {
+            throw new System.ArgumentException("Index out of bounds! (" + latLonPoint.x + ", " + latLonPoint.y + ")");
+        }
+
+        MapPoint sliceTopLeft = this.GetTopLeftLatLonPoint();
+        double sliceCenterLon = converter.TransformCoordinateByDistance(((this.GetWidth() - 1) / 2.0), sliceTopLeft.x);
+        double sliceCenterLat = converter.TransformCoordinateByDistance(-((this.GetHeight() - 1) / 2.0), sliceTopLeft.y);
+        
+        float xVectorFromCenter = converter.DistanceBetweenCoordinates(sliceCenterLon, latLonPoint.x);
+        float yVectorFromCenter = converter.DistanceBetweenCoordinates(sliceCenterLat, latLonPoint.y);
+        return new Vector2(xVectorFromCenter, yVectorFromCenter);
+    }
+
     public virtual float GetRaw(int x, int y) {
         return data[x, y];
     }
@@ -60,7 +127,7 @@ public class MapData {
         return (1 / metadata.cellsize) * scale;
     }
 
-    public float GetNormalized(int x, int y){
+    public float GetNormalized(int x, int y) {
         return (GetRaw(x, y) - metadata.minheight) * GetHeightMultiplier();
     }
 
@@ -73,12 +140,12 @@ public class MapData {
     }
 
     public List<MapDataSlice> GetSlices(int topLeftX, int topLeftY, int bottomRightX, int bottomRightY, int sliceWidth, int sliceHeight, bool doOffset = true) {
-        if(sliceHeight <= (doOffset ? 1 : 0) || sliceWidth <= (doOffset ? 1 : 0)) {
+        if (sliceHeight <= (doOffset ? 1 : 0) || sliceWidth <= (doOffset ? 1 : 0)) {
             throw new System.ArgumentException("Too small slice width (" + sliceWidth + ") or height (" + sliceHeight + ")");
         }
         List<MapDataSlice> slices = new List<MapDataSlice>();
-        for(int y = topLeftY; y < bottomRightY; y += sliceHeight - (doOffset ? 1 : 0)) {
-            for(int x = topLeftX; x < bottomRightX; x += sliceWidth - (doOffset ? 1: 0)) {
+        for (int y = topLeftY; y < bottomRightY; y += sliceHeight - (doOffset ? 1 : 0)) {
+            for (int x = topLeftX; x < bottomRightX; x += sliceWidth - (doOffset ? 1 : 0)) {
                 slices.Add(new MapDataSlice(this, x, y, sliceWidth, sliceHeight));
             }
         }
@@ -86,11 +153,11 @@ public class MapData {
     }
 
     public List<MapData> GetSlices(int sliceSize) {
-        return GetSlices(0, 0, GetWidth(), GetHeight(), sliceSize, sliceSize).ConvertAll(s => (MapData) s);
+        return GetSlices(0, 0, GetWidth(), GetHeight(), sliceSize, sliceSize).ConvertAll(s => (MapData)s);
     }
 
     public List<DisplayReadySlice> GetDisplayReadySlices(int sliceSize, int lod) {
-        List<MapDataSlice> slices = GetSlices(sliceSize).ConvertAll(s => (MapDataSlice) s); // TODO: Get rid of these double conversions
+        List<MapDataSlice> slices = GetSlices(sliceSize).ConvertAll(s => (MapDataSlice)s); // TODO: Get rid of these double conversions
         List<DisplayReadySlice> displayReadies = slices.ConvertAll(s => s.AsDisplayReadySlice(lod));
         return displayReadies;
     }
