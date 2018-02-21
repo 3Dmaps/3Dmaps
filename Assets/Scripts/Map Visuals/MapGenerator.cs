@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System;
 using Priority_Queue;
 
 /// <summary>
@@ -30,40 +29,18 @@ public class MapGenerator : MonoBehaviour {
     private const string mapDataPath = "Assets/Resources/20x20.txt";
     //private const string mapDataPath = "Assets/Resources/grandcanyon.txt";
 
+    private DisplayUpdater displayUpdater = new DisplayUpdater(); 
     private int currentZoomValue  = 0;
     public  int displayUpdateRate = 4;
     public Vector2 mapViewerPosition = Vector2.zero;
-    SimplePriorityQueue<UnupdatedDisplay> unupdatedDisplays = new SimplePriorityQueue<UnupdatedDisplay>();
 
     public void Start()
     {
-        SmoothRegions(regionsSmoothCount);
+        regions     = new MapRegionSmoother().SmoothRegions(regions,regionsSmoothCount);
 		mapMetadata = MapDataImporter.ReadMetadata(mapDataPath);
         mapData     = MapDataImporter.ReadMapData(mapDataPath, mapMetadata);
 		displays	= new List<MapDisplay>();
         GenerateMap();
-    }
-
-    private void SmoothRegions(int amount)
-    {
-        Array.Sort<TerrainType>(regions, (x, y) => x.height.CompareTo(y.height));
-        TerrainType[] smoothedRegions = new TerrainType[regions.Length * amount - amount + 1];
-        for (int i = 0; i < regions.Length - 1; i++)
-        {
-            TerrainType current = regions[i];
-            TerrainType next    = regions[i + 1];
-
-            for (int j = 0; j <= amount; j++)
-            {
-                float percentage = j == 0 ? 0 : (float)j / (float)amount;
-                TerrainType smoothed = new TerrainType();
-                smoothed.name   =  i + "_Smoothed_" + j;
-                smoothed.height = current.height + ((next.height - current.height) * percentage);
-                smoothed.colour = Color.Lerp(current.colour, next.colour, percentage);
-                smoothedRegions[i * amount + j] = smoothed;
-            }
-        }
-        regions = smoothedRegions;
     }
 
     public void GenerateMap() {
@@ -88,20 +65,13 @@ public class MapGenerator : MonoBehaviour {
     {
         int displaysUpdated = 0;
         
-        while (displaysUpdated < displayUpdateRate && unupdatedDisplays.Any())
+        while (displaysUpdated < displayUpdateRate && !displayUpdater.IsEmpty())
         {
-            UpdateDisplay(unupdatedDisplays.Dequeue());
+            displayUpdater.UpdateNextDisplay();
             displaysUpdated++;
         }
     }
 
-    private void UpdateDisplay(UnupdatedDisplay ud)
-    {
-        MapDisplay display = ud.display;
-        display.UpdateLOD(ud.lod);
-        display.SetStatus(MapDisplayStatus.VISIBLE);
-        display.DrawMap();
-    }
 
     public void UpdateZoomLevel(int newVal)
     {
@@ -110,7 +80,7 @@ public class MapGenerator : MonoBehaviour {
     }
 
     public void UpdateLOD() {
-        unupdatedDisplays.Clear();
+        displayUpdater.Clear();
         Plane[] planes = GeometryUtility.CalculateFrustumPlanes(Camera.main);
         int newLod = Mathf.Max(levelOfDetail - currentZoomValue, 0);
 		foreach(MapDisplay display in displays) {
@@ -119,7 +89,7 @@ public class MapGenerator : MonoBehaviour {
             float distanceToCamera = Vector2.Distance(new Vector2(mapViewerPosition.x, mapViewerPosition.y - 0.35F), new Vector2(center.x, center.z));
             int distanceBasedLod = newLod + (int)distanceToCamera * 2;
             if (GeometryUtility.TestPlanesAABB(planes, renderBounds)) {
-                unupdatedDisplays.Enqueue(new UnupdatedDisplay(distanceBasedLod, display), distanceBasedLod);
+                displayUpdater.Add(new UnupdatedDisplay(distanceBasedLod, display), distanceBasedLod);
                 if(display.status == MapDisplayStatus.HIDDEN) {
                     display.SetStatus(MapDisplayStatus.LOW_LOD);
                     display.DrawMap();
