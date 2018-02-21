@@ -8,25 +8,27 @@ using UnityEngine;
 /// calculates distances between coordinates in lat-lon.
 /// </summary>
 public class CoordinateConverter {
+    public const double radiansPerDegree = Math.PI / 180;
+    public const double degreeEqualsRadians = 0.017453292519943;
+    public const double earthsRadius = 6378137;
+    
+    public const double defaultMeterAsLatLonDegrees = 0.0000092592592593;
+    public const float defaultCellsize = 10f;
     double meterAsLatLonDegrees;
     float cellsize;
 
     /// <summary>
     /// Constructor with no parameters sets the default meter as lan/lon degrees 
-    /// value and the cellsize to 10 meters. 
+    /// value and the cellsize to default value. 
     /// </summary>
-    public CoordinateConverter() {
-        this.meterAsLatLonDegrees = 0.0000092592592593;
-        this.cellsize = 10;
+    public CoordinateConverter() : this(defaultCellsize) {
     }
 
     /// <summary>
     /// Constructor with cellsize parameter sets the default meter as lan/lon degrees 
     /// value and the cellsize to the given cellsize. 
     /// </summary>
-    public CoordinateConverter(float cellsize) {
-        this.meterAsLatLonDegrees = 0.0000092592592593;
-        this.cellsize = cellsize;
+    public CoordinateConverter(float cellsize) : this(defaultMeterAsLatLonDegrees, cellsize) {
     }
 
     /// <summary>
@@ -40,18 +42,15 @@ public class CoordinateConverter {
     /// <summary>
     /// Takes a MapPoint(lon,lat) and returns a MapPoint(x,y) with x and y coordinates in WebMercator.
     /// </summary>
-    /// <param name="PointToReproject">MapPoint with x as lon and y as lat</param>
+    /// <param name="pointToReproject">MapPoint with x as lon and y as lat</param>
     /// <returns>MapPoint with x and y in WebMercator</returns>
 
-    public MapPoint ProjectPointToWebMercator(MapPoint PointToReproject) {
-        double RadiansPerDegree = Math.PI / 180;
-        double Rad = PointToReproject.y * RadiansPerDegree;
-        double FSin = Math.Sin(Rad);
-        double DegreeEqualsRadians = 0.017453292519943;
-        double EarthsRadius = 6378137;
+    public MapPoint ProjectPointToWebMercator(MapPoint pointToReproject) {
+        double rad = pointToReproject.y * radiansPerDegree;
+        double fSin = Math.Sin(rad);
 
-        double y = EarthsRadius / 2.0 * Math.Log((1.0 + FSin) / (1.0 - FSin));
-        double x = PointToReproject.x * DegreeEqualsRadians * EarthsRadius;
+        double y = earthsRadius / 2.0 * Math.Log((1.0 + fSin) / (1.0 - fSin));
+        double x = pointToReproject.x * degreeEqualsRadians * earthsRadius;
 
         return new MapPoint(x, y);
     }
