@@ -13,10 +13,10 @@ public class MapMetadataTest {
     }
 
     [Test]
-	public void SetNColsWorks() {
+    public void SetNColsWorks() {
         metadata.Set("ncols", "7");
         Assert.True(metadata.ncols == 7, "Ncols incorrect.");
-	}
+    }
 
     [Test]
     public void SetNRowsWorks() {

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
@@ -113,7 +113,7 @@ public class MapData {
         MapPoint sliceTopLeft = this.GetTopLeftLatLonPoint();
         double sliceCenterLon = converter.TransformCoordinateByDistance(((this.GetWidth() - 1) / 2.0), sliceTopLeft.x);
         double sliceCenterLat = converter.TransformCoordinateByDistance(-((this.GetHeight() - 1) / 2.0), sliceTopLeft.y);
-        
+
         float xVectorFromCenter = converter.DistanceBetweenCoordinates(sliceCenterLon, latLonPoint.x);
         float yVectorFromCenter = converter.DistanceBetweenCoordinates(sliceCenterLat, latLonPoint.y);
         return new Vector2(xVectorFromCenter, yVectorFromCenter);
