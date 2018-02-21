@@ -24,7 +24,7 @@ public class MapGenerator : MonoBehaviour {
 
 	public GameObject visual;
 
-	private MapData mapData;
+	public MapData mapData;
 	private MapMetadata mapMetadata;
 	private List<MapDisplay> displays;
     private const string mapDataPath = "Assets/Resources/20x20.txt";

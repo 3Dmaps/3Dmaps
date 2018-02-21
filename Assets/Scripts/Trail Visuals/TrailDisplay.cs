@@ -11,6 +11,7 @@ public class TrailDisplay : MonoBehaviour {
 
 	public MapData mapData;
 	public GameObject nodeGameObject;
+	public Color trailColor;
 
 	// Use this for initialization
 	void Start () {
@@ -34,6 +35,10 @@ public class TrailDisplay : MonoBehaviour {
 		Vector3 nodePosition = new Vector3 (((float) node.x * mapData.GetScale()), height, (float) node.y * mapData.GetScale());
 
 		GameObject newNode = Instantiate (nodeGameObject);
+		if (newNode.GetComponent<Renderer> () != null) {
+			newNode.GetComponent<Renderer> ().material.color = trailColor;
+		}
+
 		newNode.transform.position = nodePosition;
 		newNode.transform.SetParent (this.transform);
 	}

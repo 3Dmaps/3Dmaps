@@ -12,6 +12,7 @@ public class TrailDisplayTest {
 	[SetUp]
 	public void Setup() {
 		GameObject nodeGameObject = new GameObject ();
+
 		GameObject trailDisplayObject = new GameObject ();
 
 		display = trailDisplayObject.AddComponent<TrailDisplay> ();
