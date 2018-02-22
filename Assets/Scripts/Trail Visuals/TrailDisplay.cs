@@ -11,17 +11,30 @@ public class TrailDisplay : MonoBehaviour {
 
 	public MapData mapData;
 	public GameObject nodeGameObject;
+    public GameObject lineGameObject;
 	public Color trailColor;
+    public List<Vector3> nodePositions;
 
 	// Use this for initialization
 	void Start () {
 	}
 
 	public void DisplayNodes(List<DisplayNode> nodeList) {
-		foreach (DisplayNode node in nodeList) {
+        
+        foreach (DisplayNode node in nodeList) {
 			GenerateNode (node);
 		}
-	}
+
+        GameObject newLine = Instantiate(lineGameObject);
+        LineRenderer lineRenderer = newLine.AddComponent<LineRenderer>();
+        lineRenderer.positionCount = this.nodePositions.Count;        
+        lineRenderer.widthMultiplier = 0.01f;        
+        lineRenderer.SetPositions(this.nodePositions.ToArray());
+        newLine.transform.SetParent(this.transform);
+        if (newLine.GetComponent<Renderer> () != null) {
+			newLine.GetComponent<Renderer> ().material.color = trailColor;
+		}
+    }
 
 	public void GenerateNode (DisplayNode node) {
 		int rawX = node.x + ((mapData.GetWidth() - 1) / 2);
@@ -33,14 +46,16 @@ public class TrailDisplay : MonoBehaviour {
 			
 		float height = mapData.GetNormalized (rawX, rawY);
 		Vector3 nodePosition = new Vector3 (((float) node.x * mapData.GetScale()), height, (float) node.y * mapData.GetScale());
+        this.nodePositions.Add(nodePosition);
 
-		GameObject newNode = Instantiate (nodeGameObject);
-		if (newNode.GetComponent<Renderer> () != null) {
-			newNode.GetComponent<Renderer> ().material.color = trailColor;
-		}
 
-		newNode.transform.position = nodePosition;
-		newNode.transform.SetParent (this.transform);
+		//GameObject newNode = Instantiate (nodeGameObject);
+		//if (newNode.GetComponent<Renderer> () != null) {
+		//	newNode.GetComponent<Renderer> ().material.color = trailColor;
+		//}
+
+		//newNode.transform.position = nodePosition;
+		//newNode.transform.SetParent (this.transform);
 	}
 
 	public bool IsWithinBounds(int rawX, int rawY) {

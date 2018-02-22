@@ -30,9 +30,9 @@ public class TrailGenerator : MonoBehaviour {
 		mapData = mapGenerator.mapData;
 
 		display = this.GetComponent<TrailDisplay> ();
-		display.mapData = mapData;
+		display.mapData = mapData;        
 
-		ColorHandler colorHandler = new ColorHandler ();
+        ColorHandler colorHandler = new ColorHandler ();
 
 		TrailData trailData = TrailDataImporter.ReadTrailData ("Assets/Resources/testData/testTrailData2.xml");
 
