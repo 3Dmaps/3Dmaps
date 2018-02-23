@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Produces a representation of a trail by generating GameObjects for each node 
-/// in a trail and positioning them correctly relative to the map created from a MapData.
+/// Produces a representation of a trail by positioning each node 
+/// in a trail correctly relative to the map created from a MapData
+/// and drawing the path with LineRenderer.
 /// </summary>
 
 public class TrailDisplay : MonoBehaviour {
@@ -18,18 +19,16 @@ public class TrailDisplay : MonoBehaviour {
 	void Start () {
 	}
 
-	public void DisplayNodes(List<DisplayNode> nodeList) {
-
+	public void DisplayNodes(List<DisplayNode> nodeList)
+    {
         nodePositions = new List<Vector3>();
         foreach (DisplayNode node in nodeList) {
 			GenerateNode (node);
 		}
-        generateLine();
-
-        
+        GenerateLine();        
     }
 
-    public void generateLine()
+    public void GenerateLine()
     {
         GameObject newLine = new GameObject();
         newLine.transform.SetParent(this.transform);
@@ -38,8 +37,7 @@ public class TrailDisplay : MonoBehaviour {
         lineRenderer.SetPositions(this.nodePositions.ToArray());
         lineRenderer.widthMultiplier = 0.01f;
         lineRenderer.useWorldSpace = false;
-
-
+        
         if (newLine.GetComponent<Renderer>() != null)
         {
             newLine.GetComponent<Renderer>().material.shader = Shader.Find("Unlit/Color");
