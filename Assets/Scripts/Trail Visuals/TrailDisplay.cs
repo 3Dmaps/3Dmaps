@@ -10,8 +10,7 @@ using UnityEngine;
 public class TrailDisplay : MonoBehaviour {
 
 	public MapData mapData;
-	public GameObject nodeGameObject;
-    public GameObject lineGameObject;
+	public GameObject nodeGameObject;    
 	public Color trailColor;
     public List<Vector3> nodePositions;
 
@@ -20,23 +19,35 @@ public class TrailDisplay : MonoBehaviour {
 	}
 
 	public void DisplayNodes(List<DisplayNode> nodeList) {
-        
+
+        nodePositions = new List<Vector3>();
         foreach (DisplayNode node in nodeList) {
 			GenerateNode (node);
 		}
+        generateLine();
 
-        GameObject newLine = Instantiate(lineGameObject);
-        LineRenderer lineRenderer = newLine.AddComponent<LineRenderer>();
-        lineRenderer.positionCount = this.nodePositions.Count;        
-        lineRenderer.widthMultiplier = 0.01f;        
-        lineRenderer.SetPositions(this.nodePositions.ToArray());
-        newLine.transform.SetParent(this.transform);
-        if (newLine.GetComponent<Renderer> () != null) {
-			newLine.GetComponent<Renderer> ().material.color = trailColor;
-		}
+        
     }
 
-	public void GenerateNode (DisplayNode node) {
+    public void generateLine()
+    {
+        GameObject newLine = new GameObject();
+        newLine.transform.SetParent(this.transform);
+        LineRenderer lineRenderer = newLine.AddComponent<LineRenderer>();
+        lineRenderer.positionCount = this.nodePositions.Count;
+        lineRenderer.SetPositions(this.nodePositions.ToArray());
+        lineRenderer.widthMultiplier = 0.01f;
+        lineRenderer.useWorldSpace = false;
+
+
+        if (newLine.GetComponent<Renderer>() != null)
+        {
+            newLine.GetComponent<Renderer>().material.color = trailColor;
+        }
+    }
+
+
+    public void GenerateNode (DisplayNode node) {
 		int rawX = node.x + ((mapData.GetWidth() - 1) / 2);
 		int rawY = mapData.GetHeight() - 1 - (node.y + ((mapData.GetHeight() - 1) / 2));
 
@@ -49,14 +60,17 @@ public class TrailDisplay : MonoBehaviour {
         this.nodePositions.Add(nodePosition);
 
 
-		//GameObject newNode = Instantiate (nodeGameObject);
-		//if (newNode.GetComponent<Renderer> () != null) {
-		//	newNode.GetComponent<Renderer> ().material.color = trailColor;
-		//}
+        GameObject newNode = Instantiate(nodeGameObject);
+        if (newNode.GetComponent<Renderer>() != null)
+        {
+            newNode.GetComponent<Renderer>().material.color = trailColor;
+        }
 
-		//newNode.transform.position = nodePosition;
-		//newNode.transform.SetParent (this.transform);
-	}
+        newNode.transform.position = nodePosition;
+        newNode.transform.SetParent(this.transform);
+    }
+
+
 
 	public bool IsWithinBounds(int rawX, int rawY) {
 		if (rawX < 0 || rawX > mapData.GetWidth() - 1) {
