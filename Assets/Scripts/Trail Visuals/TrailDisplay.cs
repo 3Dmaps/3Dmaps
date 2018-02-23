@@ -42,6 +42,7 @@ public class TrailDisplay : MonoBehaviour {
 
         if (newLine.GetComponent<Renderer>() != null)
         {
+            newLine.GetComponent<Renderer>().material.shader = Shader.Find("Unlit/Color");
             newLine.GetComponent<Renderer>().material.color = trailColor;
         }
     }
