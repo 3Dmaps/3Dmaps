@@ -51,7 +51,7 @@ public class MapGenerator : MonoBehaviour {
     #endif
 
     #if UNITY_IPHONE
-        Application.dataPath + "/Raw" + filename;
+        return Application.dataPath + "/Raw" + filename;
     #endif
     }
 
