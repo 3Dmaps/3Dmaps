@@ -27,12 +27,11 @@ public class TrailDisplayTest {
 		List<DisplayNode> nodeList = new List<DisplayNode> ();
 		nodeList.Add(new DisplayNode (0, 0));
 
-		display.DisplayNodes (nodeList);
-
+		display.DisplayNodes (nodeList);		
 		Assert.True (display.transform.GetChild(0).position.x == 0, "Incorrect x-coordinate!");
 		Assert.True (display.transform.GetChild(0).position.z == 0, "Incorrect y-coordinate!");
 
-		Assert.True (display.transform.childCount == 1, "No node was created!");
+		Assert.True (display.transform.childCount == 2, "No node was created!");
 	}
 
 	[Test]
@@ -45,7 +44,7 @@ public class TrailDisplayTest {
 
 		display.DisplayNodes (nodeList);
 
-		Assert.True (display.transform.childCount == 4, "Wrong number of nodes created!");
+		Assert.True (display.transform.childCount == 5, "Wrong number of nodes created!");
 	}
 
 	[Test]
@@ -58,6 +57,6 @@ public class TrailDisplayTest {
 
 
 		display.DisplayNodes (nodeList);
-		Assert.True (display.transform.childCount == 0, "Node created out of bounds!");
+		Assert.True (display.transform.childCount == 1, "Node created out of bounds!");
 	}
 }

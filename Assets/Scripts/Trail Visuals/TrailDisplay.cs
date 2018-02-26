@@ -53,12 +53,13 @@ public class TrailDisplay : MonoBehaviour {
         lineRenderer.SetPositions(this.nodePositions.ToArray());
         lineRenderer.widthMultiplier = lineWidthMultiplier;
         lineRenderer.useWorldSpace = false;
+
+        Material[] materials = new Material[1];
+        materials[0] = new Material(Shader.Find("Unlit/Color"));
         
-        if (newLine.GetComponent<Renderer>() != null)
-        {
-            newLine.GetComponent<Renderer>().material.shader = Shader.Find("Unlit/Color");
-            newLine.GetComponent<Renderer>().material.color = trailColor;
-        }
+        newLine.GetComponent<Renderer>().sharedMaterials = materials;
+        newLine.GetComponent<Renderer>().sharedMaterial.color = trailColor;        
+                     
     }
 
 
