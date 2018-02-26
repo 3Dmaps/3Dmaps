@@ -15,11 +15,7 @@ public class TrailDisplay : MonoBehaviour {
 	public Color trailColor;
     public List<Vector3> nodePositions;
     public float lineWidthMultiplier = 0.01f;
-    
-
-	// Use this for initialization
-	void Start () {
-	}
+  
 
 	public void DisplayNodes(List<DisplayNode> nodeList)
     {
@@ -28,7 +24,24 @@ public class TrailDisplay : MonoBehaviour {
 			GenerateNode (node);
 		}
         GenerateLine();        
+    }    
+
+
+    public void GenerateNode (DisplayNode node) {
+		int rawX = node.x + ((mapData.GetWidth() - 1) / 2);
+		int rawY = mapData.GetHeight() - 1 - (node.y + ((mapData.GetHeight() - 1) / 2));
+
+		if (!IsWithinBounds(rawX, rawY)) {
+			return;
+		}
+			
+		float height = mapData.GetNormalized (rawX, rawY);
+		Vector3 nodePosition = new Vector3 (((float) node.x * mapData.GetScale()), height, (float) node.y * mapData.GetScale());
+        this.nodePositions.Add(nodePosition);
+
+        GenerateNodeGameObject(nodePosition);
     }
+
 
     public void GenerateLine()
     {
@@ -49,19 +62,8 @@ public class TrailDisplay : MonoBehaviour {
     }
 
 
-    public void GenerateNode (DisplayNode node) {
-		int rawX = node.x + ((mapData.GetWidth() - 1) / 2);
-		int rawY = mapData.GetHeight() - 1 - (node.y + ((mapData.GetHeight() - 1) / 2));
-
-		if (!IsWithinBounds(rawX, rawY)) {
-			return;
-		}
-			
-		float height = mapData.GetNormalized (rawX, rawY);
-		Vector3 nodePosition = new Vector3 (((float) node.x * mapData.GetScale()), height, (float) node.y * mapData.GetScale());
-        this.nodePositions.Add(nodePosition);
-
-
+    //keeping this for illustration purposes and future needs
+    public void GenerateNodeGameObject(Vector3 nodePosition) {
         GameObject newNode = Instantiate(nodeGameObject);
         if (newNode.GetComponent<Renderer>() != null)
         {
@@ -70,8 +72,7 @@ public class TrailDisplay : MonoBehaviour {
 
         newNode.transform.position = nodePosition;
         newNode.transform.SetParent(this.transform);
-    }
-
+    }    
 
 
 	public bool IsWithinBounds(int rawX, int rawY) {
