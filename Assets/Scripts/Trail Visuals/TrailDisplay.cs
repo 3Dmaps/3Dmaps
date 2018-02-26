@@ -14,6 +14,8 @@ public class TrailDisplay : MonoBehaviour {
 	public GameObject nodeGameObject;    
 	public Color trailColor;
     public List<Vector3> nodePositions;
+    public float lineWidthMultiplier = 0.01f;
+    
 
 	// Use this for initialization
 	void Start () {
@@ -32,10 +34,11 @@ public class TrailDisplay : MonoBehaviour {
     {
         GameObject newLine = new GameObject();
         newLine.transform.SetParent(this.transform);
+        
         LineRenderer lineRenderer = newLine.AddComponent<LineRenderer>();
         lineRenderer.positionCount = this.nodePositions.Count;
         lineRenderer.SetPositions(this.nodePositions.ToArray());
-        lineRenderer.widthMultiplier = 0.01f;
+        lineRenderer.widthMultiplier = lineWidthMultiplier;
         lineRenderer.useWorldSpace = false;
         
         if (newLine.GetComponent<Renderer>() != null)
