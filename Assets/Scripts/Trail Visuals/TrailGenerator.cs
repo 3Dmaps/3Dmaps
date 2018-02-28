@@ -74,3 +74,4 @@ public class TrailGenerator : MonoBehaviour {
 
 
 }
+
