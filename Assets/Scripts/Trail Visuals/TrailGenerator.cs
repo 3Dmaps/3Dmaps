@@ -45,13 +45,32 @@ public class TrailGenerator : MonoBehaviour {
 	public List<DisplayNode> TranslateTrail(Trail trail) {
 		List<DisplayNode> displayNodes = new List<DisplayNode> ();
 
-		foreach (TrailNode node in trail.GetNodeList()) {
-			Vector2 point = mapData.GetMapSpecificCoordinatesFromLatLon (new MapPoint((double) node.GetLon(), (double) node.GetLat ()));
+		List<TrailNode> nodes = trail.GetNodeList();
 
-			DisplayNode displayNode = new DisplayNode((int) point.x, (int) point.y);
-			displayNodes.Add (displayNode);
+		for (int i = 0; i < nodes.Count - 1 ; i++) {
+			TrailNode node = nodes[i];
+			TrailNode nextNode = nodes[i + 1];			
+			displayNodes.Add (GenerateDisplayNode(node));				
+			displayNodes.Add (GenerateDisplayNodeFromAverage(node, nextNode));;
 		}
+		TrailNode lastNode = nodes[nodes.Count  - 1];		
+		displayNodes.Add (GenerateDisplayNode(lastNode));
 
 		return displayNodes;
 	}
+
+	public DisplayNode GenerateDisplayNode(TrailNode node) {
+		Vector2 point = mapData.GetMapSpecificCoordinatesFromLatLon (new MapPoint((double) node.GetLon(), (double) node.GetLat ()));
+		return new DisplayNode((int) point.x, (int) point.y);
+	}
+
+	public DisplayNode GenerateDisplayNodeFromAverage(TrailNode node, TrailNode nextNode) {
+		Vector2 nextPoint = mapData.GetMapSpecificCoordinatesFromLatLon (
+				new MapPoint((double) ((node.GetLon() + nextNode.GetLon()) / 2),
+				(double) ((node.GetLat() + nextNode.GetLat()) / 2))
+		);
+		return new DisplayNode((int) nextPoint.x, (int) nextPoint.y);
+	}
+
+
 }
