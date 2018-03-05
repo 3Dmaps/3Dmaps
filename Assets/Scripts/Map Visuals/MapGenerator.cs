@@ -42,6 +42,11 @@ public class MapGenerator : MonoBehaviour {
         mapData     = MapDataImporter.ReadMapData(mapDataPath, mapMetadata);
 		displays	= new List<MapDisplay>();
         GenerateMap();
+        TrailGenerator trailGenerator = GameObject.FindObjectOfType<TrailGenerator>();
+        if (trailGenerator != null) {
+            trailGenerator.GenerateTrails(this);
+        }
+        
     }
 
     private string GetMapDataPath(string filename)
