@@ -23,7 +23,9 @@ public class TrailDisplay : MonoBehaviour {
         foreach (DisplayNode node in nodeList) {
 			GenerateNode (node);
 		}
-        GenerateLine();        
+        if (nodePositions.Count > 1) {
+            GenerateLine();
+        }                
     }    
 
 
