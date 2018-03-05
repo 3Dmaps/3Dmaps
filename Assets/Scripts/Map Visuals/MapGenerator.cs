@@ -26,8 +26,8 @@ public class MapGenerator : MonoBehaviour {
 	public MapData mapData;
 	private MapMetadata mapMetadata;
 	private List<MapDisplay> displays;
-    private const string mapDataPath = "Assets/Resources/20x20.txt";
-    //private const string mapDataPath = "Assets/Resources/grandcanyon.txt";
+    private string filename = "20x20.txt";
+    //private string filename = "grandcanyon.txt";
 
     private DisplayUpdater displayUpdater = new DisplayUpdater(); 
     private int currentZoomValue  = 0;
@@ -36,11 +36,23 @@ public class MapGenerator : MonoBehaviour {
 
     public void Start()
     {
+        string mapDataPath = GetMapDataPath(filename);
         regions     = new MapRegionSmoother().SmoothRegions(regions,regionsSmoothCount);
 		mapMetadata = MapDataImporter.ReadMetadata(mapDataPath);
         mapData     = MapDataImporter.ReadMapData(mapDataPath, mapMetadata);
 		displays	= new List<MapDisplay>();
         GenerateMap();
+    }
+
+    private string GetMapDataPath(string filename)
+    {
+    #if UNITY_EDITOR
+            return Application.dataPath + "/StreamingAssets/" + filename;
+    #endif
+
+    #if UNITY_IPHONE
+        return Application.dataPath + "/Raw" + filename;
+    #endif
     }
 
     public void GenerateMap() {
