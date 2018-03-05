@@ -12,9 +12,9 @@ using System;
 
 public class TrailDataImporter {
     private const string wayElement = "way", nodeElement = "node", childNodeElement = "nd";
-    private const string idAttribute = "id", latAttribute = "lat", lonAttribute = "lon",
-            refAttribute = "ref", colorKeyValue = "zmeucolor";
-    private const string tagElement = "tag";
+	private const string idAttribute = "id", latAttribute = "lat", lonAttribute = "lon", 
+			refAttribute = "ref", colorKeyValue = "zmeucolor";
+	private const string tagElement = "tag";
 
 
     public static TrailData ReadTrailData(string path) {
@@ -26,7 +26,7 @@ public class TrailDataImporter {
         ReadXmlDocument(path, xmlDoc);
 
         XmlElement rootNode = xmlDoc.DocumentElement;
-
+        
         foreach (XmlElement node in rootNode) {
             string childNodeType = node.LocalName;
             switch (childNodeType) {
@@ -65,9 +65,9 @@ public class TrailDataImporter {
                 trailNode.SetId(long.Parse(childNode.GetAttribute(refAttribute)));
                 trail.AddNode(trailNode);
             }
-            if (childNode.LocalName.Equals(tagElement) && childNode.GetAttribute("k").Equals(colorKeyValue)) {
-                trail.colorName = childNode.GetAttribute("v");
-            }
+			if (childNode.LocalName.Equals (tagElement) && childNode.GetAttribute("k").Equals(colorKeyValue))  {
+				trail.colorName = childNode.GetAttribute ("v");
+			}
         }
         trailData.AddTrail(trail);
     }
@@ -75,7 +75,8 @@ public class TrailDataImporter {
     private static void ReadXmlDocument(string path, XmlDocument xmlDoc) {
         try {
             xmlDoc.Load(path);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             Debug.Log("Got an exception in reading trail data file.");
             Debug.Log(e.ToString());
         }

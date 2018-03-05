@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 /// <summary>
 /// Handles turning a DisplayReadySlice into something that can be displayed
@@ -7,14 +7,14 @@ public class MapDisplayData {
 
     private const int lowLod = 20;
     public DisplayReadySlice mapData;
-    private TerrainType[] regions;
+	private TerrainType[] regions;
 
-    public Texture2D texture;
-    public Mesh mesh;
-    public Mesh lowLodMesh;
-    public MapDisplayStatus status;
+	public Texture2D texture;
+	public Mesh mesh;
+	public Mesh lowLodMesh;
+	public MapDisplayStatus status;
 
-    public MapDisplayData() { }
+    public MapDisplayData(){}
 
     public MapDisplayData(DisplayReadySlice mapData) {
         this.SetMapData(mapData);
@@ -22,67 +22,67 @@ public class MapDisplayData {
 
     public void SetMapData(DisplayReadySlice mapData) {
         this.mapData = mapData;
-        int originalLod = mapData.lod;
-        mapData.lod = lowLod;
-        lowLodMesh = GenerateMesh();
-        mapData.lod = originalLod;
+		int originalLod = mapData.lod;
+		mapData.lod = lowLod;
+		lowLodMesh = GenerateMesh();
+		mapData.lod = originalLod;
     }
 
     private Color[] CalculateColourMap(MapData mapData) {
-        int width = mapData.GetWidth();
-        int height = mapData.GetHeight();
-        Color[] colourMap = new Color[width * height];
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                float currentHeight = mapData.GetSquished(x, y);
-                for (int i = 0; i < regions.Length; i++) {
-                    if (currentHeight <= regions[i].height) {
-                        colourMap[y * width + x] = regions[i].colour;
-                        break;
-                    }
-                }
-            }
-        }
-        return colourMap;
-    }
+		int width  = mapData.GetWidth();
+		int height = mapData.GetHeight();
+		Color[] colourMap = new Color[width * height];
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < width; x++) {
+				float currentHeight = mapData.GetSquished(x, y);
+				for (int i = 0; i < regions.Length; i++) {
+					if (currentHeight <= regions [i].height) {
+						colourMap [y * width + x] = regions [i].colour;
+						break;
+					}
+				}
+			}
+		}
+		return colourMap;
+	}
 
     public void SetRegions(TerrainType[] regions) {
-        this.regions = regions;
-    }
+		this.regions = regions;
+	}
 
-    public void SetStatus(MapDisplayStatus newStatus) {
-        this.status = newStatus;
-    }
+	public void SetStatus(MapDisplayStatus newStatus) {
+		this.status = newStatus;
+	}
 
     private Mesh GenerateMesh() {
-        return MeshGenerator.GenerateTerrainMesh(mapData).CreateMesh();
-    }
+		return MeshGenerator.GenerateTerrainMesh(mapData).CreateMesh();
+	}
 
     private Texture2D GenerateTexture() {
-        if (regions != null)
-            return TextureGenerator.TextureFromColourMap(CalculateColourMap(mapData), mapData.GetWidth(), mapData.GetHeight());
-        else
-            return TextureGenerator.TextureFromHeightMap(mapData);
-    }
+		if (regions != null)
+			return TextureGenerator.TextureFromColourMap(CalculateColourMap(mapData), mapData.GetWidth(), mapData.GetHeight());
+		else
+			return TextureGenerator.TextureFromHeightMap(mapData);
+	}
 
     public void UpdateLOD(int lod) {
-        if (mapData.lod != lod) {
-            mapData.lod = lod;
-            mesh = GenerateMesh();
-        }
-    }
+		if(mapData.lod != lod) {
+			mapData.lod = lod;
+			mesh = GenerateMesh();
+		}
+	}
 
     public MapDisplayStatus PrepareDraw() {
-        if (texture == null) texture = GenerateTexture();
-        switch (this.status) {
-            case MapDisplayStatus.VISIBLE:
-                if (mesh == null) mesh = GenerateMesh();
-                break;
-            case MapDisplayStatus.LOW_LOD:
-                break;
-            case MapDisplayStatus.HIDDEN:
-                break;
-        }
+        if(texture == null) texture = GenerateTexture();
+		switch(this.status) {
+			case MapDisplayStatus.VISIBLE:
+				if(mesh == null) mesh = GenerateMesh();
+				break;
+			case MapDisplayStatus.LOW_LOD:
+				break;
+			case MapDisplayStatus.HIDDEN:
+				break;
+		}
         return this.status;
     }
 
@@ -97,5 +97,5 @@ public class MapDisplayData {
     public float GetScale() {
         return mapData.GetScale();
     }
-
+    
 }

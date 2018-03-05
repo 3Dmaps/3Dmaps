@@ -9,59 +9,59 @@ using UnityEngine;
 
 public class TrailDisplay : MonoBehaviour {
 
-    public MapData mapData;
-    public GameObject nodeGameObject;
-    public Color trailColor;
+	public MapData mapData;
+	public GameObject nodeGameObject;
+	public Color trailColor;
 
-    // Use this for initialization
-    void Start() {
-    }
+	// Use this for initialization
+	void Start () {
+	}
 
-    public void DisplayNodes(List<DisplayNode> nodeList) {
-        foreach (DisplayNode node in nodeList) {
-            GenerateNode(node);
-        }
-    }
+	public void DisplayNodes(List<DisplayNode> nodeList) {
+		foreach (DisplayNode node in nodeList) {
+			GenerateNode (node);
+		}
+	}
 
-    public void GenerateNode(DisplayNode node) {
-        int rawX = node.x + ((mapData.GetWidth() - 1) / 2);
-        int rawY = mapData.GetHeight() - 1 - (node.y + ((mapData.GetHeight() - 1) / 2));
+	public void GenerateNode (DisplayNode node) {
+		int rawX = node.x + ((mapData.GetWidth() - 1) / 2);
+		int rawY = mapData.GetHeight() - 1 - (node.y + ((mapData.GetHeight() - 1) / 2));
 
-        if (!IsWithinBounds(rawX, rawY)) {
-            return;
-        }
+		if (!IsWithinBounds(rawX, rawY)) {
+			return;
+		}
+			
+		float height = mapData.GetNormalized (rawX, rawY);
+		Vector3 nodePosition = new Vector3 (((float) node.x * mapData.GetScale()), height, (float) node.y * mapData.GetScale());
 
-        float height = mapData.GetNormalized(rawX, rawY);
-        Vector3 nodePosition = new Vector3(((float)node.x * mapData.GetScale()), height, (float)node.y * mapData.GetScale());
+		GameObject newNode = Instantiate (nodeGameObject);
+		if (newNode.GetComponent<Renderer> () != null) {
+			newNode.GetComponent<Renderer> ().material.color = trailColor;
+		}
 
-        GameObject newNode = Instantiate(nodeGameObject);
-        if (newNode.GetComponent<Renderer>() != null) {
-            newNode.GetComponent<Renderer>().material.color = trailColor;
-        }
+		newNode.transform.position = nodePosition;
+		newNode.transform.SetParent (this.transform);
+	}
 
-        newNode.transform.position = nodePosition;
-        newNode.transform.SetParent(this.transform);
-    }
+	public bool IsWithinBounds(int rawX, int rawY) {
+		if (rawX < 0 || rawX > mapData.GetWidth() - 1) {
+			return false;		
+		}
 
-    public bool IsWithinBounds(int rawX, int rawY) {
-        if (rawX < 0 || rawX > mapData.GetWidth() - 1) {
-            return false;
-        }
+		if (rawY < 0 || rawY > mapData.GetHeight() - 1) {
+			return false;		
+		}
 
-        if (rawY < 0 || rawY > mapData.GetHeight() - 1) {
-            return false;
-        }
-
-        return true;
-    }
+		return true;
+	}
 }
 
 public class DisplayNode {
-    public int x;
-    public int y;
+	public int x;
+	public int y;
 
-    public DisplayNode(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
+	public DisplayNode(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
 }

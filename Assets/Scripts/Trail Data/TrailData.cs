@@ -10,11 +10,11 @@ public class TrailData {
 
     public List<Trail> trails;
 
-    public TrailData() {
+    public TrailData () {
         this.trails = new List<Trail>();
     }
 
-    public void AddTrail(Trail trail) {
+    public void AddTrail (Trail trail) {
         if (!this.trails.Contains(trail)) {
             this.trails.Add(trail);
         }

@@ -8,7 +8,8 @@ using UnityEngine;
 /// If the target object has a MapGenerator attached, this will notify it of the zoom change.
 /// </summary>
 
-public class Zoom : MonoBehaviour {
+public class Zoom : MonoBehaviour
+{
     public GameObject target;
     private MapGenerator generator;
     public float zoomInmultiplier = 0.8f;
@@ -21,14 +22,16 @@ public class Zoom : MonoBehaviour {
         generator = target.GetComponent<MapGenerator>();
     }
 
-    public void ZoomTarget(int zoomValue) {
-        if (currentZoomLevel + zoomValue <= zoomLimitMax && currentZoomLevel + zoomValue >= zoomLimitMin) {
+    public void ZoomTarget(int zoomValue)
+    {
+        if (currentZoomLevel + zoomValue <= zoomLimitMax && currentZoomLevel + zoomValue >= zoomLimitMin)
+        {
             float multiplier = zoomValue < 0 ? zoomInmultiplier : zoomOutmultiplier;
             Vector3 scale = target.transform.localScale;
             scale = scale * multiplier;
             target.transform.localScale = scale;
             currentZoomLevel += zoomValue;
-            if (generator != null) generator.UpdateZoomLevel(currentZoomLevel);
+            if(generator != null) generator.UpdateZoomLevel(currentZoomLevel);
         }
     }
 }

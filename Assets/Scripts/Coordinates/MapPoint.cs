@@ -9,7 +9,8 @@ public class MapPoint {
     public double x { set; get; }
     public double y { set; get; }
 
-    public MapPoint(double x, double y) {
+    public MapPoint(double x, double y)
+    {
         this.x = x;
         this.y = y;
     }

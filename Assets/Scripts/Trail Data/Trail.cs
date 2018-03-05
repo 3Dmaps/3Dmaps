@@ -10,12 +10,12 @@ using UnityEngine;
 public class Trail {
     List<TrailNode> nodeList;
     public long id;
-    public string colorName;
+	public string colorName;
 
     public Trail(long id) {
         nodeList = new List<TrailNode>();
         this.id = id;
-        colorName = "red";
+		colorName = "red";
     }
 
     public void AddNode(TrailNode trailNode) {

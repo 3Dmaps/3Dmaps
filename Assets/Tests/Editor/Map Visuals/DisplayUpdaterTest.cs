@@ -4,12 +4,14 @@ using UnityEngine.TestTools;
 using NUnit.Framework;
 using System.Collections;
 
-public class DisplayUpdaterTest {
+public class DisplayUpdaterTest
+{
     [Test]
-    public void DisplayUpdaterWorks() {
+    public void DisplayUpdaterWorks()
+    {
         DisplayUpdater du = new DisplayUpdater();
         Assert.True(du.IsEmpty());
-
+        
         du.Add(new UnupdatedDisplay(), 0);
         Assert.False(du.IsEmpty());
 

@@ -4,14 +4,16 @@ using UnityEngine.TestTools;
 using NUnit.Framework;
 using System.Collections;
 
-public class ZoomTest {
+public class ZoomTest
+{
     Zoom zoomer;
     GameObject target;
     GameObject zoomerObject;
 
 
     [SetUp]
-    public void SetUp() {
+    public void SetUp()
+    {
         target = new GameObject();
         zoomerObject = new GameObject();
         zoomer = zoomerObject.AddComponent<Zoom>();
@@ -23,7 +25,8 @@ public class ZoomTest {
 
 
     [Test]
-    public void ZoomTestChangesScaleOfTarget() {
+    public void ZoomTestChangesScaleOfTarget()
+    {
         zoomer.ZoomTarget(1);
         Assert.True(Mathf.Approximately(target.transform.localScale.x, 2.0f));
         zoomer.ZoomTarget(-1);
@@ -31,13 +34,16 @@ public class ZoomTest {
     }
 
     [Test]
-    public void NoZoomsPastZoomLimit() {
-        for (int i = 0; i < 10; i++) {
+    public void NoZoomsPastZoomLimit()
+    {
+        for (int i = 0; i < 10; i++)
+        {
             zoomer.ZoomTarget(1);
         }
         Assert.True(Mathf.Approximately(target.transform.localScale.x, 32.0F));
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++)
+        {
             zoomer.ZoomTarget(-1);
         }
         Assert.True(Mathf.Approximately(target.transform.localScale.x, 0.03125F));

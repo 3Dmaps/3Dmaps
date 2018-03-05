@@ -6,7 +6,7 @@ using System.Collections;
 
 public class TestTest {
 
-    private const bool truth = true;
+	private const bool truth = true;
 
     [Test]
     public void TestThatSucceeds() {
