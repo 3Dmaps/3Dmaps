@@ -9,28 +9,14 @@ using UnityEngine;
 
 public class TrailGenerator : MonoBehaviour {
 
-	public MapGenerator mapGenerator;
 	private MapData mapData;
 	private TrailDisplay display;
 	public int nodeGenerationRate = 1; // number of new nodes created between adjacent nodes in data
 	List<DisplayNode> displayNodes;
 
-	
-	void Start () {
-		StartCoroutine(StartInit (60));
-	}
 
-	IEnumerator StartInit(int counter) {
-		for (int val = 0; val <= counter; val += 1) {
-			yield return null;
-		}
-		GenerateTrails ();
-	}
-
-	public void GenerateTrails() {
-		mapGenerator = GameObject.Find ("MapGenerator").GetComponent<MapGenerator>();
+	public void GenerateTrails(MapGenerator mapGenerator) {
 		mapData = mapGenerator.mapData;
-
 		display = this.GetComponent<TrailDisplay> ();
 		display.mapData = mapData;
 

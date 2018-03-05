@@ -38,8 +38,6 @@ public class TrailDisplay : MonoBehaviour {
 		float height = mapData.GetNormalized (rawX, rawY);
 		Vector3 nodePosition = new Vector3 (((float) node.x * mapData.GetScale()), height, (float) node.y * mapData.GetScale());
         this.nodePositions.Add(nodePosition);
-
-        GenerateNodeGameObject(nodePosition);
     }
 
 
@@ -63,7 +61,7 @@ public class TrailDisplay : MonoBehaviour {
     }
 
 
-    //keeping this for illustration purposes and future needs
+    // keeping this for illustration purposes and future needs
     public void GenerateNodeGameObject(Vector3 nodePosition) {
         GameObject newNode = Instantiate(nodeGameObject);
         if (newNode.GetComponent<Renderer>() != null)
