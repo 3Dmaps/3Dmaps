@@ -3,27 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Produces a representation of a trail by generating GameObjects for each node 
-/// in a trail and positioning them correctly relative to the map created from a MapData.
+/// Produces a representation of a trail by positioning each node 
+/// in a trail correctly relative to the map created from a MapData
+/// and drawing the path with LineRenderer.
 /// </summary>
 
 public class TrailDisplay : MonoBehaviour {
 
 	public MapData mapData;
-	public GameObject nodeGameObject;
+	public GameObject nodeGameObject;    
 	public Color trailColor;
+    public List<Vector3> nodePositions;
+    public float lineWidthMultiplier = 0.01f;
+  
 
-	// Use this for initialization
-	void Start () {
-	}
-
-	public void DisplayNodes(List<DisplayNode> nodeList) {
-		foreach (DisplayNode node in nodeList) {
+	public void DisplayNodes(List<DisplayNode> nodeList)
+    {
+        nodePositions = new List<Vector3>();
+        foreach (DisplayNode node in nodeList) {
 			GenerateNode (node);
 		}
-	}
+        if (nodePositions.Count > 1) {
+            GenerateLine();
+        }                
+    }    
 
-	public void GenerateNode (DisplayNode node) {
+
+    public void GenerateNode (DisplayNode node) {
 		int rawX = node.x + ((mapData.GetWidth() - 1) / 2);
 		int rawY = mapData.GetHeight() - 1 - (node.y + ((mapData.GetHeight() - 1) / 2));
 
@@ -33,15 +39,42 @@ public class TrailDisplay : MonoBehaviour {
 			
 		float height = mapData.GetNormalized (rawX, rawY);
 		Vector3 nodePosition = new Vector3 (((float) node.x * mapData.GetScale()), height, (float) node.y * mapData.GetScale());
+        this.nodePositions.Add(nodePosition);
+    }
 
-		GameObject newNode = Instantiate (nodeGameObject);
-		if (newNode.GetComponent<Renderer> () != null) {
-			newNode.GetComponent<Renderer> ().material.color = trailColor;
-		}
 
-		newNode.transform.position = nodePosition;
-		newNode.transform.SetParent (this.transform);
-	}
+    public void GenerateLine()
+    {
+        GameObject newLine = new GameObject();
+        newLine.transform.SetParent(this.transform);
+        
+        LineRenderer lineRenderer = newLine.AddComponent<LineRenderer>();
+        lineRenderer.positionCount = this.nodePositions.Count;
+        lineRenderer.SetPositions(this.nodePositions.ToArray());
+        lineRenderer.widthMultiplier = lineWidthMultiplier;
+        lineRenderer.useWorldSpace = false;
+
+        Material[] materials = new Material[1];
+        materials[0] = new Material(Shader.Find("Unlit/Color"));
+        
+        newLine.GetComponent<Renderer>().sharedMaterials = materials;
+        newLine.GetComponent<Renderer>().sharedMaterial.color = trailColor;        
+                     
+    }
+
+
+    // keeping this for illustration purposes and future needs
+    public void GenerateNodeGameObject(Vector3 nodePosition) {
+        GameObject newNode = Instantiate(nodeGameObject);
+        if (newNode.GetComponent<Renderer>() != null)
+        {
+            newNode.GetComponent<Renderer>().material.color = trailColor;
+        }
+
+        newNode.transform.position = nodePosition;
+        newNode.transform.SetParent(this.transform);
+    }    
+
 
 	public bool IsWithinBounds(int rawX, int rawY) {
 		if (rawX < 0 || rawX > mapData.GetWidth() - 1) {
