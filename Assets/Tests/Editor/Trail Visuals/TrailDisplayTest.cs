@@ -17,7 +17,8 @@ public class TrailDisplayTest {
 
 		display = trailDisplayObject.AddComponent<TrailDisplay> ();
 		display.nodeGameObject = nodeGameObject;
-
+        display.material = new Material(Shader.Find("Unlit/Color"));
+        
 		MapMetadata metadata = MapDataImporter.ReadMetadata("Assets/Resources/testData.txt");
 		display.mapData = MapDataImporter.ReadMapData("Assets/Resources/testData.txt", metadata);
 	}

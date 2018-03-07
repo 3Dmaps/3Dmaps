@@ -22,7 +22,7 @@ public class TrailGenerator : MonoBehaviour {
 
 		ColorHandler colorHandler = new ColorHandler ();
 
-		TrailData trailData = TrailDataImporter.ReadTrailData (GetDataPath("testTrailData2.xml"));
+		TrailData trailData = TrailDataImporter.ReadTrailData (GetDataPath("SampleTrailData2.xml"));
 
 		foreach (Trail trail in trailData.trails) {
 			display.trailColor = colorHandler.SelectColor(trail.colorName);
