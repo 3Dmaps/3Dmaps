@@ -11,6 +11,23 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1749826382939654}
   m_IsPrefabParent: 1
+--- !u!1 &1582515510924030
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4425089757141534}
+  - component: {fileID: 114377934349239282}
+  - component: {fileID: 114860603024309198}
+  m_Layer: 0
+  m_Name: TrailGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1749826382939654
 GameObject:
   m_ObjectHideFlags: 0
@@ -27,6 +44,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &4425089757141534
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1582515510924030}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4743817454377146}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4743817454377146
 Transform:
   m_ObjectHideFlags: 1
@@ -36,7 +66,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4425089757141534}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -52,9 +83,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   drawMode: 2
-  mapSliceSize: 200
-  levelOfDetail: 7
-  meshHeightMultiplier: 0.095
+  mapSliceSize: 80
+  levelOfDetail: 10
   regionsSmoothCount: 100
   regions:
   - name: 
@@ -88,3 +118,34 @@ MonoBehaviour:
     height: 1
     colour: {r: 0.88235295, g: 0.79930794, b: 0.6747405, a: 1}
   visual: {fileID: 1564701394338744, guid: 0eacb9f7020c9bc4bb8d0bd5fc0953f3, type: 2}
+  displayUpdateRate: 10
+  mapViewerPosition: {x: 0, y: 0}
+--- !u!114 &114377934349239282
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1582515510924030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e606e514e812e4f8f816bad86ab4973b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeGameObject: {fileID: 1442270030222748, guid: b7e71742ec35e4a8f869848462824998,
+    type: 2}
+  trailColor: {r: 0, g: 0, b: 0, a: 0}
+  nodePositions: []
+  lineWidthMultiplier: 0.01
+  material: {fileID: 2100000, guid: 246dbc7e1d258e349b2a6451e22015e3, type: 2}
+--- !u!114 &114860603024309198
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1582515510924030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58580fca85a3746acbaee9c6d696b457, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeGenerationRate: 1

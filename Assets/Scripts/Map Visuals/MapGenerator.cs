@@ -45,8 +45,7 @@ public class MapGenerator : MonoBehaviour {
         TrailGenerator trailGenerator = GameObject.FindObjectOfType<TrailGenerator>();
         if (trailGenerator != null) {
             trailGenerator.GenerateTrails(this);
-        }
-        
+        }   
     }
 
     private string GetMapDataPath(string filename)
@@ -56,7 +55,7 @@ public class MapGenerator : MonoBehaviour {
     #endif
 
     #if UNITY_IPHONE
-        return Application.dataPath + "/Raw" + filename;
+        return Application.dataPath + "/Raw/" + filename;
     #endif
 
     #if UNITY_ANDROID

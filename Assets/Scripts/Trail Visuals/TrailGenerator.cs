@@ -22,7 +22,7 @@ public class TrailGenerator : MonoBehaviour {
 
 		ColorHandler colorHandler = new ColorHandler ();
 
-		TrailData trailData = TrailDataImporter.ReadTrailData ("Assets/Resources/testData/testTrailData2.xml");
+		TrailData trailData = TrailDataImporter.ReadTrailData (GetDataPath("SampleTrailData2.xml"));
 
 		foreach (Trail trail in trailData.trails) {
 			display.trailColor = colorHandler.SelectColor(trail.colorName);
@@ -30,6 +30,21 @@ public class TrailGenerator : MonoBehaviour {
 		}
 	}
 
+    private string GetDataPath(string filename)
+    {
+    #if UNITY_EDITOR
+        return Application.dataPath + "/StreamingAssets/" + filename;
+    #endif
+
+    #if UNITY_IPHONE
+        return Application.dataPath + "/Raw/" + filename;
+    #endif
+
+    #if UNITY_ANDROID
+        return "jar:file://" + Application.dataPath + "!/assets/" + filename;
+    #endif
+        return filename;
+    }
 	public List<DisplayNode> TranslateTrail(Trail trail) {
 		displayNodes = new List<DisplayNode> ();
 
