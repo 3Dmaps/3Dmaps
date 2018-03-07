@@ -10,7 +10,7 @@ public enum MapDataType {
 }
 
 /// <summary>
-/// Reads height data and related metadata from an "Arc/Info ASCII grid"-file
+/// Reads height data and related metadata from a file of specified format
 /// The data is stored in a MapData object and the metadata in a MapMetadata object
 /// </summary>
 

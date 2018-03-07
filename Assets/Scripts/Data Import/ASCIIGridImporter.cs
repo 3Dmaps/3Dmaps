@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
+/// <summary>
+/// Reads height data and related metadata from an "Arc/Info ASCII grid"-file
+/// The data is stored in a MapData object and the metadata in a ASCIIGridMetadata object
+/// </summary>
 public static class ASCIIGridImporter {
 
         public static ASCIIGridMetadata ReadMetadata(string path) {
