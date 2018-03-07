@@ -23,14 +23,14 @@ public class MapData {
         this.data = data;
         scale = 1 / (float)Mathf.Max(data.GetLength(0), data.GetLength(1));
         this.metadata = metadata;
-        this.converter = new CoordinateConverter(this.metadata.cellsize);
+        this.converter = new CoordinateConverter(this.metadata.GetCellsize());
     }
 
     public static MapData ForTesting(float[,] data) {
-        MapMetadata metadata = new MapMetadata();
-        metadata.Set(MapMetadata.minheightKey, data.Cast<float>().Min().ToString());
-        metadata.Set(MapMetadata.maxheightKey, data.Cast<float>().Max().ToString());
-        metadata.Set(MapMetadata.cellsizeKey, "1");
+        DummyMetadata metadata = new DummyMetadata();
+        metadata.minHeight = data.Cast<float>().Min();
+        metadata.maxHeight = data.Cast<float>().Max();
+        metadata.cellsize = 1;
         return new MapData(data, metadata);
     }
 
@@ -61,8 +61,8 @@ public class MapData {
         Vector2 topLeftVector = this.GetTopLeft();
         double centerXRelativeToLowerLeftCorner = data.GetLength(0) / 2.0;
         double centerYRelativeToLowerLeftCorner = data.GetLength(1) / 2.0;
-        double topLeftLon = converter.TransformCoordinateByDistance(centerXRelativeToLowerLeftCorner + topLeftVector.x, this.metadata.xllcorner);
-        double topLeftLat = converter.TransformCoordinateByDistance(centerYRelativeToLowerLeftCorner + topLeftVector.y, this.metadata.yllcorner);
+        double topLeftLon = converter.TransformCoordinateByDistance(centerXRelativeToLowerLeftCorner + topLeftVector.x, this.metadata.GetLowerLeftCornerX());
+        double topLeftLat = converter.TransformCoordinateByDistance(centerYRelativeToLowerLeftCorner + topLeftVector.y, this.metadata.GetLowerLeftCornerY());
         return new MapPoint(topLeftLon, topLeftLat);
     }
 
@@ -124,15 +124,15 @@ public class MapData {
     }
 
     public float GetHeightMultiplier() {
-        return (1 / metadata.cellsize) * scale;
+        return (1 / metadata.GetCellsize()) * scale;
     }
 
     public float GetNormalized(int x, int y) {
-        return (GetRaw(x, y) - metadata.minheight) * GetHeightMultiplier();
+        return (GetRaw(x, y) - metadata.GetMinHeight()) * GetHeightMultiplier();
     }
 
     public float GetSquished(int x, int y) {
-        return (GetRaw(x, y) - metadata.minheight) / (metadata.maxheight - metadata.minheight);
+        return (GetRaw(x, y) - metadata.GetMinHeight()) / (metadata.GetMaxHeight() - metadata.GetMinHeight());
     }
 
     public MapDataSlice AsSlice() {

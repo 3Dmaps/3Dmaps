@@ -14,12 +14,12 @@ public class MapDataTest {
 
     [SetUp]
     public void Setup() {
-        MapMetadata metadata = new MapMetadata();
-        metadata.Set("cellsize", "2");
-        metadata.Set("minheight", "1");
-        metadata.Set("maxheight", "6");
-        metadata.Set("xllcorner", "0");
-        metadata.Set("yllcorner", "0");
+        DummyMetadata metadata = new DummyMetadata();
+        metadata.cellsize = 2;
+        metadata.minHeight = 1;
+        metadata.maxHeight = 6;
+        metadata.lowerLeftX = 0;
+        metadata.lowerLeftY = 0;
         float[,] data = new float[2, 3] { { 1.0F, 2.0F, 3.0F }, { 4.0F, 5.0F, 6.0F } };
         this.mapdata = new MapData(data, metadata);
     }
@@ -150,12 +150,12 @@ public class MapDataTest {
 
     [Test]
     public void Slice_GetWebMercatorCoordinatesCorrect() {
-        MapMetadata metadataTest = new MapMetadata();
-        metadataTest.Set("cellsize", "2");
-        metadataTest.Set("minheight", "1");
-        metadataTest.Set("maxheight", "6");
-        metadataTest.Set("xllcorner", "0");
-        metadataTest.Set("yllcorner", "0");
+        DummyMetadata metadataTest = new DummyMetadata();
+        metadataTest.cellsize = 2;
+        metadataTest.minHeight = 1;
+        metadataTest.maxHeight = 6;
+        metadataTest.lowerLeftX = 0;
+        metadataTest.lowerLeftY = 0;
         float[,] data = new float[4, 6] { { 1.0F, 2.0F, 3.0F, 1.0F, 2.0F, 3.0F }, { 4.0F, 5.0F, 6.0F, 4.0F, 5.0F, 6.0F }
         , { 1.0F, 2.0F, 3.0F, 1.0F, 2.0F, 3.0F }, { 4.0F, 5.0F, 6.0F, 4.0F, 5.0F, 6.0F }};
         MapData mapdataTest = new MapData(data, metadataTest);

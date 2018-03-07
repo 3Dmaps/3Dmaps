@@ -4,12 +4,12 @@ using UnityEngine.TestTools;
 using NUnit.Framework;
 using System.Collections;
 
-public class MapMetadataTest {
-    public MapMetadata metadata;
+public class ASCIIGridMetadataTest {
+    public ASCIIGridMetadata metadata;
 
     [SetUp]
     public void Setup() {
-        this.metadata = new MapMetadata();
+        this.metadata = new ASCIIGridMetadata();
     }
 
     [Test]

@@ -4,14 +4,14 @@ using UnityEngine.TestTools;
 using NUnit.Framework;
 using System.Collections;
 
-public class MapDataImporterTest {
+public class ASCIIGridImporterTest {
 
-    public MapMetadata metadata;
+    public ASCIIGridMetadata metadata;
     public MapData mapdata;
 
     [OneTimeSetUp]
     public void Setup() {
-        this.metadata = MapDataImporter.ReadMetadata("Assets/Resources/testData.txt");
+        this.metadata = (ASCIIGridMetadata) MapDataImporter.ReadMetadata("Assets/Resources/testData.txt");
         this.mapdata = MapDataImporter.ReadMapData("Assets/Resources/testData.txt", metadata);
     }
 
