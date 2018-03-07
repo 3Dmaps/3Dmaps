@@ -26,7 +26,10 @@ public class MapGenerator : MonoBehaviour {
 	public MapData mapData;
 	private MapMetadata mapMetadata;
 	private List<MapDisplay> displays;
-    private string filename = "20x20.txt";
+    // NOTE: n37w113part.txt does not have attached trail data yet.
+    private string filename = "n37w113part.txt";
+    // NOTE: 20x20.txt has trail data.
+    //private string filename = "20x20.txt";
     //private string filename = "grandcanyon.txt";
 
     private DisplayUpdater displayUpdater = new DisplayUpdater(); 
