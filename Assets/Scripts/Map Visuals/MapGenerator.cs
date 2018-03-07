@@ -45,8 +45,7 @@ public class MapGenerator : MonoBehaviour {
         TrailGenerator trailGenerator = GameObject.FindObjectOfType<TrailGenerator>();
         if (trailGenerator != null) {
             trailGenerator.GenerateTrails(this);
-        }
-        
+        }   
     }
 
     private string GetMapDataPath(string filename)
