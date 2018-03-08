@@ -11,8 +11,8 @@ public class ASCIIGridImporterTest {
 
     [OneTimeSetUp]
     public void Setup() {
-        this.metadata = (ASCIIGridMetadata) MapDataImporter.ReadMetadata("Assets/Resources/testData.txt");
-        this.mapdata = MapDataImporter.ReadMapData("Assets/Resources/testData.txt", metadata);
+        metadata = (ASCIIGridMetadata)MapDataImporter.ReadMetadata("Assets/Resources/testData.txt");
+        mapdata = MapDataImporter.ReadMapData("Assets/Resources/testData.txt", metadata);
     }
 
     [Test]

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,7 +23,7 @@ public class MapData {
         this.data = data;
         scale = 1 / (float)Mathf.Max(data.GetLength(0), data.GetLength(1));
         this.metadata = metadata;
-        this.converter = new CoordinateConverter(this.metadata.GetCellsize());
+        converter = new CoordinateConverter(this.metadata.GetCellsize());
     }
 
     public static MapData ForTesting(float[,] data) {
@@ -58,11 +58,11 @@ public class MapData {
     /// Returns the MapPoint(lon,lat) of the center of the top left cell of this map.
     /// </summary>
     public MapPoint GetTopLeftLatLonPoint() {
-        Vector2 topLeftVector = this.GetTopLeft();
+        Vector2 topLeftVector = GetTopLeft();
         double centerXRelativeToLowerLeftCorner = data.GetLength(0) / 2.0;
         double centerYRelativeToLowerLeftCorner = data.GetLength(1) / 2.0;
-        double topLeftLon = converter.TransformCoordinateByDistance(centerXRelativeToLowerLeftCorner + topLeftVector.x, this.metadata.GetLowerLeftCornerX());
-        double topLeftLat = converter.TransformCoordinateByDistance(centerYRelativeToLowerLeftCorner + topLeftVector.y, this.metadata.GetLowerLeftCornerY());
+        double topLeftLon = converter.TransformCoordinateByDistance(centerXRelativeToLowerLeftCorner + topLeftVector.x, metadata.GetLowerLeftCornerX());
+        double topLeftLat = converter.TransformCoordinateByDistance(centerYRelativeToLowerLeftCorner + topLeftVector.y, metadata.GetLowerLeftCornerY());
         return new MapPoint(topLeftLon, topLeftLat);
     }
 
@@ -80,11 +80,11 @@ public class MapData {
     /// Vector2(x,y) relative to the center of the top left cell of the map. 
     /// </summary>
     public MapPoint GetLatLonCoordinates(Vector2 positionOnMap) {
-        if (positionOnMap.x < -0.5 || positionOnMap.x > this.GetWidth() - 0.5
-            || positionOnMap.y > 0.5 || positionOnMap.y < -this.GetHeight() + 0.5) {
+        if (positionOnMap.x < -0.5 || positionOnMap.x > GetWidth() - 0.5
+            || positionOnMap.y > 0.5 || positionOnMap.y < -GetHeight() + 0.5) {
             throw new System.ArgumentException("Index out of bounds! (" + positionOnMap.x + ", " + positionOnMap.y + ")");
         }
-        MapPoint topLeft = this.GetTopLeftLatLonPoint();
+        MapPoint topLeft = GetTopLeftLatLonPoint();
         double x = converter.TransformCoordinateByDistance((double)positionOnMap.x, (double)topLeft.x);
         double y = converter.TransformCoordinateByDistance((double)positionOnMap.y, (double)topLeft.y);
         return new MapPoint(x, y);
@@ -95,7 +95,7 @@ public class MapData {
     /// is at positionVector2(x,y) relative to the center of the top left cell of the map. 
     /// </summary>
     public MapPoint GetWebMercatorCoordinates(Vector2 positionOnMap) {
-        MapPoint latLonPoint = this.GetLatLonCoordinates(positionOnMap);
+        MapPoint latLonPoint = GetLatLonCoordinates(positionOnMap);
         return converter.ProjectPointToWebMercator(latLonPoint);
     }
 
@@ -104,16 +104,16 @@ public class MapData {
     /// the map-specific coordinates relative to the center point of the map. 
     /// </summary>
     public Vector2 GetMapSpecificCoordinatesFromLatLon(MapPoint latLonPoint) {
-        float maxXDistance = (float)converter.TransformCoordinateByDistance(0, (this.GetWidth() / 2.0));
-        float maxYDistance = (float)converter.TransformCoordinateByDistance(0, (this.GetHeight() / 2.0));
+        float maxXDistance = (float)converter.TransformCoordinateByDistance(0, (GetWidth() / 2.0));
+        float maxYDistance = (float)converter.TransformCoordinateByDistance(0, (GetHeight() / 2.0));
         if (Math.Abs(latLonPoint.x) > maxXDistance | Math.Abs(latLonPoint.y) > maxYDistance) {
             throw new System.ArgumentException("Index out of bounds! (" + latLonPoint.x + ", " + latLonPoint.y + ")");
         }
 
-        MapPoint sliceTopLeft = this.GetTopLeftLatLonPoint();
-        double sliceCenterLon = converter.TransformCoordinateByDistance(((this.GetWidth() - 1) / 2.0), sliceTopLeft.x);
-        double sliceCenterLat = converter.TransformCoordinateByDistance(-((this.GetHeight() - 1) / 2.0), sliceTopLeft.y);
-        
+        MapPoint sliceTopLeft = GetTopLeftLatLonPoint();
+        double sliceCenterLon = converter.TransformCoordinateByDistance(((GetWidth() - 1) / 2.0), sliceTopLeft.x);
+        double sliceCenterLat = converter.TransformCoordinateByDistance(-((GetHeight() - 1) / 2.0), sliceTopLeft.y);
+
         float xVectorFromCenter = converter.DistanceBetweenCoordinates(sliceCenterLon, latLonPoint.x);
         float yVectorFromCenter = converter.DistanceBetweenCoordinates(sliceCenterLat, latLonPoint.y);
         return new Vector2(xVectorFromCenter, yVectorFromCenter);

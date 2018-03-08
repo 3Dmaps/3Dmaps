@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -10,18 +10,18 @@ using UnityEngine;
 /// </summary>
 public static class ASCIIGridImporter {
 
-        public static ASCIIGridMetadata ReadMetadata(string path) {
+    public static ASCIIGridMetadata ReadMetadata(string path) {
         ASCIIGridMetadata metadata = new ASCIIGridMetadata();
-        using(StreamReader input = new StreamReader(path)) {
+        using (StreamReader input = new StreamReader(path)) {
             string line;
             bool keepGoing = true;
             while (keepGoing && (line = input.ReadLine()) != null) {
-                switch(line[0]) {
+                switch (line[0]) {
                     case ' ':
                         keepGoing = false; // We hit the actual data, stop reading
                         break;
                     default:
-                        string[] keyValue = line.Split(new char[]{' '}, StringSplitOptions.RemoveEmptyEntries);
+                        string[] keyValue = line.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                         metadata.Set(keyValue[0], keyValue[1]);
                         break;
                 }
@@ -31,19 +31,19 @@ public static class ASCIIGridImporter {
     }
 
     public static MapData ReadMapData(string path, ASCIIGridMetadata metadata) {
-        if(metadata.nrows < 1 || metadata.ncols < 1) {
+        if (metadata.nrows < 1 || metadata.ncols < 1) {
             return null;
         }
         float[,] mapData = new float[metadata.ncols, metadata.nrows];
         float minHeight = metadata.nodatavalue, maxHeight = metadata.nodatavalue;
-        using(StreamReader input = new StreamReader(path)) {
+        using (StreamReader input = new StreamReader(path)) {
             string line;
             int x = 0, y = 0;
             while ((line = input.ReadLine()) != null) {
-                if(line[0] == ' ') { // Data lines start with a space
-                    string[] values = line.Split(new char[]{' '}, StringSplitOptions.RemoveEmptyEntries);
+                if (line[0] == ' ') { // Data lines start with a space
+                    string[] values = line.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                     x = 0;
-                    foreach(string value in values) {
+                    foreach (string value in values) {
                         try {
                             float height = float.Parse(value);
                             if (height < minHeight) {

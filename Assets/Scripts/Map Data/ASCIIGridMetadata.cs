@@ -1,7 +1,7 @@
-/// <summary>
+﻿/// <summary>
 /// Container for various ASCIIGrid height map metadata
 /// </summary>
-public class ASCIIGridMetadata : MapMetadata{
+public class ASCIIGridMetadata : MapMetadata {
     public const string nrowsKey = "nrows", ncolsKey = "ncols", xllcornerKey = "xllcorner", yllcornerKey = "yllcorner", cellsizeKey = "cellsize", nodatavalueKey = "NODATA_value", minheightKey = "minheight", maxheightKey = "maxheight";
 
     public int nrows = 0, ncols = 0;
@@ -29,7 +29,7 @@ public class ASCIIGridMetadata : MapMetadata{
     }
 
     public void Set(string key, string value) {
-        switch(key) {
+        switch (key) {
             case nrowsKey:
                 nrows = int.Parse(value);
                 break;
@@ -57,5 +57,4 @@ public class ASCIIGridMetadata : MapMetadata{
         }
     }
 
-    
 }

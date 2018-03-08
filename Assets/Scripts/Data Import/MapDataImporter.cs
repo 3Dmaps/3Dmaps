@@ -6,7 +6,7 @@ using UnityEngine;
 
 
 public enum MapDataType {
-    ASCIIGRID, BINARY
+    ASCIIGrid, Binary
 }
 
 /// <summary>
@@ -16,19 +16,19 @@ public enum MapDataType {
 
 public static class MapDataImporter {
 
-    public static MapMetadata ReadMetadata(string path, MapDataType type = MapDataType.ASCIIGRID) {
-        switch(type) {
-            case MapDataType.ASCIIGRID:
+    public static MapMetadata ReadMetadata(string path, MapDataType type = MapDataType.ASCIIGrid) {
+        switch (type) {
+            case MapDataType.ASCIIGrid:
                 return ASCIIGridImporter.ReadMetadata(path);
             default:
                 throw new System.NotImplementedException("Type " + type + " not implemented!");
         }
     }
 
-    public static MapData ReadMapData(string path, MapMetadata metadata, MapDataType type = MapDataType.ASCIIGRID) {
-        switch(type) {
-            case MapDataType.ASCIIGRID:
-                return ASCIIGridImporter.ReadMapData(path, (ASCIIGridMetadata) metadata);
+    public static MapData ReadMapData(string path, MapMetadata metadata, MapDataType type = MapDataType.ASCIIGrid) {
+        switch (type) {
+            case MapDataType.ASCIIGrid:
+                return ASCIIGridImporter.ReadMapData(path, (ASCIIGridMetadata)metadata);
             default:
                 throw new System.NotImplementedException("Type " + type + " not implemented!");
         }
