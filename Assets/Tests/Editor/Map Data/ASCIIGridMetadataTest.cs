@@ -4,19 +4,19 @@ using UnityEngine.TestTools;
 using NUnit.Framework;
 using System.Collections;
 
-public class MapMetadataTest {
-    public MapMetadata metadata;
+public class ASCIIGridMetadataTest {
+    public ASCIIGridMetadata metadata;
 
     [SetUp]
     public void Setup() {
-        this.metadata = new MapMetadata();
+        metadata = new ASCIIGridMetadata();
     }
 
     [Test]
-	public void SetNColsWorks() {
+    public void SetNColsWorks() {
         metadata.Set("ncols", "7");
         Assert.True(metadata.ncols == 7, "Ncols incorrect.");
-	}
+    }
 
     [Test]
     public void SetNRowsWorks() {
