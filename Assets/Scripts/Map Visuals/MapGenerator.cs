@@ -44,7 +44,11 @@ public class MapGenerator : MonoBehaviour {
         GenerateMap();
         TrailGenerator trailGenerator = GameObject.FindObjectOfType<TrailGenerator>();
         if (trailGenerator != null) {
-            trailGenerator.GenerateTrails(this);
+            try {
+                trailGenerator.GenerateTrails(this);
+            } catch(System.Exception e) {
+                Debug.Log("Did not generate trails: " + e);
+            }
         }   
     }
 

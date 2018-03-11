@@ -79,4 +79,8 @@ public class CoordinateConverter {
         double distance = coordinateChange * (1 / meterAsLatLonDegrees);
         return (float) (distance / cellsize);
     }
+
+    public static float LatLonDegreesToDefaultMeters(double degrees) {
+        return (float)(degrees / defaultMeterAsLatLonDegrees);
+    }
 }
