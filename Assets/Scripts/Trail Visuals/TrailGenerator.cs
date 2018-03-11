@@ -22,7 +22,7 @@ public class TrailGenerator : MonoBehaviour {
 
 		ColorHandler colorHandler = new ColorHandler ();
 
-		TrailData trailData = TrailDataImporter.ReadTrailData (GetDataPath("SampleTrailData2.xml"));
+		TrailData trailData = TrailDataImporter.ReadTrailData (GetDataPath("SampleTrailDataCanyon.xml"));
 
 		foreach (Trail trail in trailData.trails) {
 			display.trailColor = colorHandler.SelectColor(trail.colorName);
@@ -63,8 +63,8 @@ public class TrailGenerator : MonoBehaviour {
 	}
 
 	public void AddDisplayNode(TrailNode node) {
-		Vector2 point = mapData.GetMapSpecificCoordinatesFromLatLon (new MapPoint((double) node.GetLon(), (double) node.GetLat ()));
-		displayNodes.Add(new DisplayNode((int) point.x, (int) point.y));		
+		Vector2 point = mapData.GetRawCoordinatesFromLatLon (new MapPoint((double) node.GetLon(), (double) node.GetLat ()));
+		displayNodes.Add(new DisplayNode((int) point.x, (int) point.y));
 	}
 
 	public void AddDisplayNode(TrailNode node, TrailNode nextNode) {
@@ -73,7 +73,7 @@ public class TrailGenerator : MonoBehaviour {
 		}
 
 		for (int i = 1; i <= this.nodeGenerationRate; i++) {		
-			Vector2 point = mapData.GetMapSpecificCoordinatesFromLatLon (
+			Vector2 point = mapData.GetRawCoordinatesFromLatLon (
 					new MapPoint(
 						x: (double) (i * (nextNode.GetLon() - node.GetLon()) / (nodeGenerationRate + 1) + node.GetLon()),
                         y: (double) (i * (nextNode.GetLat() - node.GetLat()) / (nodeGenerationRate + 1) + node.GetLat())

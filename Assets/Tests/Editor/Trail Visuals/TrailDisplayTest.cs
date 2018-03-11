@@ -27,7 +27,7 @@ public class TrailDisplayTest {
 	public void TrailObjectIsCreated() {
 		List<DisplayNode> nodeList = new List<DisplayNode> ();
 		nodeList.Add(new DisplayNode (0, 0));
-		nodeList.Add(new DisplayNode (-1, -1));
+		nodeList.Add(new DisplayNode (1, 1));
 	 	display.DisplayNodes (nodeList);
 	 	Assert.True (display.transform.childCount == 1, "Didn't create one trail.");		 
 	}
@@ -60,10 +60,10 @@ public class TrailDisplayTest {
 	[Test]
 	public void TrailDisplayDoesNotCreateTrailOutsideMapBounds() {
 		List<DisplayNode> nodeList = new List<DisplayNode> ();
-		nodeList.Add(new DisplayNode (2, 0));
-		nodeList.Add(new DisplayNode (-2, 0));
-		nodeList.Add(new DisplayNode (0, 2));
-		nodeList.Add(new DisplayNode (0, -2));
+		nodeList.Add(new DisplayNode (3, 0));
+		nodeList.Add(new DisplayNode (-1, 0));
+		nodeList.Add(new DisplayNode (0, 3));
+		nodeList.Add(new DisplayNode (0, -1));
 
 		display.DisplayNodes (nodeList);
 		Assert.True (display.transform.childCount == 0, "Trail created out of bounds!");

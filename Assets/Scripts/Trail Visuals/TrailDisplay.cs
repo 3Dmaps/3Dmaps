@@ -15,6 +15,7 @@ public class TrailDisplay : MonoBehaviour {
 	public Color trailColor;
     public List<Vector3> nodePositions;
     public float lineWidthMultiplier = 0.01f;
+	public float lineHeightAdjustment = 0.005f;
   
     public Material material;
 
@@ -31,15 +32,16 @@ public class TrailDisplay : MonoBehaviour {
 
 
     public void GenerateNode (DisplayNode node) {
-		int rawX = node.x + ((mapData.GetWidth() - 1) / 2);
-		int rawY = mapData.GetHeight() - 1 - (node.y + ((mapData.GetHeight() - 1) / 2));
-
-		if (!IsWithinBounds(rawX, rawY)) {
+		if (!IsWithinBounds(node.x, node.y)) {
 			return;
 		}
-			
-		float height = mapData.GetNormalized (rawX, rawY);
-		Vector3 nodePosition = new Vector3 (((float) node.x * mapData.GetScale()), height, (float) node.y * mapData.GetScale());
+
+		float height = mapData.GetNormalized (node.x, node.y);
+
+		float xFromCenter = node.x - mapData.GetWidth() / 2;
+		float yFromCenter = (mapData.GetHeight() / 2) - node.y;
+
+		Vector3 nodePosition = new Vector3 (((float) xFromCenter * mapData.GetScale()), height + lineHeightAdjustment, (float) yFromCenter * mapData.GetScale());
         this.nodePositions.Add(nodePosition);
     }
 

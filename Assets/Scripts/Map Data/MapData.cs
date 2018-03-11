@@ -119,6 +119,19 @@ public class MapData {
         return new Vector2(xVectorFromCenter, yVectorFromCenter);
     }
 
+	/// <summary>
+	/// Takes a MapPoint(lon,lat) as parameter and returns a Vector2(x,y) that gives 
+	/// the map-specific coordinates relative to top left cell of the map. 
+	/// </summary>
+	public Vector2 GetRawCoordinatesFromLatLon(MapPoint latLonPoint) {
+		MapPoint sliceTopLeft = GetTopLeftLatLonPoint();
+
+		float xVectorFromTopLeft = converter.DistanceBetweenCoordinates(sliceTopLeft.x, latLonPoint.x);
+		float yVectorFromTopLeft = - (converter.DistanceBetweenCoordinates(sliceTopLeft.y, latLonPoint.y));
+
+		return new Vector2(xVectorFromTopLeft, yVectorFromTopLeft);
+	}
+
     public virtual float GetRaw(int x, int y) {
         return data[x, y];
     }

@@ -26,7 +26,9 @@ public class MapGenerator : MonoBehaviour {
 	public MapData mapData;
 	private MapMetadata mapMetadata;
 	private List<MapDisplay> displays;
-    private string filename = "20x20.txt";
+    
+	private string filename = "n37w113part.txt";
+	//private string filename = "20x20.txt";
     //private string filename = "grandcanyon.txt";
 
     private DisplayUpdater displayUpdater = new DisplayUpdater(); 
