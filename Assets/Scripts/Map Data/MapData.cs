@@ -21,7 +21,7 @@ public class MapData {
 
     public MapData(float[,] data, MapMetadata metadata) {
         this.data = data;
-		scale = 1 / ((float)Mathf.Max(data.GetLength(0), data.GetLength(1)));
+		scale = 1 / (float)Mathf.Max(data.GetLength(0), data.GetLength(1));
         this.metadata = metadata;
         converter = new CoordinateConverter(this.metadata.GetCellsize());
     }
