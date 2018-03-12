@@ -41,7 +41,9 @@ public class TrailDisplay : MonoBehaviour {
 		float xFromCenter = node.x - mapData.GetWidth() / 2;
 		float yFromCenter = (mapData.GetHeight() / 2) - node.y;
 
-		Vector3 nodePosition = new Vector3 (((float) xFromCenter * mapData.GetScale()), height + lineHeightAdjustment, (float) yFromCenter * mapData.GetScale());
+		float scale = 1 / ((float) Mathf.Max (mapData.GetWidth(), mapData.GetHeight()) - 1);
+
+		Vector3 nodePosition = new Vector3 ((float) xFromCenter * scale, height + lineHeightAdjustment, (float) yFromCenter * scale);
         this.nodePositions.Add(nodePosition);
     }
 

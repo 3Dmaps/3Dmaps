@@ -33,6 +33,22 @@ public class TrailDisplayTest {
 	}
 
 	[Test]
+	public void TrailObjectIsCreatedInCorrectPlace() {
+		List<DisplayNode> nodeList = new List<DisplayNode> ();
+		nodeList.Add(new DisplayNode (0, 0));
+		nodeList.Add(new DisplayNode (2, 2));
+		display.DisplayNodes (nodeList);
+
+		LineRenderer lineRenderer = display.transform.GetChild (0).GetComponent<LineRenderer> ();
+		Assert.True (lineRenderer.GetPosition (0).x == -0.5f, "First x-coordinate wrong: " + lineRenderer.GetPosition (0).x);
+		Assert.True (lineRenderer.GetPosition (0).z == 0.5f, "First y-coordinate wrong: " + lineRenderer.GetPosition (0).z);
+
+		Assert.True (lineRenderer.GetPosition (1).x == 0.5f, "Second x-coordinate wrong: " + lineRenderer.GetPosition (1).x);
+		Assert.True (lineRenderer.GetPosition (1).z == -0.5f, "Second y-coordinate wrong: " + lineRenderer.GetPosition (1).z);
+
+	}
+
+	[Test]
 	public void TwoTrailObjectsAreCreated() {
 		List<DisplayNode> nodeList = new List<DisplayNode> ();
 		nodeList.Add(new DisplayNode (0, 0));
