@@ -54,7 +54,17 @@ public class CoordinateConverter {
 
         return new MapPoint(x, y);
     }
-    
+
+    /// <summary>
+    /// NOT IMPLEMENTED YET. Takes a MapPoint(x,y) with x and y coordinates in WebMercator and returns a MapPoint(lon,lat).
+    /// </summary>
+    /// <param name="pointToReproject">MapPoint with x and y in WebMercator</param>
+    /// <returns>MapPoint with x as lon and y as lat</returns>
+
+    public MapPoint ProjectWebMercatorPointToLatLon(MapPoint webMercatorPoint) {
+        throw new MissingMethodException("Not implemented yet.");
+    }
+
     /// <summary>
     /// Takes a lat or lon coordinate and transforms it by a number of cells using 
     /// the cellsize and meter value specified in the constructor. Returns the 
@@ -65,6 +75,18 @@ public class CoordinateConverter {
     /// <returns>The transformed coordinate in lat or lon</returns>
     public double TransformCoordinateByDistance(double cells, double startCoordinate) {
         return startCoordinate + (meterAsLatLonDegrees * cells * cellsize);
+    }
+
+    /// <summary>
+    /// Takes a WebMercator coordinate and transforms it by a number of cells using 
+    /// the cellsize and meter value specified in the constructor. Returns the 
+    /// transformed Webmercator coordinate.
+    /// </summary>
+    /// <param name="cells">The number of map cells to transform the coordinate by</param>
+    /// <param name="startCoordinate">The start coordinate in WebMercator</param>
+    /// <returns>The transformed coordinate in WebMercator</returns>
+    public double TransformCoordinateByWebMercatorDistance(double cells, double startCoordinate) {
+        return startCoordinate + (cells * cellsize);
     }
 
     /// <summary>

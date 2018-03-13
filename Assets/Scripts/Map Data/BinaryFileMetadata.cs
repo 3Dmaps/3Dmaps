@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -62,12 +62,13 @@ public class BinaryFileMetadata : MapMetadata {
 
     private void ProcessMapInfo() {
         BinaryFileMapInfo info = BinaryFileMapInfo.Parse(data[mapInfoKey]);
-        cellsize = CoordinateConverter.LatLonDegreesToDefaultMeters(info.pixelSize);
+        cellsize = (float)info.pixelSize;
         CoordinateConverter conv = new CoordinateConverter(cellsize);
-        int deltaX = 1 - info.refX; // Lower left corner is map point (1, columns)
-        int deltaY = rows - info.refY; // (In this case indexing starts at 0)
-        lowerLeftCornerX = conv.TransformCoordinateByDistance(deltaX, info.refEasting);
-        lowerLeftCornerY = conv.TransformCoordinateByDistance(deltaY, info.refNorthing);
+        int deltaX = 1 - info.refX; // Lower left corner is map point (0, rows). The hdr top left coordinates are (1,1).
+        int deltaY = - (rows + 1) + info.refY; // The amount of y pixels to move to reach lower left corner from reference point.
+        lowerLeftCornerX = conv.TransformCoordinateByWebMercatorDistance(deltaX, info.refEasting);
+        lowerLeftCornerY = conv.TransformCoordinateByWebMercatorDistance(deltaY, info.refNorthing);
+
     }
 
     private void CheckIfProcessed() {
