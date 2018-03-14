@@ -15,14 +15,14 @@ public class TrailGenerator : MonoBehaviour {
 	List<DisplayNode> displayNodes;
 
 
-	public void GenerateTrails(MapGenerator mapGenerator) {
+	public void GenerateTrails(MapGenerator mapGenerator, string mapName) {
 		mapData = mapGenerator.mapData;
 		display = this.GetComponent<TrailDisplay> ();
 		display.mapData = mapData;
 
 		ColorHandler colorHandler = new ColorHandler ();
 
-		TrailData trailData = TrailDataImporter.ReadTrailData (GetDataPath("SampleTrailDataCanyon.xml"));
+		TrailData trailData = GameObject.FindObjectOfType<DataImporter>().GetTraiData(mapName);
 
 		foreach (Trail trail in trailData.trails) {
 			display.trailColor = colorHandler.SelectColor(trail.colorName);
@@ -30,21 +30,6 @@ public class TrailGenerator : MonoBehaviour {
 		}
 	}
 
-    private string GetDataPath(string filename)
-    {
-    #if UNITY_EDITOR
-        return Application.dataPath + "/StreamingAssets/" + filename;
-    #endif
-
-    #if UNITY_IPHONE
-        return Application.dataPath + "/Raw/" + filename;
-    #endif
-
-    #if UNITY_ANDROID
-        return "jar:file://" + Application.dataPath + "!/assets/" + filename;
-    #endif
-        return filename;
-    }
 	public List<DisplayNode> TranslateTrail(Trail trail) {
 		displayNodes = new List<DisplayNode> ();
 

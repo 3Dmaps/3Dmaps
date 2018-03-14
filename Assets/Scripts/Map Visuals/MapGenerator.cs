@@ -11,7 +11,9 @@ using Priority_Queue;
 public class MapGenerator : MonoBehaviour {
 
 	public enum DrawMode {NoiseMap, ColourMap, Mesh};
-	public DrawMode drawMode;
+    public enum MapName { canyonTestHigh, canyonTestLow };
+
+    public DrawMode drawMode;
 
     public int mapSliceSize = 200;
     [Range(0, 24)]
@@ -24,12 +26,9 @@ public class MapGenerator : MonoBehaviour {
 	public GameObject visual;
 
 	public MapData mapData;
-	private MapMetadata mapMetadata;
 	private List<MapDisplay> displays;
-    
-	private string filename = "n37w113part.txt";
-	//private string filename = "20x20.txt";
-    //private string filename = "grandcanyon.txt";
+
+    public MapName mapName;
 
     private DisplayUpdater displayUpdater = new DisplayUpdater(); 
     private int currentZoomValue  = 0;
@@ -38,36 +37,33 @@ public class MapGenerator : MonoBehaviour {
 
     public void Start()
     {
-        string mapDataPath = GetMapDataPath(filename);
         regions     = new MapRegionSmoother().SmoothRegions(regions,regionsSmoothCount);
-		mapMetadata = MapDataImporter.ReadMetadata(mapDataPath);
-        mapData     = MapDataImporter.ReadMapData(mapDataPath, mapMetadata);
-		displays	= new List<MapDisplay>();
+
+        string mapFileName = "";
+        switch (mapName) {
+            case MapName.canyonTestHigh:
+                mapFileName = "CanyonTestHigh";
+                break;
+            case MapName.canyonTestLow:
+                mapFileName = "CanyonTestLow";
+                break;
+            default:
+                break;
+        }
+        DataImporter dataImporter = GameObject.FindObjectOfType<DataImporter>();
+        mapData = dataImporter.GetASCIIMapData(mapFileName);
+
+		displays = new List<MapDisplay>();
         GenerateMap();
+
         TrailGenerator trailGenerator = GameObject.FindObjectOfType<TrailGenerator>();
         if (trailGenerator != null) {
             try {
-                trailGenerator.GenerateTrails(this);
+                trailGenerator.GenerateTrails(this, mapFileName);
             } catch(System.Exception e) {
                 Debug.Log("Did not generate trails: " + e);
             }
         }   
-    }
-
-    private string GetMapDataPath(string filename)
-    {
-    #if UNITY_EDITOR
-        return Application.dataPath + "/StreamingAssets/" + filename;
-    #endif
-
-    #if UNITY_IPHONE
-        return Application.dataPath + "/Raw/" + filename;
-    #endif
-
-    #if UNITY_ANDROID
-        return "jar:file://" + Application.dataPath + "!/assets/" + filename;
-    #endif
-        return filename;
     }
 
     public void GenerateMap() {
