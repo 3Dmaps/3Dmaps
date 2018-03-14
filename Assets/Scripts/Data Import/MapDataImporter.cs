@@ -20,6 +20,8 @@ public static class MapDataImporter {
         switch (type) {
             case MapDataType.ASCIIGrid:
                 return ASCIIGridImporter.ReadMetadata(path);
+            case MapDataType.Binary:
+                return BinaryFileImporter.ReadMetadata(path);
             default:
                 throw new System.NotImplementedException("Type " + type + " not implemented!");
         }
@@ -29,6 +31,8 @@ public static class MapDataImporter {
         switch (type) {
             case MapDataType.ASCIIGrid:
                 return ASCIIGridImporter.ReadMapData(path, (ASCIIGridMetadata)metadata);
+            case MapDataType.Binary:
+                return BinaryFileImporter.ReadMapData(path, (BinaryFileMetadata)metadata);
             default:
                 throw new System.NotImplementedException("Type " + type + " not implemented!");
         }
