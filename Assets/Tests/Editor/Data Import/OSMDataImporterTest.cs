@@ -4,13 +4,13 @@ using UnityEngine.TestTools;
 using NUnit.Framework;
 using System.Collections;
 
-public class TrailDataImporterTest {
-    TrailData trailData;
+public class OSMDataImporterTest {
+    OSMData trailData;
     float precision;
 
     [OneTimeSetUp]
     public void Setup() {
-        trailData = TrailDataImporter.ReadTrailData("Assets/Resources/testData/testTrailData.xml");
+        trailData = OSMDataImporter.ReadTrailData("Assets/Resources/testData/testTrailData.xml");
         precision = 0.0001F;        
     }
     
@@ -24,6 +24,14 @@ public class TrailDataImporterTest {
         Assert.True(trailData.trails[0].GetNodeList()[0].id == 173886087, "TrailNode id incorrect.");
 		Assert.True(trailData.trails[0].GetNodeList()[1].id == 173895047, "TrailNode id incorrect.");
         Assert.True(trailData.trails[0].GetNodeList()[2].id == 173910289, "TrailNode id incorrect.");
+    }
+    [Test]
+    public void CorrectNumberOfPoiNodes() {
+        Assert.True(trailData.poiNodes.Count == 2, "Wrong number of points of interest");
+    }
+    [Test]
+    public void CorrentIconFoundOnPoi() {
+        Assert.True(trailData.poiNodes[0].icon.Equals("city"), "Wrong icon name");        
     }
 
     [Test]
