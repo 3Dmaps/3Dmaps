@@ -22,9 +22,9 @@ public class OSMGenerator : MonoBehaviour {
 
 		ColorHandler colorHandler = new ColorHandler ();
 
-		OSMData trailData = OSMDataImporter.ReadTrailData (GetDataPath("SampleTrailDataCanyon.xml"));
+		OSMData osmData = OSMDataImporter.ReadOSMData (GetDataPath("SampleTrailDataCanyon.xml"));
 
-		foreach (Trail trail in trailData.trails) {
+		foreach (Trail trail in osmData.trails) {
 			display.trailColor = colorHandler.SelectColor(trail.colorName);
 			display.DisplayNodes(TranslateTrail (trail));
 		}

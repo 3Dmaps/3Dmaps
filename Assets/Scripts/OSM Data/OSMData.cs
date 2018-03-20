@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Holds a list of all trails from an OpenStreetMap XML file.
+/// Holds lists of all trails and points of interest derived an OpenStreetMap XML file.
 /// </summary>
 
 public class OSMData {

@@ -5,9 +5,10 @@ using System.Xml;
 using System;
 
 /// <summary>
-/// Reads trail and node data from a OpenStreetMap XML-file. The input file must 
-/// have the ending .xml. The data is stored in a TrailData object. Currently
+/// Reads trail and node data from an OpenStreetMap XML-file. The input file must 
+/// have the ending .xml. The data is stored in an OSMData object. Currently
 /// the "node and ""way"-tagged elements are read in and formed into Trails.
+/// Points of interest are stored as POINode objects.
 /// </summary>
 
 public class OSMDataImporter {
@@ -17,7 +18,7 @@ public class OSMDataImporter {
 	private const string tagElement = "tag";
 
 
-    public static OSMData ReadTrailData(string path) {
+    public static OSMData ReadOSMData(string path) {
         XmlDocument xmlDoc = new XmlDocument();
 
         Dictionary<long, TrailNode> trailNodes = new Dictionary<long, TrailNode>();
@@ -48,11 +49,9 @@ public class OSMDataImporter {
         return osmData;
     }
 
-    private static void ReadTrailNode(OSMData trailData ,Dictionary<long, TrailNode> trailNodes, XmlElement node) {
+    private static void ReadTrailNode(OSMData trailData, Dictionary<long, TrailNode> trailNodes, XmlElement node) {
         TrailNode trailNode = new TrailNode();
         if (node.ChildNodes.Count > 0) {
-
-
             foreach (XmlElement childNode in node.ChildNodes) {
                 if (childNode.LocalName.Equals(tagElement) && childNode.GetAttribute("k").Equals(iconKeyValue)) {
                     POINode poiNode = new POINode(childNode.GetAttribute("v"));
@@ -60,7 +59,6 @@ public class OSMDataImporter {
                     poiNode.lat = float.Parse(node.GetAttribute(latAttribute));
                     poiNode.lon = float.Parse(node.GetAttribute(lonAttribute));
                     trailData.AddPOI(poiNode);
-
                 }
             }
         }
