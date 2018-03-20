@@ -11,6 +11,7 @@ public class OSMGenerator : MonoBehaviour {
 
 	private MapData mapData;
 	private TrailDisplay display;
+	private POIDisplay poiDisplay;
 	public int nodeGenerationRate = 1; // number of new nodes created between adjacent nodes in data
 	List<DisplayNode> displayNodes;
 
@@ -18,7 +19,9 @@ public class OSMGenerator : MonoBehaviour {
 	public void GenerateTrails(MapGenerator mapGenerator) {
 		mapData = mapGenerator.mapData;
 		display = this.GetComponent<TrailDisplay> ();
+		poiDisplay = this.GetComponent<POIDisplay> ();
 		display.mapData = mapData;
+		poiDisplay.mapData = mapData;
 
 		ColorHandler colorHandler = new ColorHandler ();
 
@@ -28,7 +31,12 @@ public class OSMGenerator : MonoBehaviour {
 			display.trailColor = colorHandler.SelectColor(trail.colorName);
 			display.DisplayNodes(TranslateTrail (trail));
 		}
+		foreach (POINode poiNode in osmData.poiNodes) {
+			Vector2 point = mapData.GetRawCoordinatesFromLatLon(new MapPoint((double) poiNode.lon, (double) poiNode.lat));
+			poiDisplay.DisplayPOINode(new DisplayNode((int) point.x, (int) point.y));
+		}
 	}
+
 
     private string GetDataPath(string filename)
     {
