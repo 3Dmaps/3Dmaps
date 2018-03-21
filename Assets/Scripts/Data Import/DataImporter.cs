@@ -2,73 +2,72 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DataImporter : MonoBehaviour {
+public static class DataImporter {
 
-    Dictionary<string, MapDataFrame> mapDataFrames = new Dictionary<string, MapDataFrame>();
+    private static Dictionary<string, MapDataFrame> mapDataFrames = new Dictionary<string, MapDataFrame>();
     
-    public BinaryFileMetadata GetBinaryMapMetaData(string mapName) {
+    public static BinaryFileMetadata GetBinaryMapMetaData(string mapName) {
         CreateDataFrame(mapName);
         if (mapDataFrames[mapName].binaryMapMetaData == null) {
             MapDataFrame dataFrame = mapDataFrames[mapName];
-            dataFrame.binaryMapMetaData = BinaryFileImporter.ReadMetadata(GetFilePathByName(mapName, PathDataType.height));
+            dataFrame.binaryMapMetaData = BinaryFileImporter.ReadMetadata(GetFilePathByName(mapName, PathDataType.height) + ".hdr");
             mapDataFrames[mapName] = dataFrame;
         }
         return mapDataFrames[mapName].binaryMapMetaData;
     }
 
-    public MapData GetBinaryMapData(string mapName) {
+    public static MapData GetBinaryMapData(string mapName) {
         CreateDataFrame(mapName);
         MapDataFrame dataFrame = mapDataFrames[mapName];
-        if (dataFrame.binaryMapData == null) {
-            dataFrame.binaryMapData = BinaryFileImporter.ReadMapData(GetFilePathByName(mapName, PathDataType.height), GetBinaryMapMetaData(mapName));
+        if (dataFrame.mapData == null) {
+            dataFrame.mapData = BinaryFileImporter.ReadMapData(GetFilePathByName(mapName, PathDataType.height) + ".bin", GetBinaryMapMetaData(mapName));
             mapDataFrames[mapName] = dataFrame;
         }
-        return mapDataFrames[mapName].binaryMapData;
+        return mapDataFrames[mapName].mapData;
     }
 
-    public ASCIIGridMetadata GetASCIIMapMetaData(string mapName) {
+    public static ASCIIGridMetadata GetASCIIMapMetaData(string mapName) {
         CreateDataFrame(mapName);
         if (mapDataFrames[mapName].asciiMapMetaData == null) {
             MapDataFrame dataFrame = mapDataFrames[mapName];
-            dataFrame.asciiMapMetaData = ASCIIGridImporter.ReadMetadata(GetFilePathByName(mapName, PathDataType.height));
+            dataFrame.asciiMapMetaData = ASCIIGridImporter.ReadMetadata(GetFilePathByName(mapName, PathDataType.height) + ".txt");
             mapDataFrames[mapName] = dataFrame;
         }
         return mapDataFrames[mapName].asciiMapMetaData;
     }
 
-    public MapData GetASCIIMapData(string mapName) {
+    public static MapData GetASCIIMapData(string mapName) {
         CreateDataFrame(mapName);
         MapDataFrame dataFrame = mapDataFrames[mapName];
-        if (dataFrame.binaryMapData == null) {
-            dataFrame.binaryMapData = ASCIIGridImporter.ReadMapData(GetFilePathByName(mapName, PathDataType.height), GetASCIIMapMetaData(mapName));
+        if (dataFrame.mapData == null) {
+            dataFrame.mapData = ASCIIGridImporter.ReadMapData(GetFilePathByName(mapName, PathDataType.height) + ".txt", GetASCIIMapMetaData(mapName));
             mapDataFrames[mapName] = dataFrame;
         }
-        return mapDataFrames[mapName].binaryMapData;
+        return mapDataFrames[mapName].mapData;
     }
 
-    public TrailData GetTraiData (string mapName) {
+    public static OSMData GetOSMData (string mapName) {
         CreateDataFrame(mapName);
         MapDataFrame dataFrame = mapDataFrames[mapName];
-        if(dataFrame.trailData == null) {
-            dataFrame.trailData = TrailDataImporter.ReadTrailData(GetFilePathByName(mapName, PathDataType.trail));
+        if(dataFrame.osmData == null) {
+            dataFrame.osmData = OSMDataImporter.ReadOSMData(GetFilePathByName(mapName, PathDataType.trail) + ".xml");
             mapDataFrames[mapName] = dataFrame;
         }
-        return mapDataFrames[mapName].trailData;
+        return mapDataFrames[mapName].osmData;
     }
 
-    private void CreateDataFrame(string mapName) {
+    private static void CreateDataFrame(string mapName) {
         if (!mapDataFrames.ContainsKey(mapName)) {
             mapDataFrames.Add(mapName, new MapDataFrame());
         }
     }
 
-    private string GetFilePathByName(string mapName, PathDataType pathDataType) {
+    private static string GetFilePathByName(string mapName, PathDataType pathDataType) {
         switch (pathDataType) {
             case PathDataType.height:
-                mapName = mapName + ".txt";
                 break;
             case PathDataType.trail:
-                mapName = mapName + "_trails.xml";
+                mapName = mapName + "_trails";
                 break;
             default:
                 break;
@@ -94,12 +93,9 @@ public struct MapDataFrame {
     public string name;
 
     public BinaryFileMetadata binaryMapMetaData;
-    public MapData binaryMapData;
-
     public ASCIIGridMetadata asciiMapMetaData;
-    public MapData asciiMapData;
-
-    public TrailData trailData;
+    public MapData mapData;
+    public OSMData osmData;
 }
 
 public enum PathDataType {

@@ -17,14 +17,11 @@ public class OSMGenerator : MonoBehaviour {
 
 	public void GenerateTrails(MapGenerator mapGenerator, string mapName) {
 		mapData = mapGenerator.mapData;
-		display = this.GetComponent<TrailDisplay> ();
+		display = GetComponent<TrailDisplay>();
 		display.mapData = mapData;
 
 		ColorHandler colorHandler = new ColorHandler ();
-
-		TrailData trailData = GameObject.FindObjectOfType<DataImporter>().GetTraiData(mapName);
-		//OSMData osmData = OSMDataImporter.ReadOSMData (GetDataPath("SampleTrailDataCanyon.xml"));
-
+        OSMData osmData = DataImporter.GetOSMData(mapName);
 
 		foreach (Trail trail in osmData.trails) {
 			display.trailColor = colorHandler.SelectColor(trail.colorName);

@@ -11,7 +11,7 @@ using Priority_Queue;
 public class MapGenerator : MonoBehaviour {
 
 	public enum DrawMode {NoiseMap, ColourMap, Mesh};
-    public enum MapName { canyonTestHigh, canyonTestLow };
+    public enum MapName {canyonTestHigh, canyonTestLow, testData};
 
     public DrawMode drawMode;
 
@@ -39,27 +39,15 @@ public class MapGenerator : MonoBehaviour {
     {
         regions     = new MapRegionSmoother().SmoothRegions(regions,regionsSmoothCount);
 
-        string mapFileName = "";
-        switch (mapName) {
-            case MapName.canyonTestHigh:
-                mapFileName = "CanyonTestHigh";
-                break;
-            case MapName.canyonTestLow:
-                mapFileName = "CanyonTestLow";
-                break;
-            default:
-                break;
-        }
-        DataImporter dataImporter = GameObject.FindObjectOfType<DataImporter>();
-        mapData = dataImporter.GetASCIIMapData(mapFileName);
-
+        string mapFileName = GetMapFileNameFromEnum(mapName);
+        mapData = DataImporter.GetASCIIMapData(mapFileName);
 		displays = new List<MapDisplay>();
         GenerateMap();
 
-        TrailGenerator trailGenerator = GameObject.FindObjectOfType<TrailGenerator>();
-        if (trailGenerator != null) {
+        OSMGenerator osmGenerator = GameObject.FindObjectOfType<OSMGenerator>();
+        if (osmGenerator != null) {
             try {
-                trailGenerator.GenerateTrails(this, mapFileName);
+                osmGenerator.GenerateTrails(this, mapFileName);
             } catch(System.Exception e) {
                 Debug.Log("Did not generate trails: " + e);
             }
@@ -125,6 +113,23 @@ public class MapGenerator : MonoBehaviour {
             }
 		}
 	}
+
+    private string GetMapFileNameFromEnum(MapName mapName) {
+        switch (mapName) {
+            case MapName.canyonTestHigh:
+                return "CanyonTestHigh";
+
+            case MapName.canyonTestLow:
+                return "CanyonTestLow";
+
+            case MapName.testData:
+                return "testData";
+
+            default:
+                Debug.LogError("Error! Invalid map file name value!");
+                return "";
+        }
+    }
 }
 
 [System.Serializable]
