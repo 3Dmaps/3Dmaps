@@ -7,7 +7,7 @@ using UnityEngine;
 /// to displaying trails in Unity.  
 /// </summary>
 
-public class TrailGenerator : MonoBehaviour {
+public class OSMGenerator : MonoBehaviour {
 
 	private MapData mapData;
 	private TrailDisplay display;
@@ -23,8 +23,10 @@ public class TrailGenerator : MonoBehaviour {
 		ColorHandler colorHandler = new ColorHandler ();
 
 		TrailData trailData = GameObject.FindObjectOfType<DataImporter>().GetTraiData(mapName);
+		//OSMData osmData = OSMDataImporter.ReadOSMData (GetDataPath("SampleTrailDataCanyon.xml"));
 
-		foreach (Trail trail in trailData.trails) {
+
+		foreach (Trail trail in osmData.trails) {
 			display.trailColor = colorHandler.SelectColor(trail.colorName);
 			display.DisplayNodes(TranslateTrail (trail));
 		}
