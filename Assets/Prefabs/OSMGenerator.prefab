@@ -19,10 +19,11 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4063258639165556}
-  - component: {fileID: 114221490288407454}
   - component: {fileID: 114233758517916284}
+  - component: {fileID: 114855818445820298}
+  - component: {fileID: 114221490288407454}
   m_Layer: 0
-  m_Name: TrailGenerator
+  m_Name: OSMGenerator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -55,6 +56,10 @@ MonoBehaviour:
   nodeGameObject: {fileID: 1442270030222748, guid: b7e71742ec35e4a8f869848462824998,
     type: 2}
   trailColor: {r: 0, g: 0, b: 0, a: 0}
+  nodePositions: []
+  lineWidthMultiplier: 0.01
+  lineHeightAdjustment: 0.005
+  material: {fileID: 0}
 --- !u!114 &114233758517916284
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -63,7 +68,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1481990259727772}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58580fca85a3746acbaee9c6d696b457, type: 3}
+  m_Script: {fileID: 11500000, guid: 94dd385206779b04882edab6c32773a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapGenerator: {fileID: 0}
+  nodeGenerationRate: 1
+--- !u!114 &114855818445820298
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1481990259727772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9697cd62876059b42a725bad2350ed39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeGameObject: {fileID: 0}
+  nodePosition: {x: 0, y: 0, z: 0}
+  heightAdjustment: 0.005
+  material: {fileID: 0}
