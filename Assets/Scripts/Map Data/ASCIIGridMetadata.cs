@@ -15,7 +15,7 @@ public class ASCIIGridMetadata : MapMetadata {
     public double GetLowerLeftCornerX() {
         return xllcorner;
     }
-
+    
     public double GetLowerLeftCornerY() {
         return yllcorner;
     }

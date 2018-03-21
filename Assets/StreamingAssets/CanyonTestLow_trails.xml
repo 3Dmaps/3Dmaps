@@ -1,0 +1,1046 @@
+<?xml version="1.0" encoding="utf-8"?>
+<osm xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" version="0.6">
+  <node id="4326826496" version="1" timestamp="2016-07-29T12:52:22Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.1560631" lon="-111.1661682"/>
+  <node id="4326826497" version="1" timestamp="2016-07-29T12:52:22Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.1564903" lon="-111.1622238"/>
+  <node id="4326826498" version="1" timestamp="2016-07-29T12:52:22Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.1565399" lon="-111.2364578"/>
+  <node id="4326826499" version="1" timestamp="2016-07-29T12:52:22Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.1566086" lon="-110.9007111"/>
+  <node id="4326826500" version="1" timestamp="2016-07-29T12:52:22Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.1659998" lon="-109.0460166"/>
+  <node id="4326826501" version="1" timestamp="2016-07-29T12:52:22Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.1660618" lon="-109.050222"/>
+  <node id="4326826502" version="1" timestamp="2016-07-29T12:52:22Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.1666603" lon="-109.0907593"/>
+  <node id="4326826503" version="1" timestamp="2016-07-29T12:52:22Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.1667175" lon="-109.0930099"/>
+  <node id="4326826504" version="1" timestamp="2016-07-29T12:52:22Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.1674805" lon="-109.1993256"/>
+  <node id="4326826505" version="1" timestamp="2016-07-29T12:52:22Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.1691399" lon="-109.8384476"/>
+  <node id="4326826506" version="1" timestamp="2016-07-29T12:52:22Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.1691526" lon="-109.8377758"/>
+  <node id="4326826507" version="1" timestamp="2016-07-29T12:52:22Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.1699486" lon="-110.5776367"/>
+  <node id="4326826508" version="1" timestamp="2016-07-29T12:52:22Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.1700363" lon="-110.5849457"/>
+  <node id="4326826509" version="1" timestamp="2016-07-29T12:52:22Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.1701698" lon="-110.6743774"/>
+  <node id="4326826510" version="1" timestamp="2016-07-29T12:52:22Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.1702881" lon="-110.6850739"/>
+  <node id="4326826511" version="1" timestamp="2016-07-29T12:52:22Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.1704712" lon="-110.1568375"/>
+  <node id="4326826512" version="1" timestamp="2016-07-29T12:52:22Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.1705399" lon="-109.8907318"/>
+  <node id="4326826513" version="1" timestamp="2016-07-29T12:52:22Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.170723" lon="-110.2631531"/>
+  <node id="4326826514" version="1" timestamp="2016-07-29T12:52:22Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.170826" lon="-110.6923752"/>
+  <node id="4326826515" version="1" timestamp="2016-07-29T12:52:22Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.1709099" lon="-110.7418747"/>
+  <node id="4326826516" version="1" timestamp="2016-07-29T12:52:22Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.1709227" lon="-110.7509231"/>
+  <node id="4326826517" version="1" timestamp="2016-07-29T12:52:22Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.170948" lon="-109.6257248"/>
+  <node id="4326826518" version="1" timestamp="2016-07-29T12:52:22Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.1709595" lon="-110.1590729"/>
+  <node id="4326826519" version="1" timestamp="2016-07-29T12:52:22Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.1710243" lon="-110.050499"/>
+  <node id="4326826520" version="1" timestamp="2016-07-29T12:52:22Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.171032" lon="-110.3154678"/>
+  <node id="4326826521" version="1" timestamp="2016-07-29T12:52:22Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.1711349" lon="-110.9004974"/>
+  <node id="4326826522" version="1" timestamp="2016-07-29T12:52:22Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.171154" lon="-110.2614594"/>
+  <node id="4326826523" version="1" timestamp="2016-07-29T12:52:22Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.171196" lon="-109.7303696"/>
+  <node id="4326826524" version="1" timestamp="2016-07-29T12:52:22Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.1712799" lon="-110.3329086"/>
+  <node id="4326826525" version="1" timestamp="2016-07-29T12:52:22Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.1712837" lon="-110.3655319"/>
+  <node id="4326826526" version="1" timestamp="2016-07-29T12:52:22Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.1713448" lon="-110.3700333"/>
+  <node id="4326826527" version="1" timestamp="2016-07-29T12:52:22Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.1713448" lon="-110.4718552"/>
+  <node id="4326826528" version="1" timestamp="2016-07-29T12:52:23Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.1714325" lon="-110.4785995"/>
+  <node id="4326826529" version="1" timestamp="2016-07-29T12:52:23Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.1714973" lon="-109.9447098"/>
+  <node id="4326826530" version="1" timestamp="2016-07-29T12:52:23Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.171524" lon="-110.3503418"/>
+  <node id="4326826531" version="1" timestamp="2016-07-29T12:52:23Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.1715584" lon="-109.6791611"/>
+  <node id="4326826532" version="1" timestamp="2016-07-29T12:52:23Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.2314987" lon="-109.1986771"/>
+  <node id="4326826533" version="1" timestamp="2016-07-29T12:52:23Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.2323151" lon="-109.4132156"/>
+  <node id="4326826534" version="1" timestamp="2016-07-29T12:52:23Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.2572861" lon="-109.412941"/>
+  <node id="4326826535" version="1" timestamp="2016-07-29T12:52:23Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.2576447" lon="-109.6241684"/>
+  <node id="4326826536" version="1" timestamp="2016-07-29T12:52:23Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.2581749" lon="-109.5176849"/>
+  <node id="4326826537" version="1" timestamp="2016-07-29T12:52:23Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.3313141" lon="-111.236969"/>
+  <node id="4326826538" version="1" timestamp="2016-07-29T12:52:23Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.3462944" lon="-111.237381"/>
+  <node id="4326826539" version="1" timestamp="2016-07-29T12:52:23Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.4180107" lon="-111.237793"/>
+  <node id="4326826540" version="1" timestamp="2016-07-29T12:52:23Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.4970093" lon="-111.2420883"/>
+  <node id="4326826541" version="1" timestamp="2016-07-29T12:52:23Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.4996376" lon="-111.2430115"/>
+  <node id="4326826563" version="1" timestamp="2016-07-29T12:52:23Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.5011253" lon="-111.2465668"/>
+  <node id="4326826568" version="1" timestamp="2016-07-29T12:52:23Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.5056839" lon="-111.2499084"/>
+  <node id="4326826576" version="1" timestamp="2016-07-29T12:52:23Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.5102539" lon="-111.2549515"/>
+  <node id="4326826578" version="1" timestamp="2016-07-29T12:52:23Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.5161743" lon="-111.2582855"/>
+  <node id="4326826730" version="1" timestamp="2016-07-29T12:52:24Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.5229874" lon="-111.2587814"/>
+  <node id="4326826738" version="1" timestamp="2016-07-29T12:52:24Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.5302467" lon="-111.2587128"/>
+  <node id="4326826742" version="1" timestamp="2016-07-29T12:52:24Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.536129" lon="-111.2558289"/>
+  <node id="4326826750" version="1" timestamp="2016-07-29T12:52:24Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.5411148" lon="-111.2552185"/>
+  <node id="4326826752" version="1" timestamp="2016-07-29T12:52:24Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.5438347" lon="-111.2546234"/>
+  <node id="4326826756" version="1" timestamp="2016-07-29T12:52:24Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.5470161" lon="-111.2551575"/>
+  <node id="4326826778" version="1" timestamp="2016-07-29T12:52:25Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.5497513" lon="-111.2573929"/>
+  <node id="4326826784" version="1" timestamp="2016-07-29T12:52:25Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.5561295" lon="-111.2612839"/>
+  <node id="4326826792" version="1" timestamp="2016-07-29T12:52:25Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.5629501" lon="-111.2640457"/>
+  <node id="4326826794" version="1" timestamp="2016-07-29T12:52:25Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.5661774" lon="-111.2652512"/>
+  <node id="4326826798" version="1" timestamp="2016-07-29T12:52:25Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.5688667" lon="-111.2662506"/>
+  <node id="4326826800" version="1" timestamp="2016-07-29T12:52:25Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.5725098" lon="-111.2684784"/>
+  <node id="4326826802" version="1" timestamp="2016-07-29T12:52:25Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.575264" lon="-111.2735367"/>
+  <node id="4326826809" version="1" timestamp="2016-07-29T12:52:25Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.5789337" lon="-111.2797241"/>
+  <node id="4326826824" version="1" timestamp="2016-07-29T12:52:25Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.5812416" lon="-111.2864914"/>
+  <node id="4326826826" version="1" timestamp="2016-07-29T12:52:25Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.5821648" lon="-111.2893066"/>
+  <node id="4326826831" version="1" timestamp="2016-07-29T12:52:25Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.583992" lon="-111.2925644"/>
+  <node id="4326826833" version="1" timestamp="2016-07-29T12:52:25Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.5872116" lon="-111.2983093"/>
+  <node id="4326826835" version="1" timestamp="2016-07-29T12:52:25Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.5895004" lon="-111.3011169"/>
+  <node id="4326826854" version="1" timestamp="2016-07-29T12:52:26Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.5913353" lon="-111.3044968"/>
+  <node id="4326826858" version="1" timestamp="2016-07-29T12:52:26Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.5949821" lon="-111.3078537"/>
+  <node id="4326826861" version="1" timestamp="2016-07-29T12:52:26Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.5995331" lon="-111.3100739"/>
+  <node id="4326826863" version="1" timestamp="2016-07-29T12:52:26Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.6040764" lon="-111.3106003"/>
+  <node id="4326826873" version="1" timestamp="2016-07-29T12:52:26Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.6068077" lon="-111.3117065"/>
+  <node id="4326826874" version="1" timestamp="2016-07-29T12:52:26Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.6086273" lon="-111.3128204"/>
+  <node id="4326826876" version="1" timestamp="2016-07-29T12:52:26Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.6113663" lon="-111.3156281"/>
+  <node id="4326826878" version="1" timestamp="2016-07-29T12:52:26Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.6131935" lon="-111.3178711"/>
+  <node id="4326826881" version="1" timestamp="2016-07-29T12:52:26Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.6172676" lon="-111.3161392"/>
+  <node id="4326826882" version="1" timestamp="2016-07-29T12:52:26Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.6208878" lon="-111.3144073"/>
+  <node id="4326826883" version="1" timestamp="2016-07-29T12:52:26Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.6240654" lon="-111.3143768"/>
+  <node id="4326826884" version="1" timestamp="2016-07-29T12:52:26Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.6249619" lon="-111.3126755"/>
+  <node id="4326826890" version="1" timestamp="2016-07-29T12:52:26Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.6295013" lon="-111.3126297"/>
+  <node id="4326826893" version="1" timestamp="2016-07-29T12:52:26Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.634037" lon="-111.312027"/>
+  <node id="4326826895" version="1" timestamp="2016-07-29T12:52:26Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.6376877" lon="-111.3159561"/>
+  <node id="4326826896" version="1" timestamp="2016-07-29T12:52:26Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.6401825" lon="-111.5530624"/>
+  <node id="4326826897" version="1" timestamp="2016-07-29T12:52:26Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.6413879" lon="-111.6407776"/>
+  <node id="4326826899" version="1" timestamp="2016-07-29T12:52:26Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.6431541" lon="-111.3198624"/>
+  <node id="4326826902" version="1" timestamp="2016-07-29T12:52:26Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.6481743" lon="-111.3243484"/>
+  <node id="4326826932" version="1" timestamp="2016-07-29T12:52:27Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.6504593" lon="-111.3271561"/>
+  <node id="4326826933" version="1" timestamp="2016-07-29T12:52:27Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.6540947" lon="-111.3282623"/>
+  <node id="4326826936" version="1" timestamp="2016-07-29T12:52:27Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.6577301" lon="-111.3287964"/>
+  <node id="4326826937" version="1" timestamp="2016-07-29T12:52:27Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.6609001" lon="-111.3282013"/>
+  <node id="4326826940" version="1" timestamp="2016-07-29T12:52:27Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.6663284" lon="-111.3247528"/>
+  <node id="4326826941" version="1" timestamp="2016-07-29T12:52:27Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.6708565" lon="-111.3230133"/>
+  <node id="4326826942" version="1" timestamp="2016-07-29T12:52:27Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.672699" lon="-111.6406326"/>
+  <node id="4326826943" version="1" timestamp="2016-07-29T12:52:27Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.6729622" lon="-111.7408371"/>
+  <node id="4326826944" version="1" timestamp="2016-07-29T12:52:27Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.6731033" lon="-111.319603"/>
+  <node id="4326826946" version="1" timestamp="2016-07-29T12:52:27Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.6781044" lon="-111.3206863"/>
+  <node id="4326826947" version="1" timestamp="2016-07-29T12:52:27Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.679924" lon="-111.3218002"/>
+  <node id="4326826948" version="1" timestamp="2016-07-29T12:52:27Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.682209" lon="-111.3246155"/>
+  <node id="4326826949" version="1" timestamp="2016-07-29T12:52:27Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.685833" lon="-111.3234482"/>
+  <node id="4326826950" version="1" timestamp="2016-07-29T12:52:27Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.6908035" lon="-111.3200073"/>
+  <node id="4326826953" version="1" timestamp="2016-07-29T12:52:27Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.6921463" lon="-111.316597"/>
+  <node id="4326826954" version="1" timestamp="2016-07-29T12:52:27Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.6921539" lon="-111.3182983"/>
+  <node id="4326826960" version="1" timestamp="2016-07-29T12:52:27Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.6952972" lon="-111.3120422"/>
+  <node id="4326826965" version="1" timestamp="2016-07-29T12:52:27Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.698185" lon="-111.5317612"/>
+  <node id="4326826966" version="1" timestamp="2016-07-29T12:52:27Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.6982689" lon="-111.5538483"/>
+  <node id="4326826967" version="1" timestamp="2016-07-29T12:52:27Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.6989136" lon="-111.3097382"/>
+  <node id="4326826978" version="1" timestamp="2016-07-29T12:52:27Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.7047997" lon="-111.3074188"/>
+  <node id="4326826982" version="1" timestamp="2016-07-29T12:52:27Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.7120514" lon="-111.306221"/>
+  <node id="4326826983" version="1" timestamp="2016-07-29T12:52:27Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.7165909" lon="-111.3067474"/>
+  <node id="4326826984" version="1" timestamp="2016-07-29T12:52:27Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.7193184" lon="-111.3078537"/>
+  <node id="4326826986" version="1" timestamp="2016-07-29T12:52:27Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.7220535" lon="-111.3100967"/>
+  <node id="4326826987" version="1" timestamp="2016-07-29T12:52:27Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.72752" lon="-111.3140106"/>
+  <node id="4326826989" version="1" timestamp="2016-07-29T12:52:27Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.7311516" lon="-111.3139801"/>
+  <node id="4326826991" version="1" timestamp="2016-07-29T12:52:27Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.7352371" lon="-111.3145065"/>
+  <node id="4326826992" version="1" timestamp="2016-07-29T12:52:27Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.7393227" lon="-111.314476"/>
+  <node id="4326826993" version="1" timestamp="2016-07-29T12:52:28Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.7429581" lon="-111.3155746"/>
+  <node id="4326826995" version="1" timestamp="2016-07-29T12:52:28Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.7452164" lon="-111.3138504"/>
+  <node id="4326826996" version="1" timestamp="2016-07-29T12:52:28Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.7460175" lon="-111.7417221"/>
+  <node id="4326826997" version="1" timestamp="2016-07-29T12:52:28Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.7463455" lon="-111.6890182"/>
+  <node id="4326826998" version="1" timestamp="2016-07-29T12:52:28Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.7497559" lon="-111.3143768"/>
+  <node id="4326827003" version="1" timestamp="2016-07-29T12:52:28Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.7542915" lon="-111.3137741"/>
+  <node id="4326827004" version="1" timestamp="2016-07-29T12:52:28Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.7574768" lon="-111.3154449"/>
+  <node id="4326827005" version="1" timestamp="2016-07-29T12:52:28Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.7582245" lon="-111.4605408"/>
+  <node id="4326827006" version="1" timestamp="2016-07-29T12:52:28Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.7583046" lon="-111.4781113"/>
+  <node id="4326827007" version="1" timestamp="2016-07-29T12:52:28Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.7584114" lon="-111.3155823"/>
+  <node id="4326827008" version="1" timestamp="2016-07-29T12:52:28Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.7585297" lon="-111.5319519"/>
+  <node id="4326827030" version="1" timestamp="2016-07-29T12:52:28Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.8257446" lon="-111.6886902"/>
+  <node id="4326827031" version="1" timestamp="2016-07-29T12:52:28Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.8262444" lon="-111.7079773"/>
+  <node id="4326827040" version="1" timestamp="2016-07-29T12:52:28Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.8480225" lon="-111.7078934"/>
+  <node id="4326827041" version="1" timestamp="2016-07-29T12:52:28Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.8480606" lon="-111.7226486"/>
+  <node id="4326827296" version="1" timestamp="2016-07-29T12:52:31Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.9491882" lon="-111.7069397"/>
+  <node id="4326827297" version="1" timestamp="2016-07-29T12:52:31Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.949192" lon="-111.7080765"/>
+  <node id="4326827298" version="1" timestamp="2016-07-29T12:52:31Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.9496727" lon="-111.7205734"/>
+  <node id="4326827299" version="1" timestamp="2016-07-29T12:52:31Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.9500961" lon="-111.7057953"/>
+  <node id="4326827348" version="1" timestamp="2016-07-29T12:52:32Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.9787102" lon="-111.722168"/>
+  <node id="4326827350" version="1" timestamp="2016-07-29T12:52:32Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.979126" lon="-111.7056808"/>
+  <node id="4326827382" version="1" timestamp="2016-07-29T12:52:33Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.992321" lon="-111.7226868"/>
+  <node id="4326827390" version="1" timestamp="2016-07-29T12:52:33Z" uid="463545" user="Shinigami" changeset="41108758" lat="35.9932709" lon="-111.7403107"/>
+  <node id="4326827445" version="1" timestamp="2016-07-29T12:52:33Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.0077896" lon="-111.7408295"/>
+  <node id="4326827447" version="1" timestamp="2016-07-29T12:52:33Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.0082512" lon="-111.7453766"/>
+  <node id="4326827448" version="1" timestamp="2016-07-29T12:52:33Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.0082817" lon="-111.7601624"/>
+  <node id="4326827708" version="1" timestamp="2016-07-29T12:52:36Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.0695229" lon="-111.7593994"/>
+  <node id="4326827737" version="1" timestamp="2016-07-29T12:52:36Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.0758743" lon="-111.7599487"/>
+  <node id="4326827927" version="1" timestamp="2016-07-29T12:52:39Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.2069626" lon="-111.7595291"/>
+  <node id="4326827930" version="1" timestamp="2016-07-29T12:52:39Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.2124481" lon="-111.781189"/>
+  <node id="4326827931" version="1" timestamp="2016-07-29T12:52:39Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.2151833" lon="-111.7891617"/>
+  <node id="4326827932" version="1" timestamp="2016-07-29T12:52:39Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.2183685" lon="-111.7959976"/>
+  <node id="4326827934" version="1" timestamp="2016-07-29T12:52:39Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.22155" lon="-111.799408"/>
+  <node id="4326827936" version="1" timestamp="2016-07-29T12:52:39Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.2233696" lon="-111.8011169"/>
+  <node id="4326827938" version="1" timestamp="2016-07-29T12:52:39Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.2251854" lon="-111.8016815"/>
+  <node id="4326827940" version="1" timestamp="2016-07-29T12:52:39Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.2288132" lon="-111.8016739"/>
+  <node id="4326827942" version="1" timestamp="2016-07-29T12:52:39Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.2315331" lon="-111.8016663"/>
+  <node id="4326827944" version="1" timestamp="2016-07-29T12:52:39Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.2401657" lon="-111.8107681"/>
+  <node id="4326827947" version="1" timestamp="2016-07-29T12:52:39Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.2437973" lon="-111.8118973"/>
+  <node id="4326827948" version="1" timestamp="2016-07-29T12:52:39Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.2469711" lon="-111.8124619"/>
+  <node id="4326827958" version="1" timestamp="2016-07-29T12:52:39Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.2546806" lon="-111.8113022"/>
+  <node id="4326827966" version="1" timestamp="2016-07-29T12:52:39Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.2655602" lon="-111.8055725"/>
+  <node id="4326827968" version="1" timestamp="2016-07-29T12:52:39Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.2673721" lon="-111.8055649"/>
+  <node id="4326827972" version="1" timestamp="2016-07-29T12:52:39Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.2705536" lon="-111.8101196"/>
+  <node id="4326827974" version="1" timestamp="2016-07-29T12:52:39Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.2728271" lon="-111.8135376"/>
+  <node id="4326827977" version="1" timestamp="2016-07-29T12:52:39Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.2746506" lon="-111.8181"/>
+  <node id="4326827978" version="1" timestamp="2016-07-29T12:52:39Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.2751045" lon="-111.8192444"/>
+  <node id="4326828006" version="1" timestamp="2016-07-29T12:52:40Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.2810135" lon="-111.8283615"/>
+  <node id="4326828040" version="1" timestamp="2016-07-29T12:52:40Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.292366" lon="-111.8368988"/>
+  <node id="4326828052" version="1" timestamp="2016-07-29T12:52:40Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.2982674" lon="-111.8425903"/>
+  <node id="4326828125" version="1" timestamp="2016-07-29T12:52:41Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.3132439" lon="-111.8488388"/>
+  <node id="4326828144" version="1" timestamp="2016-07-29T12:52:42Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.3241272" lon="-111.8453903"/>
+  <node id="4326828202" version="1" timestamp="2016-07-29T12:52:42Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.3486214" lon="-111.8476257"/>
+  <node id="4326828216" version="1" timestamp="2016-07-29T12:52:43Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.3563347" lon="-111.8516083"/>
+  <node id="4326828230" version="1" timestamp="2016-07-29T12:52:43Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.3595161" lon="-111.8561707"/>
+  <node id="4326828250" version="1" timestamp="2016-07-29T12:52:43Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.3636131" lon="-111.8681641"/>
+  <node id="4326828271" version="1" timestamp="2016-07-29T12:52:43Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.3667946" lon="-111.8732986"/>
+  <node id="4326828275" version="1" timestamp="2016-07-29T12:52:43Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.3686066" lon="-111.8738708"/>
+  <node id="4326828277" version="1" timestamp="2016-07-29T12:52:43Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.3690605" lon="-111.8732986"/>
+  <node id="4326828280" version="1" timestamp="2016-07-29T12:52:43Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.3699455" lon="-111.8544388"/>
+  <node id="4326828282" version="1" timestamp="2016-07-29T12:52:43Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.3704185" lon="-111.8721542"/>
+  <node id="4326828283" version="1" timestamp="2016-07-29T12:52:43Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.3704185" lon="-111.8727264"/>
+  <node id="4326828284" version="1" timestamp="2016-07-29T12:52:43Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.3708458" lon="-111.8487244"/>
+  <node id="4326828285" version="1" timestamp="2016-07-29T12:52:43Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.3708725" lon="-111.8710098"/>
+  <node id="4326828287" version="1" timestamp="2016-07-29T12:52:44Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.3713226" lon="-111.8675766"/>
+  <node id="4326828290" version="1" timestamp="2016-07-29T12:52:44Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.3717499" lon="-111.8452911"/>
+  <node id="4326828296" version="1" timestamp="2016-07-29T12:52:44Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.374012" lon="-111.8418579"/>
+  <node id="4326828326" version="1" timestamp="2016-07-29T12:52:44Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.3798981" lon="-111.8355637"/>
+  <node id="4326828341" version="1" timestamp="2016-07-29T12:52:44Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.3848839" lon="-111.8332672"/>
+  <node id="4326828424" version="1" timestamp="2016-07-29T12:52:45Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.3916817" lon="-111.8303909"/>
+  <node id="4326828435" version="1" timestamp="2016-07-29T12:52:46Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.3930397" lon="-111.8281021"/>
+  <node id="4326828464" version="1" timestamp="2016-07-29T12:52:46Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.3993912" lon="-111.8292313"/>
+  <node id="4326828478" version="1" timestamp="2016-07-29T12:52:46Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.4021149" lon="-111.8309402"/>
+  <node id="4326828495" version="1" timestamp="2016-07-29T12:52:46Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.4043884" lon="-111.8337936"/>
+  <node id="4326828504" version="1" timestamp="2016-07-29T12:52:47Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.4066582" lon="-111.8372192"/>
+  <node id="4326828533" version="1" timestamp="2016-07-29T12:52:47Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.4134865" lon="-111.8549271"/>
+  <node id="4326828554" version="1" timestamp="2016-07-29T12:52:47Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.4243736" lon="-111.8583374"/>
+  <node id="4326828557" version="1" timestamp="2016-07-29T12:52:47Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.4252815" lon="-111.8583374"/>
+  <node id="4326828560" version="1" timestamp="2016-07-29T12:52:47Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.4266396" lon="-111.8566208"/>
+  <node id="4326828563" version="1" timestamp="2016-07-29T12:52:47Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.4275436" lon="-111.8543243"/>
+  <node id="4326828577" version="1" timestamp="2016-07-29T12:52:48Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.4302368" lon="-111.8343124"/>
+  <node id="4326828587" version="1" timestamp="2016-07-29T12:52:48Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.4311333" lon="-111.824585"/>
+  <node id="4326828588" version="1" timestamp="2016-07-29T12:52:48Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.4501724" lon="-111.8193893"/>
+  <node id="4326828589" version="1" timestamp="2016-07-29T12:52:48Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.4619675" lon="-111.8216553"/>
+  <node id="4326828590" version="1" timestamp="2016-07-29T12:52:48Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.4642334" lon="-111.819931"/>
+  <node id="4326828591" version="1" timestamp="2016-07-29T12:52:48Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.4683113" lon="-111.8182068"/>
+  <node id="4326828592" version="1" timestamp="2016-07-29T12:52:48Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.4705772" lon="-111.8181992"/>
+  <node id="4326828593" version="1" timestamp="2016-07-29T12:52:48Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.471035" lon="-111.8187714"/>
+  <node id="4326828594" version="1" timestamp="2016-07-29T12:52:48Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.4719391" lon="-111.8187714"/>
+  <node id="4326828595" version="1" timestamp="2016-07-29T12:52:48Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.4751358" lon="-111.8330612"/>
+  <node id="4326828596" version="1" timestamp="2016-07-29T12:52:48Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.4764977" lon="-111.8342056"/>
+  <node id="4326828597" version="1" timestamp="2016-07-29T12:52:48Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.4792175" lon="-111.8336258"/>
+  <node id="4326828598" version="1" timestamp="2016-07-29T12:52:48Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.4905472" lon="-111.8284531"/>
+  <node id="4326828599" version="1" timestamp="2016-07-29T12:52:48Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.4955368" lon="-111.8295822"/>
+  <node id="4326828600" version="1" timestamp="2016-07-29T12:52:48Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.4978065" lon="-111.8307266"/>
+  <node id="4326828601" version="1" timestamp="2016-07-29T12:52:48Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.4982643" lon="-111.8324432"/>
+  <node id="4326828602" version="1" timestamp="2016-07-29T12:52:48Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.5000839" lon="-111.8370132"/>
+  <node id="4326828603" version="1" timestamp="2016-07-29T12:52:48Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.5028114" lon="-111.8410187"/>
+  <node id="4326828604" version="1" timestamp="2016-07-29T12:52:48Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.5037193" lon="-111.8415909"/>
+  <node id="4326828605" version="1" timestamp="2016-07-29T12:52:48Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.5041695" lon="-111.8415833"/>
+  <node id="4326828606" version="1" timestamp="2016-07-29T12:52:48Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.5100594" lon="-111.8369904"/>
+  <node id="4326828607" version="1" timestamp="2016-07-29T12:52:48Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.5136757" lon="-111.8283997"/>
+  <node id="4326828608" version="1" timestamp="2016-07-29T12:52:48Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.5154686" lon="-111.8146591"/>
+  <node id="4326828609" version="1" timestamp="2016-07-29T12:52:48Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.5190926" lon="-111.8117828"/>
+  <node id="4326828610" version="1" timestamp="2016-07-29T12:52:48Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.5231781" lon="-111.8123474"/>
+  <node id="4326828611" version="1" timestamp="2016-07-29T12:52:48Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.5277176" lon="-111.8180618"/>
+  <node id="4326828612" version="1" timestamp="2016-07-29T12:52:48Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.532711" lon="-111.819191"/>
+  <node id="4326828613" version="1" timestamp="2016-07-29T12:52:48Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.5395088" lon="-111.8163147"/>
+  <node id="4326828614" version="1" timestamp="2016-07-29T12:52:48Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.5426788" lon="-111.8151627"/>
+  <node id="4326828615" version="1" timestamp="2016-07-29T12:52:48Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.5489922" lon="-111.7905197"/>
+  <node id="4326828616" version="1" timestamp="2016-07-29T12:52:48Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.5494385" lon="-111.7859344"/>
+  <node id="4326828617" version="1" timestamp="2016-07-29T12:52:48Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.5512505" lon="-111.7842102"/>
+  <node id="4326828618" version="1" timestamp="2016-07-29T12:52:48Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.5512848" lon="-111.8071213"/>
+  <node id="4326828619" version="1" timestamp="2016-07-29T12:52:48Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.5512886" lon="-111.8094101"/>
+  <node id="4326828620" version="1" timestamp="2016-07-29T12:52:48Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.5526352" lon="-111.7985229"/>
+  <node id="4326828621" version="1" timestamp="2016-07-29T12:52:48Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.5544243" lon="-111.7847748"/>
+  <node id="4326828622" version="1" timestamp="2016-07-29T12:52:48Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.5626106" lon="-111.7973557"/>
+  <node id="4326828623" version="1" timestamp="2016-07-29T12:52:48Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.5653305" lon="-111.797348"/>
+  <node id="4326828624" version="1" timestamp="2016-07-29T12:52:48Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.5775337" lon="-111.773819"/>
+  <node id="4326828625" version="1" timestamp="2016-07-29T12:52:48Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.5788918" lon="-111.7732391"/>
+  <node id="4326828626" version="1" timestamp="2016-07-29T12:52:48Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.5829659" lon="-111.7703629"/>
+  <node id="4326828627" version="1" timestamp="2016-07-29T12:52:48Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.5915718" lon="-111.7646103"/>
+  <node id="4326828628" version="1" timestamp="2016-07-29T12:52:48Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.595192" lon="-111.7611618"/>
+  <node id="4326828629" version="1" timestamp="2016-07-29T12:52:48Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.6060638" lon="-111.7542496"/>
+  <node id="4326828630" version="1" timestamp="2016-07-29T12:52:48Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.6128464" lon="-111.7462006"/>
+  <node id="4326828631" version="1" timestamp="2016-07-29T12:52:48Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.6133003" lon="-111.7456207"/>
+  <node id="4326828632" version="1" timestamp="2016-07-29T12:52:48Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.6160202" lon="-111.7450409"/>
+  <node id="4326828633" version="1" timestamp="2016-07-29T12:52:48Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.6187401" lon="-111.7456055"/>
+  <node id="4326828634" version="1" timestamp="2016-07-29T12:52:48Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.6246529" lon="-111.7541885"/>
+  <node id="4326828635" version="1" timestamp="2016-07-29T12:52:48Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.6323662" lon="-111.7553024"/>
+  <node id="4326828636" version="1" timestamp="2016-07-29T12:52:48Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.6473198" lon="-111.7495193"/>
+  <node id="4326828637" version="1" timestamp="2016-07-29T12:52:48Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.6482239" lon="-111.7489471"/>
+  <node id="4326828638" version="1" timestamp="2016-07-29T12:52:49Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.6495781" lon="-111.7466507"/>
+  <node id="4326828639" version="1" timestamp="2016-07-29T12:52:49Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.6504669" lon="-111.7368927"/>
+  <node id="4326828640" version="1" timestamp="2016-07-29T12:52:49Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.6522751" lon="-111.7351685"/>
+  <node id="4326828641" version="1" timestamp="2016-07-29T12:52:49Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.6689377" lon="-111.6874924"/>
+  <node id="4326828642" version="1" timestamp="2016-07-29T12:52:49Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.6693993" lon="-111.689209"/>
+  <node id="4326828643" version="1" timestamp="2016-07-29T12:52:49Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.6702957" lon="-111.6857681"/>
+  <node id="4326828644" version="1" timestamp="2016-07-29T12:52:49Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.673481" lon="-111.690918"/>
+  <node id="4326828645" version="1" timestamp="2016-07-29T12:52:49Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.6739159" lon="-111.6834564"/>
+  <node id="4326828646" version="1" timestamp="2016-07-29T12:52:49Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.6758423" lon="-111.728775"/>
+  <node id="4326828647" version="1" timestamp="2016-07-29T12:52:49Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.6798096" lon="-111.6822815"/>
+  <node id="4326828648" version="1" timestamp="2016-07-29T12:52:49Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.6798325" lon="-111.6914673"/>
+  <node id="4326828649" version="1" timestamp="2016-07-29T12:52:49Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.6808281" lon="-111.7287521"/>
+  <node id="4326828650" version="1" timestamp="2016-07-29T12:52:49Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.6816521" lon="-111.6931763"/>
+  <node id="4326828651" version="1" timestamp="2016-07-29T12:52:49Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.6829796" lon="-111.681694"/>
+  <node id="4326828652" version="1" timestamp="2016-07-29T12:52:49Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.6857452" lon="-111.6977539"/>
+  <node id="4326828653" version="1" timestamp="2016-07-29T12:52:49Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.6858101" lon="-111.7247238"/>
+  <node id="4326828654" version="1" timestamp="2016-07-29T12:52:49Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.6880646" lon="-111.7201233"/>
+  <node id="4326828655" version="1" timestamp="2016-07-29T12:52:49Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.689415" lon="-111.7149506"/>
+  <node id="4326828656" version="1" timestamp="2016-07-29T12:52:49Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.689415" lon="-111.7155228"/>
+  <node id="4326828657" version="1" timestamp="2016-07-29T12:52:49Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.6898384" lon="-111.7028961"/>
+  <node id="4326828658" version="1" timestamp="2016-07-29T12:52:49Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.690258" lon="-111.6896973"/>
+  <node id="4326828659" version="1" timestamp="2016-07-29T12:52:49Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.6975403" lon="-111.7005768"/>
+  <node id="4326828660" version="1" timestamp="2016-07-29T12:52:49Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.7057076" lon="-111.7028351"/>
+  <node id="4326828661" version="1" timestamp="2016-07-29T12:52:49Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.7147713" lon="-111.7010803"/>
+  <node id="4326828662" version="1" timestamp="2016-07-29T12:52:49Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.7206573" lon="-111.6964645"/>
+  <node id="4326828663" version="1" timestamp="2016-07-29T12:52:49Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.7210922" lon="-111.6895752"/>
+  <node id="4326828664" version="1" timestamp="2016-07-29T12:52:49Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.7247124" lon="-111.6866837"/>
+  <node id="4326828665" version="1" timestamp="2016-07-29T12:52:49Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.7297058" lon="-111.689537"/>
+  <node id="4326828666" version="1" timestamp="2016-07-29T12:52:49Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.7337875" lon="-111.6895218"/>
+  <node id="4326828667" version="1" timestamp="2016-07-29T12:52:49Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.7464371" lon="-111.6722412"/>
+  <node id="4326828668" version="1" timestamp="2016-07-29T12:52:49Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.7491455" lon="-111.666481"/>
+  <node id="4326828669" version="1" timestamp="2016-07-29T12:52:49Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.753212" lon="-111.6624451"/>
+  <node id="4326828670" version="1" timestamp="2016-07-29T12:52:49Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.7618217" lon="-111.6601105"/>
+  <node id="4326828671" version="1" timestamp="2016-07-29T12:52:49Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.7695084" lon="-111.6520309"/>
+  <node id="4326828672" version="1" timestamp="2016-07-29T12:52:49Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.7817268" lon="-111.6445084"/>
+  <node id="4326828673" version="1" timestamp="2016-07-29T12:52:49Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.7898788" lon="-111.6410217"/>
+  <node id="4326828674" version="1" timestamp="2016-07-29T12:52:49Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.7971344" lon="-111.6404114"/>
+  <node id="4326828675" version="1" timestamp="2016-07-29T12:52:49Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.7975883" lon="-111.6409836"/>
+  <node id="4326828676" version="1" timestamp="2016-07-29T12:52:49Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8025627" lon="-111.63694"/>
+  <node id="4326828677" version="1" timestamp="2016-07-29T12:52:49Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8061829" lon="-111.6340485"/>
+  <node id="4326828678" version="1" timestamp="2016-07-29T12:52:49Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8156929" lon="-111.6299744"/>
+  <node id="4326828679" version="1" timestamp="2016-07-29T12:52:49Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8193169" lon="-111.6288071"/>
+  <node id="4326828680" version="1" timestamp="2016-07-29T12:52:49Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8220291" lon="-111.6259232"/>
+  <node id="4326828681" version="1" timestamp="2016-07-29T12:52:49Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.824276" lon="-111.620163"/>
+  <node id="4326828682" version="1" timestamp="2016-07-29T12:52:49Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8265457" lon="-111.6207275"/>
+  <node id="4326828683" version="1" timestamp="2016-07-29T12:52:49Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8292656" lon="-111.6201324"/>
+  <node id="4326828684" version="1" timestamp="2016-07-29T12:52:49Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8329239" lon="-111.6188507"/>
+  <node id="4326828685" version="1" timestamp="2016-07-29T12:52:49Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8369675" lon="-111.6189499"/>
+  <node id="4326828686" version="1" timestamp="2016-07-29T12:52:49Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8396797" lon="-111.6166306"/>
+  <node id="4326828687" version="1" timestamp="2016-07-29T12:52:49Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8408775" lon="-111.5683289"/>
+  <node id="4326828688" version="1" timestamp="2016-07-29T12:52:49Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8417015" lon="-111.5458984"/>
+  <node id="4326828689" version="1" timestamp="2016-07-29T12:52:49Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8422089" lon="-111.5602722"/>
+  <node id="4326828690" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8427048" lon="-111.5717697"/>
+  <node id="4326828691" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8428497" lon="-111.6148911"/>
+  <node id="4326828692" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8430557" lon="-111.5441666"/>
+  <node id="4326828693" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8444481" lon="-111.5735931"/>
+  <node id="4326828694" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8451004" lon="-111.6097031"/>
+  <node id="4326828695" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8462296" lon="-111.5441437"/>
+  <node id="4326828696" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8464546" lon="-111.607399"/>
+  <node id="4326828697" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8468018" lon="-111.5769196"/>
+  <node id="4326828698" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8482895" lon="-111.6053848"/>
+  <node id="4326828699" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8491898" lon="-111.5461502"/>
+  <node id="4326828700" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.849617" lon="-111.6039276"/>
+  <node id="4326828701" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.853157" lon="-111.5786057"/>
+  <node id="4326828702" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8554993" lon="-111.6004486"/>
+  <node id="4326828703" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8568497" lon="-111.5975647"/>
+  <node id="4326828704" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8577423" lon="-111.5935364"/>
+  <node id="4326828705" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8578453" lon="-111.5564423"/>
+  <node id="4326828706" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8595505" lon="-111.5917969"/>
+  <node id="4326828707" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8602142" lon="-111.5785828"/>
+  <node id="4326828708" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8608932" lon="-111.5871887"/>
+  <node id="4326828709" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8627548" lon="-111.5840073"/>
+  <node id="4326828710" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8631401" lon="-111.5802765"/>
+  <node id="4326828711" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8635979" lon="-111.5825729"/>
+  <node id="4326828712" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8642197" lon="-111.5644608"/>
+  <node id="4326828713" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8682632" lon="-111.2379837"/>
+  <node id="4326828714" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8689804" lon="-111.5658646"/>
+  <node id="4326828715" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8695908" lon="-111.2327957"/>
+  <node id="4326828716" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8704948" lon="-111.2322083"/>
+  <node id="4326828717" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8707886" lon="-111.5641251"/>
+  <node id="4326828718" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8718491" lon="-111.2310486"/>
+  <node id="4326828719" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8719101" lon="-111.2408218"/>
+  <node id="4326828720" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8730316" lon="-111.5572128"/>
+  <node id="4326828721" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8737373" lon="-111.2431107"/>
+  <node id="4326828722" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8737411" lon="-111.5064392"/>
+  <node id="4326828723" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.873909" lon="-111.5497284"/>
+  <node id="4326828724" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8750229" lon="-111.2315903"/>
+  <node id="4326828725" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8755608" lon="-111.244812"/>
+  <node id="4326828726" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8764877" lon="-111.2476807"/>
+  <node id="4326828727" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8768616" lon="-111.2350235"/>
+  <node id="4326828728" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8787727" lon="-111.2505341"/>
+  <node id="4326828729" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8791618" lon="-111.2401733"/>
+  <node id="4326828730" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8797112" lon="-111.2557068"/>
+  <node id="4326828731" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8805428" lon="-111.2436142"/>
+  <node id="4326828732" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.881546" lon="-111.25914"/>
+  <node id="4326828733" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8824654" lon="-111.2614288"/>
+  <node id="4326828734" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8837357" lon="-111.2470322"/>
+  <node id="4326828735" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8842926" lon="-111.26371"/>
+  <node id="4326828736" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8852234" lon="-111.2677307"/>
+  <node id="4326828737" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8866158" lon="-111.2728958"/>
+  <node id="4326828738" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8887405" lon="-111.2498627"/>
+  <node id="4326828739" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.89011" lon="-111.2509995"/>
+  <node id="4326828740" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8902664" lon="-111.2763138"/>
+  <node id="4326828741" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8914833" lon="-111.2532883"/>
+  <node id="4326828742" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8937988" lon="-111.2613144"/>
+  <node id="4326828743" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8942871" lon="-111.2664871"/>
+  <node id="4326828744" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8955841" lon="-111.5063553"/>
+  <node id="4326828745" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8956871" lon="-111.496788"/>
+  <node id="4326828746" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8957138" lon="-111.2774048"/>
+  <node id="4326828747" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8965759" lon="-111.2699203"/>
+  <node id="4326828748" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.8993034" lon="-111.2716217"/>
+  <node id="4326828749" version="1" timestamp="2016-07-29T12:52:50Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9002457" lon="-111.2773666"/>
+  <node id="4326828750" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9007874" lon="-111.2923279"/>
+  <node id="4326828751" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9008102" lon="-111.2963562"/>
+  <node id="4326828752" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9008293" lon="-111.2992325"/>
+  <node id="4326828753" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9016151" lon="-111.2790833"/>
+  <node id="4326828754" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9017448" lon="-111.3009567"/>
+  <node id="4326828755" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9021072" lon="-111.2854156"/>
+  <node id="4326828756" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9022636" lon="-111.4966125"/>
+  <node id="4326828757" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9029922" lon="-111.2813644"/>
+  <node id="4326828758" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.903389" lon="-111.2721558"/>
+  <node id="4326828759" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9040337" lon="-111.3043823"/>
+  <node id="4326828760" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9054108" lon="-111.307251"/>
+  <node id="4326828761" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.905941" lon="-111.3210602"/>
+  <node id="4326828762" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9061241" lon="-111.2750092"/>
+  <node id="4326828763" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9063759" lon="-111.3175964"/>
+  <node id="4326828764" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9067383" lon="-111.4911118"/>
+  <node id="4326828765" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9068527" lon="-111.322197"/>
+  <node id="4326828766" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.907238" lon="-111.3095398"/>
+  <node id="4326828767" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9075089" lon="-111.2790222"/>
+  <node id="4326828768" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9077072" lon="-111.3124084"/>
+  <node id="4326828769" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9079514" lon="-111.2772903"/>
+  <node id="4326828770" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9079933" lon="-111.2836304"/>
+  <node id="4326828771" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9082146" lon="-111.3221893"/>
+  <node id="4326828772" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.908474" lon="-111.2888031"/>
+  <node id="4326828773" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9095688" lon="-111.321022"/>
+  <node id="4326828774" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9098473" lon="-111.2910919"/>
+  <node id="4326828775" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9103165" lon="-111.293396"/>
+  <node id="4326828776" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9109154" lon="-111.3187103"/>
+  <node id="4326828777" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9122696" lon="-111.317543"/>
+  <node id="4326828778" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9125366" lon="-111.4911804"/>
+  <node id="4326828779" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9139595" lon="-111.2962341"/>
+  <node id="4326828780" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9139862" lon="-111.3008423"/>
+  <node id="4326828781" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9140015" lon="-111.3031387"/>
+  <node id="4326828782" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9144287" lon="-111.2991104"/>
+  <node id="4326828783" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9144554" lon="-111.3037109"/>
+  <node id="4326828784" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9154434" lon="-111.3175201"/>
+  <node id="4326828785" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9171944" lon="-111.3065643"/>
+  <node id="4326828786" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9177132" lon="-111.3180695"/>
+  <node id="4326828787" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.919014" lon="-111.3077011"/>
+  <node id="4326828788" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9199944" lon="-111.3209305"/>
+  <node id="4326828789" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9209099" lon="-111.3220749"/>
+  <node id="4326828790" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.921402" lon="-111.4777908"/>
+  <node id="4326828791" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9217529" lon="-111.472641"/>
+  <node id="4326828792" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9221878" lon="-111.3076706"/>
+  <node id="4326828793" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9235573" lon="-111.3093872"/>
+  <node id="4326828794" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.923912" lon="-111.469986"/>
+  <node id="4326828795" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9240875" lon="-111.3226166"/>
+  <node id="4326828796" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9245872" lon="-111.4193192"/>
+  <node id="4326828797" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9246025" lon="-111.4222031"/>
+  <node id="4326828798" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9256783" lon="-111.3118362"/>
+  <node id="4326828799" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9263954" lon="-111.4181595"/>
+  <node id="4326828800" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9267883" lon="-111.3191376"/>
+  <node id="4326828801" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9276505" lon="-111.3116531"/>
+  <node id="4326828802" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.928669" lon="-111.4192886"/>
+  <node id="4326828803" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9291496" lon="-111.4250412"/>
+  <node id="4326828804" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9299622" lon="-111.3191147"/>
+  <node id="4326828805" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9308319" lon="-111.312767"/>
+  <node id="4326828806" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9329834" lon="-111.4704971"/>
+  <node id="4326828807" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9331436" lon="-111.3208084"/>
+  <node id="4326828808" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9340096" lon="-111.3133163"/>
+  <node id="4326828809" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9341965" lon="-111.4376678"/>
+  <node id="4326828810" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9345169" lon="-111.3230972"/>
+  <node id="4326828811" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9354744" lon="-111.4203873"/>
+  <node id="4326828812" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9364395" lon="-111.4330444"/>
+  <node id="4326828813" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.936451" lon="-111.4347763"/>
+  <node id="4326828814" version="1" timestamp="2016-07-29T12:52:51Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9367371" lon="-111.3144455"/>
+  <node id="4326828815" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9368019" lon="-111.3259583"/>
+  <node id="4326828816" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9385529" lon="-111.3150024"/>
+  <node id="4326828817" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.938633" lon="-111.3293991"/>
+  <node id="4326828818" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9399261" lon="-111.3172913"/>
+  <node id="4326828819" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9405022" lon="-111.3397446"/>
+  <node id="4326828820" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.940979" lon="-111.3443451"/>
+  <node id="4326828821" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9413528" lon="-111.3293686"/>
+  <node id="4326828822" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9413567" lon="-111.3305206"/>
+  <node id="4326828823" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9413757" lon="-111.3339767"/>
+  <node id="4326828824" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9418983" lon="-111.3466415"/>
+  <node id="4326828825" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9435768" lon="-111.3218689"/>
+  <node id="4326828826" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.943718" lon="-111.3477783"/>
+  <node id="4326828827" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9441147" lon="-111.4255066"/>
+  <node id="4326828828" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9450798" lon="-111.3483429"/>
+  <node id="4326828829" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9458542" lon="-111.4105225"/>
+  <node id="4326828830" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9462357" lon="-111.395546"/>
+  <node id="4326828831" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9462814" lon="-111.4047546"/>
+  <node id="4326828832" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9463196" lon="-111.3252945"/>
+  <node id="4326828833" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9463234" lon="-111.4133987"/>
+  <node id="4326828834" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.946682" lon="-111.3943939"/>
+  <node id="4326828835" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9467125" lon="-111.4001465"/>
+  <node id="4326828836" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9469032" lon="-111.3494797"/>
+  <node id="4326828837" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9472389" lon="-111.4156876"/>
+  <node id="4326828838" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9473724" lon="-111.3529282"/>
+  <node id="4326828839" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9476891" lon="-111.3275909"/>
+  <node id="4326828840" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9486046" lon="-111.4162598"/>
+  <node id="4326828841" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9489403" lon="-111.3926468"/>
+  <node id="4326828842" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9495125" lon="-111.4168243"/>
+  <node id="4326828843" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9501038" lon="-111.3552094"/>
+  <node id="4326828844" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9502754" lon="-111.3874512"/>
+  <node id="4326828845" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9502983" lon="-111.3920593"/>
+  <node id="4326828846" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9504204" lon="-111.4173965"/>
+  <node id="4326828847" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9513321" lon="-111.3304367"/>
+  <node id="4326828848" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9516144" lon="-111.3839874"/>
+  <node id="4326828849" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9518089" lon="-111.4225616"/>
+  <node id="4326828850" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9518852" lon="-111.4386902"/>
+  <node id="4326828851" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9522552" lon="-111.3333054"/>
+  <node id="4326828852" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9523849" lon="-111.3574905"/>
+  <node id="4326828853" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.95364" lon="-111.4265823"/>
+  <node id="4326828854" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9536476" lon="-111.3396301"/>
+  <node id="4326828855" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9536629" lon="-111.3425064"/>
+  <node id="4326828856" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9538803" lon="-111.3833923"/>
+  <node id="4326828857" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9541321" lon="-111.3453827"/>
+  <node id="4326828858" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9541512" lon="-111.4386749"/>
+  <node id="4326828859" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9550476" lon="-111.3465271"/>
+  <node id="4326828860" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9554787" lon="-111.4317551"/>
+  <node id="4326828861" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9555016" lon="-111.4369354"/>
+  <node id="4326828862" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9556847" lon="-111.3816452"/>
+  <node id="4326828863" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9564209" lon="-111.3493958"/>
+  <node id="4326828864" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9569435" lon="-111.3620605"/>
+  <node id="4326828865" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9573364" lon="-111.3505402"/>
+  <node id="4326828866" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9582558" lon="-111.3534088"/>
+  <node id="4326828867" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9584084" lon="-111.3822021"/>
+  <node id="4326828868" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9596252" lon="-111.3551254"/>
+  <node id="4326828869" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9620361" lon="-111.3821716"/>
+  <node id="4326828870" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.962429" lon="-111.3706512"/>
+  <node id="4326828871" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9651756" lon="-111.3758087"/>
+  <node id="4326828872" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9656525" lon="-111.379837"/>
+  <node id="4326828873" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9664459" lon="-111.3585205"/>
+  <node id="4326828874" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9669952" lon="-111.3769455"/>
+  <node id="4326828875" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9682617" lon="-111.3590775"/>
+  <node id="4326828876" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9687309" lon="-111.3619537"/>
+  <node id="4326828877" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9687424" lon="-111.3642578"/>
+  <node id="4326828878" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9696655" lon="-111.3671341"/>
+  <node id="4326828879" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9742088" lon="-111.3688202"/>
+  <node id="4326828880" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9760208" lon="-111.3688049"/>
+  <node id="4326828881" version="1" timestamp="2016-07-29T12:52:52Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9760475" lon="-111.3734131"/>
+  <node id="4326828882" version="1" timestamp="2016-07-29T12:52:53Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.977417" lon="-111.3757095"/>
+  <node id="4326828883" version="1" timestamp="2016-07-29T12:52:53Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9783478" lon="-111.3803101"/>
+  <node id="4326828884" version="1" timestamp="2016-07-29T12:52:53Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9801826" lon="-111.3843231"/>
+  <node id="4326828885" version="1" timestamp="2016-07-29T12:52:53Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9806213" lon="-111.3814392"/>
+  <node id="4326828886" version="1" timestamp="2016-07-29T12:52:53Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9806328" lon="-111.3837433"/>
+  <node id="4326828887" version="1" timestamp="2016-07-29T12:52:53Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9815598" lon="-111.3877716"/>
+  <node id="4326828888" version="1" timestamp="2016-07-29T12:52:53Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9838486" lon="-111.3923569"/>
+  <node id="4326828889" version="1" timestamp="2016-07-29T12:52:53Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9865799" lon="-111.3946457"/>
+  <node id="4326828890" version="1" timestamp="2016-07-29T12:52:53Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9879608" lon="-111.3980865"/>
+  <node id="4326828891" version="1" timestamp="2016-07-29T12:52:53Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9902458" lon="-111.4021072"/>
+  <node id="4326828892" version="1" timestamp="2016-07-29T12:52:53Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9920578" lon="-111.4015121"/>
+  <node id="4326828893" version="1" timestamp="2016-07-29T12:52:53Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9933434" lon="-111.3871002"/>
+  <node id="4326828894" version="1" timestamp="2016-07-29T12:52:53Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9933701" lon="-111.3917084"/>
+  <node id="4326828895" version="1" timestamp="2016-07-29T12:52:53Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9933853" lon="-111.3951645"/>
+  <node id="4326828896" version="1" timestamp="2016-07-29T12:52:53Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9934082" lon="-111.3997726"/>
+  <node id="4326828897" version="1" timestamp="2016-07-29T12:52:53Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9937782" lon="-111.3830643"/>
+  <node id="4326828898" version="1" timestamp="2016-07-29T12:52:53Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9946289" lon="-111.3721085"/>
+  <node id="4326828899" version="1" timestamp="2016-07-29T12:52:53Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.995575" lon="-111.3801651"/>
+  <node id="4326828900" version="1" timestamp="2016-07-29T12:52:53Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9959526" lon="-111.365181"/>
+  <node id="4326828901" version="1" timestamp="2016-07-29T12:52:53Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9959717" lon="-111.3686371"/>
+  <node id="4326828902" version="1" timestamp="2016-07-29T12:52:53Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9960098" lon="-111.3761292"/>
+  <node id="4326828903" version="1" timestamp="2016-07-29T12:52:53Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9972878" lon="-111.3605576"/>
+  <node id="4326828904" version="1" timestamp="2016-07-29T12:52:53Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.997715" lon="-111.3553696"/>
+  <node id="4326828905" version="1" timestamp="2016-07-29T12:52:53Z" uid="463545" user="Shinigami" changeset="41108758" lat="36.9995155" lon="-111.3530502"/>
+  <node id="4326828906" version="1" timestamp="2016-07-29T12:52:53Z" uid="463545" user="Shinigami" changeset="41108758" lat="37.0012405" lon="-111.3501597"/>
+
+<way id="434743875" version="1" timestamp="2016-07-29T12:52:57Z" uid="463545" user="Shinigami" changeset="41108758">
+    <nd ref="4326828906"/>
+    <nd ref="4326828905"/>
+    <nd ref="4326828904"/>
+    <nd ref="4326828903"/>
+    <nd ref="4326828900"/>
+    <nd ref="4326828901"/>
+    <nd ref="4326828898"/>
+    <nd ref="4326828902"/>
+    <nd ref="4326828899"/>
+    <nd ref="4326828897"/>
+    <nd ref="4326828893"/>
+    <nd ref="4326828894"/>
+    <nd ref="4326828895"/>
+    <nd ref="4326828896"/>
+    <nd ref="4326828892"/>
+    <nd ref="4326828891"/>
+    <nd ref="4326828890"/>
+    <nd ref="4326828889"/>
+    <nd ref="4326828888"/>
+    <nd ref="4326828887"/>
+    <nd ref="4326828884"/>
+    <nd ref="4326828886"/>
+    <nd ref="4326828885"/>
+    <nd ref="4326828883"/>
+    <nd ref="4326828882"/>
+    <nd ref="4326828881"/>
+    <nd ref="4326828880"/>
+    <nd ref="4326828879"/>
+    <nd ref="4326828878"/>
+    <nd ref="4326828877"/>
+    <nd ref="4326828876"/>
+    <nd ref="4326828875"/>
+    <nd ref="4326828873"/>
+    <nd ref="4326828868"/>
+    <nd ref="4326828866"/>
+    <nd ref="4326828865"/>
+    <nd ref="4326828863"/>
+    <nd ref="4326828859"/>
+    <nd ref="4326828857"/>
+    <nd ref="4326828855"/>
+    <nd ref="4326828854"/>
+    <nd ref="4326828851"/>
+    <nd ref="4326828847"/>
+    <nd ref="4326828839"/>
+    <nd ref="4326828832"/>
+    <nd ref="4326828825"/>
+    <nd ref="4326828818"/>
+    <nd ref="4326828816"/>
+    <nd ref="4326828814"/>
+    <nd ref="4326828808"/>
+    <nd ref="4326828805"/>
+    <nd ref="4326828801"/>
+    <nd ref="4326828798"/>
+    <nd ref="4326828793"/>
+    <nd ref="4326828792"/>
+    <nd ref="4326828787"/>
+    <nd ref="4326828785"/>
+    <nd ref="4326828783"/>
+    <nd ref="4326828781"/>
+    <nd ref="4326828780"/>
+    <nd ref="4326828782"/>
+    <nd ref="4326828779"/>
+    <nd ref="4326828775"/>
+    <nd ref="4326828774"/>
+    <nd ref="4326828772"/>
+    <nd ref="4326828770"/>
+    <nd ref="4326828767"/>
+    <nd ref="4326828769"/>
+    <nd ref="4326828762"/>
+    <nd ref="4326828758"/>
+    <nd ref="4326828748"/>
+    <nd ref="4326828747"/>
+    <nd ref="4326828743"/>
+    <nd ref="4326828742"/>
+    <nd ref="4326828741"/>
+    <nd ref="4326828739"/>
+    <nd ref="4326828738"/>
+    <nd ref="4326828734"/>
+    <nd ref="4326828731"/>
+    <nd ref="4326828729"/>
+    <nd ref="4326828727"/>
+    <nd ref="4326828724"/>
+    <nd ref="4326828718"/>
+    <nd ref="4326828716"/>
+    <nd ref="4326828715"/>
+    <nd ref="4326828713"/>
+    <nd ref="4326828719"/>
+    <nd ref="4326828721"/>
+    <nd ref="4326828725"/>
+    <nd ref="4326828726"/>
+    <nd ref="4326828728"/>
+    <nd ref="4326828730"/>
+    <nd ref="4326828732"/>
+    <nd ref="4326828733"/>
+    <nd ref="4326828735"/>
+    <nd ref="4326828736"/>
+    <nd ref="4326828737"/>
+    <nd ref="4326828740"/>
+    <nd ref="4326828746"/>
+    <nd ref="4326828749"/>
+    <nd ref="4326828753"/>
+    <nd ref="4326828757"/>
+    <nd ref="4326828755"/>
+    <nd ref="4326828750"/>
+    <nd ref="4326828751"/>
+    <nd ref="4326828752"/>
+    <nd ref="4326828754"/>
+    <nd ref="4326828759"/>
+    <nd ref="4326828760"/>
+    <nd ref="4326828766"/>
+    <nd ref="4326828768"/>
+    <nd ref="4326828763"/>
+    <nd ref="4326828761"/>
+    <nd ref="4326828765"/>
+    <nd ref="4326828771"/>
+    <nd ref="4326828773"/>
+    <nd ref="4326828776"/>
+    <nd ref="4326828777"/>
+    <nd ref="4326828784"/>
+    <nd ref="4326828786"/>
+    <nd ref="4326828788"/>
+    <nd ref="4326828789"/>
+    <nd ref="4326828795"/>
+    <nd ref="4326828800"/>
+    <nd ref="4326828804"/>
+    <nd ref="4326828807"/>
+    <nd ref="4326828810"/>
+    <nd ref="4326828815"/>
+    <nd ref="4326828817"/>
+    <nd ref="4326828821"/>
+    <nd ref="4326828822"/>
+    <nd ref="4326828823"/>
+    <nd ref="4326828819"/>
+    <nd ref="4326828820"/>
+    <nd ref="4326828824"/>
+    <nd ref="4326828826"/>
+    <nd ref="4326828828"/>
+    <nd ref="4326828836"/>
+    <nd ref="4326828838"/>
+    <nd ref="4326828843"/>
+    <nd ref="4326828852"/>
+    <nd ref="4326828864"/>
+    <nd ref="4326828870"/>
+    <nd ref="4326828871"/>
+    <nd ref="4326828874"/>
+    <nd ref="4326828872"/>
+    <nd ref="4326828869"/>
+    <nd ref="4326828867"/>
+    <nd ref="4326828862"/>
+    <nd ref="4326828856"/>
+    <nd ref="4326828848"/>
+    <nd ref="4326828844"/>
+    <nd ref="4326828845"/>
+    <nd ref="4326828841"/>
+    <nd ref="4326828834"/>
+    <nd ref="4326828830"/>
+    <nd ref="4326828835"/>
+    <nd ref="4326828831"/>
+    <nd ref="4326828829"/>
+    <nd ref="4326828833"/>
+    <nd ref="4326828837"/>
+    <nd ref="4326828840"/>
+    <nd ref="4326828842"/>
+    <nd ref="4326828846"/>
+    <nd ref="4326828849"/>
+    <nd ref="4326828853"/>
+    <nd ref="4326828860"/>
+    <nd ref="4326828861"/>
+    <nd ref="4326828858"/>
+    <nd ref="4326828850"/>
+    <nd ref="4326828827"/>
+    <nd ref="4326828811"/>
+    <nd ref="4326828802"/>
+    <nd ref="4326828799"/>
+    <nd ref="4326828796"/>
+    <nd ref="4326828797"/>
+    <nd ref="4326828803"/>
+    <nd ref="4326828812"/>
+    <nd ref="4326828813"/>
+    <nd ref="4326828809"/>
+    <nd ref="4326828806"/>
+    <nd ref="4326828794"/>
+    <nd ref="4326828791"/>
+    <nd ref="4326828790"/>
+    <nd ref="4326828778"/>
+    <nd ref="4326828764"/>
+    <nd ref="4326828756"/>
+    <nd ref="4326828745"/>
+    <nd ref="4326828744"/>
+    <nd ref="4326828722"/>
+    <nd ref="4326828723"/>
+    <nd ref="4326828720"/>
+    <nd ref="4326828717"/>
+    <nd ref="4326828714"/>
+    <nd ref="4326828712"/>
+    <nd ref="4326828705"/>
+    <nd ref="4326828699"/>
+    <nd ref="4326828695"/>
+    <nd ref="4326828692"/>
+    <nd ref="4326828688"/>
+    <nd ref="4326828689"/>
+    <nd ref="4326828687"/>
+    <nd ref="4326828690"/>
+    <nd ref="4326828693"/>
+    <nd ref="4326828697"/>
+    <nd ref="4326828701"/>
+    <nd ref="4326828707"/>
+    <nd ref="4326828710"/>
+    <nd ref="4326828711"/>
+    <nd ref="4326828709"/>
+    <nd ref="4326828708"/>
+    <nd ref="4326828706"/>
+    <nd ref="4326828704"/>
+    <nd ref="4326828703"/>
+    <nd ref="4326828702"/>
+    <nd ref="4326828700"/>
+    <nd ref="4326828698"/>
+    <nd ref="4326828696"/>
+    <nd ref="4326828694"/>
+    <nd ref="4326828691"/>
+    <nd ref="4326828686"/>
+    <nd ref="4326828685"/>
+    <nd ref="4326828684"/>
+    <nd ref="4326828683"/>
+    <nd ref="4326828682"/>
+    <nd ref="4326828681"/>
+    <nd ref="4326828680"/>
+    <nd ref="4326828679"/>
+    <nd ref="4326828678"/>
+    <nd ref="4326828677"/>
+    <nd ref="4326828676"/>
+    <nd ref="4326828675"/>
+    <nd ref="4326828674"/>
+    <nd ref="4326828673"/>
+    <nd ref="4326828672"/>
+    <nd ref="4326828671"/>
+    <nd ref="4326828670"/>
+    <nd ref="4326828669"/>
+    <nd ref="4326828668"/>
+    <nd ref="4326828667"/>
+    <nd ref="4326828666"/>
+    <nd ref="4326828665"/>
+    <nd ref="4326828664"/>
+    <nd ref="4326828663"/>
+    <nd ref="4326828662"/>
+    <nd ref="4326828661"/>
+    <nd ref="4326828660"/>
+    <nd ref="4326828659"/>
+    <nd ref="4326828658"/>
+    <nd ref="4326828651"/>
+    <nd ref="4326828647"/>
+    <nd ref="4326828645"/>
+    <nd ref="4326828643"/>
+    <nd ref="4326828641"/>
+    <nd ref="4326828642"/>
+    <nd ref="4326828644"/>
+    <nd ref="4326828648"/>
+    <nd ref="4326828650"/>
+    <nd ref="4326828652"/>
+    <nd ref="4326828657"/>
+    <nd ref="4326828655"/>
+    <nd ref="4326828656"/>
+    <nd ref="4326828654"/>
+    <nd ref="4326828653"/>
+    <nd ref="4326828649"/>
+    <nd ref="4326828646"/>
+    <nd ref="4326828640"/>
+    <nd ref="4326828639"/>
+    <nd ref="4326828638"/>
+    <nd ref="4326828637"/>
+    <nd ref="4326828636"/>
+    <nd ref="4326828635"/>
+    <nd ref="4326828634"/>
+    <nd ref="4326828633"/>
+    <nd ref="4326828632"/>
+    <nd ref="4326828631"/>
+    <nd ref="4326828630"/>
+    <nd ref="4326828629"/>
+    <nd ref="4326828628"/>
+    <nd ref="4326828627"/>
+    <nd ref="4326828626"/>
+    <nd ref="4326828625"/>
+    <nd ref="4326828624"/>
+    <nd ref="4326828623"/>
+    <nd ref="4326828622"/>
+    <nd ref="4326828621"/>
+    <nd ref="4326828617"/>
+    <nd ref="4326828616"/>
+    <nd ref="4326828615"/>
+    <nd ref="4326828620"/>
+    <nd ref="4326828618"/>
+    <nd ref="4326828619"/>
+    <nd ref="4326828614"/>
+    <nd ref="4326828613"/>
+    <nd ref="4326828612"/>
+    <nd ref="4326828611"/>
+    <nd ref="4326828610"/>
+    <nd ref="4326828609"/>
+    <nd ref="4326828608"/>
+    <nd ref="4326828607"/>
+    <nd ref="4326828606"/>
+    <nd ref="4326828605"/>
+    <nd ref="4326828604"/>
+    <nd ref="4326828603"/>
+    <nd ref="4326828602"/>
+    <nd ref="4326828601"/>
+    <nd ref="4326828600"/>
+    <nd ref="4326828599"/>
+    <nd ref="4326828598"/>
+    <nd ref="4326828597"/>
+    <nd ref="4326828596"/>
+    <nd ref="4326828595"/>
+    <nd ref="4326828594"/>
+    <nd ref="4326828593"/>
+    <nd ref="4326828592"/>
+    <nd ref="4326828591"/>
+    <nd ref="4326828590"/>
+    <nd ref="4326828589"/>
+    <nd ref="4326828588"/>
+    <nd ref="4326828587"/>
+    <nd ref="4326828577"/>
+    <nd ref="4326828563"/>
+    <nd ref="4326828560"/>
+    <nd ref="4326828557"/>
+    <nd ref="4326828554"/>
+    <nd ref="4326828533"/>
+    <nd ref="4326828504"/>
+    <nd ref="4326828495"/>
+    <nd ref="4326828478"/>
+    <nd ref="4326828464"/>
+    <nd ref="4326828435"/>
+    <nd ref="4326828424"/>
+    <nd ref="4326828341"/>
+    <nd ref="4326828326"/>
+    <nd ref="4326828296"/>
+    <nd ref="4326828290"/>
+    <nd ref="4326828284"/>
+    <nd ref="4326828280"/>
+    <nd ref="4326828287"/>
+    <nd ref="4326828285"/>
+    <nd ref="4326828282"/>
+    <nd ref="4326828283"/>
+    <nd ref="4326828277"/>
+    <nd ref="4326828275"/>
+    <nd ref="4326828271"/>
+    <nd ref="4326828250"/>
+    <nd ref="4326828230"/>
+    <nd ref="4326828216"/>
+    <nd ref="4326828202"/>
+    <nd ref="4326828144"/>
+    <nd ref="4326828125"/>
+    <nd ref="4326828052"/>
+    <nd ref="4326828040"/>
+    <nd ref="4326828006"/>
+    <nd ref="4326827978"/>
+    <nd ref="4326827977"/>
+    <nd ref="4326827974"/>
+    <nd ref="4326827972"/>
+    <nd ref="4326827968"/>
+    <nd ref="4326827966"/>
+    <nd ref="4326827958"/>
+    <nd ref="4326827948"/>
+    <nd ref="4326827947"/>
+    <nd ref="4326827944"/>
+    <nd ref="4326827942"/>
+    <nd ref="4326827940"/>
+    <nd ref="4326827938"/>
+    <nd ref="4326827936"/>
+    <nd ref="4326827934"/>
+    <nd ref="4326827932"/>
+    <nd ref="4326827931"/>
+    <nd ref="4326827930"/>
+    <nd ref="4326827927"/>
+    <nd ref="4326827737"/>
+    <nd ref="4326827708"/>
+    <nd ref="4326827448"/>
+    <nd ref="4326827447"/>
+    <nd ref="4326827445"/>
+    <nd ref="4326827390"/>
+    <nd ref="4326827382"/>
+    <nd ref="4326827348"/>
+    <nd ref="4326827350"/>
+    <nd ref="4326827299"/>
+    <nd ref="4326827296"/>
+    <nd ref="4326827297"/>
+    <nd ref="4326827298"/>
+    <nd ref="4326827041"/>
+    <nd ref="4326827040"/>
+    <nd ref="4326827031"/>
+    <nd ref="4326827030"/>
+    <nd ref="4326826997"/>
+    <nd ref="4326826996"/>
+    <nd ref="4326826943"/>
+    <nd ref="4326826942"/>
+    <nd ref="4326826897"/>
+    <nd ref="4326826896"/>
+    <nd ref="4326826966"/>
+    <nd ref="4326826965"/>
+    <nd ref="4326827008"/>
+    <nd ref="4326827006"/>
+    <nd ref="4326827005"/>
+    <nd ref="4326827007"/>
+    <nd ref="4326827004"/>
+    <nd ref="4326827003"/>
+    <nd ref="4326826998"/>
+    <nd ref="4326826995"/>
+    <nd ref="4326826993"/>
+    <nd ref="4326826992"/>
+    <nd ref="4326826991"/>
+    <nd ref="4326826989"/>
+    <nd ref="4326826987"/>
+    <nd ref="4326826986"/>
+    <nd ref="4326826984"/>
+    <nd ref="4326826983"/>
+    <nd ref="4326826982"/>
+    <nd ref="4326826978"/>
+    <nd ref="4326826967"/>
+    <nd ref="4326826960"/>
+    <nd ref="4326826953"/>
+    <nd ref="4326826954"/>
+    <nd ref="4326826950"/>
+    <nd ref="4326826949"/>
+    <nd ref="4326826948"/>
+    <nd ref="4326826947"/>
+    <nd ref="4326826946"/>
+    <nd ref="4326826944"/>
+    <nd ref="4326826941"/>
+    <nd ref="4326826940"/>
+    <nd ref="4326826937"/>
+    <nd ref="4326826936"/>
+    <nd ref="4326826933"/>
+    <nd ref="4326826932"/>
+    <nd ref="4326826902"/>
+    <nd ref="4326826899"/>
+    <tag k="zmeucolor" v="red" />
+  </way>
+<way id="534743875" version="1" timestamp="2016-07-29T12:52:57Z" uid="463545" user="Shinigami" changeset="41108758">
+    <nd ref="4326826895"/>
+    <nd ref="4326826893"/>
+    <nd ref="4326826890"/>
+    <nd ref="4326826884"/>
+    <nd ref="4326826883"/>
+    <nd ref="4326826882"/>
+    <nd ref="4326826881"/>
+    <nd ref="4326826878"/>
+    <nd ref="4326826876"/>
+    <nd ref="4326826874"/>
+    <nd ref="4326826873"/>
+    <nd ref="4326826863"/>
+    <nd ref="4326826861"/>
+    <nd ref="4326826858"/>
+    <nd ref="4326826854"/>
+    <nd ref="4326826835"/>
+    <nd ref="4326826833"/>
+    <nd ref="4326826831"/>
+    <nd ref="4326826826"/>
+    <nd ref="4326826824"/>
+    <nd ref="4326826809"/>
+    <nd ref="4326826802"/>
+    <nd ref="4326826800"/>
+    <nd ref="4326826798"/>
+    <nd ref="4326826794"/>
+    <nd ref="4326826792"/>
+    <nd ref="4326826784"/>
+    <nd ref="4326826778"/>
+    <nd ref="4326826756"/>
+    <nd ref="4326826752"/>
+    <nd ref="4326826750"/>
+    <nd ref="4326826742"/>
+    <nd ref="4326826738"/>
+    <nd ref="4326826730"/>
+    <nd ref="4326826578"/>
+    <nd ref="4326826576"/>
+    <nd ref="4326826568"/>
+    <nd ref="4326826563"/>
+    <nd ref="4326826541"/>
+    <nd ref="4326826540"/>
+    <nd ref="4326826539"/>
+    <nd ref="4326826538"/>
+    <nd ref="4326826537"/>
+    <nd ref="4326826498"/>
+    <nd ref="4326826496"/>
+    <nd ref="4326826497"/>
+    <nd ref="4326826499"/>
+    <nd ref="4326826521"/>
+    <nd ref="4326826516"/>
+    <nd ref="4326826515"/>
+    <nd ref="4326826514"/>
+    <nd ref="4326826510"/>
+    <nd ref="4326826509"/>
+    <nd ref="4326826508"/>
+    <nd ref="4326826507"/>
+    <nd ref="4326826528"/>
+    <nd ref="4326826527"/>
+    <nd ref="4326826526"/>
+    <nd ref="4326826525"/>
+    <nd ref="4326826530"/>
+    <nd ref="4326826524"/>
+    <nd ref="4326826520"/>
+    <nd ref="4326826513"/>
+    <nd ref="4326826522"/>
+    <nd ref="4326826518"/>
+    <nd ref="4326826511"/>
+    <nd ref="4326826519"/>
+    <nd ref="4326826529"/>
+    <nd ref="4326826512"/>
+    <nd ref="4326826505"/>
+    <nd ref="4326826506"/>
+    <nd ref="4326826523"/>
+    <nd ref="4326826531"/>
+    <nd ref="4326826517"/>
+    <nd ref="4326826535"/>
+    <nd ref="4326826536"/>
+    <nd ref="4326826534"/>
+    <nd ref="4326826533"/>
+    <nd ref="4326826532"/>
+    <nd ref="4326826504"/>
+    <nd ref="4326826503"/>
+    <nd ref="4326826502"/>
+    <nd ref="4326826501"/>
+    <nd ref="4326826500"/>
+    <tag k="zmeucolor" v="yellow" />
+  </way>
+</osm>

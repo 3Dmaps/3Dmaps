@@ -10,7 +10,9 @@ using Priority_Queue;
 
 public class MapGenerator : MonoBehaviour {
 
-    public enum DrawMode { NoiseMap, ColourMap, Mesh };
+	public enum DrawMode {NoiseMap, ColourMap, Mesh};
+    public enum MapName {canyonTestHigh, canyonTestLow, testData, canyonTestBinary};
+
     public DrawMode drawMode;
 
     public int mapSliceSize = 200;
@@ -26,57 +28,37 @@ public class MapGenerator : MonoBehaviour {
     public MapData mapData;
     private MapMetadata mapMetadata;
     private List<MapDisplay> displays;
-
-    private string filename_metaData = "n37w113partBinary.hdr";
-    private string filename_mapData = "n37w113partBinary.bin";
-    //private string filename_metaData = "n37w113part.txt";
-    //private string filename_mapData = "n37w113part.txt";
-    //private string filename_mapData = "20x20.txt";
-    //private string filename_mapData = "grandcanyon.txt";
-
+    public MapName mapName;
 
     private DisplayUpdater displayUpdater = new DisplayUpdater();
     private int currentZoomValue = 0;
     public int displayUpdateRate = 4;
     public Vector2 mapViewerPosition = Vector2.zero;
 
-    public void Start() {
-        string metaDataPath = GetMapDataPath(filename_metaData);
-        string mapDataPath = GetMapDataPath(filename_mapData);
-        regions = new MapRegionSmoother().SmoothRegions(regions, regionsSmoothCount);
-        // Binary files
-        mapMetadata = MapDataImporter.ReadMetadata(metaDataPath, MapDataType.Binary);
-        mapData = MapDataImporter.ReadMapData(mapDataPath, mapMetadata, MapDataType.Binary);
+    public void Start()
+    {
+        regions     = new MapRegionSmoother().SmoothRegions(regions,regionsSmoothCount);
 
-        // ASCIIGrid files
-        //mapMetadata = MapDataImporter.ReadMetadata(metaDataPath, MapDataType.ASCIIGrid);
-        //mapData = MapDataImporter.ReadMapData(mapDataPath, mapMetadata, MapDataType.ASCIIGrid);
+        string mapFileName = GetMapFileNameFromEnum(mapName);
+
+        // A quick fix to enable binary map reading. Needs to be done better.
+        if (mapFileName.Equals("CanyonTestBinary")) {
+            mapData = DataImporter.GetBinaryMapData(mapFileName);
+        } else {
+            mapData = DataImporter.GetASCIIMapData(mapFileName);
+        }
 
         displays = new List<MapDisplay>();
         GenerateMap();
+
         OSMGenerator osmGenerator = GameObject.FindObjectOfType<OSMGenerator>();
         if (osmGenerator != null) {
             try {
-                osmGenerator.GenerateTrails(this);
-            } catch (System.Exception e) {
+                osmGenerator.GenerateTrails(this, mapFileName);
+            } catch(System.Exception e) {
                 Debug.Log("Did not generate trails: " + e);
             }
         }
-    }
-
-    private string GetMapDataPath(string filename) {
-#if UNITY_EDITOR
-        return Application.dataPath + "/StreamingAssets/" + filename;
-#endif
-
-#if UNITY_IPHONE
-        return Application.dataPath + "/Raw/" + filename;
-#endif
-
-#if UNITY_ANDROID
-        return "jar:file://" + Application.dataPath + "!/assets/" + filename;
-#endif
-        return filename;
     }
 
     public void GenerateMap() {
@@ -131,6 +113,26 @@ public class MapGenerator : MonoBehaviour {
                 display.SetStatus(MapDisplayStatus.HIDDEN);
                 display.DrawMap();
             }
+		}
+	}
+
+    private string GetMapFileNameFromEnum(MapName mapName) {
+        switch (mapName) {
+            case MapName.canyonTestHigh:
+                return "CanyonTestHigh";
+
+            case MapName.canyonTestLow:
+                return "CanyonTestLow";
+
+            case MapName.testData:
+                return "testData";
+
+            case MapName.canyonTestBinary:
+                return "CanyonTestBinary";
+
+            default:
+                Debug.LogError("Error! Invalid map file name value!");
+                return "";
         }
     }
 }
