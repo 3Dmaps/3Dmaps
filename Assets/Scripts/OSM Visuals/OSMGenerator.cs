@@ -15,14 +15,13 @@ public class OSMGenerator : MonoBehaviour {
 	List<DisplayNode> displayNodes;
 
 
-	public void GenerateTrails(MapGenerator mapGenerator) {
+	public void GenerateTrails(MapGenerator mapGenerator, string mapName) {
 		mapData = mapGenerator.mapData;
-		display = this.GetComponent<TrailDisplay> ();
+		display = GetComponent<TrailDisplay>();
 		display.mapData = mapData;
 
 		ColorHandler colorHandler = new ColorHandler ();
-
-		OSMData osmData = OSMDataImporter.ReadOSMData (GetDataPath("SampleTrailDataCanyon.xml"));
+        OSMData osmData = DataImporter.GetOSMData(mapName);
 
 		foreach (Trail trail in osmData.trails) {
 			display.trailColor = colorHandler.SelectColor(trail.colorName);
@@ -30,21 +29,6 @@ public class OSMGenerator : MonoBehaviour {
 		}
 	}
 
-    private string GetDataPath(string filename)
-    {
-    #if UNITY_EDITOR
-        return Application.dataPath + "/StreamingAssets/" + filename;
-    #endif
-
-    #if UNITY_IPHONE
-        return Application.dataPath + "/Raw/" + filename;
-    #endif
-
-    #if UNITY_ANDROID
-        return "jar:file://" + Application.dataPath + "!/assets/" + filename;
-    #endif
-        return filename;
-    }
 	public List<DisplayNode> TranslateTrail(Trail trail) {
 		displayNodes = new List<DisplayNode> ();
 
