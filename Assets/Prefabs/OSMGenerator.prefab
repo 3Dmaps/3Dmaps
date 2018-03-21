@@ -105,5 +105,5 @@ MonoBehaviour:
   nodeGameObject: {fileID: 1215510092995608, guid: e5c7ee0fdaa95794fa62d364c85a69ae,
     type: 2}
   nodePosition: {x: 0, y: 0, z: 0}
-  heightAdjustment: 0.005
+  heightAdjustment: 0.05
   material: {fileID: 0}
