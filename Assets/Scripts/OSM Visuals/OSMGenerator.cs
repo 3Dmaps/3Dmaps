@@ -14,6 +14,7 @@ public class OSMGenerator : MonoBehaviour {
 	private POIDisplay poiDisplay;
 	public int nodeGenerationRate = 1; // number of new nodes created between adjacent nodes in data
 	List<DisplayNode> displayNodes;
+	IconHandler iconHandler;
 
 
 	public void GenerateTrails(MapGenerator mapGenerator) {
@@ -23,6 +24,9 @@ public class OSMGenerator : MonoBehaviour {
 		display.mapData = mapData;
 		poiDisplay.mapData = mapData;
 
+		iconHandler = this.GetComponent<IconHandler> ();
+		iconHandler.generateIconDictionary();
+		
 		ColorHandler colorHandler = new ColorHandler ();
 
 		OSMData osmData = OSMDataImporter.ReadOSMData (GetDataPath("SampleTrailDataCanyon.xml"));
@@ -33,7 +37,8 @@ public class OSMGenerator : MonoBehaviour {
 		}
 		foreach (POINode poiNode in osmData.poiNodes) {
 			Vector2 point = mapData.GetRawCoordinatesFromLatLon(new MapPoint((double) poiNode.lon, (double) poiNode.lat));
-			poiDisplay.DisplayPOINode(new DisplayNode((int) point.x, (int) point.y));
+			Icon icon = iconHandler.SelectIcon(poiNode.icon);
+			poiDisplay.DisplayPOINode(new DisplayNode((int) point.x, (int) point.y), icon);
 		}
 	}
 

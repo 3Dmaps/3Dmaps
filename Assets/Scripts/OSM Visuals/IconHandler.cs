@@ -7,8 +7,11 @@ public class IconHandler : MonoBehaviour {
 	public List<Icon> iconList; 
 	private Dictionary<string, Icon> icons;
 
-	public IconHandler() {
+	public void generateIconDictionary() {
 		icons = new Dictionary<string, Icon> ();
+		foreach(Icon icon in iconList) {
+			icons.Add(icon.name, icon);
+		}
 	}
 	
 	public Icon SelectIcon(string iconName) {

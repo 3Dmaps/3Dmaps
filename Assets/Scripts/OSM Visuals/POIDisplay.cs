@@ -12,14 +12,13 @@ public class POIDisplay : MonoBehaviour {
 	public MapData mapData;
 	public GameObject nodeGameObject;    
     public Vector3 nodePosition;
-	public float heightAdjustment = 0.005f;
+	public float heightAdjustment = 0.025f;
   
     public Material material;
     	
-        public void DisplayPOINode(DisplayNode poiNode) {
-        
+        public void DisplayPOINode(DisplayNode poiNode,Icon icon) {
         if (IsWithinBounds(poiNode.x, poiNode.y)) {
-			GenerateNodeGameObject(GenerateNode(poiNode)); 
+			GenerateNodeGameObject(GenerateNode(poiNode),icon); 
 		}           
     }
     
@@ -37,9 +36,12 @@ public class POIDisplay : MonoBehaviour {
         return nodePosition;
     }
 
-    public void GenerateNodeGameObject(Vector3 nodePosition) {
+    public void GenerateNodeGameObject(Vector3 nodePosition, Icon icon) {
 
+		
         GameObject newNode = Instantiate(nodeGameObject);
+		SpriteRenderer renderer = newNode.GetComponent<SpriteRenderer>();
+		renderer.sprite = icon.sprite;
         newNode.transform.position = nodePosition;
         newNode.transform.SetParent(this.transform);
     }    
