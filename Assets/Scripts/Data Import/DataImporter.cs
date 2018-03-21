@@ -77,11 +77,11 @@ public static class DataImporter {
         #endif
 
         #if UNITY_IPHONE
-            return Application.dataPath + "/Raw/" + filename;
+            return Application.dataPath + "/Raw/" + mapName;
         #endif
 
         #if UNITY_ANDROID
-            return "jar:file://" + Application.dataPath + "!/assets/" + filename;
+            return "jar:file://" + Application.dataPath + "!/assets/" + mapName;
         #endif
         #pragma warning disable CS0162 // Unreachable code detected
             return mapName;
