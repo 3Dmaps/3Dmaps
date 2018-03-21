@@ -35,5 +35,19 @@ public class POIDisplayTest {
 		Assert.True (display.transform.childCount == 1, "No node was created!");
 		
 	}
+	[Test]
+	public void POIDisplayDoesNotCreatePOIOutsideMapBounds() {
+		List<DisplayNode> nodeList = new List<DisplayNode> ();
+		nodeList.Add(new DisplayNode (3, 0));
+		nodeList.Add(new DisplayNode (-1, 0));
+		nodeList.Add(new DisplayNode (0, 3));
+		nodeList.Add(new DisplayNode (0, -1));
+
+		display.DisplayPOINode (new DisplayNode(3,0));
+		display.DisplayPOINode (new DisplayNode(-1,0));
+		display.DisplayPOINode (new DisplayNode(0,3));
+		display.DisplayPOINode (new DisplayNode(0,-1));
+		Assert.True (display.transform.childCount == 0, "created false nodes!");
+	}
 	
 }
