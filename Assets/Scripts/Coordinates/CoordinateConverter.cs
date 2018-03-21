@@ -73,7 +73,7 @@ public class CoordinateConverter {
     /// <param name="cells">The number of map cells to transform the coordinate by</param>
     /// <param name="startCoordinate">The start coordinate in lat or lon</param>
     /// <returns>The transformed coordinate in lat or lon</returns>
-    public double TransformCoordinateByDistance(double cells, double startCoordinate) {
+    public double TransformCoordinateByLatLonDistance(double cells, double startCoordinate) {
         return startCoordinate + (meterAsLatLonDegrees * cells * cellsize);
     }
 
@@ -90,16 +90,28 @@ public class CoordinateConverter {
     }
 
     /// <summary>
-    /// Takes two lat or lon coordinates and calculates the distance in map cells between
-    /// the coordinates. Returns the distance in cells.
+    /// Takes two lat or lon coordinates and calculates the transformation in map cells between
+    /// the coordinates. Returns the transformation in cells. May be + or -. + is North and East, - is South and West.
     /// </summary>
     /// <param name="startCoordinate">The start coordinate in lat or lon</param>
     /// <param name="endCoordinate">The end coordinate in lat or lon</param>
-    /// <returns>The distance in map cells</returns>
-    public float DistanceBetweenCoordinates(double startCoordinate, double endCoordinate) {
+    /// <returns>The transformation in map cells. May be + or -. + is North and East, - is South and West.</returns>
+    public float TransformationInMapCellsBetweenLatLonCoordinates(double startCoordinate, double endCoordinate) {
         double coordinateChange = endCoordinate - startCoordinate;
         double distance = coordinateChange * (1 / meterAsLatLonDegrees);
         return (float) (distance / cellsize);
+    }
+
+    /// <summary>
+    /// Takes two WebMercator x or y coordinates and calculates the transformation in map cells between
+    /// the coordinates. Returns the transformation in cells. May be + or -. + is North and East, - is South and West.
+    /// </summary>
+    /// <param name="startCoordinate">The start coordinate in WebMercator</param>
+    /// <param name="endCoordinate">The end coordinate in WebMercator</param>
+    /// <returns>The transformation in map cells. May be + or -. + is North and East, - is South and West.</returns>
+    public float TransformationInMapCellsBetweenWebMercatorCoordinates(double startCoordinate, double endCoordinate) {
+        double coordinateChange = endCoordinate - startCoordinate;
+        return (float)(coordinateChange / cellsize);
     }
 
     public static float LatLonDegreesToDefaultMeters(double degrees) {

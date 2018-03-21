@@ -63,7 +63,7 @@ public class OSMGenerator : MonoBehaviour {
 	}
 
 	public void AddDisplayNode(TrailNode node) {
-		Vector2 point = mapData.GetRawCoordinatesFromLatLon (new MapPoint((double) node.lon, (double) node.lat));
+		Vector2 point = mapData.GetMapSpecificCoordinatesRelativeToTopLeftFromLatLon(new MapPoint((double) node.lon, (double) node.lat));
 		displayNodes.Add(new DisplayNode((int) point.x, (int) point.y));
 	}
 
@@ -73,7 +73,7 @@ public class OSMGenerator : MonoBehaviour {
 		}
 
 		for (int i = 1; i <= this.nodeGenerationRate; i++) {		
-			Vector2 point = mapData.GetRawCoordinatesFromLatLon (
+			Vector2 point = mapData.GetMapSpecificCoordinatesRelativeToTopLeftFromLatLon(
 					new MapPoint(
 						x: (double) (i * (nextNode.lon - node.lon) / (nodeGenerationRate + 1) + node.lon),
                         y: (double) (i * (nextNode.lat - node.lat) / (nodeGenerationRate + 1) + node.lat)

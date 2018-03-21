@@ -24,19 +24,19 @@ public class CoordinateConverterTest {
 
     [Test]
     public void TransformationByOneCellWorks() {
-        Assert.True(converter.TransformCoordinateByDistance(1, 0) - (10*meterInDegrees) < precision, 
+        Assert.True(converter.TransformCoordinateByLatLonDistance(1, 0) - (10*meterInDegrees) < precision, 
             "Lat-lon coordinate transformation incorrect.");
     }
 
     [Test]
     public void TransformationByManyCellsWorks() {
-        Assert.True(converter.TransformCoordinateByDistance(10812, -112.0005556) - (-110.9994444) < precision, 
+        Assert.True(converter.TransformCoordinateByLatLonDistance(10812, -112.0005556) - (-110.9994444) < precision, 
             "Lat-lon coordinate transformation incorrect.");
     }
 
     [Test]
     public void DistanceBetweenCoordinatesWorks() {
-        Assert.True(converter.DistanceBetweenCoordinates(0.0000092592592593, 0.0001018518518523) - 10.0 < precision,
+        Assert.True(converter.TransformationInMapCellsBetweenLatLonCoordinates(0.0000092592592593, 0.0001018518518523) - 10.0 < precision,
             "Distance measurement between to coordinates incorrect");
     }
 }
