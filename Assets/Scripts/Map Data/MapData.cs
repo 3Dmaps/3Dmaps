@@ -10,7 +10,7 @@ using UnityEngine;
 public class MapData {
     protected float[,] data;
     private float scale;
-    protected MapMetadata metadata;
+    public MapMetadata metadata;
     protected CoordinateConverter converter;
 
     public MapData(MapData mapData) : this(mapData.data, mapData.metadata) {
@@ -67,8 +67,7 @@ public class MapData {
     }
 
     /// <summary>
-    /// Returns the MapPoint(x,y) of the center of the top left cell of this map in 
-    /// WebMercator.
+    /// Returns the MapPoint(x,y) in WebMercator of the center of the top left cell of this map.
     /// </summary>
     public MapPoint GetTopLeftAsWebMercator() {
         Vector2 topLeftVector = GetTopLeft();
@@ -162,24 +161,10 @@ public class MapData {
     /// the map-specific coordinates relative to top left cell of the map. 
     /// </summary>
     public Vector2 GetMapSpecificCoordinatesRelativeToTopLeftFromLatLon(MapPoint latLonPoint) {
-        float minXTransform = -0.5F;
-        float maxXTransform = (float)GetWidth() - 0.5F;
-        float minYTransform = -(float)GetHeight() + 0.5F;
-        float maxYTransform = 0.5F;
-
         MapPoint sliceTopLeft = GetTopLeftLatLonPoint();
 
         float xVectorFromTopLeft = converter.TransformationInMapCellsBetweenLatLonCoordinates(sliceTopLeft.x, latLonPoint.x);
         float yVectorFromTopLeft = converter.TransformationInMapCellsBetweenLatLonCoordinates(sliceTopLeft.y, latLonPoint.y);
-
-        //Debug.Log("Map slice with top left point (" + sliceTopLeft.x + ", " + sliceTopLeft.y + ") and width " + GetWidth() + " and height " + GetHeight());
-        //Debug.Log("Path point (" + latLonPoint.x + "," + latLonPoint.y + ")");
-        //Debug.Log("Transformation (" + xVectorFromTopLeft + "," + yVectorFromTopLeft + ")");
-
-        //if (xVectorFromTopLeft > maxXTransform | xVectorFromTopLeft < minXTransform | yVectorFromTopLeft > maxYTransform | yVectorFromTopLeft < minYTransform) {
-        //    throw new System.ArgumentException("Index out of bounds! Point (" + latLonPoint.x + ", " + latLonPoint.y + ") not on " +
-        //        "map slice with top left point (" + sliceTopLeft.x + ", " + sliceTopLeft.y + ") and width " + GetWidth() + " and height " + GetHeight() + ".");
-        //}
 
         // Flip the conversion on the y-axis to negative. Map-specific coordinates grow down.
         return new Vector2(xVectorFromTopLeft, -(yVectorFromTopLeft));
@@ -190,21 +175,10 @@ public class MapData {
     /// the map-specific coordinates relative to top left cell of the map. 
     /// </summary>
     public Vector2 GetMapSpecificCoordinatesRelativeToTopLeftFromWebMercator(MapPoint webMercatorPoint) {
-        float minXTransform = -0.5F;
-        float maxXTransform = (float)GetWidth() - 0.5F;
-        float minYTransform = -(float)GetHeight() + 0.5F;
-        float maxYTransform = 0.5F;
-
         MapPoint sliceTopLeft = GetTopLeftAsWebMercator();
 
         float xVectorFromTopLeft = converter.TransformationInMapCellsBetweenWebMercatorCoordinates(sliceTopLeft.x, webMercatorPoint.x);
         float yVectorFromTopLeft = converter.TransformationInMapCellsBetweenWebMercatorCoordinates(sliceTopLeft.y, webMercatorPoint.y);
-
-        //
-        //if (xVectorFromTopLeft > maxXTransform | xVectorFromTopLeft < minXTransform | yVectorFromTopLeft > maxYTransform | yVectorFromTopLeft < minYTransform) {
-        //    throw new System.ArgumentException("Index out of bounds! Point (" + webMercatorPoint.x + ", " + webMercatorPoint.y + ") not on " +
-        //        "map slice with top left point (" + sliceTopLeft.x + ", " + sliceTopLeft.y + ") and width " + GetWidth() + " and height " + GetHeight() + ".");
-        //}
 
         // Flip the conversion on the y-axis to negative. Map-specific coordinates grow down.
         return new Vector2(xVectorFromTopLeft, -yVectorFromTopLeft);

@@ -130,22 +130,22 @@ public class MapDataTest {
     [Test]
     public void GetTopLeftAsWebMercatorCorrect() {
         MapPoint topLeftAsWebMercator = mapdata.GetTopLeftAsWebMercator();
-        Assert.True(topLeftAsWebMercator.x - 1.03073602586816 < precision, "Top left x in web mercator incorrect.");
-        Assert.True(topLeftAsWebMercator.y - 5.15368012900574 < precision, "Top left y in web mercator incorrect.");
+        Assert.True(topLeftAsWebMercator.x - 1 < precision, "Top left x in WebMercator incorrect.");
+        Assert.True(topLeftAsWebMercator.y - 5 < precision, "Top left y in WebMercator incorrect.");
     }
 
     [Test]
     public void GetLatLonCoordinatesCorrect() {
         MapPoint pointAsLatLon = mapdata.GetLatLonCoordinates(new Vector2(1, -1));
-        Assert.True(pointAsLatLon.x - (3 * meterInDegrees) < precision);
-        Assert.True(pointAsLatLon.y - (3 * meterInDegrees) < precision);
+        Assert.True(pointAsLatLon.x - (3 * meterInDegrees) < precision, "Map-relative point x from lat-lon incorrect.");
+        Assert.True(pointAsLatLon.y - (3 * meterInDegrees) < precision, "Map-relative point y from lat-lon incorrect.");
     }
 
     [Test]
     public void GetWebMercatorCoordinatesCorrect() {
         MapPoint pointAsWebMercator = mapdata.GetWebMercatorCoordinates(new Vector2(1, -1));
-        Assert.True(pointAsWebMercator.x - 3.09220807760449 < precision);
-        Assert.True(pointAsWebMercator.y - 3.09220807760449 < precision);
+        Assert.True(pointAsWebMercator.x - 3 < precision, "Map-relative point x from WebMercator incorrect.");
+        Assert.True(pointAsWebMercator.y - 3 < precision, "Map-relative point y from WebMercator incorrect.");
     }
 
     [Test]
@@ -163,15 +163,22 @@ public class MapDataTest {
         List<MapData> slices = mapdataTest.GetSlices(4);
         MapData slice = slices.ElementAt(1);
         MapPoint pointAsWebMercator = slice.GetWebMercatorCoordinates(new Vector2(0f, 0f));
-        Assert.True(pointAsWebMercator.x - 7.21515218107713 < precision);
-        Assert.True(pointAsWebMercator.y - 11.3380962851156 < precision);
+        Assert.True(pointAsWebMercator.x - 7.21515218107713 < precision, "WebMercator x from map-relative coordinates using slice incorrect.");
+        Assert.True(pointAsWebMercator.y - 11.3380962851156 < precision, "WebMercator y from map-relative coordinates using slice incorrect.");
     }
 
     [Test]
     public void GetMapSpecificCoordinatesFromLatLonCorrect() {
         Vector2 mapSpecificVector = mapdata.GetMapSpecificCoordinatesFromLatLon(new MapPoint(3 * meterInDegrees, 3 * meterInDegrees));
-        Assert.True(mapSpecificVector.x - 0.5f < precision);
-        Assert.True(mapSpecificVector.y < precision);
+        Assert.True(mapSpecificVector.x - 0.5f < precision, "Map-relative point x from lat-lon incorrect.");
+        Assert.True(mapSpecificVector.y < precision, "Map-relative point y from lat-lon incorrect.");
+    }
+
+    [Test]
+    public void GetMapSpecificCoordinatesFromWebMercatorCorrect() {
+        Vector2 mapSpecificVector = mapdata.GetMapSpecificCoordinatesFromWebMercator(new MapPoint(3, 3));
+        Assert.True(mapSpecificVector.x - 0.5f < precision, "Map-relative point x from WebMercator incorrect.");
+        Assert.True(mapSpecificVector.y < precision, "Map-relative point y from WebMercator incorrect.");
     }
 
     [Test]
@@ -180,7 +187,21 @@ public class MapDataTest {
         MapData slice = slices.ElementAt(0);
         Vector2 mapSpecificVector = slice.GetMapSpecificCoordinatesFromLatLon(new MapPoint(3 * meterInDegrees, 5 * meterInDegrees));
 
-        Assert.True(mapSpecificVector.x - 0.5 < precision);
-        Assert.True(mapSpecificVector.y - 0.5 < precision);
+        Assert.True(mapSpecificVector.x - 0.5 < precision, "Map-relative point x from lat-lon using slice incorrect.");
+        Assert.True(mapSpecificVector.y - 0.5 < precision, "Map-relative point y from lat-lon using slice incorrect.");
+    }
+
+    [Test]
+    public void GetMapSpecificCoordinatesRelativeToTopLeftFromLatLonCorrect() {
+        Vector2 mapSpecificVector = mapdata.GetMapSpecificCoordinatesRelativeToTopLeftFromLatLon(new MapPoint(3 * meterInDegrees, 1 * meterInDegrees));
+        Assert.True(mapSpecificVector.x - 1 < precision, "Map top left corner relative point x from lat-lon incorrect.");
+        Assert.True(mapSpecificVector.y - 2 < precision, "Map top left corner relative point y from lat-lon incorrect.");
+    }
+
+    [Test]
+    public void GetMapSpecificCoordinatesRelativeToTopLeftFromWebMercatorCorrect() {
+        Vector2 mapSpecificVector = mapdata.GetMapSpecificCoordinatesRelativeToTopLeftFromWebMercator (new MapPoint(3, 1));
+        Assert.True(mapSpecificVector.x - 1 < precision, "Map top left corner relative point x from WebMercator incorrect.");
+        Assert.True(mapSpecificVector.y - 2 < precision, "Map top left corner relative point y from WebMercator incorrect.");
     }
 }

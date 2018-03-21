@@ -1,4 +1,4 @@
-/// <summary>
+﻿/// <summary>
 /// Dummy metadata, used for testing purposes
 /// </summary>
 public class DummyMetadata : MapMetadata {
@@ -16,6 +16,10 @@ public class DummyMetadata : MapMetadata {
 
     public double GetLowerLeftCornerY() {
         return lowerLeftY;
+    }
+
+    public MapDataType GetMapDataType() {
+        return MapDataType.ASCIIGrid;
     }
 
     public float GetMaxHeight() {

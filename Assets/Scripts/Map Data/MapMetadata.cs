@@ -1,4 +1,4 @@
-
+﻿
 /// <summary>
 /// Interface for height map metadata containers.
 /// Only getters for values that are actually used after data importing are exposed through
@@ -11,4 +11,5 @@ public interface MapMetadata {
     double GetLowerLeftCornerY();
     float GetMinHeight();
     float GetMaxHeight();
+    MapDataType GetMapDataType();
 }
