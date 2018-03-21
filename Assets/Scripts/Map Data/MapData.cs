@@ -153,7 +153,8 @@ public class MapData {
                 "map slice with center point (" + sliceCenterX + ", " + sliceCenterY + ") and width " + GetWidth() + " and height " + GetHeight() + ".");
         }
 
-        return new Vector2(xVectorFromCenter, yVectorFromCenter);
+        // Flip the conversion on the y-axis to negative. Map-specific coordinates grow down.
+        return new Vector2(xVectorFromCenter, -yVectorFromCenter);
     }
 
     /// <summary>
@@ -171,16 +172,17 @@ public class MapData {
         float xVectorFromTopLeft = converter.TransformationInMapCellsBetweenLatLonCoordinates(sliceTopLeft.x, latLonPoint.x);
         float yVectorFromTopLeft = converter.TransformationInMapCellsBetweenLatLonCoordinates(sliceTopLeft.y, latLonPoint.y);
 
-        Debug.Log("Map slice with top left point (" + sliceTopLeft.x + ", " + sliceTopLeft.y + ") and width " + GetWidth() + " and height " + GetHeight());
-        Debug.Log("Path point (" + latLonPoint.x + "," + latLonPoint.y + ")");
-        Debug.Log("Transformation (" + xVectorFromTopLeft + "," + yVectorFromTopLeft + ")");
+        //Debug.Log("Map slice with top left point (" + sliceTopLeft.x + ", " + sliceTopLeft.y + ") and width " + GetWidth() + " and height " + GetHeight());
+        //Debug.Log("Path point (" + latLonPoint.x + "," + latLonPoint.y + ")");
+        //Debug.Log("Transformation (" + xVectorFromTopLeft + "," + yVectorFromTopLeft + ")");
 
         //if (xVectorFromTopLeft > maxXTransform | xVectorFromTopLeft < minXTransform | yVectorFromTopLeft > maxYTransform | yVectorFromTopLeft < minYTransform) {
         //    throw new System.ArgumentException("Index out of bounds! Point (" + latLonPoint.x + ", " + latLonPoint.y + ") not on " +
         //        "map slice with top left point (" + sliceTopLeft.x + ", " + sliceTopLeft.y + ") and width " + GetWidth() + " and height " + GetHeight() + ".");
         //}
 
-        return new Vector2(xVectorFromTopLeft, yVectorFromTopLeft);
+        // Flip the conversion on the y-axis to negative. Map-specific coordinates grow down.
+        return new Vector2(xVectorFromTopLeft, -(yVectorFromTopLeft));
     }
 
     /// <summary>
@@ -198,12 +200,14 @@ public class MapData {
         float xVectorFromTopLeft = converter.TransformationInMapCellsBetweenWebMercatorCoordinates(sliceTopLeft.x, webMercatorPoint.x);
         float yVectorFromTopLeft = converter.TransformationInMapCellsBetweenWebMercatorCoordinates(sliceTopLeft.y, webMercatorPoint.y);
 
+        //
         //if (xVectorFromTopLeft > maxXTransform | xVectorFromTopLeft < minXTransform | yVectorFromTopLeft > maxYTransform | yVectorFromTopLeft < minYTransform) {
         //    throw new System.ArgumentException("Index out of bounds! Point (" + webMercatorPoint.x + ", " + webMercatorPoint.y + ") not on " +
         //        "map slice with top left point (" + sliceTopLeft.x + ", " + sliceTopLeft.y + ") and width " + GetWidth() + " and height " + GetHeight() + ".");
         //}
 
-        return new Vector2(xVectorFromTopLeft, yVectorFromTopLeft);
+        // Flip the conversion on the y-axis to negative. Map-specific coordinates grow down.
+        return new Vector2(xVectorFromTopLeft, -yVectorFromTopLeft);
     }
 
     public virtual float GetRaw(int x, int y) {

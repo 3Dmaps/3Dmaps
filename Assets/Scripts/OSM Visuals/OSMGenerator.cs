@@ -64,7 +64,8 @@ public class OSMGenerator : MonoBehaviour {
 
 	public void AddDisplayNode(TrailNode node) {
 		Vector2 point = mapData.GetMapSpecificCoordinatesRelativeToTopLeftFromLatLon(new MapPoint((double) node.lon, (double) node.lat));
-		displayNodes.Add(new DisplayNode((int) point.x, (int) point.y));
+        Debug.Log("Point being added:" + point.x + "," + point.y);
+        displayNodes.Add(new DisplayNode((int) point.x, (int) point.y));
 	}
 
 	public void AddDisplayNode(TrailNode node, TrailNode nextNode) {
