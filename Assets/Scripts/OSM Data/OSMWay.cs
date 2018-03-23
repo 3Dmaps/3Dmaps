@@ -26,9 +26,16 @@ public class OSMway {
         tags.Add(key, value);
     }
 
-    public bool IsArea() {
-        if (this.tags.ContainsKey("landuse")) {           
-                 return true;                      
+    public bool IsMeadow() {
+        if (this.tags.ContainsValue("meadow")) {                            
+                return true;         
+        }
+        return false;
+    }
+
+    public bool IsRiver() {
+        if (this.tags.ContainsValue("river")) {            
+                return true;            
         }
         return false;
     }

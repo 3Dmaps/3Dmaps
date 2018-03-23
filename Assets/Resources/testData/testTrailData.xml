@@ -62,6 +62,14 @@
     <nd ref="1861712094"/>    
     <tag k="landuse" v="meadow"/>
   </way>
+    <way id="320596938" version="3" timestamp="2016-04-17T00:45:56Z" uid="3745309" user="KW71" changeset="38633204">
+    <nd ref="3271516347"/>
+    <tag k="name" v="Serpentine Canyon"/>
+    <tag k="waterway" v="river"/>
+    <tag k="intermittent" v="yes"/>
+  </way>
   <node id="1861712094" version="1" timestamp="2012-08-11T15:42:08Z" uid="24920" user="Schusch" changeset="12692630" lat="36.2676517" lon="-112.0544753"/>
+
+  <node id="3271516347" version="1" timestamp="2015-01-06T00:03:29Z" uid="183021" user="tomthepom" changeset="27945441" lat="36.193776" lon="-112.354029"/>
 
 </osm>

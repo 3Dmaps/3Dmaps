@@ -1,28 +1,36 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Holds the data of a single terrain area from OSM data. The trail is made up of
+/// Holds the data of a single river. The river is made up of
 /// a list of OSMNodes.
 /// </summary>
 
-public class Area {
+public class River {
     List<OSMNode> nodeList;
     public long id;
-	public string type;
+	
 
-    public Area(OSMway way, string type) {
-        this.nodeList = way.GetNodeList();
-        this.id = way.GetID();
-        this.type = type;		
+    public River(long id) {
+        nodeList = new List<OSMNode>();
+        this.id = id;		
     }
 
+    public River(OSMway way) {
+        this.nodeList = way.GetNodeList();
+        this.id = way.GetID();
+       
+    }
+
+    public void AddNode(OSMNode riverNode) {
+        nodeList.Add(riverNode);
+    }
 
     public override bool Equals(object obj) {
-        var area = obj as Area;
-        return area != null &&
-               id == area.id;
+        var river = obj as River;
+        return river != null &&
+               id == river.id;
     }
 
     public List<OSMNode> GetNodeList() {
