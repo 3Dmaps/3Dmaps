@@ -29,6 +29,23 @@ public class OSMDataImporterTest {
     public void CorrectNumberOfPoiNodes() {
         Assert.True(osmData.poiNodes.Count == 2, "Wrong number of points of interest");
     }
+
+    [Test]
+    public void CorrectNumberOfAreas() {
+        Assert.True(osmData.areas.Count == 1, "Wrong number of points of interest");
+    }
+
+    [Test]
+    public void AreaIdCorrect() {
+        Assert.True(osmData.areas[0].id == 175607037, "Area id incorrect.");		
+    }
+
+     [Test]
+    public void AreaNodeIdCorrect() {
+        Assert.True(osmData.areas[0].GetNodeList()[0].id == 1861712094, "Area node id incorrect.");		
+    }
+
+
     [Test]
     public void CorrentIconFoundOnPoi() {
         Assert.True(osmData.poiNodes[0].icon.Equals("city"), "Wrong icon name");        
