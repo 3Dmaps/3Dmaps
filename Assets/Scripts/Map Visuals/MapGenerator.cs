@@ -57,7 +57,7 @@ public class MapGenerator : MonoBehaviour {
         OSMGenerator osmGenerator = GameObject.FindObjectOfType<OSMGenerator>();
         if (osmGenerator != null) {
             try {
-                osmGenerator.GenerateTrails(this, mapFileName);
+                osmGenerator.GenerateOSMObjects(this, mapFileName);
             } catch(System.Exception e) {
                 Debug.Log("Did not generate trails: " + e);
             }

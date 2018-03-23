@@ -1287,6 +1287,7 @@
   <node id="476056346" version="2" timestamp="2009-08-28T23:11:12Z" uid="32890" user="jfuredy" changeset="2295662" lat="36.1591706" lon="-112.0549851">
     <tag k="name" v="Ribbon Falls"/>
     <tag k="tourism" v="attraction"/>
+    <tag k="zmeuicon" v="attraction"/>
   </node>
   <node id="476056870" version="2" timestamp="2011-10-15T02:37:15Z" uid="509900" user="scorfman" changeset="9560257" lat="36.1590272" lon="-112.0522677"/>
   <node id="476056877" version="1" timestamp="2009-08-28T23:11:06Z" uid="32890" user="jfuredy" changeset="2295662" lat="36.1589627" lon="-112.0523415"/>
@@ -3409,6 +3410,7 @@
   <node id="1467648247" version="1" timestamp="2011-10-14T21:26:37Z" uid="509900" user="scorfman" changeset="9559141" lat="36.1045485" lon="-112.0917073">
     <tag k="name" v="Colorado River View"/>
     <tag k="tourism" v="viewpoint"/>
+    <tag k="zmeuicon" v="viewpoint"/>
   </node>
   <node id="1467648250" version="1" timestamp="2011-10-14T21:26:37Z" uid="509900" user="scorfman" changeset="9559141" lat="36.1045458" lon="-112.0917383"/>
   <node id="1467648252" version="1" timestamp="2011-10-14T21:26:37Z" uid="509900" user="scorfman" changeset="9559141" lat="36.1046022" lon="-112.091741"/>
