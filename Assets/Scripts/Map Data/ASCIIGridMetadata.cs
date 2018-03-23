@@ -3,7 +3,7 @@
 /// </summary>
 public class ASCIIGridMetadata : MapMetadata {
     public const string nrowsKey = "nrows", ncolsKey = "ncols", xllcornerKey = "xllcorner", yllcornerKey = "yllcorner", cellsizeKey = "cellsize", nodatavalueKey = "NODATA_value", minheightKey = "minheight", maxheightKey = "maxheight";
-
+    
     public int nrows = 0, ncols = 0;
     public double xllcorner = 0, yllcorner = 0;
     public float cellsize = 0f, nodatavalue = -9999f, minheight = 0f, maxheight = 1000f;
@@ -18,6 +18,10 @@ public class ASCIIGridMetadata : MapMetadata {
     
     public double GetLowerLeftCornerY() {
         return yllcorner;
+    }
+
+    public MapDataType GetMapDataType() {
+        return MapDataType.ASCIIGrid;
     }
 
     public float GetMaxHeight() {

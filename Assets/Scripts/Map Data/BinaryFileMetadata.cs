@@ -122,6 +122,10 @@ public class BinaryFileMetadata : MapMetadata {
     public float GetMinHeight() {
         return minHeight;
     }
+
+    public MapDataType GetMapDataType() {
+        return MapDataType.Binary;
+    }
 }
 
 class BinaryFileMapInfo {

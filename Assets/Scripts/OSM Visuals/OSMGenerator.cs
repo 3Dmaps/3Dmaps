@@ -47,8 +47,23 @@ public class OSMGenerator : MonoBehaviour {
 	}
 
 	public void AddDisplayNode(TrailNode node) {
-		Vector2 point = mapData.GetRawCoordinatesFromLatLon (new MapPoint((double) node.lon, (double) node.lat));
-		displayNodes.Add(new DisplayNode((int) point.x, (int) point.y));
+        MapPoint nodeInLatLon = new MapPoint((double)node.lon, (double)node.lat);
+        Vector2 mapRelativePoint;
+        switch (mapData.metadata.GetMapDataType()) {
+            case MapDataType.Binary:
+                // Map coordinates in WM -> transform node coordinates to WM.
+                CoordinateConverter converter = new CoordinateConverter();
+                MapPoint nodeInWebMercator = converter.ProjectPointToWebMercator(nodeInLatLon);
+                mapRelativePoint = mapData.GetMapSpecificCoordinatesRelativeToTopLeftFromWebMercator(nodeInWebMercator);
+                break;
+            case MapDataType.ASCIIGrid:
+                // Map and node coordinates in LatLon, no conversion needed.
+                mapRelativePoint = mapData.GetMapSpecificCoordinatesRelativeToTopLeftFromLatLon(nodeInLatLon);
+                break;
+            default:
+                throw new System.Exception("Mapdata type not recognized.");    
+        }
+        displayNodes.Add(new DisplayNode((int) mapRelativePoint.x, (int) mapRelativePoint.y));
 	}
 
 	public void AddDisplayNode(TrailNode node, TrailNode nextNode) {
@@ -57,7 +72,7 @@ public class OSMGenerator : MonoBehaviour {
 		}
 
 		for (int i = 1; i <= this.nodeGenerationRate; i++) {		
-			Vector2 point = mapData.GetRawCoordinatesFromLatLon (
+			Vector2 point = mapData.GetMapSpecificCoordinatesRelativeToTopLeftFromLatLon(
 					new MapPoint(
 						x: (double) (i * (nextNode.lon - node.lon) / (nodeGenerationRate + 1) + node.lon),
                         y: (double) (i * (nextNode.lat - node.lat) / (nodeGenerationRate + 1) + node.lat)
