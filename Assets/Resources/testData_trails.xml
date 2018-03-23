@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<osm xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" version="0.6">
+  <node timestamp="2017-11-23T15:46:19Z" uid="1" user="zmeu" visible="true" version="1" changeset="1" id="150942698" lat="35.9432567" lon="-112.1851486">
+    <tag k="ele" v="2007.46655273438" />
+    <tag k="name" v="Apex" />
+    <tag k="is_in" v="Coconino,Arizona,Ariz.,AZ,USA" />
+    <tag k="place" v="hamlet" />
+    <tag k="gnis:id" v="25248" />
+    <tag k="gnis:Class" v="Populated Place" />
+    <tag k="gnis:County" v="Coconino" />
+    <tag k="gnis:ST_num" v="04" />
+    <tag k="import_uuid" v="bb7269ee-502a-5391-8056-e3ce0e66489c" />
+    <tag k="gnis:ST_alpha" v="AZ" />
+    <tag k="gnis:County_num" v="005" />
+    <tag k="EXPORT_POI" v="true" />
+    <tag k="zmeuicon" v="city" />
+  </node>
+  <node timestamp="2017-11-23T15:46:19Z" uid="1" user="zmeu" visible="true" version="1" changeset="1" id="150943901" lat="35.9735954" lon="-112.1265569">
+    <tag k="ele" v="2009.61987304688" />
+    <tag k="name" v="Tusayan" />
+    <tag k="is_in" v="Coconino,Arizona,Ariz.,AZ,USA" />
+    <tag k="place" v="hamlet" />
+    <tag k="gnis:id" v="42842" />
+    <tag k="gnis:Class" v="Populated Place" />
+    <tag k="gnis:County" v="Coconino" />
+    <tag k="gnis:ST_num" v="04" />
+    <tag k="import_uuid" v="bb7269ee-502a-5391-8056-e3ce0e66489c" />
+    <tag k="gnis:ST_alpha" v="AZ" />
+    <tag k="gnis:County_num" v="005" />
+    <tag k="EXPORT_POI" v="true" />
+    <tag k="zmeuicon" v="city" />
+  </node>
+  <node timestamp="2017-11-23T15:46:19Z" uid="1" user="zmeu" visible="true" version="1" changeset="1" id="173886087" lat="36.0176913" lon="-112.1253312" />
+  <node timestamp="2017-11-23T15:46:19Z" uid="1" user="zmeu" visible="true" version="1" changeset="1" id="173895047" lat="36.0537344" lon="-112.1439038" />
+  <node timestamp="2017-11-23T15:46:19Z" uid="1" user="zmeu" visible="true" version="1" changeset="1" id="173910289" lat="36.0383775" lon="-112.1872653" />
+  <node timestamp="2017-11-23T15:46:19Z" uid="1" user="zmeu" visible="true" version="1" changeset="1" id="273886087" lat="37.0176913" lon="-111.1253312" />
+  <node timestamp="2017-11-23T15:46:19Z" uid="1" user="zmeu" visible="true" version="1" changeset="1" id="273895047" lat="37.0537344" lon="-111.1439038" />
+  <node timestamp="2017-11-23T15:46:19Z" uid="1" user="zmeu" visible="true" version="1" changeset="1" id="273910289" lat="37.0383775" lon="-111.1872653" />
+  <way timestamp="2017-11-23T15:46:41Z" uid="1" user="zmeu" visible="true" version="1" changeset="1" id="100000000297">
+    <nd ref="173886087" />
+    <nd ref="173895047" />
+    <nd ref="173910289" />
+    <tag k="route" v="hiking" />
+    <tag k="highway" v="path" />
+    <tag k="EXPORT_ROUTE" v="true" />
+    <tag k="originalMemberWays" v="100000000144" />
+    <tag k="zmeucolor" v="unnamedRouteColorName" />
+    <tag k="zmeuname" v="" />
+  </way>
+  <way timestamp="2017-11-23T15:46:41Z" uid="1" user="zmeu" visible="true" version="1" changeset="1" id="100000000298">
+    <nd ref="273886087" />
+    <nd ref="273895047" />
+    <nd ref="273910289" />
+    <tag k="route" v="hiking" />
+    <tag k="highway" v="path" />
+    <tag k="EXPORT_ROUTE" v="true" />
+    <tag k="originalMemberWays" v="100000000130" />
+    <tag k="zmeucolor" v="unnamedRouteColorName" />
+    <tag k="zmeuname" v="" />
+  </way>
+</osm>
