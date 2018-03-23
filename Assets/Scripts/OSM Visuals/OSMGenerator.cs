@@ -10,32 +10,40 @@ using UnityEngine;
 public class OSMGenerator : MonoBehaviour {
 
 	private MapData mapData;
-	private TrailDisplay display;
+	private TrailDisplay trailDisplay;
 	private POIDisplay poiDisplay;
 	public int nodeGenerationRate = 1; // number of new nodes created between adjacent nodes in data
 	List<DisplayNode> displayNodes;
 	IconHandler iconHandler;
 
 
-	public void GenerateTrails(MapGenerator mapGenerator, string mapName) {
+	public void GenerateOSMObjects(MapGenerator mapGenerator, string mapName) {
 		mapData = mapGenerator.mapData;
 
-		display = this.GetComponent<TrailDisplay> ();
+		trailDisplay = this.GetComponent<TrailDisplay> ();
 		poiDisplay = this.GetComponent<POIDisplay> ();
 
-		display.mapData = mapData;
+		trailDisplay.mapData = mapData;
 		poiDisplay.mapData = mapData;
 
 		iconHandler = this.GetComponent<IconHandler> ();
 		iconHandler.generateIconDictionary();
-		
-		ColorHandler colorHandler = new ColorHandler ();
+
         OSMData osmData = DataImporter.GetOSMData(mapName);
 
+		GenerateTrails(osmData);
+		GeneratePoiNodes(osmData);
+	}
+
+	private void GenerateTrails(OSMData osmData) {
+		ColorHandler colorHandler = new ColorHandler ();
 		foreach (Trail trail in osmData.trails) {
-			display.trailColor = colorHandler.SelectColor(trail.colorName);
-			display.DisplayNodes(TranslateTrail (trail));
+			trailDisplay.trailColor = colorHandler.SelectColor(trail.colorName);
+			trailDisplay.DisplayNodes(TranslateTrail (trail));
 		}
+	}
+
+	private void GeneratePoiNodes(OSMData osmData) {
 		foreach (POINode poiNode in osmData.poiNodes) {
 			Vector2 mapRelativePoint;
 			MapPoint nodeInLatLon = new MapPoint((double)poiNode.lon, (double)poiNode.lat);
