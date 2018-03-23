@@ -7,11 +7,11 @@ using UnityEngine;
 /// to displaying trails in Unity.  
 /// </summary>
 
-public class TrailGenerator : MonoBehaviour {
+public class OSMGenerator : MonoBehaviour {
 
 	private MapData mapData;
 	private TrailDisplay display;
-	public int nodeGenerationRate = 1; // number of new nodes created between adjacent nodes in data
+	public int nodeGenerationRate = 1; // number of new nodes created between adjacent trail nodes in data
 	List<DisplayNode> displayNodes;
 
 
