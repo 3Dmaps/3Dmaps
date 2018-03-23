@@ -17,7 +17,7 @@ public class OSMway {
     }
 
     public void AddNode(OSMNode node) {
-        nodeList.Add(node);
+        this.nodeList.Add(node);
     }
 
     public void AddTag(string key, string value) {

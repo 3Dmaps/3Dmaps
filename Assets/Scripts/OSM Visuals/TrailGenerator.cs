@@ -7,7 +7,7 @@ using UnityEngine;
 /// to displaying trails in Unity.  
 /// </summary>
 
-public class OSMGenerator : MonoBehaviour {
+public class TrailGenerator : MonoBehaviour {
 
 	private MapData mapData;
 	private TrailDisplay display;
@@ -48,26 +48,26 @@ public class OSMGenerator : MonoBehaviour {
 	public List<DisplayNode> TranslateTrail(Trail trail) {
 		displayNodes = new List<DisplayNode> ();
 
-		List<TrailNode> nodes = trail.GetNodeList();
+		List<OSMNode> nodes = trail.GetNodeList();
 
 		for (int i = 0; i < nodes.Count - 1 ; i++) {
-			TrailNode node = nodes[i];
-			TrailNode nextNode = nodes[i + 1];			
+			OSMNode node = nodes[i];
+			OSMNode nextNode = nodes[i + 1];			
 			AddDisplayNode(node);				
 			AddDisplayNode(node, nextNode);
 		}
-		TrailNode lastNode = nodes[nodes.Count  - 1];		
+		OSMNode lastNode = nodes[nodes.Count  - 1];		
 		AddDisplayNode(lastNode);
 
 		return displayNodes;
 	}
 
-	public void AddDisplayNode(TrailNode node) {
+	public void AddDisplayNode(OSMNode node) {
 		Vector2 point = mapData.GetRawCoordinatesFromLatLon (new MapPoint((double) node.lon, (double) node.lat));
 		displayNodes.Add(new DisplayNode((int) point.x, (int) point.y));
 	}
 
-	public void AddDisplayNode(TrailNode node, TrailNode nextNode) {
+	public void AddDisplayNode(OSMNode node, OSMNode nextNode) {
 		if (nodeGenerationRate < 1) {
 			return;
 		}

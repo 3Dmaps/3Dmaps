@@ -4,7 +4,7 @@ using UnityEngine;
 
 /// <summary>
 /// Holds the data of a single trail. The trail is made up of
-/// a list of TrailNodes.
+/// a list of OSMNodes.
 /// </summary>
 
 public class Trail {

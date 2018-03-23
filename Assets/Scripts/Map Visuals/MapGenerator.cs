@@ -44,7 +44,7 @@ public class MapGenerator : MonoBehaviour {
         mapData     = MapDataImporter.ReadMapData(mapDataPath, mapMetadata);
 		displays	= new List<MapDisplay>();
         GenerateMap();
-        OSMGenerator osmGenerator = GameObject.FindObjectOfType<OSMGenerator>();
+        TrailGenerator osmGenerator = GameObject.FindObjectOfType<TrailGenerator>();
         if (osmGenerator != null) {
             try {
                 osmGenerator.GenerateTrails(this);
