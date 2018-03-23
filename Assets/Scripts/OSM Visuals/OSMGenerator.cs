@@ -86,12 +86,8 @@ public class OSMGenerator : MonoBehaviour {
 		return displayNodes;
 	}
 
-<<<<<<< HEAD
+
 	public void AddDisplayNode(OSMNode node) {
-		Vector2 point = mapData.GetRawCoordinatesFromLatLon (new MapPoint((double) node.lon, (double) node.lat));
-		displayNodes.Add(new DisplayNode((int) point.x, (int) point.y));
-=======
-	public void AddDisplayNode(TrailNode node) {
         MapPoint nodeInLatLon = new MapPoint((double)node.lon, (double)node.lat);
         Vector2 mapRelativePoint;
         switch (mapData.metadata.GetMapDataType()) {
@@ -109,7 +105,6 @@ public class OSMGenerator : MonoBehaviour {
                 throw new System.Exception("Mapdata type not recognized.");    
         }
         displayNodes.Add(new DisplayNode((int) mapRelativePoint.x, (int) mapRelativePoint.y));
->>>>>>> master
 	}
 
 	public void AddDisplayNode(OSMNode node, OSMNode nextNode) {
