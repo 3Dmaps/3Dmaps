@@ -1,0 +1,105 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1481990259727772}
+  m_IsPrefabParent: 1
+--- !u!1 &1481990259727772
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4063258639165556}
+  - component: {fileID: 114233758517916284}
+  - component: {fileID: 114855818445820298}
+  - component: {fileID: 114221490288407454}
+  - component: {fileID: 114037045697494626}
+  m_Layer: 0
+  m_Name: OSMGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4063258639165556
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1481990259727772}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114037045697494626
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1481990259727772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edde7441ecf8241e1a4951f562f9a1ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iconList:
+  - sprite: {fileID: 21300000, guid: 3c21e2afa205744ec9eba10f58d10e6c, type: 3}
+    name: attraction
+  - sprite: {fileID: 21300000, guid: 537e90d95d0de4ee1a9fa3da3e07e5f7, type: 3}
+    name: city
+  - sprite: {fileID: 21300000, guid: 4432dd3d290724bc39bf081aec6cca9b, type: 3}
+    name: viewpoint
+--- !u!114 &114221490288407454
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1481990259727772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e606e514e812e4f8f816bad86ab4973b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trailColor: {r: 0, g: 0, b: 0, a: 0}
+  nodePositions: []
+  lineWidthMultiplier: 0.01
+  lineHeightAdjustment: 0.005
+  material: {fileID: 2100000, guid: 246dbc7e1d258e349b2a6451e22015e3, type: 2}
+--- !u!114 &114233758517916284
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1481990259727772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94dd385206779b04882edab6c32773a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeGenerationRate: 0
+--- !u!114 &114855818445820298
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1481990259727772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9697cd62876059b42a725bad2350ed39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeGameObject: {fileID: 1215510092995608, guid: e5c7ee0fdaa95794fa62d364c85a69ae,
+    type: 2}
+  heightAdjustment: 0.05

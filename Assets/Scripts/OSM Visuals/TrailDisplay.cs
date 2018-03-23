@@ -11,7 +11,6 @@ using UnityEngine;
 public class TrailDisplay : MonoBehaviour {
 
 	public MapData mapData;
-	public GameObject nodeGameObject;    
 	public Color trailColor;
     public List<Vector3> nodePositions;
     public float lineWidthMultiplier = 0.01f;
@@ -32,18 +31,11 @@ public class TrailDisplay : MonoBehaviour {
 
 
     public void GenerateNode (DisplayNode node) {
-		if (!IsWithinBounds(node.x, node.y)) {
+		if (!PositionService.IsWithinBounds(node.x, node.y, mapData)) {
 			return;
 		}
+		Vector3 nodePosition = PositionService.GetUnityPosition(node, lineHeightAdjustment, mapData);
 
-		float height = mapData.GetNormalized (node.x, node.y);
-
-		float xFromCenter = node.x - mapData.GetWidth() / 2;
-		float yFromCenter = (mapData.GetHeight() / 2) - node.y;
-
-		float scale = 1 / ((float) Mathf.Max (mapData.GetWidth(), mapData.GetHeight()) - 1);
-
-		Vector3 nodePosition = new Vector3 ((float) xFromCenter * scale, height + lineHeightAdjustment, (float) yFromCenter * scale);
         this.nodePositions.Add(nodePosition);
     }
 
@@ -66,32 +58,6 @@ public class TrailDisplay : MonoBehaviour {
         newLine.GetComponent<Renderer>().sharedMaterial.color = trailColor;        
                      
     }
-
-
-    // keeping this for illustration purposes and future needs
-    public void GenerateNodeGameObject(Vector3 nodePosition) {
-        GameObject newNode = Instantiate(nodeGameObject);
-        if (newNode.GetComponent<Renderer>() != null)
-        {
-            newNode.GetComponent<Renderer>().material.color = trailColor;
-        }
-
-        newNode.transform.position = nodePosition;
-        newNode.transform.SetParent(this.transform);
-    }    
-
-
-	public bool IsWithinBounds(int rawX, int rawY) {
-		if (rawX < 0 || rawX > mapData.GetWidth() - 1) {
-			return false;		
-		}
-
-		if (rawY < 0 || rawY > mapData.GetHeight() - 1) {
-			return false;		
-		}
-
-		return true;
-	}
 }
 
 public class DisplayNode {

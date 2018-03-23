@@ -10,7 +10,7 @@ using UnityEngine;
 public class MapData {
     protected float[,] data;
     private float scale;
-    protected MapMetadata metadata;
+    public MapMetadata metadata;
     protected CoordinateConverter converter;
 
     public MapData(MapData mapData) : this(mapData.data, mapData.metadata) {
@@ -21,7 +21,7 @@ public class MapData {
 
     public MapData(float[,] data, MapMetadata metadata) {
         this.data = data;
-		scale = 1 / (float)Mathf.Max(data.GetLength(0), data.GetLength(1));
+        scale = 1 / (float)Mathf.Max(data.GetLength(0), data.GetLength(1));
         this.metadata = metadata;
         converter = new CoordinateConverter(this.metadata.GetCellsize());
     }
@@ -61,18 +61,21 @@ public class MapData {
         Vector2 topLeftVector = GetTopLeft();
         double centerXRelativeToLowerLeftCorner = data.GetLength(0) / 2.0;
         double centerYRelativeToLowerLeftCorner = data.GetLength(1) / 2.0;
-        double topLeftLon = converter.TransformCoordinateByDistance(centerXRelativeToLowerLeftCorner + topLeftVector.x, metadata.GetLowerLeftCornerX());
-        double topLeftLat = converter.TransformCoordinateByDistance(centerYRelativeToLowerLeftCorner + topLeftVector.y, metadata.GetLowerLeftCornerY());
+        double topLeftLon = converter.TransformCoordinateByLatLonDistance(centerXRelativeToLowerLeftCorner + topLeftVector.x, metadata.GetLowerLeftCornerX());
+        double topLeftLat = converter.TransformCoordinateByLatLonDistance(centerYRelativeToLowerLeftCorner + topLeftVector.y, metadata.GetLowerLeftCornerY());
         return new MapPoint(topLeftLon, topLeftLat);
     }
 
     /// <summary>
-    /// Returns the MapPoint(x,y) of the center of the top left cell of this map in 
-    /// WebMercator.
+    /// Returns the MapPoint(x,y) in WebMercator of the center of the top left cell of this map.
     /// </summary>
     public MapPoint GetTopLeftAsWebMercator() {
-        MapPoint topLeftCorner = GetTopLeftLatLonPoint();
-        return converter.ProjectPointToWebMercator(topLeftCorner);
+        Vector2 topLeftVector = GetTopLeft();
+        double centerXRelativeToLowerLeftCorner = data.GetLength(0) / 2.0;
+        double centerYRelativeToLowerLeftCorner = data.GetLength(1) / 2.0;
+        double topLeftXWebMercator = converter.TransformCoordinateByWebMercatorDistance(centerXRelativeToLowerLeftCorner + topLeftVector.x, metadata.GetLowerLeftCornerX());
+        double topLeftYWebMercator = converter.TransformCoordinateByWebMercatorDistance(centerYRelativeToLowerLeftCorner + topLeftVector.y, metadata.GetLowerLeftCornerY());
+        return new MapPoint(topLeftXWebMercator, topLeftYWebMercator);
     }
 
     /// <summary>
@@ -85,8 +88,8 @@ public class MapData {
             throw new System.ArgumentException("Index out of bounds! (" + positionOnMap.x + ", " + positionOnMap.y + ")");
         }
         MapPoint topLeft = GetTopLeftLatLonPoint();
-        double x = converter.TransformCoordinateByDistance((double)positionOnMap.x, (double)topLeft.x);
-        double y = converter.TransformCoordinateByDistance((double)positionOnMap.y, (double)topLeft.y);
+        double x = converter.TransformCoordinateByLatLonDistance((double)positionOnMap.x, (double)topLeft.x);
+        double y = converter.TransformCoordinateByLatLonDistance((double)positionOnMap.y, (double)topLeft.y);
         return new MapPoint(x, y);
     }
 
@@ -95,8 +98,14 @@ public class MapData {
     /// is at positionVector2(x,y) relative to the center of the top left cell of the map. 
     /// </summary>
     public MapPoint GetWebMercatorCoordinates(Vector2 positionOnMap) {
-        MapPoint latLonPoint = GetLatLonCoordinates(positionOnMap);
-        return converter.ProjectPointToWebMercator(latLonPoint);
+        if (positionOnMap.x < -0.5 || positionOnMap.x > GetWidth() - 0.5
+            || positionOnMap.y > 0.5 || positionOnMap.y < -GetHeight() + 0.5) {
+            throw new System.ArgumentException("Index out of bounds! (" + positionOnMap.x + ", " + positionOnMap.y + ")");
+        }
+        MapPoint topLeft = GetTopLeftAsWebMercator();
+        double x = converter.TransformCoordinateByWebMercatorDistance((double)positionOnMap.x, (double)topLeft.x);
+        double y = converter.TransformCoordinateByWebMercatorDistance((double)positionOnMap.y, (double)topLeft.y);
+        return new MapPoint(x, y);
     }
 
     /// <summary>
@@ -104,33 +113,76 @@ public class MapData {
     /// the map-specific coordinates relative to the center point of the map. 
     /// </summary>
     public Vector2 GetMapSpecificCoordinatesFromLatLon(MapPoint latLonPoint) {
-        float maxXDistance = (float)converter.TransformCoordinateByDistance(0, (GetWidth() / 2.0));
-        float maxYDistance = (float)converter.TransformCoordinateByDistance(0, (GetHeight() / 2.0));
-        if (Math.Abs(latLonPoint.x) > maxXDistance | Math.Abs(latLonPoint.y) > maxYDistance) {
-            throw new System.ArgumentException("Index out of bounds! (" + latLonPoint.x + ", " + latLonPoint.y + ")");
-        }
+        float maxXDistance = (float)converter.TransformCoordinateByLatLonDistance(0, (GetWidth() / 2.0));
+        float maxYDistance = (float)converter.TransformCoordinateByLatLonDistance(0, (GetHeight() / 2.0));
 
         MapPoint sliceTopLeft = GetTopLeftLatLonPoint();
-        double sliceCenterLon = converter.TransformCoordinateByDistance(((GetWidth() - 1) / 2.0), sliceTopLeft.x);
-        double sliceCenterLat = converter.TransformCoordinateByDistance(-((GetHeight() - 1) / 2.0), sliceTopLeft.y);
+        double cells = (GetWidth() - 1) / 2.0;
+        double sliceCenterLon = converter.TransformCoordinateByLatLonDistance(cells, sliceTopLeft.x);
+        double sliceCenterLat = converter.TransformCoordinateByLatLonDistance(-((GetHeight() - 1) / 2.0), sliceTopLeft.y);
 
-        float xVectorFromCenter = converter.DistanceBetweenCoordinates(sliceCenterLon, latLonPoint.x);
-        float yVectorFromCenter = converter.DistanceBetweenCoordinates(sliceCenterLat, latLonPoint.y);
+        float xVectorFromCenter = converter.TransformationInMapCellsBetweenLatLonCoordinates(sliceCenterLon, latLonPoint.x);
+        float yVectorFromCenter = converter.TransformationInMapCellsBetweenLatLonCoordinates(sliceCenterLat, latLonPoint.y);
+
+        if (Math.Abs(latLonPoint.x) > maxXDistance | Math.Abs(latLonPoint.y) > maxYDistance) {
+            throw new System.ArgumentException("Index out of bounds! Point (" + latLonPoint.x + ", " + latLonPoint.y + ") not on " +
+                "map slice with center point (" + sliceCenterLon + ", " + sliceCenterLat + ") and width " + GetWidth() + " and height " + GetHeight() + ".");
+        }
+
         return new Vector2(xVectorFromCenter, yVectorFromCenter);
     }
 
-	/// <summary>
-	/// Takes a MapPoint(lon,lat) as parameter and returns a Vector2(x,y) that gives 
-	/// the map-specific coordinates relative to top left cell of the map. 
-	/// </summary>
-	public Vector2 GetRawCoordinatesFromLatLon(MapPoint latLonPoint) {
-		MapPoint sliceTopLeft = GetTopLeftLatLonPoint();
+    /// <summary>
+    /// Takes a MapPoint(x,y) in WebMercator as parameter and returns a Vector2(x,y) that gives 
+    /// the map-specific coordinates relative to the center point of the map. 
+    /// </summary>
+    public Vector2 GetMapSpecificCoordinatesFromWebMercator(MapPoint webMercatorPoint) {
+        float maxXDistance = (float)converter.TransformCoordinateByWebMercatorDistance(0, (GetWidth() / 2.0));
+        float maxYDistance = (float)converter.TransformCoordinateByWebMercatorDistance(0, (GetHeight() / 2.0));
 
-		float xVectorFromTopLeft = converter.DistanceBetweenCoordinates(sliceTopLeft.x, latLonPoint.x);
-		float yVectorFromTopLeft = - (converter.DistanceBetweenCoordinates(sliceTopLeft.y, latLonPoint.y));
+        MapPoint sliceTopLeft = GetTopLeftAsWebMercator();
+        double sliceCenterX = converter.TransformCoordinateByWebMercatorDistance(((GetWidth() - 1) / 2.0), sliceTopLeft.x);
+        double sliceCenterY = converter.TransformCoordinateByWebMercatorDistance(-((GetHeight() - 1) / 2.0), sliceTopLeft.y);
 
-		return new Vector2(xVectorFromTopLeft, yVectorFromTopLeft);
-	}
+        float xVectorFromCenter = converter.TransformationInMapCellsBetweenWebMercatorCoordinates(sliceCenterX, webMercatorPoint.x);
+        float yVectorFromCenter = converter.TransformationInMapCellsBetweenWebMercatorCoordinates(sliceCenterY, webMercatorPoint.y);
+
+        if (Math.Abs(xVectorFromCenter) > maxXDistance | Math.Abs(yVectorFromCenter) > maxYDistance) {
+            throw new System.ArgumentException("Index out of bounds! Point (" + webMercatorPoint.x + ", " + webMercatorPoint.y + ") not on " +
+                "map slice with center point (" + sliceCenterX + ", " + sliceCenterY + ") and width " + GetWidth() + " and height " + GetHeight() + ".");
+        }
+
+        // Flip the conversion on the y-axis to negative. Map-specific coordinates grow down.
+        return new Vector2(xVectorFromCenter, -yVectorFromCenter);
+    }
+
+    /// <summary>
+    /// Takes a MapPoint(lon,lat) as parameter and returns a Vector2(x,y) that gives 
+    /// the map-specific coordinates relative to top left cell of the map. 
+    /// </summary>
+    public Vector2 GetMapSpecificCoordinatesRelativeToTopLeftFromLatLon(MapPoint latLonPoint) {
+        MapPoint sliceTopLeft = GetTopLeftLatLonPoint();
+
+        float xVectorFromTopLeft = converter.TransformationInMapCellsBetweenLatLonCoordinates(sliceTopLeft.x, latLonPoint.x);
+        float yVectorFromTopLeft = converter.TransformationInMapCellsBetweenLatLonCoordinates(sliceTopLeft.y, latLonPoint.y);
+
+        // Flip the conversion on the y-axis to negative. Map-specific coordinates grow down.
+        return new Vector2(xVectorFromTopLeft, -(yVectorFromTopLeft));
+    }
+
+    /// <summary>
+    /// Takes a MapPoint(x,y) in WebMercator as a parameter and returns a Vector2(x,y) that gives 
+    /// the map-specific coordinates relative to top left cell of the map. 
+    /// </summary>
+    public Vector2 GetMapSpecificCoordinatesRelativeToTopLeftFromWebMercator(MapPoint webMercatorPoint) {
+        MapPoint sliceTopLeft = GetTopLeftAsWebMercator();
+
+        float xVectorFromTopLeft = converter.TransformationInMapCellsBetweenWebMercatorCoordinates(sliceTopLeft.x, webMercatorPoint.x);
+        float yVectorFromTopLeft = converter.TransformationInMapCellsBetweenWebMercatorCoordinates(sliceTopLeft.y, webMercatorPoint.y);
+
+        // Flip the conversion on the y-axis to negative. Map-specific coordinates grow down.
+        return new Vector2(xVectorFromTopLeft, -yVectorFromTopLeft);
+    }
 
     public virtual float GetRaw(int x, int y) {
         return data[x, y];

@@ -10,41 +10,65 @@ using UnityEngine;
 public class OSMGenerator : MonoBehaviour {
 
 	private MapData mapData;
-	private TrailDisplay display;
-	public int nodeGenerationRate = 1; // number of new nodes created between adjacent trail nodes in data
+
+	private TrailDisplay trailDisplay;
+	private POIDisplay poiDisplay;
+	public int nodeGenerationRate = 1; // number of new nodes created between adjacent nodes in data
+
 	List<DisplayNode> displayNodes;
+	IconHandler iconHandler;
 
 
-	public void GenerateTrails(MapGenerator mapGenerator) {
+	public void GenerateOSMObjects(MapGenerator mapGenerator, string mapName) {
 		mapData = mapGenerator.mapData;
-		display = this.GetComponent<TrailDisplay> ();
-		display.mapData = mapData;
 
+		trailDisplay = this.GetComponent<TrailDisplay> ();
+		poiDisplay = this.GetComponent<POIDisplay> ();
+
+		trailDisplay.mapData = mapData;
+		poiDisplay.mapData = mapData;
+
+		iconHandler = this.GetComponent<IconHandler> ();
+		iconHandler.generateIconDictionary();
+
+        OSMData osmData = DataImporter.GetOSMData(mapName);
+
+		GenerateTrails(osmData);
+		GeneratePoiNodes(osmData);
+	}
+
+	private void GenerateTrails(OSMData osmData) {
 		ColorHandler colorHandler = new ColorHandler ();
-
-		OSMData osmData = OSMDataImporter.ReadOSMData (GetDataPath("SampleTrailDataCanyon.xml"));
-
 		foreach (Trail trail in osmData.trails) {
-			display.trailColor = colorHandler.SelectColor(trail.colorName);
-			display.DisplayNodes(TranslateTrail (trail));
+			trailDisplay.trailColor = colorHandler.SelectColor(trail.colorName);
+			trailDisplay.DisplayNodes(TranslateTrail (trail));
 		}
 	}
 
-    private string GetDataPath(string filename)
-    {
-    #if UNITY_EDITOR
-        return Application.dataPath + "/StreamingAssets/" + filename;
-    #endif
+	private void GeneratePoiNodes(OSMData osmData) {
+		foreach (POINode poiNode in osmData.poiNodes) {
+			Vector2 mapRelativePoint;
+			MapPoint nodeInLatLon = new MapPoint((double)poiNode.lon, (double)poiNode.lat);
 
-    #if UNITY_IPHONE
-        return Application.dataPath + "/Raw/" + filename;
-    #endif
-
-    #if UNITY_ANDROID
-        return "jar:file://" + Application.dataPath + "!/assets/" + filename;
-    #endif
-        return filename;
-    }
+			switch (mapData.metadata.GetMapDataType ()) {
+				case MapDataType.Binary:
+						// Map coordinates in WM -> transform node coordinates to WM.
+					CoordinateConverter converter = new CoordinateConverter ();
+					MapPoint nodeInWebMercator = converter.ProjectPointToWebMercator (nodeInLatLon);
+					mapRelativePoint = mapData.GetMapSpecificCoordinatesRelativeToTopLeftFromWebMercator (nodeInWebMercator);
+					break;
+				case MapDataType.ASCIIGrid:
+						// Map and node coordinates in LatLon, no conversion needed.
+					mapRelativePoint = mapData.GetMapSpecificCoordinatesRelativeToTopLeftFromLatLon (nodeInLatLon);
+					break;
+				default:
+					throw new System.Exception ("Mapdata type not recognized.");    
+			}
+			Icon icon = iconHandler.SelectIcon(poiNode.icon);
+			poiDisplay.DisplayPOINode(new DisplayNode((int) mapRelativePoint.x, (int) mapRelativePoint.y), icon);
+		}
+	}
+		
 	public List<DisplayNode> TranslateTrail(Trail trail) {
 		displayNodes = new List<DisplayNode> ();
 
@@ -62,9 +86,30 @@ public class OSMGenerator : MonoBehaviour {
 		return displayNodes;
 	}
 
+<<<<<<< HEAD
 	public void AddDisplayNode(OSMNode node) {
 		Vector2 point = mapData.GetRawCoordinatesFromLatLon (new MapPoint((double) node.lon, (double) node.lat));
 		displayNodes.Add(new DisplayNode((int) point.x, (int) point.y));
+=======
+	public void AddDisplayNode(TrailNode node) {
+        MapPoint nodeInLatLon = new MapPoint((double)node.lon, (double)node.lat);
+        Vector2 mapRelativePoint;
+        switch (mapData.metadata.GetMapDataType()) {
+            case MapDataType.Binary:
+                // Map coordinates in WM -> transform node coordinates to WM.
+                CoordinateConverter converter = new CoordinateConverter();
+                MapPoint nodeInWebMercator = converter.ProjectPointToWebMercator(nodeInLatLon);
+                mapRelativePoint = mapData.GetMapSpecificCoordinatesRelativeToTopLeftFromWebMercator(nodeInWebMercator);
+                break;
+            case MapDataType.ASCIIGrid:
+                // Map and node coordinates in LatLon, no conversion needed.
+                mapRelativePoint = mapData.GetMapSpecificCoordinatesRelativeToTopLeftFromLatLon(nodeInLatLon);
+                break;
+            default:
+                throw new System.Exception("Mapdata type not recognized.");    
+        }
+        displayNodes.Add(new DisplayNode((int) mapRelativePoint.x, (int) mapRelativePoint.y));
+>>>>>>> master
 	}
 
 	public void AddDisplayNode(OSMNode node, OSMNode nextNode) {
@@ -73,7 +118,7 @@ public class OSMGenerator : MonoBehaviour {
 		}
 
 		for (int i = 1; i <= this.nodeGenerationRate; i++) {		
-			Vector2 point = mapData.GetRawCoordinatesFromLatLon (
+			Vector2 point = mapData.GetMapSpecificCoordinatesRelativeToTopLeftFromLatLon(
 					new MapPoint(
 						x: (double) (i * (nextNode.lon - node.lon) / (nodeGenerationRate + 1) + node.lon),
                         y: (double) (i * (nextNode.lat - node.lat) / (nodeGenerationRate + 1) + node.lat)
