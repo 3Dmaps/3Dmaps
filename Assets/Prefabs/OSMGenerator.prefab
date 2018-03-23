@@ -72,8 +72,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e606e514e812e4f8f816bad86ab4973b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodeGameObject: {fileID: 1215510092995608, guid: e5c7ee0fdaa95794fa62d364c85a69ae,
-    type: 2}
   trailColor: {r: 0, g: 0, b: 0, a: 0}
   nodePositions: []
   lineWidthMultiplier: 0.01
@@ -90,7 +88,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94dd385206779b04882edab6c32773a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodeGenerationRate: 1
+  nodeGenerationRate: 0
 --- !u!114 &114855818445820298
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -104,6 +102,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeGameObject: {fileID: 1215510092995608, guid: e5c7ee0fdaa95794fa62d364c85a69ae,
     type: 2}
-  nodePosition: {x: 0, y: 0, z: 0}
   heightAdjustment: 0.05
-  material: {fileID: 0}

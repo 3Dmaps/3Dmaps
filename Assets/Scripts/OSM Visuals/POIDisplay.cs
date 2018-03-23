@@ -11,18 +11,15 @@ public class POIDisplay : MonoBehaviour {
 
 	public MapData mapData;
 	public GameObject nodeGameObject;    
-    public Vector3 nodePosition;
 	public float heightAdjustment = 0.025f;
-  
-    public Material material;
-    	
-        public void DisplayPOINode(DisplayNode poiNode,Icon icon) {
-        if (IsWithinBounds(poiNode.x, poiNode.y)) {
-			GenerateNodeGameObject(GenerateNode(poiNode),icon); 
+
+	public void DisplayPOINode(DisplayNode poiNode,Icon icon) {
+        if (PositionService.IsWithinBounds(poiNode.x, poiNode.y, mapData)) {
+			Vector3 nodePosition = PositionService.GetUnityPosition(poiNode, heightAdjustment, mapData);
+			GenerateNodeGameObject(nodePosition, icon); 
 		}           
     }
     
-
     public Vector3 GenerateNode (DisplayNode node) {
 
 		float height = mapData.GetNormalized (node.x, node.y);
@@ -45,18 +42,5 @@ public class POIDisplay : MonoBehaviour {
         newNode.transform.position = nodePosition;
         newNode.transform.SetParent(this.transform);
     }    
-
-
-	public bool IsWithinBounds(int rawX, int rawY) {
-		if (rawX < 0 || rawX > mapData.GetWidth() - 1) {
-			return false;		
-		}
-
-		if (rawY < 0 || rawY > mapData.GetHeight() - 1) {
-			return false;		
-		}
-
-		return true;
-	}
 }
 

@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Switches Point of Interest icon names to corresponding Icon objects.  
+/// </summary>
+
 public class IconHandler : MonoBehaviour {
 
 	public List<Icon> iconList; 
