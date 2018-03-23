@@ -37,9 +37,25 @@ public class OSMGenerator : MonoBehaviour {
 			display.DisplayNodes(TranslateTrail (trail));
 		}
 		foreach (POINode poiNode in osmData.poiNodes) {
-			Vector2 point = mapData.GetMapSpecificCoordinatesRelativeToTopLeftFromLatLon(new MapPoint((double) poiNode.lon, (double) poiNode.lat));
+			Vector2 mapRelativePoint;
+			MapPoint nodeInLatLon = new MapPoint((double)poiNode.lon, (double)poiNode.lat);
+
+			switch (mapData.metadata.GetMapDataType ()) {
+				case MapDataType.Binary:
+						// Map coordinates in WM -> transform node coordinates to WM.
+					CoordinateConverter converter = new CoordinateConverter ();
+					MapPoint nodeInWebMercator = converter.ProjectPointToWebMercator (nodeInLatLon);
+					mapRelativePoint = mapData.GetMapSpecificCoordinatesRelativeToTopLeftFromWebMercator (nodeInWebMercator);
+					break;
+				case MapDataType.ASCIIGrid:
+						// Map and node coordinates in LatLon, no conversion needed.
+					mapRelativePoint = mapData.GetMapSpecificCoordinatesRelativeToTopLeftFromLatLon (nodeInLatLon);
+					break;
+				default:
+					throw new System.Exception ("Mapdata type not recognized.");    
+			}
 			Icon icon = iconHandler.SelectIcon(poiNode.icon);
-			poiDisplay.DisplayPOINode(new DisplayNode((int) point.x, (int) point.y), icon);
+			poiDisplay.DisplayPOINode(new DisplayNode((int) mapRelativePoint.x, (int) mapRelativePoint.y), icon);
 		}
 	}
 		
