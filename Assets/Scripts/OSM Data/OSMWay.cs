@@ -13,11 +13,13 @@ public class OSMway {
 	
 
     public OSMway(long id) {
-        this.id = id;    
+        this.id = id; 
+        this.nodeList = new List<OSMNode>();
+        this.tags = new Dictionary<string, string>();   
     }
 
     public void AddNode(OSMNode node) {
-        this.nodeList.Add(node);
+        nodeList.Add(node);
     }
 
     public void AddTag(string key, string value) {
@@ -45,7 +47,7 @@ public class OSMway {
 
     public string Color() {
         if (tags.ContainsKey("zmeucolor")) {
-            return tags["zmeuclor"];
+            return tags["zmeucolor"];
         }
         return null;
     }
