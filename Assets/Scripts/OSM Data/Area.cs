@@ -4,7 +4,7 @@ using UnityEngine;
 
 /// <summary>
 /// Holds the data of a single terrain area from OSM data. The trail is made up of
-/// a list of TrailNodes.
+/// a list of OSMNodes.
 /// </summary>
 
 public class Area {
@@ -20,9 +20,9 @@ public class Area {
 
 
     public override bool Equals(object obj) {
-        var terrain = obj as Trail;
-        return terrain != null &&
-               id == terrain.id;
+        var area = obj as Area;
+        return area != null &&
+               id == area.id;
     }
 
     public List<OSMNode> GetNodeList() {
