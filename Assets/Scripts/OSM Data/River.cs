@@ -3,36 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Holds the data of a single trail. The trail is made up of
+/// Holds the data of a single river. The river is made up of
 /// a list of OSMNodes.
 /// </summary>
 
-public class Trail {
+public class River {
     List<OSMNode> nodeList;
     public long id;
-	public string colorName;
+	
 
-    public Trail(long id) {
+    public River(long id) {
         nodeList = new List<OSMNode>();
-        this.id = id;
-		colorName = "red";
+        this.id = id;		
     }
 
-    public Trail(OSMway way) {
+    public River(OSMway way) {
         this.nodeList = way.GetNodeList();
         this.id = way.GetID();
-        this.colorName = way.Color();
-    
+       
     }
 
-    public void AddNode(OSMNode trailNode) {
-        nodeList.Add(trailNode);
+    public void AddNode(OSMNode riverNode) {
+        nodeList.Add(riverNode);
     }
 
     public override bool Equals(object obj) {
-        var trail = obj as Trail;
-        return trail != null &&
-               id == trail.id;
+        var river = obj as River;
+        return river != null &&
+               id == river.id;
     }
 
     public List<OSMNode> GetNodeList() {

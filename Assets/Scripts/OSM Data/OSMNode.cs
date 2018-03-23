@@ -6,11 +6,11 @@ using UnityEngine;
 /// Holds the data of a single trail node (point). 
 /// </summary>
 
-public class TrailNode {
+public class OSMNode {
     public long id;
     public float lat;
     public float lon;
 
-    public TrailNode() {
+    public OSMNode() {
     }
 }

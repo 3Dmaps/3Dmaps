@@ -5425,6 +5425,6 @@
     <nd ref="476038609"/>
     <tag k="name" v="North Kaibab Trail"/>
     <tag k="highway" v="footway"/>
-    <tag k="zmeucolor" v="yellow" />
+    <tag k="zmeucolor" v="yellow" />    
   </way>
 </osm>

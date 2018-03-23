@@ -1,38 +1,28 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Holds the data of a single trail. The trail is made up of
+/// Holds the data of a single terrain area from OSM data. The trail is made up of
 /// a list of OSMNodes.
 /// </summary>
 
-public class Trail {
+public class Area {
     List<OSMNode> nodeList;
     public long id;
-	public string colorName;
+	public string type;
 
-    public Trail(long id) {
-        nodeList = new List<OSMNode>();
-        this.id = id;
-		colorName = "red";
-    }
-
-    public Trail(OSMway way) {
+    public Area(OSMway way, string type) {
         this.nodeList = way.GetNodeList();
         this.id = way.GetID();
-        this.colorName = way.Color();
-    
+        this.type = type;		
     }
 
-    public void AddNode(OSMNode trailNode) {
-        nodeList.Add(trailNode);
-    }
 
     public override bool Equals(object obj) {
-        var trail = obj as Trail;
-        return trail != null &&
-               id == trail.id;
+        var area = obj as Area;
+        return area != null &&
+               id == area.id;
     }
 
     public List<OSMNode> GetNodeList() {

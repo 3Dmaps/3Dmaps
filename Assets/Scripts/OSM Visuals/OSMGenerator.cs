@@ -10,9 +10,11 @@ using UnityEngine;
 public class OSMGenerator : MonoBehaviour {
 
 	private MapData mapData;
+
 	private TrailDisplay trailDisplay;
 	private POIDisplay poiDisplay;
 	public int nodeGenerationRate = 1; // number of new nodes created between adjacent nodes in data
+
 	List<DisplayNode> displayNodes;
 	IconHandler iconHandler;
 
@@ -70,21 +72,22 @@ public class OSMGenerator : MonoBehaviour {
 	public List<DisplayNode> TranslateTrail(Trail trail) {
 		displayNodes = new List<DisplayNode> ();
 
-		List<TrailNode> nodes = trail.GetNodeList();
+		List<OSMNode> nodes = trail.GetNodeList();
 
 		for (int i = 0; i < nodes.Count - 1 ; i++) {
-			TrailNode node = nodes[i];
-			TrailNode nextNode = nodes[i + 1];			
+			OSMNode node = nodes[i];
+			OSMNode nextNode = nodes[i + 1];			
 			AddDisplayNode(node);				
 			AddDisplayNode(node, nextNode);
 		}
-		TrailNode lastNode = nodes[nodes.Count  - 1];		
+		OSMNode lastNode = nodes[nodes.Count  - 1];		
 		AddDisplayNode(lastNode);
 
 		return displayNodes;
 	}
 
-	public void AddDisplayNode(TrailNode node) {
+
+	public void AddDisplayNode(OSMNode node) {
         MapPoint nodeInLatLon = new MapPoint((double)node.lon, (double)node.lat);
         Vector2 mapRelativePoint;
         switch (mapData.metadata.GetMapDataType()) {
@@ -104,7 +107,7 @@ public class OSMGenerator : MonoBehaviour {
         displayNodes.Add(new DisplayNode((int) mapRelativePoint.x, (int) mapRelativePoint.y));
 	}
 
-	public void AddDisplayNode(TrailNode node, TrailNode nextNode) {
+	public void AddDisplayNode(OSMNode node, OSMNode nextNode) {
 		if (nodeGenerationRate < 1) {
 			return;
 		}
