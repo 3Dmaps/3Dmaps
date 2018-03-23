@@ -40,12 +40,15 @@ public class MapGenerator : MonoBehaviour {
         regions     = new MapRegionSmoother().SmoothRegions(regions,regionsSmoothCount);
 
         string mapFileName = GetMapFileNameFromEnum(mapName);
+        MapDataType mapDataType = GetMapFileTypeFromEnum(mapName);
 
         // A quick fix to enable binary map reading. Needs to be done better.
-        if (mapFileName.Equals("CanyonTestBinary")) {
+        if (mapDataType == MapDataType.Binary) {
             mapData = DataImporter.GetBinaryMapData(mapFileName);
-        } else {
+        } else if (mapDataType == MapDataType.ASCIIGrid) {
             mapData = DataImporter.GetASCIIMapData(mapFileName);
+        } else {
+            Debug.LogError("Error! Importin map data from file " + mapFileName + " failed.");
         }
 
         displays = new List<MapDisplay>();
@@ -133,6 +136,26 @@ public class MapGenerator : MonoBehaviour {
             default:
                 Debug.LogError("Error! Invalid map file name value!");
                 return "";
+        }
+    }
+
+    private MapDataType GetMapFileTypeFromEnum(MapName mapName) {
+        switch (mapName) {
+            case MapName.canyonTestHigh:
+                return MapDataType.ASCIIGrid;
+
+            case MapName.canyonTestLow:
+                return MapDataType.ASCIIGrid;
+
+            case MapName.testData:
+                return MapDataType.ASCIIGrid;
+
+            case MapName.canyonTestBinary:
+                return MapDataType.Binary;
+
+            default:
+                Debug.LogError("Error! Invalid map file name value!");
+                return MapDataType.Binary;
         }
     }
 }
