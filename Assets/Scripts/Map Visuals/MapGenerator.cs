@@ -54,7 +54,6 @@ public class MapGenerator : MonoBehaviour {
         displays = new List<MapDisplay>();
         GenerateMap();
      
-
         OSMGenerator osmGenerator = GameObject.FindObjectOfType<OSMGenerator>();
         if (osmGenerator != null) {
             try {

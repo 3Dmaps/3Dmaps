@@ -32,7 +32,7 @@ public class OSMDataImporterTest {
 
     [Test]
     public void CorrectNumberOfAreas() {
-        Assert.True(osmData.areas.Count == 1, "Wrong number of points of interest");
+        Assert.True(osmData.areas.Count == 1, "Wrong number of areas.");
     }
 
     [Test]
