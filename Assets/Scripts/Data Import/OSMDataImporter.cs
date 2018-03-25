@@ -65,14 +65,14 @@ public class OSMDataImporter {
             foreach (XmlElement childNode in node.ChildNodes) {
                 if (childNode.LocalName.Equals(tagElement) && childNode.GetAttribute("k").Equals(iconKeyValue)) {
                     POINode poiNode = new POINode(childNode.GetAttribute("v"));
-                    poiNode.id = long.Parse(node.GetAttribute(idAttribute));
-                    poiNode.lat = float.Parse(node.GetAttribute(latAttribute));
-                    poiNode.lon = float.Parse(node.GetAttribute(lonAttribute));
+                    poiNode.id      = long.Parse(node.GetAttribute(idAttribute));
+                    poiNode.lat     = float.Parse(node.GetAttribute(latAttribute));
+                    poiNode.lon     = float.Parse(node.GetAttribute(lonAttribute));
                     trailData.AddPOI(poiNode);
                 }
             }
         }
-        trailNode.id = long.Parse(node.GetAttribute(idAttribute));
+        trailNode.id  = long.Parse(node.GetAttribute(idAttribute));
 		trailNode.lat = float.Parse(node.GetAttribute(latAttribute));
 		trailNode.lon = float.Parse(node.GetAttribute(lonAttribute));
 

@@ -37,7 +37,7 @@ public class MapGenerator : MonoBehaviour {
 
     public void Start()
     {
-        regions     = new MapRegionSmoother().SmoothRegions(regions,regionsSmoothCount);
+        regions = new MapRegionSmoother().SmoothRegions(regions,regionsSmoothCount);
 
         string mapFileName = GetMapFileNameFromEnum(mapName);
         MapDataType mapDataType = GetMapFileTypeFromEnum(mapName);
@@ -52,8 +52,8 @@ public class MapGenerator : MonoBehaviour {
         }
 
         displays = new List<MapDisplay>();
+
         GenerateMap();
-     
         OSMGenerator osmGenerator = GameObject.FindObjectOfType<OSMGenerator>();
         if (osmGenerator != null) {
             try {
@@ -61,6 +61,12 @@ public class MapGenerator : MonoBehaviour {
             } catch(System.Exception e) {
                 Debug.Log("Did not generate trails: " + e);
             }
+        }
+    }
+
+    public void UpdateTextures() {
+        foreach (MapDisplay display in displays) {
+            display.UpdateMapTexture();
         }
     }
 

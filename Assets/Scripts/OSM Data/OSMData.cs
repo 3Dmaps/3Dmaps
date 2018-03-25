@@ -14,10 +14,10 @@ public class OSMData {
     public List<River> rivers;
 
     public OSMData () {
-        this.trails = new List<Trail>();
+        this.trails   = new List<Trail>();
         this.poiNodes = new List<POINode>();
-        this.areas = new List<Area>();
-        this.rivers = new List<River>();
+        this.areas    = new List<Area>();
+        this.rivers   = new List<River>();
     }
 
     public void AddTrail (Trail trail) {

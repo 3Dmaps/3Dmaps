@@ -9,10 +9,10 @@ using UnityEngine;
 
 public class OSMGenerator : MonoBehaviour {
 
-	private MapData mapData;
-
+    private MapData mapData;
 	private TrailDisplay trailDisplay;
 	private POIDisplay poiDisplay;
+    private AreaDisplay areaDisplay;
 	public int nodeGenerationRate = 1; // number of new nodes created between adjacent nodes in data
 
 	List<DisplayNode> displayNodes;
@@ -20,21 +20,21 @@ public class OSMGenerator : MonoBehaviour {
 
 
 	public void GenerateOSMObjects(MapGenerator mapGenerator, string mapName) {
-		mapData = mapGenerator.mapData;
-
-		trailDisplay = this.GetComponent<TrailDisplay> ();
-		poiDisplay = this.GetComponent<POIDisplay> ();
-
-		trailDisplay.mapData = mapData;
-		poiDisplay.mapData = mapData;
-
-		iconHandler = this.GetComponent<IconHandler> ();
-		iconHandler.generateIconDictionary();
-
+		mapData         = mapGenerator.mapData;
+		trailDisplay    = this.GetComponent<TrailDisplay> ();
+		poiDisplay      = this.GetComponent<POIDisplay> ();
+        iconHandler     = this.GetComponent<IconHandler>();
+        areaDisplay     = this.GetComponent<AreaDisplay>();
         OSMData osmData = DataImporter.GetOSMData(mapName);
 
+        trailDisplay.mapData = mapData;
+		poiDisplay.mapData   = mapData;
+
+		iconHandler.generateIconDictionary();
 		GenerateTrails(osmData);
 		GeneratePoiNodes(osmData);
+
+        areaDisplay.SetAreas(osmData.areas, mapData);
 	}
 
 	private void GenerateTrails(OSMData osmData) {
@@ -71,7 +71,6 @@ public class OSMGenerator : MonoBehaviour {
 		
 	public List<DisplayNode> TranslateTrail(Trail trail) {
 		displayNodes = new List<DisplayNode> ();
-
 		List<OSMNode> nodes = trail.GetNodeList();
 
 		for (int i = 0; i < nodes.Count - 1 ; i++) {

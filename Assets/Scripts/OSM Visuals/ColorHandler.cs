@@ -18,7 +18,7 @@ public class ColorHandler {
 	}
 
 	public Color SelectColor(string colorName) {
-		if (colors.ContainsKey(colorName)) {
+		if (colorName != null && colors.ContainsKey(colorName)) {
 			return colors[colorName];
 		} else {
 			return Color.grey;
