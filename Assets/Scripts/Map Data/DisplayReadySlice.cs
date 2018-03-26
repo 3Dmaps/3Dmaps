@@ -7,12 +7,17 @@ using System.Collections.Generic;
 
 public class DisplayReadySlice : MapDataSlice {
 
+    public MapDataSlice baseSlice;
 	public int lod;
+    public List<DisplayNeighborRelation> displayNeighbors;
+
 	public DisplayReadySlice(MapDataSlice slice, int lod) : base(slice) {
+        this.baseSlice = slice;
 		this.lod = lod;
+        this.displayNeighbors = new List<DisplayNeighborRelation>(expectedNumberOfNeighbors);
 	}
 
-	private int GetActualLOD() {
+	public int GetActualLOD() {
 		return lod == 0 ? 1 : lod * 2;
 	}
 
@@ -28,6 +33,21 @@ public class DisplayReadySlice : MapDataSlice {
 
     public int SimplificationIncrementForX(int x) {
         return SimplificationIncrement(x, GetWidth());
+    }
+
+    public List<DisplayNeighborRelation> GetDisplayNeighbors() {
+        return this.displayNeighbors;
+    }
+
+    public void AddDisplayNeighbor(DisplayNeighborRelation relation) {
+        relation.AddDisplayReadySlice(this);
+        this.displayNeighbors.Add(relation);
+    }
+
+    public void AddDisplay(MapDisplay display) {
+        foreach(DisplayNeighborRelation neighbor in this.displayNeighbors) {
+            neighbor.AddDisplay(this, display);
+        }
     }
 	
 }

@@ -75,8 +75,75 @@ public class MapDisplayData {
 	}
 
     private Mesh GenerateMesh() {
-		return MeshGenerator.GenerateTerrainMesh(mapData).CreateMesh();
+		return FixNormals(MeshGenerator.GenerateTerrainMesh(mapData).CreateMesh());
 	}
+
+    private void FixNormalEdge(
+        Vector3[] first, int firstWidth, int firstHeight,
+        Vector3[] second, int secondWidth, int secondHeight,
+        NeighborType relation) {
+            if(relation == NeighborType.TopBottom) {
+                int firstX = 0, secondX = 0;
+                int firstInc = secondWidth / firstWidth > 0 ? secondWidth / firstWidth : 1;
+                int secondInc = firstWidth / secondWidth > 0 ? firstWidth / secondWidth : 1;
+                while (firstX < firstWidth && secondX < secondWidth) {
+                    int firstIndex = firstHeight*(firstWidth - 1) + firstX;
+                    int secondIndex = secondX;
+                    Vector3 firstNormal = first[firstIndex];
+                    Vector3 secondNormal = second[secondIndex];
+                    Vector3 consensus = (firstNormal + secondNormal);
+                    consensus.Normalize();
+                    first[firstIndex] = consensus;
+                    second[secondIndex] = consensus;
+                    firstX += firstInc;
+                    secondX += secondInc;
+                }
+            } else if (relation == NeighborType.LeftRight) {
+                int firstY = 0, secondY = 0;
+                int firstInc = secondHeight / firstHeight > 0 ? secondHeight / firstHeight : 1;
+                int secondInc = firstHeight / secondHeight > 0 ? firstHeight / secondHeight : 1;
+                while (firstY < firstHeight && secondY < secondHeight) {
+                    int firstIndex = firstY * firstWidth + (firstWidth - 1);
+                    int secondIndex = secondY * secondWidth;
+                    
+                    Vector3 firstNormal = first[firstIndex];
+                    Vector3 secondNormal = second[secondIndex];
+                    Vector3 consensus = firstNormal + secondNormal;
+                    consensus.Normalize();
+                    first[firstIndex] = consensus;
+                    second[secondIndex] = consensus;
+                    firstY += firstInc;
+                    secondY += secondInc;
+                }
+            } else throw new System.ArgumentException("Unsupported NeighborType " + relation);
+    }
+
+    private Mesh FixNormals(Mesh mesh) {
+        Vector3[] normals = mesh.normals;
+        int width = MeshGenerator.GetVerticesPerDimension(mapData.GetWidth(), GetActualLOD());
+        int height = MeshGenerator.GetVerticesPerDimension(mapData.GetHeight(), GetActualLOD());
+        foreach(DisplayNeighborRelation relation in mapData.GetDisplayNeighbors()) {
+            MapDisplay other = relation.GetOtherDisplay(mapData);
+            if(other == null) continue;
+            Mesh otherMesh = relation.GetOtherMesh(mapData);
+            DisplayReadySlice otherSlice = relation.GetOtherDRSlice(mapData);
+            Vector3[] otherNormals = otherMesh.normals;
+            int otherWidth =  MeshGenerator.GetVerticesPerDimension(otherSlice.GetWidth(), other.GetActualLOD());
+            int otherHeight = MeshGenerator.GetVerticesPerDimension(otherSlice.GetHeight(), other.GetActualLOD());
+            if(relation.IsFirstMember(mapData)) {
+                FixNormalEdge(normals, width, height,
+                              otherNormals, otherWidth, otherHeight,
+                              relation.neighborType);
+            } else {
+                FixNormalEdge(otherNormals, otherWidth, otherHeight,
+                              normals, width, height,
+                              relation.neighborType);
+            }
+            otherMesh.normals = otherNormals;
+        }
+        mesh.normals = normals;
+        return mesh;
+    }
 
     public Texture2D GenerateTexture() {
 		if (regions != null)
@@ -91,6 +158,10 @@ public class MapDisplayData {
 			mesh = GenerateMesh();
 		}
 	}
+
+    public int GetActualLOD() {
+        return status == MapDisplayStatus.LOW_LOD ? lowLod * 2 : mapData.GetActualLOD();
+    }
 
     public MapDisplayStatus PrepareDraw() {
         if(texture == null) texture = GenerateTexture();
