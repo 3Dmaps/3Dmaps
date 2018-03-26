@@ -35,13 +35,20 @@ public class MapDisplayData {
         AreaDisplay areaDisplay = GameObject.FindObjectOfType<AreaDisplay>();
 		Color[] colourMap = new Color[width * height];
         MapDataSlice slice = (MapDataSlice)mapData;
+		
         for (int y = 0; y < height; y++) {
 			for (int x = 0; x < width; x++) {
 				float currentHeight = mapData.GetSquished(x, y);
                 float scaledPosX = (slice.GetX() + x);
                 float scaledPosY = (slice.GetY() + y);
                 Color areaColor = areaDisplay.GetAreaColor(scaledPosX, scaledPosY);
-                colourMap[y * width + x] = areaColor != Color.black ? areaColor : GetRegionColour(currentHeight);
+				Color regionColor = GetRegionColour(currentHeight);
+
+				if (areaColor != Color.black) {
+					regionColor = areaColor - regionColor;
+				}
+
+                colourMap[y * width + x] = regionColor;
 			}
 		}
 		return colourMap;

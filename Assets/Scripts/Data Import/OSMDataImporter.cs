@@ -46,7 +46,7 @@ public class OSMDataImporter {
                     FillInWayNodeLatLon(way, wayNodes);
                     osmData.AddArea(new Area (way, "meadow"));                                                                   
             }
-            if (way.IsRiver()) {                
+            else if (way.IsRiver()) {                
                     FillInWayNodeLatLon(way, wayNodes);
                     osmData.AddRiver(new River (way));                                                                   
             }

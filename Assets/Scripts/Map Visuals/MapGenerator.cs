@@ -66,6 +66,7 @@ public class MapGenerator : MonoBehaviour {
 
     public void UpdateTextures() {
         foreach (MapDisplay display in displays) {
+            
             display.UpdateMapTexture();
         }
     }

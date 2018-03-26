@@ -57,6 +57,7 @@ public DisplayNode ChangeOSMNodeToDisplayNode(OSMNode node, MapData mapData) {
         if (!showAreas) return Color.black;
         foreach (Area a in areaBoundings.Keys) {
             if(IsPointInPolygon(areaBoundings[a], new Vector2(x,y))) {
+            
                 return Color.green;
             }
         }

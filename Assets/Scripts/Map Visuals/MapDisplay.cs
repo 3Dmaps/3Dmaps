@@ -54,6 +54,7 @@ public class MapDisplay : MonoBehaviour {
 
     public void UpdateMapTexture() {
         Texture2D texture           = displayData.GenerateTexture();
+		displayData.texture 		= texture;
         Material material           = new Material(meshRenderer.sharedMaterial);
         material.mainTexture        = texture;
         meshRenderer.sharedMaterial = material;
