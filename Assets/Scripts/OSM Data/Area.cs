@@ -11,11 +11,15 @@ public class Area {
     public List<OSMNode> nodeList;
     public long id;
 	public string type;
+    public Color color;
+    
 
-    public Area(OSMway way, string type) {
+    public Area(OSMway way, string type, Color color) {
         this.nodeList = way.GetNodeList();
         this.id = way.GetID();
-        this.type = type;		
+        this.type = type;
+        this.color = color;
+
     }
 
 
