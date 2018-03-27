@@ -34,7 +34,7 @@ public class OSMGenerator : MonoBehaviour {
         OSMData osmData = DataImporter.GetOSMData(mapName);
 
 		GenerateTrails(osmData);
-		// GenerateRivers(osmData);
+		GenerateRivers(osmData);
 		GeneratePoiNodes(osmData);
 	}
 
