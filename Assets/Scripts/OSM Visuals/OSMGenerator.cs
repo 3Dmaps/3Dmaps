@@ -34,6 +34,7 @@ public class OSMGenerator : MonoBehaviour {
         OSMData osmData = DataImporter.GetOSMData(mapName);
 
 		GenerateTrails(osmData);
+		// GenerateRivers(osmData);
 		GeneratePoiNodes(osmData);
 	}
 
@@ -41,7 +42,14 @@ public class OSMGenerator : MonoBehaviour {
 		ColorHandler colorHandler = new ColorHandler ();
 		foreach (Trail trail in osmData.trails) {
 			lineDisplay.trailColor = colorHandler.SelectColor(trail.colorName);
-			lineDisplay.DisplayNodes(TranslateTrail (trail));
+			lineDisplay.DisplayNodes(TranslateLine (trail.GetNodeList()));
+		}
+	}
+
+	private void GenerateRivers(OSMData osmData) {
+		foreach (River river in osmData.rivers) {
+			lineDisplay.trailColor = Color.blue;
+			lineDisplay.DisplayNodes(TranslateLine (river.GetNodeList()));
 		}
 	}
 
@@ -69,11 +77,9 @@ public class OSMGenerator : MonoBehaviour {
 		}
 	}
 		
-	public List<DisplayNode> TranslateTrail(Trail trail) {
+	public List<DisplayNode> TranslateLine(List<OSMNode> nodes) {
 		displayNodes = new List<DisplayNode> ();
-
-		List<OSMNode> nodes = trail.GetNodeList();
-
+		
 		for (int i = 0; i < nodes.Count - 1 ; i++) {
 			OSMNode node = nodes[i];
 			OSMNode nextNode = nodes[i + 1];			
