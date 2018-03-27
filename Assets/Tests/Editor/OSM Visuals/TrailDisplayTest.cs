@@ -7,7 +7,7 @@ using System.Collections.Generic;
 public class TrailDisplayTest {
 
 	public MapData mapdata;
-	public TrailDisplay display;
+	public LineDisplay display;
 
 	[SetUp]
 	public void Setup() {
@@ -15,7 +15,7 @@ public class TrailDisplayTest {
 
 		GameObject trailDisplayObject = new GameObject ();
 
-		display = trailDisplayObject.AddComponent<TrailDisplay> ();
+		display = trailDisplayObject.AddComponent<LineDisplay> ();
         display.material = new Material(Shader.Find("Unlit/Color"));
         
 		MapMetadata metadata = MapDataImporter.ReadMetadata("Assets/Resources/testData.txt");
