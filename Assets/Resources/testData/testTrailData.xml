@@ -62,14 +62,17 @@
     <nd ref="1861712094"/>    
     <tag k="landuse" v="meadow"/>
   </way>
-    <way id="320596938" version="3" timestamp="2016-04-17T00:45:56Z" uid="3745309" user="KW71" changeset="38633204">
-    <nd ref="3271516347"/>
-    <tag k="name" v="Serpentine Canyon"/>
+  <way id="24221564" version="7" timestamp="2015-01-18T11:48:53Z" uid="183021" user="tomthepom" changeset="28228453">
+    <nd ref="262259543"/>
+    <nd ref="262259544"/>
+    <tag k="name" v="Little Colorado River"/>
     <tag k="waterway" v="river"/>
-    <tag k="intermittent" v="yes"/>
   </way>
   <node id="1861712094" version="1" timestamp="2012-08-11T15:42:08Z" uid="24920" user="Schusch" changeset="12692630" lat="36.2676517" lon="-112.0544753"/>
 
   <node id="3271516347" version="1" timestamp="2015-01-06T00:03:29Z" uid="183021" user="tomthepom" changeset="27945441" lat="36.193776" lon="-112.354029"/>
+  
+  <node id="262259543" version="1" timestamp="2008-05-05T05:45:10Z" uid="20783" user="Sam  Richards" changeset="342971" lat="36.1915416" lon="-111.8019783"/>
+  <node id="262259544" version="6" timestamp="2008-11-20T17:39:17Z" uid="66835" user="protopyte" changeset="772210" lat="36.190983" lon="-111.8036125"/>
 
 </osm>
