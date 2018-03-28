@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -228,7 +228,7 @@ Prefab:
     - target: {fileID: 114827856906201460, guid: c9145c2fdda6c0447b1c700383f68ec3,
         type: 2}
       propertyPath: zoomLimitMax
-      value: 15
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c9145c2fdda6c0447b1c700383f68ec3, type: 2}
@@ -425,6 +425,21 @@ Prefab:
     - target: {fileID: 4743817454377146, guid: 2af1c6865cbbe62408b5b5fe49da7803, type: 2}
       propertyPath: m_RootOrder
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114093809215586958, guid: 2af1c6865cbbe62408b5b5fe49da7803,
+        type: 2}
+      propertyPath: mapName
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114093809215586958, guid: 2af1c6865cbbe62408b5b5fe49da7803,
+        type: 2}
+      propertyPath: mapSliceSize
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 114093809215586958, guid: 2af1c6865cbbe62408b5b5fe49da7803,
+        type: 2}
+      propertyPath: levelOfDetail
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2af1c6865cbbe62408b5b5fe49da7803, type: 2}
