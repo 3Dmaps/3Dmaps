@@ -9,8 +9,8 @@ using UnityEngine;
 
 public class OSMGenerator : MonoBehaviour {
 
-    private MapData mapData;
-	private TrailDisplay trailDisplay;
+	private MapData mapData;
+	private LineDisplay lineDisplay;
 	private POIDisplay poiDisplay;
     private AreaDisplay areaDisplay;
 
@@ -24,7 +24,7 @@ public class OSMGenerator : MonoBehaviour {
 
 	public void GenerateOSMObjects(MapGenerator mapGenerator, string mapName) {
 		mapData         = mapGenerator.mapData;
-		trailDisplay    = this.GetComponent<TrailDisplay> ();
+		lineDisplay 	= this.GetComponent<LineDisplay> ();
 		poiDisplay      = this.GetComponent<POIDisplay> ();
         iconHandler     = this.GetComponent<IconHandler>();
         areaDisplay     = this.GetComponent<AreaDisplay>();
@@ -32,19 +32,27 @@ public class OSMGenerator : MonoBehaviour {
 
 		colorHandler = new ColorHandler ();
 
-        trailDisplay.mapData = mapData;
+		lineDisplay.mapData	 = mapData;
 		poiDisplay.mapData   = mapData;
 
 		iconHandler.generateIconDictionary();
 		GenerateTrails(osmData);
+		GenerateRivers(osmData);
 		GeneratePoiNodes(osmData);
 		GenerateAreas (osmData);
 	}
 
 	private void GenerateTrails(OSMData osmData) {
 		foreach (Trail trail in osmData.trails) {
-			trailDisplay.trailColor = colorHandler.SelectColor(trail.colorName);
-			trailDisplay.DisplayNodes(TranslateTrail (trail));
+			lineDisplay.trailColor = colorHandler.SelectColor(trail.colorName);
+			lineDisplay.DisplayNodes(TranslateLine (trail.GetNodeList()));
+		}
+	}
+
+	private void GenerateRivers(OSMData osmData) {
+		foreach (River river in osmData.rivers) {
+			lineDisplay.trailColor = Color.blue;
+			lineDisplay.DisplayNodes(TranslateLine (river.GetNodeList()));
 		}
 	}
 
@@ -55,7 +63,7 @@ public class OSMGenerator : MonoBehaviour {
 			poiDisplay.DisplayPOINode(displayNode, icon);
 		}
 	}
-		
+
 	private void GenerateAreas(OSMData osmData) {
 		foreach (Area a in osmData.areas) {
 			List<DisplayNode> areaBounds = new List<DisplayNode>();
@@ -67,9 +75,8 @@ public class OSMGenerator : MonoBehaviour {
 		areaDisplay.displayAreas ();
 	}
 
-	public List<DisplayNode> TranslateTrail(Trail trail) {
+	public List<DisplayNode> TranslateLine(List<OSMNode> nodes) {
 		displayNodes = new List<DisplayNode> ();
-		List<OSMNode> nodes = trail.GetNodeList();
 
 		for (int i = 0; i < nodes.Count - 1 ; i++) {
 			OSMNode node = nodes[i];

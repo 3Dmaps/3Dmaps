@@ -36,6 +36,11 @@ public class OSMDataImporterTest {
     }
 
     [Test]
+    public void CorrectNumberOfRivers() {
+        Assert.True(osmData.rivers.Count == 1, "Wrong number of rivers: " + osmData.rivers.Count);
+    }
+
+    [Test]
     public void AreaIdCorrect() {
         Assert.True(osmData.areas[0].id == 175607037, "Area id incorrect.");		
     }
@@ -44,6 +49,18 @@ public class OSMDataImporterTest {
     public void AreaNodeIdCorrect() {
         Assert.True(osmData.areas[0].GetNodeList()[0].id == 1861712094, "Area node id incorrect.");		
     }
+
+     [Test]
+    public void RiverIdCorrect() {
+        Assert.True(osmData.rivers[0].id == 24221564, "River id incorrect.");		
+    }
+
+     [Test]
+    public void RiverNodeIdCorrect() {
+        Assert.True(osmData.rivers[0].GetNodeList()[0].id == 262259543, "River node id incorrect.");
+        Assert.True(osmData.rivers[0].GetNodeList()[1].id == 262259544, "River node id incorrect.");		
+    }
+
 
 
     [Test]

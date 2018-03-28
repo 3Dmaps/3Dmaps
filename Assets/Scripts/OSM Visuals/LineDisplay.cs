@@ -8,7 +8,7 @@ using UnityEngine;
 /// and drawing the path with LineRenderer.
 /// </summary>
 
-public class TrailDisplay : MonoBehaviour {
+public class LineDisplay : MonoBehaviour {
 
 	public MapData mapData;
 	public Color trailColor;
