@@ -50,7 +50,15 @@ public class MapDisplay : MonoBehaviour {
 			this.visualMap.SetActive(true);
 			DrawMesh(displayData.GetMesh(), displayData.GetTexture(), displayData.GetScale());
 		}
-	} 
+	}
+
+    public void UpdateMapTexture() {
+        Texture2D texture           = displayData.GenerateTexture();
+		displayData.texture 		= texture;
+        Material material           = new Material(meshRenderer.sharedMaterial);
+        material.mainTexture        = texture;
+        meshRenderer.sharedMaterial = material;
+    }
 
 	public void UpdateLOD(int lod) {
 		displayData.UpdateLOD(lod);

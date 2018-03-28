@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,14 +8,14 @@ using UnityEngine;
 /// </summary>
 
 public class Area {
-    List<OSMNode> nodeList;
+    public List<OSMNode> nodeList;
     public long id;
-	public string type;
+	public string type;    
 
     public Area(OSMway way, string type) {
         this.nodeList = way.GetNodeList();
         this.id = way.GetID();
-        this.type = type;		
+        this.type = type;
     }
 
 

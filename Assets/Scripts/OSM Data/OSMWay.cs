@@ -27,21 +27,15 @@ public class OSMway {
     }
 
     public bool IsMeadow() {
-        if (this.tags.ContainsValue("meadow")) {                            
-                return true;         
-        }
-        return false;
+        return this.tags.ContainsValue("meadow");
     }
 
     public bool IsRiver() {
-        if (this.tags.ContainsValue("river")) {            
-                return true;            
-        }
-        return false;
+        return this.tags.ContainsValue("river");
     }
 
     public string LandUse() {
-        return this.tags["landuse"];
+        return tags.ContainsKey("landuse") ? tags["landuse"] : null;
     } 
 
     public List<OSMNode> GetNodeList() {
@@ -53,10 +47,7 @@ public class OSMway {
     }
 
     public string Color() {
-        if (tags.ContainsKey("zmeucolor")) {
-            return tags["zmeucolor"];
-        }
-        return null;
+        return tags.ContainsKey("zmeucolor") ? tags["zmeucolor"] : null;
     }
 
 }

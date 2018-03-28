@@ -1,3 +1,4 @@
+﻿using System;
 using UnityEngine;
 
 /// <summary>
@@ -21,30 +22,46 @@ public class MapDisplayData {
     }
 
     public void SetMapData(DisplayReadySlice mapData) {
-        this.mapData = mapData;
+        this.mapData    = mapData;
 		int originalLod = mapData.lod;
-		mapData.lod = lowLod;
-		lowLodMesh = GenerateMesh();
-		mapData.lod = originalLod;
+		mapData.lod     = lowLod;
+		lowLodMesh      = GenerateMesh();
+		mapData.lod     = originalLod;
     }
 
     private Color[] CalculateColourMap(MapData mapData) {
 		int width  = mapData.GetWidth();
 		int height = mapData.GetHeight();
+        AreaDisplay areaDisplay = GameObject.FindObjectOfType<AreaDisplay>();
 		Color[] colourMap = new Color[width * height];
-		for (int y = 0; y < height; y++) {
+        MapDataSlice slice = (MapDataSlice)mapData;
+		
+        for (int y = 0; y < height; y++) {
 			for (int x = 0; x < width; x++) {
 				float currentHeight = mapData.GetSquished(x, y);
-				for (int i = 0; i < regions.Length; i++) {
-					if (currentHeight <= regions [i].height) {
-						colourMap [y * width + x] = regions [i].colour;
-						break;
-					}
+                float scaledPosX = (slice.GetX() + x);
+                float scaledPosY = (slice.GetY() + y);
+                Color areaColor = areaDisplay.GetAreaColor(scaledPosX, scaledPosY);
+				Color regionColor = GetRegionColour(currentHeight);
+
+				if (areaColor != Color.black) {
+					regionColor = areaColor - regionColor;
 				}
+
+                colourMap[y * width + x] = regionColor;
 			}
 		}
 		return colourMap;
 	}
+
+    public Color GetRegionColour(float currentHeight) {
+        for (int i = 0; i < regions.Length; i++) {
+            if (currentHeight <= regions[i].height) {
+                return regions[i].colour;
+            }
+        }
+        return Color.white;
+    }
 
     public void SetRegions(TerrainType[] regions) {
 		this.regions = regions;
@@ -58,7 +75,7 @@ public class MapDisplayData {
 		return MeshGenerator.GenerateTerrainMesh(mapData).CreateMesh();
 	}
 
-    private Texture2D GenerateTexture() {
+    public Texture2D GenerateTexture() {
 		if (regions != null)
 			return TextureGenerator.TextureFromColourMap(CalculateColourMap(mapData), mapData.GetWidth(), mapData.GetHeight());
 		else

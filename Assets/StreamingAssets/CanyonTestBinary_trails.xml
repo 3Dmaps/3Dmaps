@@ -5427,4 +5427,28 @@
     <tag k="highway" v="footway"/>
     <tag k="zmeucolor" v="yellow" />
   </way>
+    
+  <node id="1" version="1" timestamp="2012-08-11T15:42:08Z" uid="24920" user="Schusch" changeset="12692630" lat="36.10455" lon="-112.0917"/>
+  <node id="2" version="1" timestamp="2012-08-11T15:42:08Z" uid="24920" user="Schusch" changeset="12692630" lat="36.15917" lon="-112.0917"/>
+  <node id="3" version="1" timestamp="2012-08-11T15:42:08Z" uid="24920" user="Schusch" changeset="12692630" lat="36.15917" lon="-112.055"/>
+  <node id="4" version="1" timestamp="2012-08-11T15:42:08Z" uid="24920" user="Schusch" changeset="12692630" lat="36.10455" lon="-112.055"/> 
+  <way id="175607037" version="1" timestamp="2012-08-11T15:42:31Z" uid="24920" user="Schusch" changeset="12692630">
+    <nd ref="1"/>
+    <nd ref="2"/>
+    <nd ref="3"/>
+    <nd ref="4"/>
+    <tag k="landuse" v="meadow"/>
+  </way> 
+  
+  <node id="5" version="1" timestamp="2012-08-11T15:42:08Z" uid="24920" user="Schusch" changeset="12692630" lat="35.8" lon="-112.1"/>
+  <node id="6" version="1" timestamp="2012-08-11T15:42:08Z" uid="24920" user="Schusch" changeset="12692630" lat="35.8" lon="-112.08"/>
+  <node id="7" version="1" timestamp="2012-08-11T15:42:08Z" uid="24920" user="Schusch" changeset="12692630" lat="36.1" lon="-112.08"/>
+  <node id="8" version="1" timestamp="2012-08-11T15:42:08Z" uid="24920" user="Schusch" changeset="12692630" lat="36.1" lon="-112.1"/>  
+  <way id="175607038" version="1" timestamp="2012-08-11T15:42:31Z" uid="24920" user="Schusch" changeset="12692630">
+    <nd ref="5"/>
+    <nd ref="6"/>
+    <nd ref="7"/>
+    <nd ref="8"/>
+    <tag k="landuse" v="meadow"/>
+  </way>
 </osm>
