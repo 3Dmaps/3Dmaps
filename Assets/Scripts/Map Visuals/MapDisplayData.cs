@@ -14,6 +14,7 @@ public class MapDisplayData {
 	public Mesh mesh;
 	public Mesh lowLodMesh;
 	public MapDisplayStatus status;
+    private AreaDisplay areaDisplay;
 
     public MapDisplayData(){}
 
@@ -32,7 +33,9 @@ public class MapDisplayData {
     private Color[] CalculateColourMap(MapData mapData) {
 		int width  = mapData.GetWidth();
 		int height = mapData.GetHeight();
-        AreaDisplay areaDisplay = GameObject.FindObjectOfType<AreaDisplay>();
+        if (areaDisplay == null) {
+            areaDisplay = GameObject.FindObjectOfType<AreaDisplay>();
+        }
 		Color[] colourMap = new Color[width * height];
         MapDataSlice slice = (MapDataSlice)mapData;
 		
