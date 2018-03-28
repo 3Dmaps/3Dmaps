@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 114233758517916284}
   - component: {fileID: 114855818445820298}
   - component: {fileID: 114221490288407454}
+  - component: {fileID: 114366665476885892}
   - component: {fileID: 114037045697494626}
   m_Layer: 0
   m_Name: OSMGenerator
@@ -89,6 +90,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nodeGenerationRate: 0
+--- !u!114 &114366665476885892
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1481990259727772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62beebcfb81c38b4fa111db6d09a0c30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114855818445820298
 MonoBehaviour:
   m_ObjectHideFlags: 1

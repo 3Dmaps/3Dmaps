@@ -15,9 +15,7 @@ public class OSMDataImporter {
     private const string wayElement = "way", nodeElement = "node", childNodeElement = "nd";
 	private const string idAttribute = "id", latAttribute = "lat", lonAttribute = "lon", 
 			refAttribute = "ref", colorKeyValue = "zmeucolor", iconKeyValue="zmeuicon";
-	private const string tagElement = "tag";
-    private ColorHandler colorHandler;
-    
+	private const string tagElement = "tag";    
 
     public static OSMData ReadOSMData(string path) {
         XmlDocument xmlDoc = new XmlDocument();       
@@ -27,7 +25,6 @@ public class OSMDataImporter {
         Dictionary<long, OSMNode> wayNodes = new Dictionary<long, OSMNode>();
         List<OSMway> ways = new List<OSMway>();           
         OSMData osmData = new OSMData();
-        ColorHandler colorHandler = new ColorHandler();
         
         foreach (XmlElement node in rootNode) {
             string childNodeType = node.LocalName;
@@ -46,7 +43,7 @@ public class OSMDataImporter {
         foreach (OSMway way in ways) {
             if (way.IsMeadow()) {                
                     FillInWayNodeLatLon(way, wayNodes);
-                    osmData.AddArea(new Area (way, "meadow", colorHandler.SelectAreaColor("meadow")));                                                                   
+                    osmData.AddArea(new Area (way, "meadow"));                                                                   
             }
             else if (way.IsRiver()) {                
                     FillInWayNodeLatLon(way, wayNodes);

@@ -10,16 +10,12 @@ using UnityEngine;
 public class Area {
     public List<OSMNode> nodeList;
     public long id;
-	public string type;
-    public Color color;
-    
+	public string type;    
 
-    public Area(OSMway way, string type, Color color) {
+    public Area(OSMway way, string type) {
         this.nodeList = way.GetNodeList();
         this.id = way.GetID();
         this.type = type;
-        this.color = color;
-
     }
 
 
