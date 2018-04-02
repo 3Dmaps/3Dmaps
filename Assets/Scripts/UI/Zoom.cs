@@ -14,7 +14,7 @@ public class Zoom : MonoBehaviour
     private MapGenerator generator;
     public float zoomInmultiplier = 0.8f;
     public float zoomOutmultiplier = 1.25f;
-    private int currentZoomLevel = 0;
+    public int currentZoomLevel = 0;
     public int zoomLimitMax = 5;
     public int zoomLimitMin = -5;
 
