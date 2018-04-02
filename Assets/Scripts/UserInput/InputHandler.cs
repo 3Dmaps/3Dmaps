@@ -18,28 +18,33 @@ public class InputHandler : MonoBehaviour {
 
     void OnTapDetected(Vector3 tapPosition) {
         Debug.Log("OnTapDetected");
-        // Move map center here
         throw new NotImplementedException();
+        // Move map center here
     }
 
     void OnGestureDetected(Gesture gestureType, float value) {
         // Rotate / Zoom here
         if(gestureType == Gesture.Pinch) {
             Debug.Log("Pinch");
+            // DOo zoom here
+            /*
             int zoomValue = (int)Mathf.Clamp(value, -1, 1);
             Debug.Log(zoomValue);
             zoom.ZoomTarget(zoomValue);
+            */
         }
 
        if(gestureType == Gesture.Rotate) {
             Debug.Log("Rotate");
-            rotate.RotateTarget(value * Time.deltaTime);
+            // Do Rotate here
+            //rotate.RotateTarget(value * Time.deltaTime);
         }
     }
 
     void OnSwipeDetected(Swipe direction, Vector2 swipeVelocity) {
         Debug.Log("OnSwipeDetected");
         // Tilt Camera here
+        /*
         Vector3 currentRotation = cameraTrans.eulerAngles;
         switch (direction) {
             case Swipe.Down:
@@ -61,6 +66,6 @@ public class InputHandler : MonoBehaviour {
             default:
                 break;
         }
-        
+        */
     }
 }

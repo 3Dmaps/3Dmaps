@@ -2,38 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
  
-class CardinalDirection
-{
-    public static readonly Vector2 Up        = new Vector2 (0, 1);
-    public static readonly Vector2 Down      = new Vector2 (0, -1);
-    public static readonly Vector2 Right     = new Vector2 (1, 0);
-    public static readonly Vector2 Left      = new Vector2 (-1, 0);
-    public static readonly Vector2 UpRight   = new Vector2 (1, 1);
-    public static readonly Vector2 UpLeft    = new Vector2 (-1, 1);
-    public static readonly Vector2 DownRight = new Vector2 (1, -1);
-    public static readonly Vector2 DownLeft  = new Vector2 (-1, -1);
-}
- 
-public enum Swipe
-{
-    None,
-    Up,
-    Down,
-    Left,
-    Right,
-    UpLeft,
-    UpRight,
-    DownLeft,
-    DownRight
-};
-
-public enum Gesture 
-{
-    None,
-    Pinch,
-    Rotate
-}
- 
 public class InputController : MonoBehaviour
 {
     #region Inspector Variables
@@ -65,7 +33,8 @@ public class InputController : MonoBehaviour
         { Swipe.DownRight,CardinalDirection.DownRight},
         { Swipe.DownLeft, CardinalDirection.DownLeft}
     };
- 
+
+    #region Event setups
     public delegate void OnSwipeDetectedHandler(Swipe swipeDirection, Vector2 swipeVelocity);
     public delegate void OnGestureDetectedHandler(Gesture gestureType, float value);
     public delegate void OnTapDetectedHandler(Vector3 tapPosition);
@@ -103,6 +72,7 @@ public class InputController : MonoBehaviour
             _OnTapDetected -= value;
         }
     }
+    #endregion
 
     public static Vector2 swipeVelocity;
  
@@ -148,7 +118,6 @@ public class InputController : MonoBehaviour
             Vector2 touchOnePrevPos  = touchOne.currentPosition - touchOne.prevPosition;
 
             if(touchZero.phase != TouchPhase.Moved && touchOne.phase != TouchPhase.Moved) {
-                Debug.Log("No touches moving, returning");
                 return;
             }
             //Its a pinch!
@@ -218,19 +187,21 @@ public class InputController : MonoBehaviour
             }
         }
     }
- 
-	public static bool IsSwiping			 () {	  return swipeDirection != Swipe.None; 			}
-    public static bool IsSwipingRight        () {     return IsSwipingDirection(Swipe.Right);   	}
-    public static bool IsSwipingLeft         () {     return IsSwipingDirection(Swipe.Left);    	}
-    public static bool IsSwipingUp           () {     return IsSwipingDirection(Swipe.Up);          }
-    public static bool IsSwipingDown         () {     return IsSwipingDirection(Swipe.Down);        }
-    public static bool IsSwipingDownLeft     () {     return IsSwipingDirection(Swipe.DownLeft);    }
-    public static bool IsSwipingDownRight    () {     return IsSwipingDirection(Swipe.DownRight);   }
-    public static bool IsSwipingUpLeft       () {     return IsSwipingDirection(Swipe.UpLeft);      }
-    public static bool IsSwipingUpRight      () {     return IsSwipingDirection(Swipe.UpRight);     }
- 
+
+
+
     #region Helper Functions
- 
+
+    public static bool IsSwiping() { return swipeDirection != Swipe.None; }
+    public static bool IsSwipingRight() { return IsSwipingDirection(Swipe.Right); }
+    public static bool IsSwipingLeft() { return IsSwipingDirection(Swipe.Left); }
+    public static bool IsSwipingUp() { return IsSwipingDirection(Swipe.Up); }
+    public static bool IsSwipingDown() { return IsSwipingDirection(Swipe.Down); }
+    public static bool IsSwipingDownLeft() { return IsSwipingDirection(Swipe.DownLeft); }
+    public static bool IsSwipingDownRight() { return IsSwipingDirection(Swipe.DownRight); }
+    public static bool IsSwipingUpLeft() { return IsSwipingDirection(Swipe.UpLeft); }
+    public static bool IsSwipingUpRight() { return IsSwipingDirection(Swipe.UpRight); }
+
     static void ClearOldInputs() {
         for (int i = 0; i < inputs.Count; i++) {
             if (inputs[i].phase == TouchPhase.Ended)
@@ -342,7 +313,7 @@ public class InputController : MonoBehaviour
  
     #endregion
 }
-
+#region Helper Classes
 public struct InputData {
     public int id;
     public TouchPhase phase;
@@ -360,4 +331,35 @@ public struct InputData {
         this.prevPosition = pos;
     }
 }
+
+class CardinalDirection {
+    public static readonly Vector2 Up = new Vector2(0, 1);
+    public static readonly Vector2 Down = new Vector2(0, -1);
+    public static readonly Vector2 Right = new Vector2(1, 0);
+    public static readonly Vector2 Left = new Vector2(-1, 0);
+    public static readonly Vector2 UpRight = new Vector2(1, 1);
+    public static readonly Vector2 UpLeft = new Vector2(-1, 1);
+    public static readonly Vector2 DownRight = new Vector2(1, -1);
+    public static readonly Vector2 DownLeft = new Vector2(-1, -1);
+}
+
+public enum Swipe {
+    None,
+    Up,
+    Down,
+    Left,
+    Right,
+    UpLeft,
+    UpRight,
+    DownLeft,
+    DownRight
+};
+
+public enum Gesture {
+    None,
+    Pinch,
+    Rotate
+}
+
+#endregion
 
