@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -79,43 +79,45 @@ public class MapDisplayData {
 	}
 
     private void FixNormalEdge(
+        Vector3[] first, int firstDimension, Func<int, int> firstIndexFunc,
+        Vector3[] second, int secondDimension, Func<int, int> secondIndexFunc
+        ) {
+        
+        int firstCoord = 0, secondCoord = 0;
+        int firstInc = secondDimension / firstDimension > 0 ? secondDimension / firstDimension : 1;
+        int secondInc = firstDimension / secondDimension > 0 ? firstDimension / secondDimension : 1;
+        while(firstCoord < firstDimension && secondCoord < secondDimension) {
+            int firstIndex = firstIndexFunc(firstCoord);
+            int secondIndex = secondIndexFunc(secondCoord);
+            Vector3 firstNormal = first[firstIndex];
+            Vector3 secondNormal = second[secondIndex];
+            Vector3 consensus = (firstNormal + secondNormal);
+            consensus.Normalize();
+            first[firstIndex] = consensus;
+            second[secondIndex] = consensus;
+            firstCoord += firstInc;
+            secondCoord += secondInc;
+        }
+
+    }
+
+    private void FixNormals(
         Vector3[] first, int firstWidth, int firstHeight,
         Vector3[] second, int secondWidth, int secondHeight,
         NeighborType relation) {
-            if(relation == NeighborType.TopBottom) {
-                int firstX = 0, secondX = 0;
-                int firstInc = secondWidth / firstWidth > 0 ? secondWidth / firstWidth : 1;
-                int secondInc = firstWidth / secondWidth > 0 ? firstWidth / secondWidth : 1;
-                while (firstX < firstWidth && secondX < secondWidth) {
-                    int firstIndex = firstHeight*(firstWidth - 1) + firstX;
-                    int secondIndex = secondX;
-                    Vector3 firstNormal = first[firstIndex];
-                    Vector3 secondNormal = second[secondIndex];
-                    Vector3 consensus = (firstNormal + secondNormal);
-                    consensus.Normalize();
-                    first[firstIndex] = consensus;
-                    second[secondIndex] = consensus;
-                    firstX += firstInc;
-                    secondX += secondInc;
-                }
-            } else if (relation == NeighborType.LeftRight) {
-                int firstY = 0, secondY = 0;
-                int firstInc = secondHeight / firstHeight > 0 ? secondHeight / firstHeight : 1;
-                int secondInc = firstHeight / secondHeight > 0 ? firstHeight / secondHeight : 1;
-                while (firstY < firstHeight && secondY < secondHeight) {
-                    int firstIndex = firstY * firstWidth + (firstWidth - 1);
-                    int secondIndex = secondY * secondWidth;
-                    
-                    Vector3 firstNormal = first[firstIndex];
-                    Vector3 secondNormal = second[secondIndex];
-                    Vector3 consensus = firstNormal + secondNormal;
-                    consensus.Normalize();
-                    first[firstIndex] = consensus;
-                    second[secondIndex] = consensus;
-                    firstY += firstInc;
-                    secondY += secondInc;
-                }
-            } else throw new System.ArgumentException("Unsupported NeighborType " + relation);
+        
+        if(relation == NeighborType.TopBottom) {
+            FixNormalEdge(
+                first, firstWidth, (x) => firstHeight*(firstWidth - 1) + x,
+                second, secondWidth, (x) => x
+            );
+        } else if (relation == NeighborType.LeftRight) {
+            FixNormalEdge(
+                first, firstHeight, (y) => y * firstWidth + (firstWidth - 1),
+                second, secondHeight, (y) => y * secondWidth
+            );
+        } else throw new System.ArgumentException("Unsupported NeighborType " + relation);
+        
     }
 
     private Mesh FixNormals(Mesh mesh) {
@@ -131,11 +133,11 @@ public class MapDisplayData {
             int otherWidth =  MeshGenerator.GetVerticesPerDimension(otherSlice.GetWidth(), other.GetActualLOD());
             int otherHeight = MeshGenerator.GetVerticesPerDimension(otherSlice.GetHeight(), other.GetActualLOD());
             if(relation.IsFirstMember(mapData)) {
-                FixNormalEdge(normals, width, height,
+                FixNormals(normals, width, height,
                               otherNormals, otherWidth, otherHeight,
                               relation.neighborType);
             } else {
-                FixNormalEdge(otherNormals, otherWidth, otherHeight,
+                FixNormals(otherNormals, otherWidth, otherHeight,
                               normals, width, height,
                               relation.neighborType);
             }
