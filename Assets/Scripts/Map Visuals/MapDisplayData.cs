@@ -124,7 +124,7 @@ public class MapDisplayData {
         int height = MeshGenerator.GetVerticesPerDimension(mapData.GetHeight(), GetActualLOD());
         foreach(DisplayNeighborRelation relation in mapData.GetDisplayNeighbors()) {
             MapDisplay other = relation.GetOtherDisplay(mapData);
-            if(other == null) continue;
+            if(other == null || other.GetStatus() == MapDisplayStatus.HIDDEN) continue;
             Mesh otherMesh = relation.GetOtherMesh(mapData);
             DisplayReadySlice otherSlice = relation.GetOtherDRSlice(mapData);
             Vector3[] otherNormals = otherMesh.normals;
