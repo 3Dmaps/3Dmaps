@@ -78,6 +78,17 @@ public class MapDisplayData {
 		return FixNormals(MeshGenerator.GenerateTerrainMesh(mapData).CreateMesh());
 	}
 
+    private void FillInNormals(Vector3[] normals, int coord, int inc, 
+        Func<int, int> indexFunc, Vector3 normal) {
+        
+        if(inc > 1 && coord > 0) {
+            for(int i = 1; i < inc; i++) {
+                normals[indexFunc(coord - i)] = normal;
+            }
+        }
+
+    }
+
     private void FixNormalEdge(
         Vector3[] first, int firstDimension, Func<int, int> firstIndexFunc,
         Vector3[] second, int secondDimension, Func<int, int> secondIndexFunc
@@ -95,6 +106,8 @@ public class MapDisplayData {
             consensus.Normalize();
             first[firstIndex] = consensus;
             second[secondIndex] = consensus;
+            FillInNormals(first, firstCoord, firstInc, firstIndexFunc, consensus);
+            FillInNormals(second, secondCoord, secondInc, secondIndexFunc, consensus);
             firstCoord += firstInc;
             secondCoord += secondInc;
         }
@@ -117,7 +130,7 @@ public class MapDisplayData {
                 second, secondHeight, (y) => y * secondWidth
             );
         } else throw new System.ArgumentException("Unsupported NeighborType " + relation);
-        
+
     }
 
     private Mesh FixNormals(Mesh mesh) {
