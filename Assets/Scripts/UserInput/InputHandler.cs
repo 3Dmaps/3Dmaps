@@ -9,6 +9,9 @@ public class InputHandler : MonoBehaviour {
     public Rotate rotate;
     public Zoom zoom;
     public Transform cameraTrans;
+    public MapGenerator mapGenerator;
+    private int lodUpdateCounter = 0;
+    public int lodUpdateInterval = 5;
 
     void Start() {
         InputController.OnSwipeDetected   += OnSwipeDetected;
@@ -43,29 +46,20 @@ public class InputHandler : MonoBehaviour {
 
     void OnSwipeDetected(Swipe direction, Vector2 swipeVelocity) {
         Debug.Log("OnSwipeDetected");
-        // Tilt Camera here
-        /*
-        Vector3 currentRotation = cameraTrans.eulerAngles;
-        switch (direction) {
-            case Swipe.Down:
-                cameraTrans.Rotate(Vector3.left * Mathf.Abs(swipeVelocity.y) * Time.deltaTime);
-                //cameraTrans.eulerAngles = new Vector3(currentRotation.x + swipeVelocity.y, currentRotation.y, currentRotation.z);
-                break;
-            case Swipe.Up:
-                cameraTrans.Rotate(Vector3.right * Mathf.Abs(swipeVelocity.y) * Time.deltaTime);
-                //cameraTrans.eulerAngles = new Vector3(currentRotation.x - swipeVelocity.y, currentRotation.y, currentRotation.z);
-                break;
-            case Swipe.Left:
-                cameraTrans.Rotate(Vector3.up * Mathf.Abs(swipeVelocity.x) * Time.deltaTime);
-                //cameraTrans.eulerAngles = new Vector3(currentRotation.x, currentRotation.y + swipeVelocity.x, currentRotation.z);
-                break;
-            case Swipe.Right:
-                cameraTrans.Rotate(Vector3.down * Mathf.Abs(swipeVelocity.x) * Time.deltaTime);
-                //cameraTrans.eulerAngles = new Vector3(currentRotation.x, currentRotation.y - swipeVelocity.x, currentRotation.z);
-                break;
-            default:
-                break;
+        float speed = 0.01F;
+        float max_x = 0.5F;
+        float min_x = -0.5F;
+        float max_y = 0.5F;
+        float min_y = -0.5F;
+        Vector2 newPos = mapGenerator.mapViewerPosition;
+        newPos.x = Mathf.Clamp(newPos.x + (swipeVelocity.x * Time.deltaTime * speed), min_x, max_x);
+        newPos.y = Mathf.Clamp(newPos.y + (swipeVelocity.y * Time.deltaTime * speed), min_y, max_y);
+        mapGenerator.mapViewerPosition = newPos;
+        mapGenerator.gameObject.transform.position = new Vector3(mapGenerator.mapViewerPosition.x, 0, mapGenerator.mapViewerPosition.y);
+        //Lisää joku checki et aina lopuks updatee lodin!
+        if (mapGenerator != null && ++lodUpdateCounter > lodUpdateInterval) {
+            mapGenerator.UpdateLOD();
+            lodUpdateCounter = 0;
         }
-        */
     }
 }
