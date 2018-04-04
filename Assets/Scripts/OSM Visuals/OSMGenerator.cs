@@ -67,6 +67,17 @@ public class OSMGenerator : MonoBehaviour {
 		areaDisplay.displayAreas ();
 	}
 
+	private void GenerateRivers(OSMData osmData) {
+		foreach (River r in osmData.rivers) {
+			List<DisplayNode> riverNodes = new List<DisplayNode>();
+			for (int i = 0; i < r.nodeList.Count; i++) {
+				riverNodes.Add(ChangeLatLonToDisplayNode(r.nodeList[i].lon, r.nodeList[i].lat, mapData));
+			}
+			areaDisplay.AddRiver (riverNodes);
+		}
+		areaDisplay.displayAreas ();
+	}
+
 	public List<DisplayNode> TranslateTrail(Trail trail) {
 		displayNodes = new List<DisplayNode> ();
 		List<OSMNode> nodes = trail.GetNodeList();

@@ -11,11 +11,17 @@ public class AreaDisplay : MonoBehaviour {
 
     private bool showAreas = true;
 	private List<List<DisplayNode>> areaBoundings = new List<List<DisplayNode>>();
+    private List<List<DisplayNode>> rivers = new List<List<DisplayNode>>();
+
 	private List<Color> areaColors = new List<Color> ();
 
 	public void AddArea(Color color, List<DisplayNode> areaBounds) {
 		areaColors.Add (color);
 		areaBoundings.Add (areaBounds);
+	}
+
+    public void AddRiver(List<DisplayNode> riverNodes) {		
+		rivers.Add (riverNodes);
 	}
 
 	public void displayAreas() {
@@ -42,7 +48,15 @@ public class AreaDisplay : MonoBehaviour {
 				return areaColors[areaNum];
             }
         }
+        for (int riverNum = 0; riverNum < riverNodes.Count; riverNum++) {
+			if(IsPointInRiver(riverNodes[riverNum], new DisplayNode((int) x, (int) y))) {
+				return Color.blue;
+            }
+        }
         return Color.black;
     }
 	
+    public bool IsPointInRiver(List<List<DisplayNode>> riverNodes, DisplayNode point) {
+        return false;
+    }
 }
