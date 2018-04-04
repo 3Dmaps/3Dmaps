@@ -12,9 +12,9 @@ using System;
 /// </summary>
 
 public class OSMDataImporter {
-    private const string wayElement = "way", nodeElement = "node", childNodeElement = "nd";
+    private const string wayElement = "way", nodeElement = "node", childNodeElement = "nd", relationElement  = "relation";
 	private const string idAttribute = "id", latAttribute = "lat", lonAttribute = "lon", 
-			refAttribute = "ref", colorKeyValue = "zmeucolor", iconKeyValue="zmeuicon";
+			refAttribute = "ref", roleAttribute = "role", memberTypeAttribute = "member type", colorKeyValue = "zmeucolor", iconKeyValue="zmeuicon";
 	private const string tagElement = "tag";    
 
     public static OSMData ReadOSMData(string path) {
@@ -23,7 +23,7 @@ public class OSMDataImporter {
         XmlElement rootNode = xmlDoc.DocumentElement;
 
         Dictionary<long, OSMNode> wayNodes = new Dictionary<long, OSMNode>();
-        List<OSMway> ways = new List<OSMway>();           
+        Dictionary<long, OSMway> ways = new Dictionary<long, OSMway>();                
         OSMData osmData = new OSMData();
         
         foreach (XmlElement node in rootNode) {
@@ -31,7 +31,7 @@ public class OSMDataImporter {
             switch (childNodeType) {
                 case wayElement:
                     ReadWay(ways, node);
-                    break;
+                    break;                
                 case nodeElement:
                     ReadTrailNode(osmData, wayNodes, node);
                     break;
@@ -39,18 +39,19 @@ public class OSMDataImporter {
                     break;
             }
         }
+
         
-        foreach (OSMway way in ways) {
+        
+        foreach (OSMway way in ways.Values) {
+            FillInWayNodeLatLon(way, wayNodes);
+
             if (way.IsMeadow()) {                
-                    FillInWayNodeLatLon(way, wayNodes);
-                    osmData.AddArea(new Area (way, "meadow"));                                                                   
+                osmData.AddArea(new Area (way, "meadow"));                                                                   
             }
             else if (way.IsRiver()) {                
-                    FillInWayNodeLatLon(way, wayNodes);
-                    osmData.AddRiver(new River (way));                                                                   
+                osmData.AddRiver(new River (way));                                                                   
             }
             else {
-                FillInWayNodeLatLon(way, wayNodes);            
                 osmData.AddTrail(new Trail(way));
             }        
         }       
@@ -81,7 +82,7 @@ public class OSMDataImporter {
     }
 
 
-    private static void ReadWay(List<OSMway> ways, XmlElement node) {
+    private static void ReadWay(Dictionary<long, OSMway> ways, XmlElement node) {
         OSMway way = new OSMway(long.Parse(node.GetAttribute(idAttribute)));
         foreach (XmlElement childNode in node.ChildNodes) {
             if (childNode.LocalName.Equals(childNodeElement)) {
@@ -93,8 +94,30 @@ public class OSMDataImporter {
                 way.AddTag(childNode.GetAttribute ("k"), childNode.GetAttribute ("v"));
             }
         }
-        ways.Add(way);
+        ways.Add(way.GetID(), way);
     }
+
+    private static void ReadRelation(List<OSMrelation> relations, XmlElement node) {
+        OSMrelation relation = new OSMrelation(long.Parse(node.GetAttribute(idAttribute)));
+        foreach (XmlElement childNode in node.ChildNodes) {
+            if (childNode.GetAttribute(memberTypeAttribute).Equals("way")) {
+                OSMway way = new OSMway(long.Parse(childNode.GetAttribute(refAttribute)));
+                if 	(childNode.GetAttribute(roleAttribute).Equals("inner")) {
+                    relation.AddInner(way); 
+                }
+                if 	(childNode.GetAttribute(roleAttribute).Equals("outer")) {
+                    relation.AddOuter(way); 
+                }
+                
+            }
+            if (childNode.LocalName.Equals (tagElement)) {
+                relation.AddTag(childNode.GetAttribute ("k"), childNode.GetAttribute ("v"));
+            }
+        }
+        relations.Add(relation);
+    }
+
+
 
     private static void ReadXmlDocument(string path, XmlDocument xmlDoc) {
         try {

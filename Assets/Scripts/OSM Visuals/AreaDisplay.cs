@@ -15,6 +15,8 @@ public class AreaDisplay : MonoBehaviour {
 
 	private List<Color> areaColors = new List<Color> ();
 
+    private const int riverWidthConstant = 2;
+
 	public void AddArea(Color color, List<DisplayNode> areaBounds) {
 		areaColors.Add (color);
 		areaBoundings.Add (areaBounds);
@@ -48,15 +50,18 @@ public class AreaDisplay : MonoBehaviour {
 				return areaColors[areaNum];
             }
         }
-        for (int riverNum = 0; riverNum < riverNodes.Count; riverNum++) {
-			if(IsPointInRiver(riverNodes[riverNum], new DisplayNode((int) x, (int) y))) {
-				return Color.blue;
+
+        for (int riverNum = 0; riverNum < rivers.Count; riverNum++) {
+			for (int i = 0; i < rivers[riverNum].Count - 1; i++) {
+                DisplayNode point = new DisplayNode((int) x, (int) y);
+                DisplayNode riverNode1 = rivers[riverNum][i];
+                DisplayNode riverNode2 = rivers[riverNum][i + 1];
+                if (SegmentUtil.FindDistanceToSegmentRiver(point, riverNode1, riverNode2) < riverWidthConstant) {
+                    return Color.blue;
+                }
             }
         }
         return Color.black;
     }
-	
-    public bool IsPointInRiver(List<List<DisplayNode>> riverNodes, DisplayNode point) {
-        return false;
-    }
+
 }
