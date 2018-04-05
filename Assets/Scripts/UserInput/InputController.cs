@@ -36,8 +36,11 @@ public class InputController : MonoBehaviour
 
     #region Event setups
     public delegate void OnSwipeDetectedHandler(Swipe swipeDirection, Vector2 swipeVelocity);
-    public delegate void OnGestureDetectedHandler(Gesture gestureType, float value);
     public delegate void OnTapDetectedHandler(Vector3 tapPosition);
+
+    public delegate void OnInputStartedHandler(List<InputData> inputs);
+    public delegate void OnInputHandler(List<InputData> inputs);
+    public delegate void OnInputEndedHandler(List<InputData> inputs);
 
     static OnSwipeDetectedHandler _OnSwipeDetected;
     public static event OnSwipeDetectedHandler OnSwipeDetected
@@ -51,17 +54,6 @@ public class InputController : MonoBehaviour
         }
     }
 
-    static OnGestureDetectedHandler _OnGestureDetected;
-    public static event OnGestureDetectedHandler OnGestureDetected {
-        add {
-            _OnGestureDetected += value;
-            autoDetect = true;
-        }
-        remove {
-            _OnGestureDetected -= value;
-        }
-    }
-
     static OnTapDetectedHandler _OnTapDetected;
     public static event OnTapDetectedHandler OnTapDetected {
         add {
@@ -72,6 +64,40 @@ public class InputController : MonoBehaviour
             _OnTapDetected -= value;
         }
     }
+
+    static OnInputStartedHandler _OnInputStarted;
+    public static event OnInputStartedHandler OnInputStarted {
+        add {
+            _OnInputStarted += value;
+            autoDetect = true;
+        }
+        remove {
+            _OnInputStarted -= value;
+        }
+    }
+
+    static OnInputHandler _OnInput;
+    public static event OnInputHandler OnInput {
+        add {
+            _OnInput += value;
+            autoDetect = true;
+        }
+        remove {
+            _OnInput -= value;
+        }
+    }
+
+    static OnInputEndedHandler _OnInputEnded;
+    public static event OnInputEndedHandler OnInputEnded {
+        add {
+            _OnInputEnded += value;
+            autoDetect = true;
+        }
+        remove {
+            _OnInputEnded -= value;
+        }
+    }
+
     #endregion
 
     public static Vector2 swipeVelocity;
@@ -96,9 +122,9 @@ public class InputController : MonoBehaviour
     {
         if (autoDetect) {
             ClearOldInputs();
+            DetectInputs();
             if (GetTouchInput() || GetKeyboardInput()) {
                 DetectSwipe();
-                DetectGesture();
                 DetectTap();
             } else {
                 swipeStarted = false;
@@ -108,42 +134,27 @@ public class InputController : MonoBehaviour
         }
     }
 
-    static void DetectGesture() {
-        if(inputs.Count == 2) {
-
-            InputData touchZero = inputs[0];
-            InputData touchOne  = inputs[1];
-
-            Vector2 touchZeroPrevPos = touchZero.currentPosition - touchZero.prevPosition;
-            Vector2 touchOnePrevPos  = touchOne.currentPosition - touchOne.prevPosition;
-
-            if(touchZero.phase != TouchPhase.Moved && touchOne.phase != TouchPhase.Moved) {
-                return;
-            }
-            //Its a pinch!
-            if (touchZero.phase == TouchPhase.Moved && touchOne.phase == TouchPhase.Moved) {
-                Debug.Log("pinch");
-                swipeStarted = true;
-                float prevDist = Vector2.Distance(touchOne.prevPosition, touchZero.prevPosition);
-                float curDist = Vector2.Distance(touchOne.currentPosition, touchZero.currentPosition);
-                if (_OnGestureDetected != null) {
-                    _OnGestureDetected(Gesture.Pinch, prevDist - curDist);
-                }
-                return;
-            }
-            // Its a rotation!
-            if (touchZero.phase == TouchPhase.Moved || touchOne.phase == TouchPhase.Moved) {
-                swipeStarted = true;
-                float currentValue = touchOnePrevPos.x - touchZeroPrevPos.x;
-                float normalized = (currentValue - (-100)) / (100 - (-100)) * 30;
-
-                if (_OnGestureDetected != null) {
-                    _OnGestureDetected(Gesture.Rotate, normalized);
+    static void DetectInputs() {
+        if (inputs.Count == 0) return;
+    
+        foreach (InputData data in inputs) {
+            if(data.phase == TouchPhase.Began) {
+                if (_OnInputStarted != null) {
+                    _OnInputStarted(inputs);
+                    return;
                 }
             }
-
+            if (data.phase == TouchPhase.Ended) {
+                if (_OnInputEnded != null) {
+                    _OnInputEnded(inputs);
+                    return;
+                }
+            }
         }
 
+        if (_OnInput != null) {
+            _OnInput(inputs);
+        }
     }
 
     static void DetectTap() {
@@ -252,6 +263,8 @@ public class InputController : MonoBehaviour
                 InputData data = inputs[mouseButtonIndex];
                 if(pressPos != data.startPosition) {
                     data.phase = TouchPhase.Moved;
+                } else {
+                    data.phase = TouchPhase.Stationary;
                 }
                 data.prevPosition = data.currentPosition;
                 data.currentPosition = pressPos;
@@ -274,7 +287,17 @@ public class InputController : MonoBehaviour
             if (spaceKeyIndex == -1) {
                 swipeStartTime = Time.time;
                 inputs.Add(new InputData(spaceKeyID, swipeStartTime, pressPos));
-            } 
+            } else {
+                InputData data = inputs[spaceKeyIndex];
+                if (pressPos != data.startPosition) {
+                    data.phase = TouchPhase.Moved;
+                } else {
+                    data.phase = TouchPhase.Stationary;
+                }
+                data.prevPosition = data.currentPosition;
+                data.currentPosition = pressPos;
+                inputs[spaceKeyIndex] = data;
+            }
             return true;
         } else if (spaceKeyIndex != -1) {
             InputData data = inputs[spaceKeyIndex];
@@ -294,7 +317,7 @@ public class InputController : MonoBehaviour
  
     static bool IsDirection (Vector2 direction, Vector2 cardinalDirection)
     {
-        var angle = instance.useEightDirections ? eightDirAngle : fourDirAngle;
+        float angle = instance.useEightDirections ? eightDirAngle : fourDirAngle;
         return Vector2.Dot(direction, cardinalDirection) > angle;
     }
  
@@ -310,7 +333,6 @@ public class InputController : MonoBehaviour
         DetectSwipe();
         return swipeDirection == swipeDir;
     }
- 
     #endregion
 }
 #region Helper Classes
@@ -333,14 +355,14 @@ public struct InputData {
 }
 
 class CardinalDirection {
-    public static readonly Vector2 Up = new Vector2(0, 1);
-    public static readonly Vector2 Down = new Vector2(0, -1);
-    public static readonly Vector2 Right = new Vector2(1, 0);
-    public static readonly Vector2 Left = new Vector2(-1, 0);
-    public static readonly Vector2 UpRight = new Vector2(1, 1);
-    public static readonly Vector2 UpLeft = new Vector2(-1, 1);
+    public static readonly Vector2 Up        = new Vector2(0, 1);
+    public static readonly Vector2 Down      = new Vector2(0, -1);
+    public static readonly Vector2 Right     = new Vector2(1, 0);
+    public static readonly Vector2 Left      = new Vector2(-1, 0);
+    public static readonly Vector2 UpRight   = new Vector2(1, 1);
+    public static readonly Vector2 UpLeft    = new Vector2(-1, 1);
     public static readonly Vector2 DownRight = new Vector2(1, -1);
-    public static readonly Vector2 DownLeft = new Vector2(-1, -1);
+    public static readonly Vector2 DownLeft  = new Vector2(-1, -1);
 }
 
 public enum Swipe {
