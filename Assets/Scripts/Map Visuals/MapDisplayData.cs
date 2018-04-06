@@ -78,7 +78,7 @@ public class MapDisplayData {
 		return FixNormals(MeshGenerator.GenerateTerrainMesh(mapData).CreateMesh());
 	}
 
-    private void FillInNormals(Vector3[] normals, int coord, int inc, 
+    private static void FillInNormals(Vector3[] normals, int coord, int inc, 
         Func<int, int> indexFunc, Vector3 normal) {
         
         if(inc > 1 && coord > 0) {
@@ -89,7 +89,7 @@ public class MapDisplayData {
 
     }
 
-    private void FixNormalEdge(
+    private static void FixNormalEdge(
         Vector3[] first, int firstDimension, Func<int, int> firstIndexFunc,
         Vector3[] second, int secondDimension, Func<int, int> secondIndexFunc
         ) {
@@ -114,7 +114,7 @@ public class MapDisplayData {
 
     }
 
-    private void FixNormals(
+    public static void FixNormals(
         Vector3[] first, int firstWidth, int firstHeight,
         Vector3[] second, int secondWidth, int secondHeight,
         NeighborType relation) {
@@ -133,7 +133,7 @@ public class MapDisplayData {
 
     }
 
-    private Mesh FixNormals(Mesh mesh) {
+    public Mesh FixNormals(Mesh mesh) {
         Vector3[] normals = mesh.normals;
         int width = MeshGenerator.GetVerticesPerDimension(mapData.GetWidth(), GetActualLOD());
         int height = MeshGenerator.GetVerticesPerDimension(mapData.GetHeight(), GetActualLOD());

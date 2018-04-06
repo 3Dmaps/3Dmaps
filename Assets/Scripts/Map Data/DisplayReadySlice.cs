@@ -14,6 +14,7 @@ public class DisplayReadySlice : MapDataSlice {
 	public DisplayReadySlice(MapDataSlice slice, int lod) : base(slice) {
         this.baseSlice = slice;
 		this.lod = lod;
+        this.neighbors = slice.GetNeighbors();
         this.displayNeighbors = new List<DisplayNeighborRelation>(expectedNumberOfNeighbors);
 	}
 

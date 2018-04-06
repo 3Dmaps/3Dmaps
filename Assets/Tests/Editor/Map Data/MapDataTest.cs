@@ -146,6 +146,23 @@ public class MapDataTest {
     }
 
     [Test]
+    public void GetDisplayReadySlices_DisplayNeighborRelationsCorrect() {
+        List<DisplayReadySlice> slices = mapdata.GetDisplayReadySlices(2, 1);
+        foreach(DisplayReadySlice slice in slices) {
+            Assert.True(slice.GetNeighbors().Count == slice.GetDisplayNeighbors().Count, 
+                        "There were " + slice.GetNeighbors().Count + " neighbors but " 
+                        + slice.GetDisplayNeighbors().Count + " displayneighbors!");
+            foreach(MapNeighborRelation rel in slice.GetNeighbors()){
+                Assert.True(slice.GetDisplayNeighbors().Contains(rel.AsDisplayNeighborRelation()));
+                Assert.True(rel.AsDisplayNeighborRelation()
+                               .GetOtherDRSlice(slice)
+                               .GetDisplayNeighbors()
+                               .Contains(rel.AsDisplayNeighborRelation()));
+            }
+        }
+    }
+
+    [Test]
     public void GetTopLeftAsLatLonPointCorrect() {
         MapPoint topLeftAsLatLon = mapdata.GetTopLeftLatLonPoint();
         Assert.True(topLeftAsLatLon.x - meterInDegrees < precision, "Top left x in lat-lon incorrect.");
