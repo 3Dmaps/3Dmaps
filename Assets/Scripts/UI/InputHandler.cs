@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class InputHandler : MonoBehaviour {
 
-    private Transform target;
     public Camera cam;
     public MapGenerator mapGenerator;
 
@@ -17,6 +16,8 @@ public class InputHandler : MonoBehaviour {
 
     private Vector2 combMem;
     private float origRot;
+	private bool isGesture = false;
+	public Transform target;
 
     void Start() {
         InputController.OnSwipeDetected   += OnSwipeDetected;
@@ -35,43 +36,50 @@ public class InputHandler : MonoBehaviour {
         }
     }
 
-    private void OnInputEnded(List<InputData> inputs) {
+    public void OnInputEnded(List<InputData> inputs) {
         UpdateLod();
+		if (inputs.Count == 0)
+			isGesture = false;
     }
 
-    private void OnInput(List<InputData> inputs) {
+    public void OnInput(List<InputData> inputs) {
         if(inputs.Count > 1) {
             if(IsRotate(inputs))
                 RotateObject(inputs);
-            else if (IsPinch(inputs))
+            if (IsPinch(inputs))
                 HandleZoom(inputs);
         }
     }
 
-    private void OnInputStarted(List<InputData> inputs) {
+    public void OnInputStarted(List<InputData> inputs) {
+		isGesture = false;
         if (inputs.Count > 1) {
             combMem = CalculateTouchToTouchVec(inputs);
             origRot = target.rotation.eulerAngles.y;
         }
     }
 
-    void OnSwipeDetected(Swipe direction, Vector2 swipeVelocity) {
-        float speed = 0.01F;
+    private void OnSwipeDetected(Swipe direction, Vector2 swipeVelocity) {
+		if (isGesture)
+			return;
+		
+		float speed = 0.05F * Math.Max(((cam.fieldOfView - zoomMinValue) / (zoomMaxValue - zoomMinValue)), 0.05F);
         float max_x = 0.5F;
         float min_x = -0.5F;
         float max_y = 0.5F;
         float min_y = -0.5F;
-        Vector2 newPos = mapGenerator.mapViewerPosition;
+		Vector2 newPos = new Vector2 (mapGenerator.gameObject.transform.position.x, mapGenerator.gameObject.transform.position.z);
         newPos.x = Mathf.Clamp(newPos.x + (swipeVelocity.x * Time.deltaTime * speed), min_x, max_x);
         newPos.y = Mathf.Clamp(newPos.y + (swipeVelocity.y * Time.deltaTime * speed), min_y, max_y);
-        mapGenerator.mapViewerPosition = newPos;
-        mapGenerator.gameObject.transform.position = new Vector3(mapGenerator.mapViewerPosition.x, 0, mapGenerator.mapViewerPosition.y);
+		mapGenerator.gameObject.transform.position = new Vector3(newPos.x, 0, newPos.y);
+		mapGenerator.mapViewerPosition = new Vector2 (mapGenerator.gameObject.transform.position.x, mapGenerator.gameObject.transform.position.z);
         UpdateLod();
     }
 
 
     private void HandleZoom(List<InputData> inputs)
     {
+		isGesture = true;
         Vector2 touchZeroPrevPos = inputs[0].prevPosition;
         Vector2 touchOnePrevPos = inputs[1].prevPosition;
         float prevTouchDeltaMag = (touchZeroPrevPos - touchOnePrevPos).magnitude;
@@ -95,6 +103,8 @@ public class InputHandler : MonoBehaviour {
     }
 
     private bool IsPinch(List<InputData> inputs) {
+		if (Application.platform != RuntimePlatform.IPhonePlayer && Application.platform != RuntimePlatform.Android)
+			return false;
         float pinchDistance = Vector2.Distance(inputs[0].currentPosition, inputs[1].currentPosition);
         float prevDistance  = Vector2.Distance(inputs[0].prevPosition, inputs[1].prevPosition);
         float pinchDistanceDelta = Mathf.Abs(pinchDistance - prevDistance);
@@ -109,6 +119,7 @@ public class InputHandler : MonoBehaviour {
     }
 
     private void RotateObject(List<InputData> inputs) {
+		isGesture = true;
         target.eulerAngles = new Vector3(
                                     target.eulerAngles.x,
                                     origRot + (Vector2.SignedAngle(CalculateTouchToTouchVec(inputs), combMem)),

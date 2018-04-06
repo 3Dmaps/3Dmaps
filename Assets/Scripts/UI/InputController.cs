@@ -103,8 +103,6 @@ public class InputController : MonoBehaviour
     public static Vector2 swipeVelocity;
  
     static float dpcm;
-    static float swipeStartTime;
-    static float swipeEndTime;
     static bool autoDetect = true;
     static bool swipeStarted;
     static Swipe swipeDirection;
@@ -186,12 +184,10 @@ public class InputController : MonoBehaviour
                 return;
             }
             swipeStarted   = true;
-            swipeEndTime   = Time.time;
-            swipeVelocity  = currentSwipe * (swipeEndTime - inputData.startTime);
             swipeDirection = GetSwipeDirByTouch(currentSwipe);
 
             if (_OnSwipeDetected != null) {
-                _OnSwipeDetected(swipeDirection, swipeVelocity);
+				_OnSwipeDetected(swipeDirection, inputData.currentPosition - inputData.prevPosition);
             }
         }
     }
@@ -225,8 +221,7 @@ public class InputController : MonoBehaviour
                 int id = t.fingerId;
                 if (t.phase == TouchPhase.Began) {                   
                     Vector2 pos = t.position;
-                    swipeStartTime = Time.time;
-                    inputs.Add(new InputData(id, swipeStartTime, pos));
+                    inputs.Add(new InputData(id, pos));
                 }
                 else {
                     int index = GetInputDataIndexWithID(id);
@@ -254,8 +249,7 @@ public class InputController : MonoBehaviour
         if (Input.GetMouseButton(0)) {
             Vector2 pressPos = (Vector2)Input.mousePosition;
             if (mouseButtonIndex == -1) {
-                swipeStartTime = Time.time;
-                inputs.Add(new InputData(mouseButtonID, swipeStartTime, pressPos));
+                inputs.Add(new InputData(mouseButtonID, pressPos));
             } else {
                 InputData data = inputs[mouseButtonIndex];
                 if(pressPos != data.startPosition) {
@@ -282,8 +276,7 @@ public class InputController : MonoBehaviour
         if (Input.GetKey(KeyCode.Space)) {
             Vector2 pressPos = Vector2.zero;
             if (spaceKeyIndex == -1) {
-                swipeStartTime = Time.time;
-                inputs.Add(new InputData(spaceKeyID, swipeStartTime, pressPos));
+                inputs.Add(new InputData(spaceKeyID, pressPos));
             } else {
                 InputData data = inputs[spaceKeyIndex];
                 if (pressPos != data.startPosition) {
@@ -336,15 +329,13 @@ public class InputController : MonoBehaviour
 public struct InputData {
     public int id;
     public TouchPhase phase;
-    public float startTime;
     public Vector2 startPosition;
     public Vector2 currentPosition;
     public Vector2 prevPosition;
 
-    public InputData(int id, float startTime, Vector2 pos) {
+    public InputData(int id, Vector2 pos) {
         this.id = id;
         this.phase = TouchPhase.Began;
-        this.startTime = startTime;
         this.startPosition = pos;
         this.currentPosition = pos;
         this.prevPosition = pos;

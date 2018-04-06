@@ -77,9 +77,11 @@ public class MapGenerator : MonoBehaviour {
 
         foreach (DisplayReadySlice slice in actualMapData.GetDisplayReadySlices(mapSliceSize, levelOfDetail)) {
 
-            MapDisplay display = gameObject.AddComponent(typeof(MapDisplay)) as MapDisplay;
+			GameObject child = new GameObject ();
+			child.transform.parent = this.transform;
+            MapDisplay display = child.AddComponent(typeof(MapDisplay)) as MapDisplay;
             GameObject visualObject = display.CreateVisual(visual);
-            visualObject.transform.parent = this.transform;
+			visualObject.transform.parent = child.transform;
 
             display.SetRegions(regions);
             display.SetMapData(slice);
@@ -110,6 +112,7 @@ public class MapGenerator : MonoBehaviour {
         int newLod = Mathf.Max(levelOfDetail - currentZoomValue, 0);
         foreach (MapDisplay display in displays) {
             Bounds renderBounds = display.meshRenderer.bounds;
+			renderBounds.Expand (3.0F);
             Vector3 center = renderBounds.center;
             float distanceToCamera = Vector2.Distance(new Vector2(mapViewerPosition.x, mapViewerPosition.y - 0.35F), new Vector2(center.x, center.z));
             int distanceBasedLod = newLod + (int)distanceToCamera * 2;
