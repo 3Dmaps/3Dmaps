@@ -20,16 +20,18 @@ public class MapNeighborRelation {
         return displayNeighborRelation;
     }
 
+    public MapData GetOther(MapData member) {
+        if(member == firstMember) return secondMember;
+        else if (member == secondMember) return firstMember;
+        else throw new System.ArgumentException("Tried to GetOther for non-existing member!");
+    }
+
     public int GetOtherWidth(MapData member) {
-        if(member == firstMember) return secondMember.GetWidth();
-        else if (member == secondMember) return firstMember.GetWidth();
-        else throw new System.ArgumentException("Tried to GetOtherWidth for non-existing member!");
+        return GetOther(member).GetWidth();
     }
 
     public int GetOtherHeight(MapData member) {
-        if(member == firstMember) return secondMember.GetHeight();
-        else if (member == secondMember) return firstMember.GetHeight();
-        else throw new System.ArgumentException("Tried to GetOtherHeight for non-existing member!");
+        return GetOther(member).GetHeight();
     }
 
     public bool IsFirstMember(MapData member) {
