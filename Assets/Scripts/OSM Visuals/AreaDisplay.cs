@@ -42,22 +42,35 @@ public class AreaDisplay : MonoBehaviour {
         }
         return c;
     }
+    public bool isPointInsideBoundingBox(List<DisplayNode> dpnode, int x, int y) {
+
+        DisplayNode point = new DisplayNode((int) x, (int) y);
+        List<int> box = BoundingBoxUtil.BoundingBox(dpnode);
+        if (x > box[2] || x < box[0] || y > box[3] || y < box[1]) {
+            return false;
+        } 
+        return true;
+    }
 
     public Color GetAreaColor(float x, float y) {
         if (!showAreas) return Color.black;
 		for (int areaNum = 0; areaNum < areaBoundings.Count; areaNum++) {
-			if(IsPointInPolygon(areaBoundings[areaNum], new DisplayNode((int) x, (int) y))) {
-				return areaColors[areaNum];
+            DisplayNode point = new DisplayNode((int) x, (int) y);
+            if(isPointInsideBoundingBox(areaBoundings[areaNum], (int) x, (int) y)) {            
+			    if(IsPointInPolygon(areaBoundings[areaNum], new DisplayNode((int) x, (int) y))) {
+				    return areaColors[areaNum];
+                }
             }
-        }
-
+    }
         for (int riverNum = 0; riverNum < rivers.Count; riverNum++) {
 			for (int i = 0; i < rivers[riverNum].Count - 1; i++) {
                 DisplayNode point = new DisplayNode((int) x, (int) y);
                 DisplayNode riverNode1 = rivers[riverNum][i];
                 DisplayNode riverNode2 = rivers[riverNum][i + 1];
-                if (SegmentUtil.FindDistanceToSegmentRiver(point, riverNode1, riverNode2) < riverWidthConstant) {
-                    return Color.blue;
+                if(isPointInsideBoundingBox(rivers[riverNum], (int) x, (int) y)) { 
+                    if (SegmentUtil.FindDistanceToSegmentRiver(point, riverNode1, riverNode2) < riverWidthConstant) {
+                        return Color.blue;
+                    }
                 }
             }
         }

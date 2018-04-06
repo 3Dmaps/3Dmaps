@@ -77,11 +77,8 @@ public class OSMDataImporter {
 		trailNode.lon = float.Parse(node.GetAttribute(lonAttribute));
 
         wayNodes.Add(trailNode.id, trailNode);
-        
-        
+                
     }
-
-
     private static void ReadWay(Dictionary<long, OSMway> ways, XmlElement node) {
         OSMway way = new OSMway(long.Parse(node.GetAttribute(idAttribute)));
         foreach (XmlElement childNode in node.ChildNodes) {
@@ -96,28 +93,6 @@ public class OSMDataImporter {
         }
         ways.Add(way.GetID(), way);
     }
-
-    private static void ReadRelation(List<OSMrelation> relations, XmlElement node) {
-        OSMrelation relation = new OSMrelation(long.Parse(node.GetAttribute(idAttribute)));
-        foreach (XmlElement childNode in node.ChildNodes) {
-            if (childNode.GetAttribute(memberTypeAttribute).Equals("way")) {
-                OSMway way = new OSMway(long.Parse(childNode.GetAttribute(refAttribute)));
-                if 	(childNode.GetAttribute(roleAttribute).Equals("inner")) {
-                    relation.AddInner(way); 
-                }
-                if 	(childNode.GetAttribute(roleAttribute).Equals("outer")) {
-                    relation.AddOuter(way); 
-                }
-                
-            }
-            if (childNode.LocalName.Equals (tagElement)) {
-                relation.AddTag(childNode.GetAttribute ("k"), childNode.GetAttribute ("v"));
-            }
-        }
-        relations.Add(relation);
-    }
-
-
 
     private static void ReadXmlDocument(string path, XmlDocument xmlDoc) {
         try {

@@ -1,17 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System.Linq;
+// using System.Collections;
+// using System.Collections.Generic;
+// using UnityEngine;
+// using System.Linq;
 
-/// <summary>
-/// 
-///  
-/// </summary>
+// /// <summary>
+// /// 
+// ///  
+// /// </summary>
 
-public class DisplayPoly {
+// public class DisplayPoly {
 
-	private List<DisplayNode> boundings = new List<DisplayNode>();
-	private List<Color> colors = new List<Color> ();
+// 	private List<DisplayNode> boundings = new List<DisplayNode>();
+// 	private List<Color> colors = new List<Color> ();
 
 
-}
+// }
