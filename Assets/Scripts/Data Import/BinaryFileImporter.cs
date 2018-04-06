@@ -4,7 +4,7 @@ using UnityEngine;
 public static class BinaryFileImporter {
 
     private const string fileStart = "ENVI", separator = "=";
-    private const float lowestPossibleHeight = -10000f;
+    private const float lowestPossibleHeight = -11034f; // Mariana trench, source: Wikipedia
 
     public static BinaryFileMetadata ReadMetadata(string path) {
         BinaryFileMetadata metadata = new BinaryFileMetadata();
