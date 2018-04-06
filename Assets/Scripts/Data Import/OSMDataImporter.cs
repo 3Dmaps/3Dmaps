@@ -77,11 +77,8 @@ public class OSMDataImporter {
 		trailNode.lon = float.Parse(node.GetAttribute(lonAttribute));
 
         wayNodes.Add(trailNode.id, trailNode);
-        
-        
+                
     }
-
-
     private static void ReadWay(Dictionary<long, OSMway> ways, XmlElement node) {
         OSMway way = new OSMway(long.Parse(node.GetAttribute(idAttribute)));
         foreach (XmlElement childNode in node.ChildNodes) {
@@ -96,8 +93,6 @@ public class OSMDataImporter {
         }
         ways.Add(way.GetID(), way);
     }
-
-    
 
     private static void ReadXmlDocument(string path, XmlDocument xmlDoc) {
         try {

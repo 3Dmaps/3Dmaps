@@ -14,14 +14,14 @@ public static class BoundingBoxUtil{
     public static List<int> BoundingBox(List<DisplayNode> displaynode)   {
 
         List<int> BoundingBox = new List<int>();
-        minX = displaynode.Max(p=> p.x);
+        minX = displaynode.Min(p=> p.x);
         BoundingBox.Add(minX);
         minY = displaynode.Min(p => p.y);
         BoundingBox.Add(minY);
         maxX = displaynode.Max(p => p.x);
         BoundingBox.Add(maxX);
         maxY = displaynode.Max(p => p.y);       
-        BoundingBox.Add(minY);
+        BoundingBox.Add(maxY);
 
         return BoundingBox;
 

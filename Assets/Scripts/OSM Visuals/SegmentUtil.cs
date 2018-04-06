@@ -5,8 +5,7 @@ using UnityEngine;
 using System.Linq;
 
 /// <summary>
-/// 
-///  
+/// Find the shortest distance between a point and a line segment 
 /// </summary>
 
 public static class SegmentUtil {
