@@ -1,23 +1,24 @@
-using System.IO;
+﻿using System.IO;
 using UnityEngine;
 
 public static class BinaryFileImporter {
 
     private const string fileStart = "ENVI", separator = "=";
-    
+    private const float lowestPossibleHeight = -10000f;
+
     public static BinaryFileMetadata ReadMetadata(string path) {
         BinaryFileMetadata metadata = new BinaryFileMetadata();
-        using(StreamReader input = new StreamReader(path)) {
-            if(input.ReadLine() != fileStart) throw new System.ArgumentException(
-                "Binary file header should start with 'ENVI'!"
-                );
+        using (StreamReader input = new StreamReader(path)) {
+            if (input.ReadLine() != fileStart) throw new System.ArgumentException(
+                 "Binary file header should start with 'ENVI'!"
+                 );
             string line, key = null;
-            while((line = input.ReadLine()) != null) {
-                if(line.Contains(separator)) {
+            while ((line = input.ReadLine()) != null) {
+                if (line.Contains(separator)) {
                     string[] keyValue = line.Split(separator.ToCharArray());
-                    if(keyValue.Length != 2) throw new System.ArgumentException(
-                        "Invalid header data; multiple separators in a line"
-                        );
+                    if (keyValue.Length != 2) throw new System.ArgumentException(
+                         "Invalid header data; multiple separators in a line"
+                         );
                     key = keyValue[0];
                     metadata.Add(key, keyValue[1]);
                 } else {
@@ -32,25 +33,39 @@ public static class BinaryFileImporter {
     public static MapData ReadMapData(string path, BinaryFileMetadata metadata) {
         float[,] data = new float[metadata.GetColumns(), metadata.GetRows()];
         float min = float.MaxValue, max = float.MinValue;
-        using(BinaryReader input = new BinaryReader(File.Open(path, FileMode.Open))) {
-            for(int y = 0; y < metadata.GetRows(); y++) {
-                for(int x = 0; x < metadata.GetColumns(); x++) {
+        using (BinaryReader input = new BinaryReader(File.Open(path, FileMode.Open))) {
+            for (int y = 0; y < metadata.GetRows(); y++) {
+                for (int x = 0; x < metadata.GetColumns(); x++) {
                     float next = ReadNext(input, metadata);
                     data[x, y] = next;
-                    min = Mathf.Min(min, next);
-                    max = Mathf.Max(max, next);
+                    if (next >= lowestPossibleHeight) {
+                        min = Mathf.Min(min, next);
+                        max = Mathf.Max(max, next);
+                    }
                 }
             }
         }
         metadata.SetMinHeight(min);
         metadata.SetMaxHeight(max);
+        ReplaceNoDataValuesWithMinHeight(metadata, data);
+
         return new MapData(data, metadata);
     }
 
+    private static void ReplaceNoDataValuesWithMinHeight(BinaryFileMetadata metadata, float[,] data) {
+        for (int x = 0; x < metadata.GetColumns(); x++) {
+            for (int y = 0; y < metadata.GetRows(); y++) {
+                if (data[x, y] < lowestPossibleHeight) {
+                    data[x, y] = metadata.GetMinHeight();
+                }
+            }
+        }
+    }
+
     private static float ReadNext(BinaryReader reader, BinaryFileMetadata metadata) {
-        switch(metadata.GetDataType()) {
+        switch (metadata.GetDataType()) {
             case BinaryDataType.Single: return reader.ReadSingle();
-            case BinaryDataType.Double: return (float) reader.ReadDouble();
+            case BinaryDataType.Double: return (float)reader.ReadDouble();
             case BinaryDataType.Int16: return reader.ReadInt16();
             case BinaryDataType.Int32: return reader.ReadInt32();
             case BinaryDataType.Int64: return reader.ReadInt64();
