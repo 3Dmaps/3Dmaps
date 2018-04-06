@@ -8,7 +8,7 @@ using UnityEngine;
 /// </summary>
 
 public class River {
-    List<OSMNode> nodeList;
+    public List<OSMNode> nodeList;
     public long id;
 	
 

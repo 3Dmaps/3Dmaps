@@ -11,11 +11,19 @@ public class AreaDisplay : MonoBehaviour {
 
     private bool showAreas = true;
 	private List<List<DisplayNode>> areaBoundings = new List<List<DisplayNode>>();
+    private List<List<DisplayNode>> rivers = new List<List<DisplayNode>>();
+
 	private List<Color> areaColors = new List<Color> ();
+
+    private const int riverWidthConstant = 2;
 
 	public void AddArea(Color color, List<DisplayNode> areaBounds) {
 		areaColors.Add (color);
 		areaBoundings.Add (areaBounds);
+	}
+
+    public void AddRiver(List<DisplayNode> riverNodes) {		
+		rivers.Add (riverNodes);
 	}
 
 	public void displayAreas() {
@@ -42,7 +50,18 @@ public class AreaDisplay : MonoBehaviour {
 				return areaColors[areaNum];
             }
         }
+
+        for (int riverNum = 0; riverNum < rivers.Count; riverNum++) {
+			for (int i = 0; i < rivers[riverNum].Count - 1; i++) {
+                DisplayNode point = new DisplayNode((int) x, (int) y);
+                DisplayNode riverNode1 = rivers[riverNum][i];
+                DisplayNode riverNode2 = rivers[riverNum][i + 1];
+                if (SegmentUtil.FindDistanceToSegmentRiver(point, riverNode1, riverNode2) < riverWidthConstant) {
+                    return Color.blue;
+                }
+            }
+        }
         return Color.black;
     }
-	
+
 }
