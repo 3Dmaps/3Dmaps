@@ -5,12 +5,13 @@ using UnityEngine;
 
 public class InputHandler : MonoBehaviour {
 
-    public Transform target;
+    private Transform target;
     public Camera cam;
     public MapGenerator mapGenerator;
 
     public float perspectiveZoomSpeed = 0.5f;
-    public float orthoZoomSpeed       = 0.5f;
+    public float zoomMaxValue         = 100.0F;
+    public float zoomMinValue         = 5.0F;
     private int lodUpdateCounter      = 0;
     public int lodUpdateInterval      = 5;
 
@@ -22,6 +23,16 @@ public class InputHandler : MonoBehaviour {
         InputController.OnInputStarted    += OnInputStarted;
         InputController.OnInput           += OnInput;
         InputController.OnInputEnded      += OnInputEnded;
+
+        target = mapGenerator.gameObject.transform.parent.transform;
+    }
+
+    void Update()
+    {
+        if (Input.GetAxis("Mouse ScrollWheel") != 0f)
+        {
+            ZoomCamera(Input.GetAxis("Mouse ScrollWheel") * 100);
+        }
     }
 
     private void OnInputEnded(List<InputData> inputs) {
@@ -44,24 +55,6 @@ public class InputHandler : MonoBehaviour {
         }
     }
 
-    private void HandleZoom(List<InputData> inputs) {
-        Vector2 touchZeroPrevPos = inputs[0].prevPosition;
-        Vector2 touchOnePrevPos  = inputs[1].prevPosition;
-        float prevTouchDeltaMag  = (touchZeroPrevPos - touchOnePrevPos).magnitude;
-        float touchDeltaMag      = (inputs[0].currentPosition - inputs[1].currentPosition).magnitude;
-        float deltaMagnitudeDiff = prevTouchDeltaMag - touchDeltaMag;
-
-        if (cam.orthographic) {
-            cam.orthographicSize += deltaMagnitudeDiff * orthoZoomSpeed;
-            cam.orthographicSize = Mathf.Max(cam.orthographicSize, 0.1f);
-        } else {
-            cam.fieldOfView += deltaMagnitudeDiff * perspectiveZoomSpeed;
-            cam.fieldOfView = Mathf.Clamp(cam.fieldOfView, 0.1f, 179.9f);
-        }
-
-        UpdateLod();
-    }
-
     void OnSwipeDetected(Swipe direction, Vector2 swipeVelocity) {
         float speed = 0.01F;
         float max_x = 0.5F;
@@ -73,6 +66,25 @@ public class InputHandler : MonoBehaviour {
         newPos.y = Mathf.Clamp(newPos.y + (swipeVelocity.y * Time.deltaTime * speed), min_y, max_y);
         mapGenerator.mapViewerPosition = newPos;
         mapGenerator.gameObject.transform.position = new Vector3(mapGenerator.mapViewerPosition.x, 0, mapGenerator.mapViewerPosition.y);
+        UpdateLod();
+    }
+
+
+    private void HandleZoom(List<InputData> inputs)
+    {
+        Vector2 touchZeroPrevPos = inputs[0].prevPosition;
+        Vector2 touchOnePrevPos = inputs[1].prevPosition;
+        float prevTouchDeltaMag = (touchZeroPrevPos - touchOnePrevPos).magnitude;
+        float touchDeltaMag = (inputs[0].currentPosition - inputs[1].currentPosition).magnitude;
+        float deltaMagnitudeDiff = prevTouchDeltaMag - touchDeltaMag;
+        ZoomCamera(deltaMagnitudeDiff);
+    }
+
+    private void ZoomCamera(float deltaMagnitudeDiff)
+    {
+        cam.fieldOfView += deltaMagnitudeDiff * perspectiveZoomSpeed;
+        cam.fieldOfView = Mathf.Clamp(cam.fieldOfView, zoomMinValue, zoomMaxValue);
+        cam.transform.LookAt(target);
         UpdateLod();
     }
 
@@ -93,7 +105,6 @@ public class InputHandler : MonoBehaviour {
         float turnAngle = Angle(inputs[0].currentPosition, inputs[1].currentPosition);
         float prevTurn  = Angle(inputs[0].prevPosition, inputs[1].prevPosition);
         float turnAngleDelta = Mathf.Abs(Mathf.DeltaAngle(prevTurn, turnAngle));
-
         return turnAngleDelta > 0;
     }
 
