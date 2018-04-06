@@ -5451,4 +5451,18 @@
     <nd ref="8"/>
     <tag k="landuse" v="meadow"/>
   </way>
+
+
+  <way id="0407771579" version="1" timestamp="2015-01-07T15:39:09Z" uid="183021" user="tomthepom" changeset="27979177">    
+    <nd ref="5"/>
+    <nd ref="6"/>
+    <nd ref="8"/>
+    <tag k="name" v="Clear Creek"/>
+    <tag k="waterway" v="river"/>
+    <tag k="intermittent" v="yes"/>
+  </way>
+
+
+
+
 </osm>

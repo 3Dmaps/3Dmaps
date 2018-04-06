@@ -15,7 +15,7 @@ public class AreaDisplay : MonoBehaviour {
 
 	private List<Color> areaColors = new List<Color> ();
 
-    private const int riverWidthConstant = 2;
+    public const int riverWidthConstant = 100;
 
 	public void AddArea(Color color, List<DisplayNode> areaBounds) {
 		areaColors.Add (color);
