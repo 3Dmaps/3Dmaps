@@ -18,9 +18,8 @@ public class BoundingBoxUtilTest {
         nodeList.Add(new DisplayNode (4, 4));
         BoundingBoxUtil.BoundingBox(nodeList);
 		List<DisplayNode> expected = new List<DisplayNode> ();
-		nodeList.Add(new DisplayNode (1, 1));
-		nodeList.Add(new DisplayNode (4, 4));
-        // Assert.True (BoundingBoxUtil.BoundingBox(nodeList), "No node was created!");        
-        CollectionAssert.AreEqual(expected, BoundingBoxUtil.BoundingBox(nodeList));
+		expected.Add(new DisplayNode (1, 1));
+		expected.Add(new DisplayNode (4, 4));        
+        CollectionAssert.AreEqual(BoundingBoxUtil.BoundingBox(expected), BoundingBoxUtil.BoundingBox(nodeList));
     }
 }    

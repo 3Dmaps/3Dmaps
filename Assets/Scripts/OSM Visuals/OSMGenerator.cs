@@ -39,6 +39,7 @@ public class OSMGenerator : MonoBehaviour {
 		GenerateTrails(osmData);
 		GeneratePoiNodes(osmData);
 		GenerateAreas (osmData);
+		GenerateRivers(osmData);
 	}
 
 	private void GenerateTrails(OSMData osmData) {
