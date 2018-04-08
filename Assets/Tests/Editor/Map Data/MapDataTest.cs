@@ -112,11 +112,53 @@ public class MapDataTest {
     }
 
     [Test]
+    public void GetSlices_NeighborRelationsCorrect() {
+        List<MapDataSlice> slices = mapdata.GetSlices(0, 0, 2, 3, 2, 2);
+        Assert.True(slices[0].GetNeighbors().Count == 2);
+        MapData rightNeighsBottomNeigh = null, bottomNeighsRightNeigh = null;
+        foreach(MapNeighborRelation rel in slices[0].GetNeighbors()) {
+            Assert.True(rel.IsFirstMember(slices[0]));
+            MapDataSlice other = (MapDataSlice)rel.GetOther(slices[0]);
+            Assert.True(other.GetNeighbors().Contains(rel));
+            Assert.False(rel.IsFirstMember(other));
+            if(rel.neighborType == NeighborType.LeftRight) {
+                rightNeighsBottomNeigh = other.GetNeighbors()
+                    .Where((nr) => nr.neighborType == NeighborType.TopBottom)
+                    .Where((nr) => nr.IsFirstMember(other))
+                    .First().GetOther(other);
+            } else {
+                bottomNeighsRightNeigh = other.GetNeighbors()
+                    .Where((nr) => nr.neighborType == NeighborType.LeftRight)
+                    .Where((nr) => nr.IsFirstMember(other))
+                    .First().GetOther(other);
+            }
+        }
+        Assert.True(rightNeighsBottomNeigh == bottomNeighsRightNeigh);
+    }
+
+    [Test]
     // Used to be "count and lods", now just tests the lods as the actual count of slices is done as with MapDataSlice and that's already tested
     public void GetDisplayReadySlices_LODsCorrect() {
         List<DisplayReadySlice> slices = mapdata.GetDisplayReadySlices(2, 1);
         foreach (DisplayReadySlice slice in slices) {
             Assert.True(1 == slice.lod, "LOD was incorrect for a slice! (should be 1, was " + slice.lod + ")");
+        }
+    }
+
+    [Test]
+    public void GetDisplayReadySlices_DisplayNeighborRelationsCorrect() {
+        List<DisplayReadySlice> slices = mapdata.GetDisplayReadySlices(2, 1);
+        foreach(DisplayReadySlice slice in slices) {
+            Assert.True(slice.GetNeighbors().Count == slice.GetDisplayNeighbors().Count, 
+                        "There were " + slice.GetNeighbors().Count + " neighbors but " 
+                        + slice.GetDisplayNeighbors().Count + " displayneighbors!");
+            foreach(MapNeighborRelation rel in slice.GetNeighbors()){
+                Assert.True(slice.GetDisplayNeighbors().Contains(rel.AsDisplayNeighborRelation()));
+                Assert.True(rel.AsDisplayNeighborRelation()
+                               .GetOtherDRSlice(slice)
+                               .GetDisplayNeighbors()
+                               .Contains(rel.AsDisplayNeighborRelation()));
+            }
         }
     }
 
