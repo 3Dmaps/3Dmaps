@@ -5452,12 +5452,15 @@
     <tag k="landuse" v="meadow"/>
   </way>
 
-
-  <way id="0407771579" version="1" timestamp="2015-01-07T15:39:09Z" uid="183021" user="tomthepom" changeset="27979177">    
-    <nd ref="5"/>
-    <nd ref="6"/>
-    <nd ref="8"/>
-    <tag k="name" v="Clear Creek"/>
+  <node id="9" version="1" timestamp="2012-08-11T15:42:08Z" uid="24920" user="Schusch" changeset="12692630" lat="36.03" lon="-112.1"/>
+  <node id="10" version="1" timestamp="2012-08-11T15:42:08Z" uid="24920" user="Schusch" changeset="12692630" lat="36.07" lon="-112.15"/>
+  <node id="11" version="1" timestamp="2012-08-11T15:42:08Z" uid="24920" user="Schusch" changeset="12692630" lat="36.03" lon="-112.20"/>
+  
+  <way id="0407771579" version="1" timestamp="2015-01-07T15:39:09Z" uid="183021" user="tomthepom" changeset="27979177">  
+    <nd ref="9"/>
+    <nd ref="10"/>
+    <nd ref="11"/>
+    <tag k="name" v="Fake river"/>
     <tag k="waterway" v="river"/>
     <tag k="intermittent" v="yes"/>
   </way>
