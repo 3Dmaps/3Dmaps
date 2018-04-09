@@ -9,7 +9,6 @@ using System.Linq;
 /// </summary>
 
 public static class SegmentUtil {
-    private static List<DisplayNode> displaynodes = new List<DisplayNode>();
     public static double FindDistanceToSegmentRiver(DisplayNode point, DisplayNode dpnode, DisplayNode dpnode2){
             
         float dx = dpnode2.x - dpnode.x;

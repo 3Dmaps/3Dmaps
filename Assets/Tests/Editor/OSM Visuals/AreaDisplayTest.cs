@@ -25,7 +25,7 @@ public class AreaDisplayTest {
 
 		display.AddArea (Color.blue, nodeList);
 
-		Assert.True (display.GetAreaColor (1, 1) == Color.blue, "Wrong color found at 1,1!");
+		Assert.True (display.GetPointColor (1, 1) == Color.blue, "Wrong color found at 1,1!");
 	}
 
 	[Test]
@@ -38,7 +38,7 @@ public class AreaDisplayTest {
 
 		display.AddArea (Color.blue, nodeList);
 
-		Assert.True (display.GetAreaColor (2, 2) == Color.black, "A color was erroneously found!");
+		Assert.True (display.GetPointColor (2, 2) == Color.black, "A color was erroneously found!");
 	}
 
 	[Test]
@@ -53,7 +53,7 @@ public class AreaDisplayTest {
 
 		display.AddArea (Color.blue, nodeList);
 
-		Assert.True (display.GetAreaColor (1, 1) == Color.blue, "Wrong color found at 1,1!");
+		Assert.True (display.GetPointColor (1, 1) == Color.blue, "Wrong color found at 1,1!");
 	}
 
 	[Test]
@@ -73,8 +73,8 @@ public class AreaDisplayTest {
 		display.AddArea (Color.blue, nodeList);
 		display.AddArea (Color.red, nodeList2);
 
-		Assert.True (display.GetAreaColor (1, 1) == Color.blue, "Wrong color found at 1,1!");
-		Assert.True (display.GetAreaColor (4, 4) == Color.red, "Wrong color found at 4,4!");
+		Assert.True (display.GetPointColor (1, 1) == Color.blue, "Wrong color found at 1,1!");
+		Assert.True (display.GetPointColor (4, 4) == Color.red, "Wrong color found at 4,4!");
 	}
 
 

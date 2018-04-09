@@ -44,7 +44,7 @@ public class MapDisplayData {
 				float currentHeight = mapData.GetSquished(x, y);
                 float scaledPosX = (slice.GetX() + x);
                 float scaledPosY = (slice.GetY() + y);
-                Color areaColor = areaDisplay.GetAreaColor(scaledPosX, scaledPosY);
+                Color areaColor = areaDisplay.GetPointColor(scaledPosX, scaledPosY);
 				Color regionColor = GetRegionColour(currentHeight);
 
 				if (areaColor != Color.black) {

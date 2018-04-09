@@ -15,7 +15,7 @@ public class AreaDisplay : MonoBehaviour {
 
 	private List<Color> areaColors = new List<Color> ();
 
-    public const int riverWidthConstant = 3;
+    public const int riverWidthConstant = 4;
 
 	public void AddArea(Color color, List<DisplayNode> areaBounds) {
 		areaColors.Add (color);
@@ -23,7 +23,7 @@ public class AreaDisplay : MonoBehaviour {
 	}
 
     public void AddRiver(List<DisplayNode> riverNodes) {		
-		rivers.Add (riverNodes);       
+		rivers.Add (riverNodes);               
 	}
 
 	public void displayAreas() {
@@ -42,37 +42,54 @@ public class AreaDisplay : MonoBehaviour {
         }
         return c;
     }
-    public bool isPointInsideBoundingBox(List<DisplayNode> dpnode, int x, int y) {
-        List<int> box = BoundingBoxUtil.BoundingBox(dpnode);
+    public bool isPointInsideBoundingBox(List<int> box, int x, int y) {
         if (x > box[2] || x < box[0] || y > box[3] || y < box[1]) {
             return false;
         } 
         return true;
     }
 
-    public Color GetAreaColor(float x, float y) {
-        if (!showAreas) return Color.black;
-        DisplayNode point = new DisplayNode((int) x, (int) y);
+    
 
-		for (int areaNum = 0; areaNum < areaBoundings.Count; areaNum++) {
-            if(isPointInsideBoundingBox(areaBoundings[areaNum], (int) x, (int) y)) {            
-			    if(IsPointInPolygon(areaBoundings[areaNum], point)) {
+    public Color GetPointColor(float x, float y) {
+        if (!showAreas) return Color.black;        
+        Color color = GetAreaColor(x, y);
+        if (InRiver(x, y)) {
+            color = Color.blue;
+        }
+        return color;
+    }
+
+    public Color GetAreaColor(float x, float y) {
+        for (int areaNum = 0; areaNum < areaBoundings.Count; areaNum++) {
+            // List<int> bbox = BoundingBoxUtil.BoundingBox(areaBoundings[areaNum]);
+            // if(isPointInsideBoundingBox(bbox, (int) x, (int) y)) {            
+			    if(IsPointInPolygon(areaBoundings[areaNum], new DisplayNode((int) x, (int) y))) {
 				    return areaColors[areaNum];
                 }
-            }
-        }
-        for (int riverNum = 0; riverNum < rivers.Count; riverNum++) {                                    
-			for (int i = 0; i < rivers[riverNum].Count - 1; i++) {                                           
-                DisplayNode riverNode1 = rivers[riverNum][i];
-                DisplayNode riverNode2 = rivers[riverNum][i + 1];                               
-                if(isPointInsideBoundingBox(rivers[riverNum], (int) x, (int) y)) {                   
-                    if (SegmentUtil.FindDistanceToSegmentRiver(point, riverNode1, riverNode2) < riverWidthConstant) {                                       
-                        return Color.blue;
-                    }
-                }
-            }
+            // }
         }
         return Color.black;
     }
+
+    public bool InRiver(float x, float y) {
+        for (int riverNum = 0; riverNum < rivers.Count; riverNum++) {
+            List<int> bbox = BoundingBoxUtil.BoundingBox(rivers[riverNum]);  
+            
+            if (isPointInsideBoundingBox(bbox, (int) x, (int) y)) {                                  
+                for (int i = 0; i < rivers[riverNum].Count - 1; i++) {
+                    DisplayNode point = new DisplayNode((int) x, (int) y);                                           
+                    DisplayNode riverNode1 = rivers[riverNum][i];
+                    DisplayNode riverNode2 = rivers[riverNum][i + 1];                            
+                    if (SegmentUtil.FindDistanceToSegmentRiver(point, riverNode1, riverNode2) < riverWidthConstant) {                                       
+                        return true;
+                    }
+
+                }
+            }
+        }
+        return false;
+    }        
+    
 
 }
