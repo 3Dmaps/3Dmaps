@@ -105,9 +105,12 @@ public class OSMDataImporter {
     }
 
     private static void FillInWayNodeLatLon(OSMway way, Dictionary<long, OSMNode> wayNodes) {
+        OSMNode value;
         foreach (OSMNode node in way.GetNodeList()) {
-			node.lat = wayNodes[node.id].lat;
-			node.lon = wayNodes[node.id].lon;
+            if (wayNodes.TryGetValue(node.id, out value)) {
+                node.lat = value.lat;
+			    node.lon = value.lon;
+            }			
         }
     }
 }

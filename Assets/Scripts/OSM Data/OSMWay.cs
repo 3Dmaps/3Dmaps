@@ -31,7 +31,7 @@ public class OSMway {
     }
 
     public bool IsRiver() {
-        return this.tags.ContainsValue("river");
+        return this.tags.ContainsValue("river") || this.tags.ContainsValue("stream");
     }
 
     public string LandUse() {

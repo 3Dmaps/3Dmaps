@@ -62,12 +62,12 @@ public class AreaDisplay : MonoBehaviour {
 
     public Color GetAreaColor(float x, float y) {
         for (int areaNum = 0; areaNum < areaBoundings.Count; areaNum++) {
-            // List<int> bbox = BoundingBoxUtil.BoundingBox(areaBoundings[areaNum]);
-            // if(isPointInsideBoundingBox(bbox, (int) x, (int) y)) {            
+            List<int> bbox = BoundingBoxUtil.BoundingBox(areaBoundings[areaNum]);
+            if(isPointInsideBoundingBox(bbox, (int) x, (int) y)) {            
 			    if(IsPointInPolygon(areaBoundings[areaNum], new DisplayNode((int) x, (int) y))) {
 				    return areaColors[areaNum];
                 }
-            // }
+            }
         }
         return Color.black;
     }
