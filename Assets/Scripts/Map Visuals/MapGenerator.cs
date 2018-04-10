@@ -15,6 +15,9 @@ public class MapGenerator : MonoBehaviour {
 
     public DrawMode drawMode;
 
+	public int maxZoomValue = 10;
+	public int minZoomValue = 0;
+
     public int mapSliceSize = 200;
     [Range(0, 24)]
     public int levelOfDetail;
@@ -102,8 +105,15 @@ public class MapGenerator : MonoBehaviour {
 
 
     public void UpdateZoomLevel(int newVal) {
-        currentZoomValue = newVal;
-        UpdateLOD();
+		if (newVal > maxZoomValue) {
+			currentZoomValue = maxZoomValue;
+		} else if (newVal < minZoomValue) {
+			currentZoomValue = minZoomValue;
+		} else {
+			currentZoomValue = newVal;
+		}
+
+		UpdateLOD();
     }
 
     public void UpdateLOD() {

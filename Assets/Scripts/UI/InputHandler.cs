@@ -92,8 +92,11 @@ public class InputHandler : MonoBehaviour {
     {
         cam.fieldOfView += deltaMagnitudeDiff * perspectiveZoomSpeed;
         cam.fieldOfView = Mathf.Clamp(cam.fieldOfView, zoomMinValue, zoomMaxValue);
+
+		int currentZoomLevel = (int) (mapGenerator.maxZoomValue - ((cam.fieldOfView - 5) / 95) * mapGenerator.maxZoomValue); 
+		if(mapGenerator != null) mapGenerator.UpdateZoomLevel(currentZoomLevel);
+
         cam.transform.LookAt(target);
-        UpdateLod();
     }
 
     private Vector2 CalculateTouchToTouchVec(List<InputData> inputs) {
