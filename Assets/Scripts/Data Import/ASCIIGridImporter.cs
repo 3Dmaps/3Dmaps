@@ -35,7 +35,7 @@ public static class ASCIIGridImporter {
             return null;
         }
         float[,] mapData = new float[metadata.ncols, metadata.nrows];
-        float minHeight = metadata.nodatavalue, maxHeight = metadata.nodatavalue;
+        float minHeight = float.MaxValue, maxHeight = float.MinValue;
         using (StreamReader input = new StreamReader(path)) {
             string line;
             int x = 0, y = 0;
@@ -46,15 +46,13 @@ public static class ASCIIGridImporter {
                     foreach (string value in values) {
                         try {
                             float height = float.Parse(value);
-                            if (height < minHeight) {
-                                minHeight = height;
-                            } else if (minHeight == metadata.nodatavalue) {
-                                minHeight = height;
-                            }
-                            if (height > maxHeight) {
-                                maxHeight = height;
-                            } else if (maxHeight == metadata.nodatavalue) {
-                                maxHeight = height;
+                            if (height != metadata.nodatavalue) {
+                                if (height < minHeight) {
+                                    minHeight = height;
+                                }
+                                if (height > maxHeight) {
+                                    maxHeight = height;
+                                }
                             }
                             mapData[x, y] = height;
                         } catch (Exception e) {
@@ -67,9 +65,22 @@ public static class ASCIIGridImporter {
                 }
             }
         }
+
         metadata.Set(ASCIIGridMetadata.minheightKey, minHeight.ToString());
         metadata.Set(ASCIIGridMetadata.maxheightKey, maxHeight.ToString());
+
+        ReplaceNoDataValuesWithMinHeight(metadata, mapData);
+
         return new MapData(mapData, metadata);
     }
 
+    private static void ReplaceNoDataValuesWithMinHeight(ASCIIGridMetadata metadata, float[,] mapData) {
+        for (int x = 0; x < metadata.ncols; x++) {
+            for (int y = 0; y < metadata.nrows; y++) {
+                if (mapData[x, y] == metadata.nodatavalue) {
+                    mapData[x, y] = metadata.minheight;
+                }
+            }
+        }
+    }
 }

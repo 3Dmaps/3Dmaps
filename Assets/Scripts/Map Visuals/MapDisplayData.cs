@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -47,7 +47,7 @@ public class MapDisplayData {
 				float currentHeight = mapData.GetSquished(x, y);
                 float scaledPosX = (slice.GetX() + x);
                 float scaledPosY = (slice.GetY() + y);
-                Color areaColor = areaDisplay.GetAreaColor(scaledPosX, scaledPosY);
+                Color areaColor = areaDisplay.GetPointColor(scaledPosX, scaledPosY);
 				Color regionColor = GetRegionColour(currentHeight);
 
 				if (areaColor != Color.black) {
@@ -83,8 +83,90 @@ public class MapDisplayData {
 	}
 
     private Mesh GenerateMesh() {
-		return MeshGenerator.GenerateTerrainMesh(mapData).CreateMesh();
+		return FixNormals(MeshGenerator.GenerateTerrainMesh(mapData).CreateMesh());
 	}
+
+    private static void FillInNormals(Vector3[] normals, int coord, int inc, 
+        Func<int, int> indexFunc, Vector3 normal) {
+        
+        if(inc > 1 && coord > 0) {
+            for(int i = 1; i < inc; i++) {
+                normals[indexFunc(coord - i)] = normal;
+            }
+        }
+
+    }
+
+    private static void FixNormalEdge(
+        Vector3[] first, int firstDimension, Func<int, int> firstIndexFunc,
+        Vector3[] second, int secondDimension, Func<int, int> secondIndexFunc
+        ) {
+        
+        int firstCoord = 0, secondCoord = 0;
+        int firstInc = secondDimension / firstDimension > 0 ? secondDimension / firstDimension : 1;
+        int secondInc = firstDimension / secondDimension > 0 ? firstDimension / secondDimension : 1;
+        while(firstCoord < firstDimension && secondCoord < secondDimension) {
+            int firstIndex = firstIndexFunc(firstCoord);
+            int secondIndex = secondIndexFunc(secondCoord);
+            Vector3 firstNormal = first[firstIndex];
+            Vector3 secondNormal = second[secondIndex];
+            Vector3 consensus = (firstNormal + secondNormal);
+            consensus.Normalize();
+            first[firstIndex] = consensus;
+            second[secondIndex] = consensus;
+            FillInNormals(first, firstCoord, firstInc, firstIndexFunc, consensus);
+            FillInNormals(second, secondCoord, secondInc, secondIndexFunc, consensus);
+            firstCoord += firstInc;
+            secondCoord += secondInc;
+        }
+
+    }
+
+    public static void FixNormals(
+        Vector3[] first, int firstWidth, int firstHeight,
+        Vector3[] second, int secondWidth, int secondHeight,
+        NeighborType relation) {
+        
+        if(relation == NeighborType.TopBottom) {
+            FixNormalEdge(
+                first, firstWidth, (x) => firstHeight*(firstWidth - 1) + x,
+                second, secondWidth, (x) => x
+            );
+        } else if (relation == NeighborType.LeftRight) {
+            FixNormalEdge(
+                first, firstHeight, (y) => y * firstWidth + (firstWidth - 1),
+                second, secondHeight, (y) => y * secondWidth
+            );
+        } else throw new System.ArgumentException("Unsupported NeighborType " + relation);
+
+    }
+
+    public Mesh FixNormals(Mesh mesh) {
+        Vector3[] normals = mesh.normals;
+        int width = MeshGenerator.GetVerticesPerDimension(mapData.GetWidth(), GetActualLOD());
+        int height = MeshGenerator.GetVerticesPerDimension(mapData.GetHeight(), GetActualLOD());
+        foreach(DisplayNeighborRelation relation in mapData.GetDisplayNeighbors()) {
+            MapDisplay other = relation.GetOtherDisplay(mapData);
+            if(other == null || other.GetStatus() == MapDisplayStatus.HIDDEN) continue;
+            Mesh otherMesh = relation.GetOtherMesh(mapData);
+            DisplayReadySlice otherSlice = relation.GetOtherDRSlice(mapData);
+            Vector3[] otherNormals = otherMesh.normals;
+            int otherWidth =  MeshGenerator.GetVerticesPerDimension(otherSlice.GetWidth(), other.GetActualLOD());
+            int otherHeight = MeshGenerator.GetVerticesPerDimension(otherSlice.GetHeight(), other.GetActualLOD());
+            if(relation.IsFirstMember(mapData)) {
+                FixNormals(normals, width, height,
+                              otherNormals, otherWidth, otherHeight,
+                              relation.neighborType);
+            } else {
+                FixNormals(otherNormals, otherWidth, otherHeight,
+                              normals, width, height,
+                              relation.neighborType);
+            }
+            otherMesh.normals = otherNormals;
+        }
+        mesh.normals = normals;
+        return mesh;
+    }
 
     public Texture2D GenerateTexture() {
 		if (regions != null)
@@ -99,6 +181,10 @@ public class MapDisplayData {
 			mesh = GenerateMesh();
 		}
 	}
+
+    public int GetActualLOD() {
+        return status == MapDisplayStatus.LOW_LOD ? lowLod * 2 : mapData.GetActualLOD();
+    }
 
     public MapDisplayStatus PrepareDraw() {
         if(texture == null) texture = GenerateTexture();
