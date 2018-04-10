@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using UnityEngine;
 
 /// <summary>
@@ -16,7 +17,7 @@ public static class SatelliteImageImporter {
 
 		try {
 			imageData = File.ReadAllBytes (path);
-		} catch (FileNotFoundException e) {
+		} catch (Exception e) {
 			Debug.Log (e.Message);
 			Debug.Log ("Satellite image at '" + path + "' not found!");
 
