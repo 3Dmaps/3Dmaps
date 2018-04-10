@@ -1,17 +1,23 @@
-// using System.Collections;
-// using System.Collections.Generic;
-// using UnityEngine;
-// using System.Linq;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using System.Linq;
 
-// /// <summary>
-// /// 
-// ///  
-// /// </summary>
+/// <summary>
+/// Object storing data used to display areas and rivers by the AreaDisplay class.
+/// </summary>
 
-// public class DisplayPoly {
+public class DisplayPoly {
 
-// 	private List<DisplayNode> boundings = new List<DisplayNode>();
-// 	private List<Color> colors = new List<Color> ();
+ 	public List<DisplayNode> displayNodes = new List<DisplayNode>();
+	public List<int> boundingBox = new List<int>();
+	public Color color;
+	public PolyType type;
 
 
-// }
+	public DisplayPoly(List<DisplayNode> displayNodes) {
+		this.displayNodes = displayNodes;
+	}
+ }
+
+public enum PolyType {Area, River}
