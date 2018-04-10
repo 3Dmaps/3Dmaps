@@ -1,5 +1,6 @@
 using System;
 using NUnit.Framework;
+using UnityEngine;
 
 public class MapDisplayDataTest {
 
@@ -38,6 +39,48 @@ public class MapDisplayDataTest {
         Assert.True(dispData.GetMesh() == dispData.mesh, "Mesh was not updated!");
         dispData.SetStatus(MapDisplayStatus.HIDDEN);
         Assert.True(dispData.GetMesh() == dispData.lowLodMesh, "Mesh was not updated!");
+    }
+
+    [Test]
+    public void MapDisplayData_FixesLeftRightNormalEdgeCorrectly() {
+        Vector3[] n1 = new Vector3[]{
+            new Vector3(0, 1, 0), new Vector3(0, 2, 0),
+            new Vector3(0, 1, 0), new Vector3(0, 0, 1),
+        };
+        Vector3[] n2 = new Vector3[]{
+            new Vector3(0, 3, 0), new Vector3(0, 1, 0), new Vector3(0, 1, 0),
+            new Vector3(0, 1, 0), new Vector3(0, 1, 0), new Vector3(0, 1, 0),
+            new Vector3(0, 0, 2), new Vector3(0, 1, 0), new Vector3(0, 1, 0),
+        };
+        MapDisplayData.FixNormals(n1, 2, 2, n2, 3, 3, NeighborType.LeftRight);
+        Action<Vector3, float, float, float> checkVector = (v3, x, y, z) => {
+            Assert.True(Mathf.Approximately(v3.x, x), "Incorrect X, should be: " + x + ", was: " + v3.x);
+            Assert.True(Mathf.Approximately(v3.y, y), "Incorrect Y, should be: " + y + ", was: " + v3.y);
+            Assert.True(Mathf.Approximately(v3.z, z), "Incorrect Z, should be: " + z + ", was: " + v3.z);
+        };
+        checkVector(n1[1], 0, 1, 0); checkVector(n1[3], 0, Mathf.Sqrt(2)/2, Mathf.Sqrt(2)/2);
+        checkVector(n2[0], 0, 1, 0); checkVector(n2[3], 0, Mathf.Sqrt(2)/2, Mathf.Sqrt(2)/2);
+    }
+
+    public void MapDisplayData_FixesTopBottomNormalEdgeCorrectly() {
+        Vector3[] n1 = new Vector3[]{
+            new Vector3(0, 1, 0), new Vector3(0, 1, 0), new Vector3(0, 1, 0), new Vector3(0, 1, 0),
+            new Vector3(0, 1, 0), new Vector3(0, 1, 0), new Vector3(0, 1, 0), new Vector3(0, 1, 0),
+            new Vector3(0, 1, 0), new Vector3(0, 1, 0), new Vector3(0, 1, 0), new Vector3(0, 1, 0),
+            new Vector3(1, 0, 0), new Vector3(3, 0, 1), new Vector3(2, 0, 0), new Vector3(0, 0, 1),
+        };
+        Vector3[] n2 = new Vector3[]{
+            new Vector3(0, 1, 0), new Vector3(2, 0, 0),
+            new Vector3(0, 1, 0), new Vector3(0, 1, 0),
+        };
+        MapDisplayData.FixNormals(n1, 4, 4, n2, 2, 2, NeighborType.TopBottom);
+        Action<Vector3, float, float, float> checkVector = (v3, x, y, z) => {
+            Assert.True(Mathf.Approximately(v3.x, x), "Incorrect X, should be: " + x + ", was: " + v3.x);
+            Assert.True(Mathf.Approximately(v3.y, y), "Incorrect Y, should be: " + y + ", was: " + v3.y);
+            Assert.True(Mathf.Approximately(v3.z, z), "Incorrect Z, should be: " + z + ", was: " + v3.z);
+        };
+        checkVector(n1[12], Mathf.Sqrt(2)/2, Mathf.Sqrt(2)/2, 0); checkVector(n1[13], 1, 0, 0); checkVector(n1[14], 1, 0, 0);
+        checkVector(n2[0], Mathf.Sqrt(2)/2, Mathf.Sqrt(2)/2, 0); checkVector(n2[1], 1, 0, 0);
     }
 
 }
