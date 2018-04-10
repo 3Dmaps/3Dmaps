@@ -15,6 +15,9 @@ public class MapGenerator : MonoBehaviour {
 
     public DrawMode drawMode;
 
+	public int maxZoomValue = 10;
+	public int minZoomValue = 0;
+
     public int mapSliceSize = 200;
     [Range(0, 24)]
     public int levelOfDetail;
@@ -77,11 +80,11 @@ public class MapGenerator : MonoBehaviour {
 
         foreach (DisplayReadySlice slice in actualMapData.GetDisplayReadySlices(mapSliceSize, levelOfDetail)) {
 
-            MapDisplay display = gameObject.AddComponent(typeof(MapDisplay)) as MapDisplay;
-            slice.AddDisplay(display);
+			      GameObject child = new GameObject ();
+			      child.transform.parent = this.transform;
+            MapDisplay display = child.AddComponent(typeof(MapDisplay)) as MapDisplay;
             GameObject visualObject = display.CreateVisual(visual);
-            visualObject.transform.parent = this.transform;
-            display.meshRenderer.probeAnchor = this.transform;
+			      visualObject.transform.parent = child.transform;
 
             display.SetRegions(regions);
             display.SetMapData(slice);
@@ -102,8 +105,15 @@ public class MapGenerator : MonoBehaviour {
 
 
     public void UpdateZoomLevel(int newVal) {
-        currentZoomValue = newVal;
-        UpdateLOD();
+		if (newVal > maxZoomValue) {
+			currentZoomValue = maxZoomValue;
+		} else if (newVal < minZoomValue) {
+			currentZoomValue = minZoomValue;
+		} else {
+			currentZoomValue = newVal;
+		}
+
+		UpdateLOD();
     }
 
     public void UpdateLOD() {
@@ -112,6 +122,7 @@ public class MapGenerator : MonoBehaviour {
         int newLod = Mathf.Max(levelOfDetail - currentZoomValue, 0);
         foreach (MapDisplay display in displays) {
             Bounds renderBounds = display.meshRenderer.bounds;
+			renderBounds.Expand (3.0F);
             Vector3 center = renderBounds.center;
             float distanceToCamera = Vector2.Distance(new Vector2(mapViewerPosition.x, mapViewerPosition.y - 0.35F), new Vector2(center.x, center.z));
             int distanceBasedLod = newLod + (int)distanceToCamera * 2;

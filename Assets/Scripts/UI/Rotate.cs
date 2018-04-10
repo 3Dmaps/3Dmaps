@@ -24,17 +24,16 @@ public class Rotate : MonoBehaviour {
     void Update () {
 		if (isPressed) {
 			RotateTarget (turningSpeed * Time.deltaTime);
-			if(generator != null && ++lodUpdateCounter > lodUpdateInterval) {
-				generator.UpdateLOD();
-				lodUpdateCounter = 0;
-			}
-		}
-	
+		}	
 	}
 
 	public void RotateTarget(float amount) {
 		target.transform.Rotate(Vector3.up, amount);
-	}
+        if (generator != null && ++lodUpdateCounter > lodUpdateInterval) {
+            generator.UpdateLOD();
+            lodUpdateCounter = 0;
+        }
+    }
 
 	///<summary>
 	/// EventTrigger calls onPointerDown and OnPointerUp  
