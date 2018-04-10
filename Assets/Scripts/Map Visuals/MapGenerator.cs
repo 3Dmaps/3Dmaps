@@ -80,11 +80,11 @@ public class MapGenerator : MonoBehaviour {
 
         foreach (DisplayReadySlice slice in actualMapData.GetDisplayReadySlices(mapSliceSize, levelOfDetail)) {
 
-			GameObject child = new GameObject ();
-			child.transform.parent = this.transform;
+			      GameObject child = new GameObject ();
+			      child.transform.parent = this.transform;
             MapDisplay display = child.AddComponent(typeof(MapDisplay)) as MapDisplay;
             GameObject visualObject = display.CreateVisual(visual);
-			visualObject.transform.parent = child.transform;
+			      visualObject.transform.parent = child.transform;
 
             display.SetRegions(regions);
             display.SetMapData(slice);

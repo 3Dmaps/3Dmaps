@@ -8,6 +8,10 @@ using System.Collections;
 
 public static class MeshGenerator {
 
+    public static int GetVerticesPerDimension(int dimension, int actualLOD) {
+        return actualLOD > 1 ? (dimension - 2) / actualLOD + 2 : dimension;
+    }
+
 	public static MeshData GenerateTerrainMesh(DisplayReadySlice mapData, float heightMultiplier = 0f, int levelOfDetail = 0, float minHeight = 0f) {
 		int width       = mapData.GetWidth();
 		int height      = mapData.GetHeight();
@@ -16,9 +20,9 @@ public static class MeshGenerator {
 		float topLeftX  = topLeft.x;
 		float topLeftZ  = topLeft.y;
 
-        int meshSimplificationIncrement = (mapData.lod == 0) ? 1 : mapData.lod * 2;
-        int verticesPerLine = mapData.lod > 0 ? (width - 2) / meshSimplificationIncrement + 2 : width;
-        int verticesPerColumn = mapData.lod > 0 ? (height - 2) / meshSimplificationIncrement + 2 : height;
+        int actualLOD = mapData.GetActualLOD();
+        int verticesPerLine = GetVerticesPerDimension(width, actualLOD);
+        int verticesPerColumn = GetVerticesPerDimension(height, actualLOD);
 
         MeshData meshData = new MeshData (verticesPerLine, verticesPerColumn);
 		int vertexIndex = 0;
@@ -45,10 +49,13 @@ public class MeshData {
 	public Vector3[] vertices;
 	public int[]     triangles;
 	public Vector2[] uvs;
+    public int width, height;
 
 	int triangleIndex;
 
 	public MeshData(int meshWidth, int meshHeight) {
+        width     = meshWidth;
+        height    = meshHeight;
 		vertices  = new Vector3[meshWidth * meshHeight];
 		uvs       = new Vector2[meshWidth * meshHeight];
 		triangles = new int[(meshWidth-1) * (meshHeight-1)*6];

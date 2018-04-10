@@ -209,9 +209,26 @@ public class MapData {
             throw new System.ArgumentException("Too small slice width (" + sliceWidth + ") or height (" + sliceHeight + ")");
         }
         List<MapDataSlice> slices = new List<MapDataSlice>();
+        int rowLen = 0, i = 0;
         for (int y = topLeftY; y < bottomRightY; y += sliceHeight - (doOffset ? 1 : 0)) {
             for (int x = topLeftX; x < bottomRightX; x += sliceWidth - (doOffset ? 1 : 0)) {
-                slices.Add(new MapDataSlice(this, x, y, sliceWidth, sliceHeight));
+                MapDataSlice slice = new MapDataSlice(this, x, y, sliceWidth, sliceHeight);
+                if(x > topLeftX) {
+                    MapDataSlice other = slices.Last();
+                    MapNeighborRelation relation = new MapNeighborRelation(other, slice, NeighborType.LeftRight);
+                    slice.AddNeighbor(relation);
+                    other.AddNeighbor(relation);
+                }
+                if(y > topLeftY) {
+                    MapDataSlice other = slices[i - rowLen];
+                    MapNeighborRelation relation = new MapNeighborRelation(other, slice, NeighborType.TopBottom);
+                    slice.AddNeighbor(relation);
+                    other.AddNeighbor(relation);
+                } else {
+                    rowLen++;
+                }
+                i++;
+                slices.Add(slice);
             }
         }
         return slices;

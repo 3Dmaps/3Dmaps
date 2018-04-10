@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -7,18 +8,33 @@ using UnityEngine;
 
 public class MapDataSlice : MapData {
 
+    protected const int expectedNumberOfNeighbors = 4;
     protected int topLeftX, topLeftY, width, height;
+    protected List<MapNeighborRelation> neighbors;
 
     public MapDataSlice(MapData mapData, int topLeftX, int topLeftY, int width, int height) : base(mapData){
         this.topLeftX = topLeftX; this.topLeftY = topLeftY;
         this.width = width; this.height = height;
+        this.neighbors = new List<MapNeighborRelation>(expectedNumberOfNeighbors);
     }
 
     public MapDataSlice(MapDataSlice slice) : this(slice, slice.topLeftX, slice.topLeftY, slice.width, slice.height) {
     }
 
     public DisplayReadySlice AsDisplayReadySlice(int lod) {
-        return new DisplayReadySlice(this, lod);
+        DisplayReadySlice ret = new DisplayReadySlice(this, lod);
+        foreach(MapNeighborRelation neighbor in neighbors) {
+            ret.AddDisplayNeighbor(neighbor.AsDisplayNeighborRelation());
+        }
+        return ret;
+    }
+
+    public void AddNeighbor(MapNeighborRelation relation) {
+        this.neighbors.Add(relation);
+    }
+
+    public List<MapNeighborRelation> GetNeighbors() {
+        return this.neighbors;
     }
 
     public int GetX() {

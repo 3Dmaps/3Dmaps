@@ -10,7 +10,7 @@ public class MapDisplay : MonoBehaviour {
 
 	public GameObject visualMap;
 	private Renderer textureRender;
-	private MeshFilter meshFilter;
+	public MeshFilter meshFilter;
 	public MeshRenderer meshRenderer;
 	private MapDisplayData displayData;
 
@@ -63,6 +63,10 @@ public class MapDisplay : MonoBehaviour {
 	public void UpdateLOD(int lod) {
 		displayData.UpdateLOD(lod);
 	}
+
+    public int GetActualLOD() {
+        return displayData.GetActualLOD();
+    }
 
 	public void DrawTexture(Texture2D texture, float scale = 1f) {
 		textureRender.sharedMaterial.mainTexture = texture;
