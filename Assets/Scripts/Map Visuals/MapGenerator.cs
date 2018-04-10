@@ -51,6 +51,9 @@ public class MapGenerator : MonoBehaviour {
             Debug.LogError("Error! Importin map data from file " + mapFileName + " failed.");
         }
 
+		SatelliteImageService.satelliteImage = DataImporter.GetSatelliteImage (mapFileName, mapData.GetWidth(), mapData.GetHeight());
+
+
         displays = new List<MapDisplay>();
 
         GenerateMap();

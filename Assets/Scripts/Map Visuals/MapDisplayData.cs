@@ -36,9 +36,12 @@ public class MapDisplayData {
         if (areaDisplay == null) {
             areaDisplay = GameObject.FindObjectOfType<AreaDisplay>();
         }
+	
+		SatelliteImage satelliteImage = SatelliteImageService.getSatelliteImage ();
+
 		Color[] colourMap = new Color[width * height];
         MapDataSlice slice = (MapDataSlice)mapData;
-		
+
         for (int y = 0; y < height; y++) {
 			for (int x = 0; x < width; x++) {
 				float currentHeight = mapData.GetSquished(x, y);
@@ -52,6 +55,11 @@ public class MapDisplayData {
 				}
 
                 colourMap[y * width + x] = regionColor;
+
+				if (satelliteImage.hasSatelliteImage()) {
+					int flippedY = satelliteImage.height - (int) scaledPosY;
+					colourMap[y * width + x] = satelliteImage.texture.GetPixel((int) scaledPosX, flippedY);
+				}
 			}
 		}
 		return colourMap;

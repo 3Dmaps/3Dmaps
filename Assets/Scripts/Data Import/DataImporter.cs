@@ -56,6 +56,10 @@ public static class DataImporter {
         return mapDataFrames[mapName].osmData;
     }
 
+	public static SatelliteImage GetSatelliteImage (string mapName, int width, int height) {
+		return SatelliteImageImporter.ReadSatelliteImage (GetFilePathByName (mapName, PathDataType.height) + "_satellite.png", width, height);
+	}
+
     private static void CreateDataFrame(string mapName) {
         if (!mapDataFrames.ContainsKey(mapName)) {
             mapDataFrames.Add(mapName, new MapDataFrame());
