@@ -13,6 +13,9 @@ public class AreaDisplay : MonoBehaviour {
 	private List<List<DisplayNode>> areaBoundings = new List<List<DisplayNode>>();
     private List<List<DisplayNode>> rivers = new List<List<DisplayNode>>();
 
+    private List<List<int>> areaBoundingBoxes = new List<List<int>>();
+    private List<List<int>> riverBoundingBoxes = new List<List<int>>();
+
 	private List<Color> areaColors = new List<Color> ();
 
     public const int riverWidthConstant = 4;
@@ -20,10 +23,13 @@ public class AreaDisplay : MonoBehaviour {
 	public void AddArea(Color color, List<DisplayNode> areaBounds) {
 		areaColors.Add (color);
 		areaBoundings.Add (areaBounds);
+        areaBoundingBoxes.Add (BoundingBoxUtil.BoundingBox(areaBounds));
+
 	}
 
     public void AddRiver(List<DisplayNode> riverNodes) {		
-		rivers.Add (riverNodes);               
+		rivers.Add (riverNodes);
+        riverBoundingBoxes.Add (BoundingBoxUtil.BoundingBox(riverNodes));               
 	}
 
 	public void displayAreas() {
@@ -61,9 +67,11 @@ public class AreaDisplay : MonoBehaviour {
     }
 
     public Color GetAreaColor(float x, float y) {
+
         for (int areaNum = 0; areaNum < areaBoundings.Count; areaNum++) {
-            List<int> bbox = BoundingBoxUtil.BoundingBox(areaBoundings[areaNum]);
-            if(isPointInsideBoundingBox(bbox, (int) x, (int) y)) {            
+            
+            List<int> boundingBoxArea = areaBoundingBoxes[areaNum];
+            if(isPointInsideBoundingBox(boundingBoxArea, (int) x, (int) y)) {            
 			    if(IsPointInPolygon(areaBoundings[areaNum], new DisplayNode((int) x, (int) y))) {
 				    return areaColors[areaNum];
                 }
@@ -73,10 +81,10 @@ public class AreaDisplay : MonoBehaviour {
     }
 
     public bool InRiver(float x, float y) {
+
         for (int riverNum = 0; riverNum < rivers.Count; riverNum++) {
-            List<int> bbox = BoundingBoxUtil.BoundingBox(rivers[riverNum]);  
-            
-            if (isPointInsideBoundingBox(bbox, (int) x, (int) y)) {                                  
+            List<int> boundingBoxRiver = riverBoundingBoxes[riverNum];              
+            if (isPointInsideBoundingBox(boundingBoxRiver, (int) x, (int) y)) {                                  
                 for (int i = 0; i < rivers[riverNum].Count - 1; i++) {
                     DisplayNode point = new DisplayNode((int) x, (int) y);                                           
                     DisplayNode riverNode1 = rivers[riverNum][i];

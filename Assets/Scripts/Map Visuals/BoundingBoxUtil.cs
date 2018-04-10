@@ -9,9 +9,9 @@ using System.Linq;
 
 public static class BoundingBoxUtil{
 
-    private static int maxX, minX, maxY, minY = 0;
-     
     public static List<int> BoundingBox(List<DisplayNode> displaynode)   {
+
+        int maxX, minX, maxY, minY = 0;
 
         List<int> BoundingBox = new List<int>();
         minX = displaynode.Min(p=> p.x);
