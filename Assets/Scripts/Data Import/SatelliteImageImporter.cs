@@ -3,7 +3,7 @@ using System.IO;
 using UnityEngine;
 
 /// <summary>
-/// Reads satellite image from file and turns it into a texture2D object.
+/// Reads satellite image from file and turns it into a Texture2D object.
 /// </summary>
 
 public static class SatelliteImageImporter {

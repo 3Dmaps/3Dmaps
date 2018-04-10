@@ -1,6 +1,10 @@
 ﻿using System;
 using UnityEngine;
 
+/// <summary>
+/// Static class that returns a SatelliteImage object containing current satellite image.
+/// </summary>
+
 public static class SatelliteImageService {
 
 	public static SatelliteImage satelliteImage;
