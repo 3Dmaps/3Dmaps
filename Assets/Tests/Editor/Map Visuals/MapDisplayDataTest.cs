@@ -29,14 +29,14 @@ public class MapDisplayDataTest {
     public void MapDisplayData_UpdateLODUpdatesMesh() {
         MapDisplayData dispData = new MapDisplayData(data);
         dispData.SetStatus(MapDisplayStatus.VISIBLE); dispData.UpdateLOD(2);
-        Assert.True(dispData.GetMesh() == dispData.mesh, "Mesh was not updated!");
+        Assert.True(dispData.GetMesh() == dispData.Mesh, "Mesh was not updated!");
     }
 
     [Test]
     public void MapDisplayData_ReturnsCorrectMeshDependingOnStatus() {
         MapDisplayData dispData = new MapDisplayData(data);
         dispData.UpdateLOD(2); dispData.SetStatus(MapDisplayStatus.VISIBLE);
-        Assert.True(dispData.GetMesh() == dispData.mesh, "Mesh was not updated!");
+        Assert.True(dispData.GetMesh() == dispData.Mesh, "Mesh was not updated!");
         dispData.SetStatus(MapDisplayStatus.HIDDEN);
         Assert.True(dispData.GetMesh() == dispData.lowLodMesh, "Mesh was not updated!");
     }
