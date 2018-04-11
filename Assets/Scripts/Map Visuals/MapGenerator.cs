@@ -10,13 +10,13 @@ using Priority_Queue;
 
 public class MapGenerator : MonoBehaviour {
 
-	public enum DrawMode {NoiseMap, ColourMap, Mesh};
-    public enum MapName {canyonTestHigh, canyonTestLow, testData, canyonTestBinary};
+    public enum DrawMode { NoiseMap, ColourMap, Mesh };
+    public enum MapName { canyonTestHigh, canyonTestLow, testData, canyonTestBinary, nuuksio };
 
     public DrawMode drawMode;
 
-	public int maxZoomValue = 10;
-	public int minZoomValue = 0;
+    public int maxZoomValue = 10;
+    public int minZoomValue = 0;
 
     public int mapSliceSize = 200;
     [Range(0, 24)]
@@ -33,16 +33,15 @@ public class MapGenerator : MonoBehaviour {
     private List<MapDisplay> displays;
     public MapName mapName;
 
-	public bool useSatelliteImage = true;
+    public bool useSatelliteImage = true;
 
     private DisplayUpdater displayUpdater = new DisplayUpdater();
     private int currentZoomValue = 0;
     public int displayUpdateRate = 4;
     public Vector2 mapViewerPosition = Vector2.zero;
 
-    public void Start()
-    {
-        regions = new MapRegionSmoother().SmoothRegions(regions,regionsSmoothCount);
+    public void Start() {
+        regions = new MapRegionSmoother().SmoothRegions(regions, regionsSmoothCount);
 
         string mapFileName = GetMapFileNameFromEnum(mapName);
         MapDataType mapDataType = GetMapFileTypeFromEnum(mapName);
@@ -56,11 +55,11 @@ public class MapGenerator : MonoBehaviour {
             Debug.LogError("Error! Importin map data from file " + mapFileName + " failed.");
         }
 
-		if (useSatelliteImage) {
-			SatelliteImageService.satelliteImage = DataImporter.GetSatelliteImage (mapFileName, mapData.GetWidth (), mapData.GetHeight ());
-		} else {
-			SatelliteImageService.satelliteImage = new SatelliteImage ();
-		}
+        if (useSatelliteImage) {
+            SatelliteImageService.satelliteImage = DataImporter.GetSatelliteImage(mapFileName, mapData.GetWidth(), mapData.GetHeight());
+        } else {
+            SatelliteImageService.satelliteImage = new SatelliteImage();
+        }
 
         displays = new List<MapDisplay>();
 
@@ -69,7 +68,7 @@ public class MapGenerator : MonoBehaviour {
         if (osmGenerator != null) {
             try {
                 osmGenerator.GenerateOSMObjects(this, mapFileName);
-            } catch(System.Exception e) {
+            } catch (System.Exception e) {
                 Debug.Log("Did not generate trails: " + e);
             }
         }
@@ -77,7 +76,7 @@ public class MapGenerator : MonoBehaviour {
 
     public void UpdateTextures() {
         foreach (MapDisplay display in displays) {
-            
+
             display.UpdateMapTexture();
         }
     }
@@ -88,11 +87,11 @@ public class MapGenerator : MonoBehaviour {
 
         foreach (DisplayReadySlice slice in actualMapData.GetDisplayReadySlices(mapSliceSize, levelOfDetail)) {
 
-			GameObject child = new GameObject ();
-			child.transform.parent = this.transform;
+            GameObject child = new GameObject();
+            child.transform.parent = this.transform;
             MapDisplay display = child.AddComponent(typeof(MapDisplay)) as MapDisplay;
             GameObject visualObject = display.CreateVisual(visual);
-			visualObject.transform.parent = child.transform;
+            visualObject.transform.parent = child.transform;
 
             display.SetRegions(regions);
             display.SetMapData(slice);
@@ -113,15 +112,15 @@ public class MapGenerator : MonoBehaviour {
 
 
     public void UpdateZoomLevel(int newVal) {
-		if (newVal > maxZoomValue) {
-			currentZoomValue = maxZoomValue;
-		} else if (newVal < minZoomValue) {
-			currentZoomValue = minZoomValue;
-		} else {
-			currentZoomValue = newVal;
-		}
+        if (newVal > maxZoomValue) {
+            currentZoomValue = maxZoomValue;
+        } else if (newVal < minZoomValue) {
+            currentZoomValue = minZoomValue;
+        } else {
+            currentZoomValue = newVal;
+        }
 
-		UpdateLOD();
+        UpdateLOD();
     }
 
     public void UpdateLOD() {
@@ -130,7 +129,7 @@ public class MapGenerator : MonoBehaviour {
         int newLod = Mathf.Max(levelOfDetail - currentZoomValue, 0);
         foreach (MapDisplay display in displays) {
             Bounds renderBounds = display.meshRenderer.bounds;
-			renderBounds.Expand (3.0F);
+            renderBounds.Expand(3.0F);
             Vector3 center = renderBounds.center;
             float distanceToCamera = Vector2.Distance(new Vector2(mapViewerPosition.x, mapViewerPosition.y - 0.35F), new Vector2(center.x, center.z));
             int distanceBasedLod = newLod + (int)distanceToCamera * 2;
@@ -144,8 +143,8 @@ public class MapGenerator : MonoBehaviour {
                 display.SetStatus(MapDisplayStatus.HIDDEN);
                 display.DrawMap();
             }
-		}
-	}
+        }
+    }
 
     private string GetMapFileNameFromEnum(MapName mapName) {
         switch (mapName) {
@@ -160,6 +159,9 @@ public class MapGenerator : MonoBehaviour {
 
             case MapName.canyonTestBinary:
                 return "CanyonTestBinary";
+
+            case MapName.nuuksio:
+                return "Nuuksio";
 
             default:
                 Debug.LogError("Error! Invalid map file name value!");
@@ -179,6 +181,9 @@ public class MapGenerator : MonoBehaviour {
                 return MapDataType.ASCIIGrid;
 
             case MapName.canyonTestBinary:
+                return MapDataType.Binary;
+
+            case MapName.nuuksio:
                 return MapDataType.Binary;
 
             default:
