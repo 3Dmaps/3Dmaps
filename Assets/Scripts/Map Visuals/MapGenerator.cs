@@ -33,6 +33,8 @@ public class MapGenerator : MonoBehaviour {
     private List<MapDisplay> displays;
     public MapName mapName;
 
+	public bool useSatelliteImage = true;
+
     private DisplayUpdater displayUpdater = new DisplayUpdater();
     private int currentZoomValue = 0;
     public int displayUpdateRate = 4;
@@ -53,6 +55,12 @@ public class MapGenerator : MonoBehaviour {
         } else {
             Debug.LogError("Error! Importin map data from file " + mapFileName + " failed.");
         }
+
+		if (useSatelliteImage) {
+			SatelliteImageService.satelliteImage = DataImporter.GetSatelliteImage (mapFileName, mapData.GetWidth (), mapData.GetHeight ());
+		} else {
+			SatelliteImageService.satelliteImage = new SatelliteImage ();
+		}
 
         displays = new List<MapDisplay>();
 
@@ -80,11 +88,11 @@ public class MapGenerator : MonoBehaviour {
 
         foreach (DisplayReadySlice slice in actualMapData.GetDisplayReadySlices(mapSliceSize, levelOfDetail)) {
 
-			      GameObject child = new GameObject ();
-			      child.transform.parent = this.transform;
+			GameObject child = new GameObject ();
+			child.transform.parent = this.transform;
             MapDisplay display = child.AddComponent(typeof(MapDisplay)) as MapDisplay;
             GameObject visualObject = display.CreateVisual(visual);
-			      visualObject.transform.parent = child.transform;
+			visualObject.transform.parent = child.transform;
 
             display.SetRegions(regions);
             display.SetMapData(slice);
