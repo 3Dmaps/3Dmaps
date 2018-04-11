@@ -11,7 +11,18 @@ public class MapDisplayData {
 	private TerrainType[] regions;
 
 	public Texture2D texture;
-	public Mesh mesh;
+    private Mesh mesh;
+	public Mesh Mesh {
+        get {
+            return mesh;
+        }
+        set {
+            if(mesh != null) {
+                MonoBehaviour.Destroy(mesh);
+            }
+            mesh = value;
+        }
+    }
 	public Mesh lowLodMesh;
 	public MapDisplayStatus status;
     private AreaDisplay areaDisplay;
@@ -182,7 +193,7 @@ public class MapDisplayData {
     public void UpdateLOD(int lod) {
 		if(mapData.lod != lod) {
 			mapData.lod = lod;
-			mesh = GenerateMesh();
+			Mesh = GenerateMesh();
 		}
 	}
 
@@ -194,7 +205,7 @@ public class MapDisplayData {
         if(texture == null) texture = GenerateTexture();
 		switch(this.status) {
 			case MapDisplayStatus.VISIBLE:
-				if(mesh == null) mesh = GenerateMesh();
+				if(Mesh == null) Mesh = GenerateMesh();
 				break;
 			case MapDisplayStatus.LOW_LOD:
 				break;
@@ -205,7 +216,7 @@ public class MapDisplayData {
     }
 
     public Mesh GetMesh() {
-        return (this.status == MapDisplayStatus.VISIBLE && mesh != null) ? mesh : lowLodMesh;
+        return (this.status == MapDisplayStatus.VISIBLE && Mesh != null) ? Mesh : lowLodMesh;
     }
 
     public Texture2D GetTexture() {

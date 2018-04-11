@@ -74,10 +74,8 @@ public class MapDisplay : MonoBehaviour {
 	}
 
 	public void DrawMesh(Mesh mesh, Texture2D texture, float scale = 1f) {
-		meshFilter.sharedMesh             = mesh;
-		Material material                 = new Material(meshRenderer.sharedMaterial);
-		material.mainTexture              = texture;
-		meshRenderer.sharedMaterial       = material;
+		meshFilter.mesh            		  = mesh;
+		meshRenderer.material.mainTexture = texture;
 		meshRenderer.transform.localScale = new Vector3(scale, 1F, scale);
 	}
 

@@ -33,7 +33,7 @@ public static class BinaryFileImporter {
     public static MapData ReadMapData(string path, BinaryFileMetadata metadata) {
         float[,] data = new float[metadata.GetColumns(), metadata.GetRows()];
         float min = float.MaxValue, max = float.MinValue;
-        using (BinaryReader input = new BinaryReader(File.Open(path, FileMode.Open))) {
+        using (BinaryReader input = new BinaryReader(File.Open(path, FileMode.Open, FileAccess.Read))) {
             for (int y = 0; y < metadata.GetRows(); y++) {
                 for (int x = 0; x < metadata.GetColumns(); x++) {
                     float next = ReadNext(input, metadata);
