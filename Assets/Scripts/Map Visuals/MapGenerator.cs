@@ -33,6 +33,8 @@ public class MapGenerator : MonoBehaviour {
     private List<MapDisplay> displays;
     public MapName mapName;
 
+	public bool useSatelliteImage = true;
+
     private DisplayUpdater displayUpdater = new DisplayUpdater();
     private int currentZoomValue = 0;
     public int displayUpdateRate = 4;
@@ -54,8 +56,11 @@ public class MapGenerator : MonoBehaviour {
             Debug.LogError("Error! Importin map data from file " + mapFileName + " failed.");
         }
 
-		SatelliteImageService.satelliteImage = DataImporter.GetSatelliteImage (mapFileName, mapData.GetWidth(), mapData.GetHeight());
-
+		if (useSatelliteImage) {
+			SatelliteImageService.satelliteImage = DataImporter.GetSatelliteImage (mapFileName, mapData.GetWidth (), mapData.GetHeight ());
+		} else {
+			SatelliteImageService.satelliteImage = new SatelliteImage ();
+		}
 
         displays = new List<MapDisplay>();
 
