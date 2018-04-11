@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using UnityEngine;
 
 /// <summary>
@@ -44,7 +44,7 @@ public class MapDisplayData {
 
 		if (satelliteImage.hasSatelliteImage ()) {
 			for (int y = 0; y < height; y++) {
-				int flippedY = satelliteImage.height - (slice.GetY() + y);
+				int flippedY = satelliteImage.height - (slice.GetY() + y) - 1;
 				Array.ConstrainedCopy (satelliteImage.texture.GetPixels (slice.GetX (), flippedY, width, 1), 0, colourMap, y * width, width); 
 			}
 

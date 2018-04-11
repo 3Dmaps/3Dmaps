@@ -22,7 +22,7 @@ public class IconHandler : MonoBehaviour {
 		if (icons.ContainsKey(iconName)) {
 			return icons[iconName];
 		} else {
-			return null;
+			return icons["attraction"];
 		}
 	}
 }

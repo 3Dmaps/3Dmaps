@@ -23,7 +23,9 @@ public class OSMway {
     }
 
     public void AddTag(string key, string value) {
-        tags.Add(key, value);
+        if (!tags.ContainsKey(key)) {
+            tags.Add(key, value);
+        }
     }
 
     public bool IsMeadow() {
