@@ -202,7 +202,7 @@ public class MapDisplayData {
     }
 
     public MapDisplayStatus PrepareDraw() {
-        if(texture == null) texture = GenerateTexture();
+        // if(texture == null) texture = GenerateTexture();
 		switch(this.status) {
 			case MapDisplayStatus.VISIBLE:
 				if(Mesh == null) Mesh = GenerateMesh();
