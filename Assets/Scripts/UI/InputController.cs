@@ -246,6 +246,36 @@ public class InputController : MonoBehaviour
         int mouseButtonIndex = GetInputDataIndexWithID(mouseButtonID);
         int spaceKeyIndex    = GetInputDataIndexWithID(spaceKeyID);
 
+		int mouseButtonID2 = 1200;
+		int mouseButtonIndex2 = GetInputDataIndexWithID(mouseButtonID2);
+
+		if (Input.GetMouseButton(1)) {
+			Vector2 pressPos = (Vector2)Input.mousePosition;
+			if (mouseButtonIndex2 == -1) {
+				inputs.Add(new InputData(mouseButtonID2, pressPos));
+			} else {
+				InputData data = inputs[mouseButtonIndex2];
+				if(pressPos != data.startPosition) {
+					data.phase = TouchPhase.Moved;
+				} else {
+					data.phase = TouchPhase.Stationary;
+				}
+				data.prevPosition = data.currentPosition;
+				data.currentPosition = pressPos;
+				inputs[mouseButtonIndex2] = data;
+			}
+			return true;
+
+		} else if(mouseButtonIndex2 != -1) {
+			InputData data = inputs[mouseButtonIndex2];
+			Vector2 pressPos = (Vector2)Input.mousePosition;
+			data.prevPosition = data.currentPosition;
+			data.currentPosition = pressPos;
+			data.phase = TouchPhase.Ended;
+			inputs[mouseButtonIndex2] = data;
+			return true;
+		}
+
         if (Input.GetMouseButton(0)) {
             Vector2 pressPos = (Vector2)Input.mousePosition;
             if (mouseButtonIndex == -1) {

@@ -48,6 +48,8 @@ public class InputHandler : MonoBehaviour {
                 RotateObject(inputs);
             if (IsPinch(inputs))
                 HandleZoom(inputs);
+			if (IsTilt (inputs))
+				HandleTilt (inputs);
         }
     }
 
@@ -76,6 +78,14 @@ public class InputHandler : MonoBehaviour {
         UpdateLod();
     }
 
+	private void HandleTilt(List<InputData> inputs) 
+	{
+		Debug.Log ("Tilt");
+		isGesture = true;
+		Vector2 velocity = inputs [0].currentPosition - inputs [0].prevPosition;
+		cam.gameObject.transform.Rotate(Vector3.left * velocity.y * Time.deltaTime);
+		cam.gameObject.transform.Rotate(Vector3.up * velocity.x * Time.deltaTime);
+	}
 
     private void HandleZoom(List<InputData> inputs)
     {
@@ -120,6 +130,18 @@ public class InputHandler : MonoBehaviour {
         float turnAngleDelta = Mathf.Abs(Mathf.DeltaAngle(prevTurn, turnAngle));
         return turnAngleDelta > 0;
     }
+
+	private bool IsTilt(List<InputData> inputs) {
+
+		return Mathf.Abs (Vector2.Distance (inputs [0].currentPosition, inputs [1].currentPosition) - Vector2.Distance (inputs [0].prevPosition, inputs [1].prevPosition)) < 0.2F;
+
+		float x_diff_0 = Mathf.Abs (inputs [0].currentPosition.x - inputs [0].startPosition.x);
+		float x_diff_1 = Mathf.Abs (inputs [1].currentPosition.x - inputs [1].startPosition.x);
+		float y_diff_0 = Mathf.Abs (inputs [0].currentPosition.y - inputs [0].startPosition.y);
+		float y_diff_1 = Mathf.Abs (inputs [1].currentPosition.y - inputs [1].startPosition.y);
+		Debug.Log ((x_diff_0 - x_diff_1));
+		return Mathf.Abs (x_diff_0 - x_diff_1) < 0.3F || Mathf.Abs (y_diff_0 - y_diff_1) < 0.3F; 
+	}
 
     private void RotateObject(List<InputData> inputs) {
 		isGesture = true;
