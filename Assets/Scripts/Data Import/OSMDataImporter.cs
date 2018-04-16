@@ -14,7 +14,7 @@ using System;
 public class OSMDataImporter {
     private const string wayElement = "way", nodeElement = "node", childNodeElement = "nd", relationElement  = "relation";
 	private const string idAttribute = "id", latAttribute = "lat", lonAttribute = "lon", 
-			refAttribute = "ref", roleAttribute = "role", memberTypeAttribute = "member type", colorKeyValue = "zmeucolor", iconKeyValue="zmeuicon";
+			refAttribute = "ref", roleAttribute = "role", memberTypeAttribute = "member type", colorKeyValue = "zmeucolor", iconKeyValue="zmeuicon", labelName = "name";
 	private const string tagElement = "tag";    
 
     public static OSMData ReadOSMData(string path) {
@@ -69,9 +69,11 @@ public class OSMDataImporter {
                     poiNode.lat     = float.Parse(node.GetAttribute(latAttribute));
                     poiNode.lon     = float.Parse(node.GetAttribute(lonAttribute));
                     trailData.AddPOI(poiNode);
-                }
+
+                    }  
             }
         }
+        
         trailNode.id  = long.Parse(node.GetAttribute(idAttribute));
 		trailNode.lat = float.Parse(node.GetAttribute(latAttribute));
 		trailNode.lon = float.Parse(node.GetAttribute(lonAttribute));
@@ -88,6 +90,8 @@ public class OSMDataImporter {
                 way.AddNode(wayNode);
             }
             if (childNode.LocalName.Equals (tagElement)) {
+                way.AddTag(childNode.GetAttribute ("k"), childNode.GetAttribute ("v"));
+            } else if(childNode.GetAttribute("k").Equals(labelName)) {
                 way.AddTag(childNode.GetAttribute ("k"), childNode.GetAttribute ("v"));
             }
         }

@@ -27,6 +27,12 @@ public class OSMway {
             tags.Add(key, value);
         }
     }
+    public string getName() {
+        if(this.tags.ContainsKey("name")) {
+            return this.tags["name"];
+        }
+        return "";        
+    }
 
     public bool IsMeadow() {
         return this.tags.ContainsValue("meadow");
@@ -35,7 +41,6 @@ public class OSMway {
     public bool IsRiver() {
         return this.tags.ContainsValue("river") || this.tags.ContainsValue("stream");
     }
-
     public string LandUse() {
         return tags.ContainsKey("landuse") ? tags["landuse"] : null;
     } 
