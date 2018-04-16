@@ -41,10 +41,14 @@ public class OSMGenerator : MonoBehaviour {
 		GenerateAreas (osmData);
 		GenerateRivers(osmData);
 	}
+	// private void GenerateNames(OSMData osmData) {
+
+	// }
 
 	private void GenerateTrails(OSMData osmData) {
 		foreach (Trail trail in osmData.trails) {
 			trailDisplay.trailColor = colorHandler.SelectColor(trail.colorName);
+			trailDisplay.trailName = trail.trailName;
 			trailDisplay.DisplayNodes(TranslateTrail (trail));
 		}
 	}
