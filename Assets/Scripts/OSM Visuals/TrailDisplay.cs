@@ -15,7 +15,7 @@ public class TrailDisplay : MonoBehaviour {
     public List<Vector3> nodePositions;
     public float lineWidthMultiplier = 0.01f;
 	public float lineHeightAdjustment = 0.005f;
-    public GameObject nodeGameObject;
+    public GameObject labelGameObject;
     public string trailName;
     
     public Material material;
@@ -66,7 +66,7 @@ public class TrailDisplay : MonoBehaviour {
     }
     public void GenerateLabelGameObject(Vector3 nodePosition) {
         
-        GameObject newNode = Instantiate(nodeGameObject);
+        GameObject newNode = Instantiate(labelGameObject);
         newNode.name = trailName;
         newNode.transform.SetParent(this.transform);
 		TextMesh text = newNode.GetComponent<TextMesh>();
