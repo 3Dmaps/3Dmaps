@@ -38,10 +38,12 @@ public class POIDisplayTest {
 		display.DisplayPOINode (new DisplayNode(1,1), icon);		
 		Assert.True (display.transform.GetChild(0).position.x == 0, "Incorrect x-coordinate!");
 		Assert.True (display.transform.GetChild(0).position.z == 0, "Incorrect y-coordinate!");
+		Assert.True (display.transform.GetChild(1).position.x == 0, "Incorrect x-coordinate!");
+		Assert.True (display.transform.GetChild(1).position.z == 0, "Incorrect y-coordinate!");
 
-		Assert.True (display.transform.childCount == 1, "No node was created!");
-		
+		Assert.True (display.transform.childCount == 2, "No node was created!");		
 	}
+
 	[Test]
 	public void POIDisplayDoesNotCreatePOIOutsideMapBounds() {
 		List<DisplayNode> nodeList = new List<DisplayNode> ();

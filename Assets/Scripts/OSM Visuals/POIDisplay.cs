@@ -12,11 +12,16 @@ public class POIDisplay : MonoBehaviour {
 	public MapData mapData;
 	public GameObject nodeGameObject;    
 	public float heightAdjustment = 0.025f;
+	public float lineWidthMultiplier = 0.005f;
+	public Color lineColor = Color.black;
+
 
 	public void DisplayPOINode(DisplayNode poiNode,Icon icon) {
         if (PositionService.IsWithinBounds(poiNode.x, poiNode.y, mapData)) {
 			Vector3 nodePosition = PositionService.GetUnityPosition(poiNode, heightAdjustment, mapData);
-			GenerateNodeGameObject(nodePosition, icon); 
+			GenerateNodeGameObject(nodePosition, icon);			
+			GenerateLabelLine(poiNode); 
+
 		}           
     }
     
@@ -41,6 +46,26 @@ public class POIDisplay : MonoBehaviour {
 		renderer.sprite = icon.sprite;
         newNode.transform.position = nodePosition;
         newNode.transform.SetParent(this.transform);
-    }    
-}
+    }
 
+	public void GenerateLabelLine(DisplayNode poiNode)
+    {        
+		GameObject labelLine = new GameObject();
+        
+        LineRenderer lineRenderer = labelLine.AddComponent<LineRenderer>();
+        lineRenderer.positionCount = 2;
+		Vector3[] endpoints = new Vector3[] {
+												PositionService.GetUnityPosition(poiNode, heightAdjustment, mapData),
+												PositionService.GetUnityPosition(poiNode, 0, mapData)
+											};
+        lineRenderer.SetPositions(endpoints);
+        lineRenderer.widthMultiplier = this.lineWidthMultiplier;
+        lineRenderer.useWorldSpace = false;
+        
+		labelLine.transform.SetParent(this.transform);
+
+        Material[] materials = new Material[] {new Material(Shader.Find("Unlit/Color"))};        
+        labelLine.GetComponent<Renderer>().sharedMaterials = materials;
+        labelLine.GetComponent<Renderer>().sharedMaterial.color = this.lineColor;              
+    }
+}    
