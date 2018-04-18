@@ -11,7 +11,7 @@ using Priority_Queue;
 public class MapGenerator : MonoBehaviour {
 
     public enum DrawMode { NoiseMap, ColourMap, Mesh };
-    public enum MapName { canyonTestHigh, canyonTestLow, testData, canyonTestBinary, nuuksio };
+    public enum MapName { canyonTestHigh, canyonTestLow, testData, canyonTestBinary, nuuksio, nuuksioSmall};
 
     public DrawMode drawMode;
 
@@ -163,6 +163,9 @@ public class MapGenerator : MonoBehaviour {
             case MapName.nuuksio:
                 return "Nuuksio";
 
+            case MapName.nuuksioSmall:
+                return "nuuksioSmall";
+
             default:
                 Debug.LogError("Error! Invalid map file name value!");
                 return "";
@@ -184,6 +187,9 @@ public class MapGenerator : MonoBehaviour {
                 return MapDataType.Binary;
 
             case MapName.nuuksio:
+                return MapDataType.Binary;
+
+            case MapName.nuuksioSmall:
                 return MapDataType.Binary;
 
             default:
