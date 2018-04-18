@@ -13,7 +13,7 @@ public class POIDisplay : MonoBehaviour {
 	public GameObject nodeGameObject;    
 	public float heightAdjustment = 0.025f;
 
-	public void DisplayPOINode(DisplayNode poiNode,Icon icon) {
+	public void DisplayPOINode(DisplayNode poiNode,Icon icon, string name) {
         if (PositionService.IsWithinBounds(poiNode.x, poiNode.y, mapData)) {
 			Vector3 nodePosition = PositionService.GetUnityPosition(poiNode, heightAdjustment, mapData);
 			GenerateNodeGameObject(nodePosition, icon); 

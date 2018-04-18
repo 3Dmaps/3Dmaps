@@ -16,5 +16,4 @@ public class POINode {
     public POINode(string icon) {
         this.icon=icon;               
     }
-
 }
