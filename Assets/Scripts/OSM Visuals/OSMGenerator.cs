@@ -41,9 +41,6 @@ public class OSMGenerator : MonoBehaviour {
 		GenerateAreas (osmData);
 		GenerateRivers(osmData);
 	}
-	// private void GenerateNames(OSMData osmData) {
-
-	// }
 
 	private void GenerateTrails(OSMData osmData) {
 		foreach (Trail trail in osmData.trails) {
