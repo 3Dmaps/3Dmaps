@@ -53,7 +53,7 @@ public class OSMGenerator : MonoBehaviour {
 		foreach (POINode poiNode in osmData.poiNodes) {
 			DisplayNode displayNode = ChangeLatLonToDisplayNode (poiNode.lon, poiNode.lat, mapData);
 			Icon icon = iconHandler.SelectIcon(poiNode.icon);
-			poiDisplay.DisplayPOINode(displayNode, icon);
+			poiDisplay.DisplayPOINode(displayNode, icon, colorHandler);
 		}
 	}
 		
