@@ -28,8 +28,10 @@ public class ColorHandler {
         colors.Add("crosscountryski_easy", skiRouteColor );
         colors.Add("crosscountryski_novice", skiRouteColor);
         colors.Add("bicycle", orange);
+		colors.Add("poiLine", Color.red);
         areaColors.Add ("meadow", Color.green);
 		areaColors.Add ("lake", Color.blue);
+
 	}
 
 	public Color SelectColor(string colorName) {

@@ -13,15 +13,13 @@ public class POIDisplay : MonoBehaviour {
 	public GameObject nodeGameObject;    
 	public float heightAdjustment = 0.025f;
 	public float lineWidthMultiplier = 0.005f;
-	public Color lineColor = Color.black;
 
 
-	public void DisplayPOINode(DisplayNode poiNode,Icon icon) {
+	public void DisplayPOINode(DisplayNode poiNode,Icon icon, ColorHandler colorHandler) {
         if (PositionService.IsWithinBounds(poiNode.x, poiNode.y, mapData)) {
 			Vector3 nodePosition = PositionService.GetUnityPosition(poiNode, heightAdjustment, mapData);
 			GenerateNodeGameObject(nodePosition, icon);			
-			GenerateLabelLine(poiNode); 
-
+			GenerateLabelLine(poiNode, colorHandler);
 		}           
     }
     
@@ -48,16 +46,16 @@ public class POIDisplay : MonoBehaviour {
         newNode.transform.SetParent(this.transform);
     }
 
-	public void GenerateLabelLine(DisplayNode poiNode)
+	public void GenerateLabelLine(DisplayNode poiNode, ColorHandler colorHandler)
     {        
 		GameObject labelLine = new GameObject();
         
         LineRenderer lineRenderer = labelLine.AddComponent<LineRenderer>();
         lineRenderer.positionCount = 2;
 		Vector3[] endpoints = new Vector3[] {
-												PositionService.GetUnityPosition(poiNode, heightAdjustment, mapData),
-												PositionService.GetUnityPosition(poiNode, 0, mapData)
-											};
+			PositionService.GetUnityPosition(poiNode, heightAdjustment, mapData),
+			PositionService.GetUnityPosition(poiNode, 0, mapData)
+		};
         lineRenderer.SetPositions(endpoints);
         lineRenderer.widthMultiplier = this.lineWidthMultiplier;
         lineRenderer.useWorldSpace = false;
@@ -66,6 +64,6 @@ public class POIDisplay : MonoBehaviour {
 
         Material[] materials = new Material[] {new Material(Shader.Find("Unlit/Color"))};        
         labelLine.GetComponent<Renderer>().sharedMaterials = materials;
-        labelLine.GetComponent<Renderer>().sharedMaterial.color = this.lineColor;              
+        labelLine.GetComponent<Renderer>().sharedMaterial.color = colorHandler.SelectColor("poiLine");            
     }
 }    
