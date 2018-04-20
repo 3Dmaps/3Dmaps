@@ -14,7 +14,7 @@ using System;
 public class OSMDataImporter {
     private const string wayElement = "way", nodeElement = "node", childNodeElement = "nd", relationElement  = "relation";
 	private const string idAttribute = "id", latAttribute = "lat", lonAttribute = "lon", 
-			refAttribute = "ref", roleAttribute = "role", memberTypeAttribute = "member type", colorKeyValue = "zmeucolor", iconKeyValue="zmeuicon", labelName = "name";
+			refAttribute = "ref", roleAttribute = "role", memberTypeAttribute = "member type", colorKeyValue = "zmeucolor", iconKeyValue="zmeuicon", labelName = "name", POIName = "name";
 	private const string tagElement = "tag";    
 
     public static OSMData ReadOSMData(string path) {
@@ -62,15 +62,21 @@ public class OSMDataImporter {
     private static void ReadTrailNode(OSMData trailData, Dictionary<long, OSMNode> wayNodes, XmlElement node) {
         OSMNode trailNode = new OSMNode();
         if (node.ChildNodes.Count > 0) {
+            string iconName = "";
+            string name = "";
             foreach (XmlElement childNode in node.ChildNodes) {
                 if (childNode.LocalName.Equals(tagElement) && childNode.GetAttribute("k").Equals(iconKeyValue)) {
-                    POINode poiNode = new POINode(childNode.GetAttribute("v"));
-                    poiNode.id      = long.Parse(node.GetAttribute(idAttribute));
-                    poiNode.lat     = float.Parse(node.GetAttribute(latAttribute));
-                    poiNode.lon     = float.Parse(node.GetAttribute(lonAttribute));
-                    trailData.AddPOI(poiNode);
-
-                    }  
+                    iconName = childNode.GetAttribute("v");
+                } else if (childNode.LocalName.Equals(tagElement) && childNode.GetAttribute("k").Equals(POIName)) {
+                    name = childNode.GetAttribute("v");
+                }
+            }
+            if (!iconName.Equals("") && !name.Equals("")) {
+                POINode poiNode = new POINode(iconName, name);
+                poiNode.id      = long.Parse(node.GetAttribute(idAttribute));
+                poiNode.lat     = float.Parse(node.GetAttribute(latAttribute));
+                poiNode.lon     = float.Parse(node.GetAttribute(lonAttribute));
+                trailData.AddPOI(poiNode);
             }
         }
         

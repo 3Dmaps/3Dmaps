@@ -9,6 +9,8 @@ public class POIDisplayTest {
 	public MapData mapdata;
 	public POIDisplay display;
 	public Icon icon;
+	public string name;
+
 
 
 	[SetUp]
@@ -34,8 +36,8 @@ public class POIDisplayTest {
 	public void POIDisplayCanCreateNewNodeInCenter() {
 		List<DisplayNode> nodeList = new List<DisplayNode> ();
 		nodeList.Add(new DisplayNode (0, 0));
-
-		display.DisplayPOINode (new DisplayNode(1,1), icon);		
+		name = "";
+		display.DisplayPOINode (new DisplayNode(1,1), icon, name);		
 		Assert.True (display.transform.GetChild(0).position.x == 0, "Incorrect x-coordinate!");
 		Assert.True (display.transform.GetChild(0).position.z == 0, "Incorrect y-coordinate!");
 
@@ -45,15 +47,16 @@ public class POIDisplayTest {
 	[Test]
 	public void POIDisplayDoesNotCreatePOIOutsideMapBounds() {
 		List<DisplayNode> nodeList = new List<DisplayNode> ();
+		name = " ";
 		nodeList.Add(new DisplayNode (3, 0));
 		nodeList.Add(new DisplayNode (-1, 0));
 		nodeList.Add(new DisplayNode (0, 3));
 		nodeList.Add(new DisplayNode (0, -1));
 
-		display.DisplayPOINode (new DisplayNode(3,0), icon);
-		display.DisplayPOINode (new DisplayNode(-1,0), icon);
-		display.DisplayPOINode (new DisplayNode(0,3), icon);
-		display.DisplayPOINode (new DisplayNode(0,-1), icon);
+		display.DisplayPOINode (new DisplayNode(3,0), icon, name);
+		display.DisplayPOINode (new DisplayNode(-1,0), icon, name);
+		display.DisplayPOINode (new DisplayNode(0,3), icon, name);
+		display.DisplayPOINode (new DisplayNode(0,-1), icon, name);
 		Assert.True (display.transform.childCount == 0, "created false nodes!");
 	}
 	

@@ -9,7 +9,6 @@ using UnityEngine;
 public class POIRotator : MonoBehaviour {
 
 	void Update () {
-		transform.LookAt(transform.position + Camera.main.transform.rotation * Vector3.back,
-		Camera.main.transform.rotation * Vector3.up);
+		transform.LookAt (2 * transform.position - Camera.main.transform.position, Camera.main.transform.rotation * Vector3.up);
 	}
 }

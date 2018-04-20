@@ -13,10 +13,11 @@ public class POIDisplay : MonoBehaviour {
 	public GameObject nodeGameObject;    
 	public float heightAdjustment = 0.025f;
 
+
 	public void DisplayPOINode(DisplayNode poiNode,Icon icon, string name) {
         if (PositionService.IsWithinBounds(poiNode.x, poiNode.y, mapData)) {
 			Vector3 nodePosition = PositionService.GetUnityPosition(poiNode, heightAdjustment, mapData);
-			GenerateNodeGameObject(nodePosition, icon); 
+			GenerateNodeGameObject(nodePosition, icon, name); 
 		}           
     }
     
@@ -33,14 +34,19 @@ public class POIDisplay : MonoBehaviour {
         return nodePosition;
     }
 
-    public void GenerateNodeGameObject(Vector3 nodePosition, Icon icon) {
-
-		
+    public void GenerateNodeGameObject(Vector3 nodePosition, Icon icon, string name) {
+	
         GameObject newNode = Instantiate(nodeGameObject);
 		SpriteRenderer renderer = newNode.GetComponent<SpriteRenderer>();
 		renderer.sprite = icon.sprite;
         newNode.transform.position = nodePosition;
         newNode.transform.SetParent(this.transform);
-    }    
+        if (!name.Equals("")) {
+			TextMesh mesh = newNode.GetComponentInChildren<TextMesh>();
+			mesh.text = name;
+			newNode.GetComponentInChildren<MeshRenderer>().enabled = false;
+        }  		
+    }
+	    
 }
 

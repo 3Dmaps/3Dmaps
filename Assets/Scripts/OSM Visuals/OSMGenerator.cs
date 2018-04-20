@@ -41,9 +41,6 @@ public class OSMGenerator : MonoBehaviour {
 		GenerateAreas (osmData);
 		GenerateRivers(osmData);
 	}
-	// private void GenerateNames(OSMData osmData) {
-
-	// }
 
 	private void GenerateTrails(OSMData osmData) {
 		foreach (Trail trail in osmData.trails) {
@@ -57,7 +54,7 @@ public class OSMGenerator : MonoBehaviour {
 		foreach (POINode poiNode in osmData.poiNodes) {
 			DisplayNode displayNode = ChangeLatLonToDisplayNode (poiNode.lon, poiNode.lat, mapData);
 			Icon icon = iconHandler.SelectIcon(poiNode.icon);
-			poiDisplay.DisplayPOINode(displayNode, icon);
+			poiDisplay.DisplayPOINode(displayNode, icon, poiNode.name);
 		}
 	}
 		
