@@ -9,7 +9,6 @@ public class POIDisplayTest {
 	public MapData mapdata;
 	public POIDisplay display;
 	public Icon icon;
-	public ColorHandler colorHandler;
 
 
 	[SetUp]
@@ -23,9 +22,7 @@ public class POIDisplayTest {
 		display.nodeGameObject = nodeGameObject;
 		
 		icon = new Icon();
-		icon.sprite = new Sprite ();
-
-		colorHandler = new ColorHandler();		
+		icon.sprite = new Sprite ();	
         
 		MapMetadata metadata = MapDataImporter.ReadMetadata("Assets/Resources/testData.txt");
 		display.mapData = MapDataImporter.ReadMapData("Assets/Resources/testData.txt", metadata);
@@ -37,7 +34,7 @@ public class POIDisplayTest {
 		List<DisplayNode> nodeList = new List<DisplayNode> ();
 		nodeList.Add(new DisplayNode (0, 0));
 
-		display.DisplayPOINode (new DisplayNode(1,1), icon, colorHandler);		
+		display.DisplayPOINode (new DisplayNode(1,1), icon);		
 		Assert.True (display.transform.GetChild(0).position.x == 0, "Incorrect x-coordinate!");
 		Assert.True (display.transform.GetChild(0).position.z == 0, "Incorrect y-coordinate!");
 		Assert.True (display.transform.GetChild(1).position.x == 0, "Incorrect x-coordinate!");
@@ -54,10 +51,10 @@ public class POIDisplayTest {
 		nodeList.Add(new DisplayNode (0, 3));
 		nodeList.Add(new DisplayNode (0, -1));
 
-		display.DisplayPOINode (new DisplayNode(3,0), icon, colorHandler);
-		display.DisplayPOINode (new DisplayNode(-1,0), icon, colorHandler);
-		display.DisplayPOINode (new DisplayNode(0,3), icon, colorHandler);
-		display.DisplayPOINode (new DisplayNode(0,-1), icon, colorHandler);
+		display.DisplayPOINode (new DisplayNode(3,0), icon);
+		display.DisplayPOINode (new DisplayNode(-1,0), icon);
+		display.DisplayPOINode (new DisplayNode(0,3), icon);
+		display.DisplayPOINode (new DisplayNode(0,-1), icon);
 		Assert.True (display.transform.childCount == 0, "created false nodes!");
 	}
 	

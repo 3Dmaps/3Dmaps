@@ -10,14 +10,15 @@ using UnityEngine;
 public class Area {
     public List<OSMNode> nodeList;
     public long id;
-	public string type;    
+	public string type;
+    public Color color;
 
     public Area(OSMway way, string type) {
         this.nodeList = way.GetNodeList();
         this.id = way.GetID();
+        this.color = way.GetColor();
         this.type = type;
     }
-
 
     public override bool Equals(object obj) {
         var area = obj as Area;

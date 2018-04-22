@@ -7,6 +7,7 @@ using UnityEngine;
 public class MapDisplayData {
 
     private const int lowLod = 20;
+    private const float colorLerpValue = 0.4f;
     public DisplayReadySlice mapData;
 	private TerrainType[] regions;
 
@@ -70,8 +71,8 @@ public class MapDisplayData {
                 Color areaColor = areaDisplay.GetPointColor(scaledPosX, scaledPosY);
 				Color regionColor = GetRegionColour(currentHeight);
 
-				if (areaColor != Color.black) {
-					regionColor = areaColor - regionColor;
+				if (areaColor != Color.clear) {
+					regionColor = Color.Lerp(areaColor, regionColor, colorLerpValue);
 				}
 
                 colourMap[y * width + x] = regionColor;

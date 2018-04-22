@@ -10,18 +10,18 @@ using UnityEngine;
 public class Trail {
     List<OSMNode> nodeList;
     public long id;
-	public string colorName;
+	public Color color;
 
     public Trail(long id) {
         nodeList = new List<OSMNode>();
         this.id = id;
-		colorName = "red";
+		color = Color.red;
     }
 
     public Trail(OSMway way) {
         this.nodeList = way.GetNodeList();
         this.id = way.GetID();
-        this.colorName = way.Color();
+        this.color = way.GetColor();
     
     }
 

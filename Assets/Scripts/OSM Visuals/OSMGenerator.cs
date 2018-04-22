@@ -14,8 +14,6 @@ public class OSMGenerator : MonoBehaviour {
 	private POIDisplay poiDisplay;
     private AreaDisplay areaDisplay;
 
-	private ColorHandler colorHandler;
-
 	public int nodeGenerationRate = 1; // number of new nodes created between adjacent nodes in data
 
 	List<DisplayNode> displayNodes;
@@ -30,8 +28,6 @@ public class OSMGenerator : MonoBehaviour {
         areaDisplay     = this.GetComponent<AreaDisplay>();
         OSMData osmData = DataImporter.GetOSMData(mapName);
 
-		colorHandler = new ColorHandler ();
-
         trailDisplay.mapData = mapData;
 		poiDisplay.mapData   = mapData;
 
@@ -44,7 +40,7 @@ public class OSMGenerator : MonoBehaviour {
 
 	private void GenerateTrails(OSMData osmData) {
 		foreach (Trail trail in osmData.trails) {
-			trailDisplay.trailColor = colorHandler.SelectColor(trail.colorName);
+			trailDisplay.trailColor = trail.color;
 			trailDisplay.DisplayNodes(TranslateTrail (trail));
 		}
 	}
@@ -53,7 +49,7 @@ public class OSMGenerator : MonoBehaviour {
 		foreach (POINode poiNode in osmData.poiNodes) {
 			DisplayNode displayNode = ChangeLatLonToDisplayNode (poiNode.lon, poiNode.lat, mapData);
 			Icon icon = iconHandler.SelectIcon(poiNode.icon);
-			poiDisplay.DisplayPOINode(displayNode, icon, colorHandler);
+			poiDisplay.DisplayPOINode(displayNode, icon);
 		}
 	}
 		
@@ -63,7 +59,7 @@ public class OSMGenerator : MonoBehaviour {
 			for (int i = 0; i < a.nodeList.Count; i++) {
 				areaBounds.Add(ChangeLatLonToDisplayNode(a.nodeList[i].lon, a.nodeList[i].lat, mapData));
 			}
-			areaDisplay.AddArea (colorHandler.SelectAreaColor (a.type), areaBounds);
+			areaDisplay.AddArea (a.color, areaBounds);
 		}
 		areaDisplay.displayAreas ();
 	}

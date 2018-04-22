@@ -15,11 +15,11 @@ public class POIDisplay : MonoBehaviour {
 	public float lineWidthMultiplier = 0.005f;
 
 
-	public void DisplayPOINode(DisplayNode poiNode,Icon icon, ColorHandler colorHandler) {
+	public void DisplayPOINode(DisplayNode poiNode,Icon icon) {
         if (PositionService.IsWithinBounds(poiNode.x, poiNode.y, mapData)) {
 			Vector3 nodePosition = PositionService.GetUnityPosition(poiNode, heightAdjustment, mapData);
 			GenerateNodeGameObject(nodePosition, icon);			
-			GenerateLabelLine(poiNode, colorHandler);
+			GenerateLabelLine(poiNode);
 		}           
     }
     
@@ -46,7 +46,7 @@ public class POIDisplay : MonoBehaviour {
         newNode.transform.SetParent(this.transform);
     }
 
-	public void GenerateLabelLine(DisplayNode poiNode, ColorHandler colorHandler)
+	public void GenerateLabelLine(DisplayNode poiNode)
     {        
 		GameObject labelLine = new GameObject();
         
@@ -64,6 +64,6 @@ public class POIDisplay : MonoBehaviour {
 
         Material[] materials = new Material[] {new Material(Shader.Find("Unlit/Color"))};        
         labelLine.GetComponent<Renderer>().sharedMaterials = materials;
-        labelLine.GetComponent<Renderer>().sharedMaterial.color = colorHandler.SelectColor("poiLine");            
+        labelLine.GetComponent<Renderer>().sharedMaterial.color = ColorHandler.SelectColor("poiLine");            
     }
 }    

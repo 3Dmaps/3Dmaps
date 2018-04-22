@@ -28,8 +28,8 @@ public class OSMway {
         }
     }
 
-    public bool IsMeadow() {
-        return this.tags.ContainsValue("meadow");
+    public bool IsArea() {
+        return this.tags.ContainsKey("landuse");
     }
 
     public bool IsRiver() {
@@ -48,8 +48,16 @@ public class OSMway {
         return id;
     }
 
-    public string Color() {
-        return tags.ContainsKey("zmeucolor") ? tags["zmeucolor"] : null;
+    public Color GetColor() {
+        if(tags.ContainsKey("3dmapsrgb")) {
+            return ColorHandler.ParseColor(tags["3dmapsrgb"]);
+        } else if(tags.ContainsKey("zmeucolor")){ 
+            return ColorHandler.SelectColor(tags["zmeucolor"]);
+        } else if(IsArea()) {
+            return ColorHandler.SelectAreaColor(tags["landuse"]);
+        } else {
+            return Color.white;
+        }
     }
 
 }

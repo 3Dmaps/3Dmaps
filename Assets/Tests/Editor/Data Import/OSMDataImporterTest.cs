@@ -59,7 +59,7 @@ public class OSMDataImporterTest {
 
 	[Test]
 	public void TrailColorCorrect() {
-		Assert.True(osmData.trails[0].colorName == "unnamedRouteColorName");
+		Assert.True(osmData.trails[0].color == Color.red);
 	}
 
 }
