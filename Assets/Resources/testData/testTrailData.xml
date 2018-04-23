@@ -46,7 +46,7 @@
     <tag k="highway" v="path" />
     <tag k="EXPORT_ROUTE" v="true" />
     <tag k="originalMemberWays" v="100000000144" />
-    <tag k="zmeucolor" v="unnamedRouteColorName" />
+    <tag k="zmeucolor" v="red" />
     <tag k="zmeuname" v="" />
   </way>
   <way timestamp="2017-11-23T15:46:41Z" uid="1" user="zmeu" visible="true" version="1" changeset="1" id="100000000298">
@@ -57,13 +57,13 @@
     <tag k="highway" v="path" />
     <tag k="EXPORT_ROUTE" v="true" />
     <tag k="originalMemberWays" v="100000000130" />
-    <tag k="zmeucolor" v="unnamedRouteColorName" />
+    <tag k="zmeucolor" v="red" />
     <tag k="zmeuname" v="" />
   </way>
   <way id="175607037" version="1" timestamp="2012-08-11T15:42:31Z" uid="24920" user="Schusch" changeset="12692630">
     <nd ref="1861712094"/>    
     <tag k="landuse" v="meadow"/>
-  </way>
+  <tag k="3dmapsrgb" v="1 2 3" /></way>
     <way id="320596938" version="3" timestamp="2016-04-17T00:45:56Z" uid="3745309" user="KW71" changeset="38633204">
     <nd ref="3271516347"/>
     <tag k="name" v="Serpentine Canyon"/>
