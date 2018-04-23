@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using System.Linq;
+using UnityEngine;
 using UnityEditor;
 using UnityEngine.TestTools;
 using NUnit.Framework;
-using System.Collections;
 
 public class OSMDataImporterTest {
     public OSMData osmData;
@@ -45,6 +47,22 @@ public class OSMDataImporterTest {
         Assert.True(osmData.areas[0].GetNodeList()[0].id == 1861712094, "Area node id incorrect.");		
     }
 
+    [Test]
+    public void AreaColorCorrect() {
+        Area area = osmData.areas.Single();
+        Color actualColor = area.color;
+        Color expectedColor = new Color(1.0f/255, 2.0f/255, 3.0f/255, 1.0f);
+        Action<string, float, float> checkComponent = (name, expected, actual) => {
+            Assert.True(Mathf.Approximately(expected, actual),
+                name + " component was wrong for area " + area.id
+                + " (should have been " + expected + ", was " + actual + ")"
+                );
+        };
+        checkComponent("Red", expectedColor.r, actualColor.r);
+        checkComponent("Green", expectedColor.g, actualColor.g);
+        checkComponent("Blue", expectedColor.b, actualColor.b);
+    }
+
 
     [Test]
     public void CorrentIconFoundOnPoi() {
@@ -73,7 +91,7 @@ public class OSMDataImporterTest {
 
 	[Test]
 	public void TrailColorCorrect() {
-		Assert.True(osmData.trails[0].colorName == "unnamedRouteColorName");
+		Assert.True(osmData.trails[0].color == Color.red);
 	}
 
 }

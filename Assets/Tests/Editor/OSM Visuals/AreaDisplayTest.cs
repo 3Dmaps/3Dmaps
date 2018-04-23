@@ -28,8 +28,9 @@ public class AreaDisplayTest {
 		Assert.True (display.GetPointColor (1, 1) == Color.blue, "Wrong color found at 1,1!");
 	}
 
+	// Changed from black to clear in order to be able to have black areas
 	[Test]
-	public void AreaDisplayReturnsBlackWhenPointIsOutsideArea() {
+	public void AreaDisplayReturnsClearWhenPointIsOutsideArea() {
 		List<DisplayNode> nodeList = new List<DisplayNode> ();
 		nodeList.Add(new DisplayNode (0, 0));
 		nodeList.Add(new DisplayNode (0, 1));
@@ -38,7 +39,7 @@ public class AreaDisplayTest {
 
 		display.AddArea (Color.blue, nodeList);
 
-		Assert.True (display.GetPointColor (2, 2) == Color.black, "A color was erroneously found!");
+		Assert.True (display.GetPointColor (2, 2) == Color.clear, "A color was erroneously found!");
 	}
 
 	[Test]

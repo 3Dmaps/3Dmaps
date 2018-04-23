@@ -45,10 +45,10 @@ public class OSMDataImporter {
         foreach (OSMway way in ways.Values) {
             FillInWayNodeLatLon(way, wayNodes);
 
-            if (way.IsMeadow()) {                
-                osmData.AddArea(new Area (way, "meadow"));                                                                   
+            if (way.IsArea()) {
+                osmData.AddArea(new Area (way, way.LandUse()));
             }
-            else if (way.IsRiver()) {                
+            else if (way.IsRiver()) {
                 osmData.AddRiver(new River (way));                                                                   
             }
             else {
