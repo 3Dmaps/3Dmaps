@@ -40,6 +40,7 @@ public class OSMGenerator : MonoBehaviour {
 		GeneratePoiNodes(osmData);
 		GenerateAreas (osmData);
 		GenerateRivers(osmData);
+		areaDisplay.displayAreas();
 	}
 
 	private void GenerateTrails(OSMData osmData) {
@@ -54,7 +55,8 @@ public class OSMGenerator : MonoBehaviour {
 		foreach (POINode poiNode in osmData.poiNodes) {
 			DisplayNode displayNode = ChangeLatLonToDisplayNode (poiNode.lon, poiNode.lat, mapData);
 			Icon icon = iconHandler.SelectIcon(poiNode.icon);
-			poiDisplay.DisplayPOINode(displayNode, icon, poiNode.name);
+			poiDisplay.DisplayPOINode(displayNode, icon, poiNode.name, colorHandler);
+
 		}
 	}
 		
@@ -65,8 +67,7 @@ public class OSMGenerator : MonoBehaviour {
 				areaBounds.Add(ChangeLatLonToDisplayNode(a.nodeList[i].lon, a.nodeList[i].lat, mapData));
 			}
 			areaDisplay.AddArea (colorHandler.SelectAreaColor (a.type), areaBounds);
-		}
-		areaDisplay.displayAreas ();
+		}		
 	}
 
 	private void GenerateRivers(OSMData osmData) {
@@ -76,8 +77,7 @@ public class OSMGenerator : MonoBehaviour {
 				riverNodes.Add(ChangeLatLonToDisplayNode(r.nodeList[i].lon, r.nodeList[i].lat, mapData));
 			}
 			areaDisplay.AddRiver (riverNodes);
-		}
-		areaDisplay.displayAreas ();
+		}		
 	}
 
 	public List<DisplayNode> TranslateTrail(Trail trail) {
