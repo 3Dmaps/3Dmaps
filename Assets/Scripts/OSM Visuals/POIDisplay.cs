@@ -14,13 +14,13 @@ public class POIDisplay : MonoBehaviour {
 	public float heightAdjustment = 0.025f;
 	public float lineWidthMultiplier = 0.005f;
 
+	public GameObject currentVisibleLabel = null;
 
 	public void DisplayPOINode(DisplayNode poiNode,Icon icon, string name) {
         if (PositionService.IsWithinBounds(poiNode.x, poiNode.y, mapData)) {
 			Vector3 nodePosition = PositionService.GetUnityPosition(poiNode, heightAdjustment, mapData);
 			GenerateNodeGameObject(nodePosition, icon, name);
 			GenerateLabelLine(poiNode); 
-
 		}           
     }
     
@@ -49,11 +49,9 @@ public class POIDisplay : MonoBehaviour {
 			TextMesh mesh = newNode.GetComponentInChildren<TextMesh>();
 			mesh.text = name;
 			newNode.GetComponentInChildren<MeshRenderer>().enabled = false;
+			newNode.GetComponentInChildren<POIClickDetector>().poiDisplay = this;
         }  		
 	}
-	    
-
-
 
 	public void GenerateLabelLine(DisplayNode poiNode)
     {        
