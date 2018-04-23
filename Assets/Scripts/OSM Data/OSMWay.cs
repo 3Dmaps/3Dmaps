@@ -27,15 +27,20 @@ public class OSMway {
             tags.Add(key, value);
         }
     }
+    public string getName() {
+        if(this.tags.ContainsKey("name")) {
+            return this.tags["name"];
+        }
+        return "";        
+    }
 
-    public bool IsMeadow() {
-        return this.tags.ContainsValue("meadow");
+    public bool IsArea() {
+        return this.tags.ContainsKey("landuse");
     }
 
     public bool IsRiver() {
         return this.tags.ContainsValue("river") || this.tags.ContainsValue("stream");
     }
-
     public string LandUse() {
         return tags.ContainsKey("landuse") ? tags["landuse"] : null;
     } 
@@ -48,8 +53,16 @@ public class OSMway {
         return id;
     }
 
-    public string Color() {
-        return tags.ContainsKey("zmeucolor") ? tags["zmeucolor"] : null;
+    public Color GetColor() {
+        if(tags.ContainsKey("3dmapsrgb")) {
+            return ColorHandler.ParseColor(tags["3dmapsrgb"]);
+        } else if(tags.ContainsKey("zmeucolor")){ 
+            return ColorHandler.SelectColor(tags["zmeucolor"]);
+        } else if(IsArea()) {
+            return ColorHandler.SelectAreaColor(tags["landuse"]);
+        } else {
+            return Color.white;
+        }
     }
 
 }

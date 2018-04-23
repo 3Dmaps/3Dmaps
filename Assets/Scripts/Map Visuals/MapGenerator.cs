@@ -11,7 +11,8 @@ using Priority_Queue;
 public class MapGenerator : MonoBehaviour {
 
     public enum DrawMode { NoiseMap, ColourMap, Mesh };
-    public enum MapName { canyonTestHigh, canyonTestLow, testData, canyonTestBinary, nuuksio, nuuksioSmall};
+
+	public enum MapName { canyonTestHigh, canyonTestLow, fromMapCreator, testData, canyonTestBinary, nuuksio, nuuksioSmall};
 
     public DrawMode drawMode;
 
@@ -154,6 +155,9 @@ public class MapGenerator : MonoBehaviour {
             case MapName.canyonTestLow:
                 return "CanyonTestLow";
 
+            case MapName.fromMapCreator:
+                return "heightfile0";
+
             case MapName.testData:
                 return "testData";
 
@@ -182,6 +186,9 @@ public class MapGenerator : MonoBehaviour {
 
             case MapName.testData:
                 return MapDataType.ASCIIGrid;
+            
+            case MapName.fromMapCreator:
+                return MapDataType.Binary;
 
             case MapName.canyonTestBinary:
                 return MapDataType.Binary;

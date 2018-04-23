@@ -6,8 +6,10 @@ using UnityEngine;
 /// </summary>
 public class MapDisplayData {
 
-	private const int lowLod = 20;
-	public DisplayReadySlice mapData;
+    private const int lowLod = 20;
+    private const float colorLerpValue = 0.4f;
+    public DisplayReadySlice mapData;
+
 	private TerrainType[] regions;
 
 	public Texture2D texture;
@@ -60,8 +62,8 @@ public class MapDisplayData {
 				Color areaColor = areaDisplay.GetPointColor(scaledPosX, scaledPosY);
 				Color regionColor = GetRegionColour(currentHeight);
 
-				if (areaColor != Color.black) {
-					regionColor = areaColor - regionColor;
+				if (areaColor != Color.clear) {
+					regionColor = Color.Lerp(areaColor, regionColor, colorLerpValue);
 				}
 
 				colourMap[y * width + x] = regionColor;
@@ -218,16 +220,15 @@ public class MapDisplayData {
 		return status == MapDisplayStatus.LOW_LOD ? lowLod * 2 : mapData.GetActualLOD();
 	}
 
-	public MapDisplayStatus PrepareDraw() {
-		if(texture == null) texture = GenerateTexture();
-		switch(this.status) {
-		case MapDisplayStatus.VISIBLE:
-			if(Mesh == null) Mesh = GenerateMesh();
-			break;
-		case MapDisplayStatus.LOW_LOD:
-			break;
-		case MapDisplayStatus.HIDDEN:
-			break;
+    public MapDisplayStatus PrepareDraw() {
+        switch(this.status) {
+			case MapDisplayStatus.VISIBLE:
+				if(Mesh == null) Mesh = GenerateMesh();
+				break;
+			case MapDisplayStatus.LOW_LOD:
+				break;
+			case MapDisplayStatus.HIDDEN:
+				break;
 		}
 		return this.status;
 	}
