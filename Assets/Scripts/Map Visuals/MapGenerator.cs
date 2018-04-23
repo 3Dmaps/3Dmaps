@@ -43,6 +43,7 @@ public class MapGenerator : MonoBehaviour {
 
     public void Start() {
         regions = new MapRegionSmoother().SmoothRegions(regions, regionsSmoothCount);
+        TextureGenerator.SetRegions(regions);
 
         string mapFileName = GetMapFileNameFromEnum(mapName);
         MapDataType mapDataType = GetMapFileTypeFromEnum(mapName);
@@ -94,7 +95,6 @@ public class MapGenerator : MonoBehaviour {
             GameObject visualObject = display.CreateVisual(visual);
             visualObject.transform.parent = child.transform;
 
-            display.SetRegions(regions);
             display.SetMapData(slice);
             display.SetStatus(MapDisplayStatus.VISIBLE);
             display.DrawMap();

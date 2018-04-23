@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -9,6 +10,69 @@ using System.Collections.Generic;
 /// </summary>
 
 public static class TextureGenerator {
+
+    private const float colorLerpValue = 0.4f;
+	private static AreaDisplay areaDisplay;
+	private static TerrainType[] regions;
+
+	public static void SetRegions(TerrainType[] r) {
+		regions = r;
+	}
+
+	public static Color GetRegionColour(float currentHeight) {
+        for (int i = 0; i < regions.Length; i++) {
+            if (currentHeight <= regions[i].height) {
+                return regions[i].colour;
+            }
+        }
+        return Color.white;
+    }
+
+	public static Color[] ColorMapForSatelliteImage(MapData mapData) {
+		SatelliteImage satelliteImage = SatelliteImageService.getSatelliteImage ();
+		double scale = satelliteImage.getScale ();
+
+		int textureWidth = (int) (mapData.GetWidth() * scale);
+		int textureHeight = (int) (mapData.GetHeight() * scale);
+		Color[] colourMap = new Color[textureWidth * textureHeight];
+		if(!satelliteImage.hasSatelliteImage()) return colourMap;
+
+        MapDataSlice slice = mapData.AsSlice();
+		for (int y = 0; y < textureHeight; y++) {
+			int sliceY = (int)(slice.GetY () * scale);
+			int flippedY = satelliteImage.texture.height - (int)(sliceY + y) - 1;
+			Array.ConstrainedCopy (satelliteImage.texture.GetPixels ((int)(slice.GetX () * scale), flippedY, textureWidth, 1), 0, colourMap, (y * textureWidth), textureWidth); 
+		}
+
+		return colourMap;
+	}
+
+	public static Color[] ColorMapForHeightAndAreas(MapData mapData) {
+		int width  = mapData.GetWidth();
+		int height = mapData.GetHeight();
+		MapDataSlice slice = mapData.AsSlice();
+		Color[] colourMap = new Color[width * height];
+		if(areaDisplay == null) {
+			areaDisplay = GameObject.FindObjectOfType<AreaDisplay>();
+		}
+
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < width; x++) {
+				float currentHeight = mapData.GetSquished(x, y);
+                float scaledPosX = (slice.GetX() + x);
+                float scaledPosY = (slice.GetY() + y);
+                Color areaColor = areaDisplay.GetPointColor(scaledPosX, scaledPosY);
+				Color regionColor = GetRegionColour(currentHeight);
+
+				if (areaColor != Color.clear) {
+					regionColor = Color.Lerp(areaColor, regionColor, colorLerpValue);
+				}
+
+                colourMap[y * width + x] = regionColor;
+			}
+		}
+		return colourMap;
+	}
 
 	public static Texture2D TextureFromColourMap(Color[] colourMap, int width, int height) {
 		Texture2D texture = new Texture2D (width, height);

@@ -101,7 +101,9 @@ public class MapDisplayDataTest {
 		texture.SetPixel (0, 19, Color.red);
 		texture.SetPixel (9, 10, Color.blue);
 
-		Color[] colorMap = dispData.CalculateSatelliteColourMap (image, 10, 10);
+        SatelliteImageService.satelliteImage = image;
+
+		Color[] colorMap = dispData.CalculateColourMap(data);
 		Assert.True (colorMap [0] == Color.red);
 		Assert.True (colorMap [99] == Color.blue);
 	}
@@ -125,7 +127,9 @@ public class MapDisplayDataTest {
 		texture.SetPixel (10, 9, Color.red);
 		texture.SetPixel (19, 0, Color.blue);
 
-		Color[] colorMap = dispData.CalculateSatelliteColourMap (image, 10, 10);
+        SatelliteImageService.satelliteImage = image;
+
+		Color[] colorMap = dispData.CalculateColourMap (data);
 		Assert.True (colorMap [0] == Color.red);
 		Assert.True (colorMap [99] == Color.blue);
 	}

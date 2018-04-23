@@ -10,7 +10,7 @@ public class SwapTexture : MonoBehaviour {
     }
 
     public void DoSwap() {
-        SatelliteImageService.getSatelliteImage().drawSatelliteImage = ! SatelliteImageService.getSatelliteImage().drawSatelliteImage;
+        SatelliteImageService.ToggleUseSatelliteImage();
         generator.UpdateTextures();
     }
 

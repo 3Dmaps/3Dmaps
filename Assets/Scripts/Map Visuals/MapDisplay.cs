@@ -27,13 +27,6 @@ public class MapDisplay : MonoBehaviour {
 		else this.displayData.SetMapData(mapData);
 	}
 
-	public void SetRegions(TerrainType[] regions) {
-		if(this.displayData == null) {
-			this.displayData = new MapDisplayData();
-			this.displayData.SetRegions(regions);
-		} else displayData.SetRegions(regions);
-	}
-
 	public MapDisplayStatus GetStatus() {
 		return displayData.status;
 	}
