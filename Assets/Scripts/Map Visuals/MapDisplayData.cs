@@ -50,8 +50,6 @@ public class MapDisplayData {
 			areaDisplay = GameObject.FindObjectOfType<AreaDisplay>();
 		}
 		Color[] colourMap = new Color[(int) width * height];
-
-		SatelliteImage satelliteImage = SatelliteImageService.getSatelliteImage ();
 		MapDataSlice slice = (MapDataSlice)mapData;
 
 		for (int y = 0; y < height; y++) {
@@ -72,12 +70,11 @@ public class MapDisplayData {
 		return colourMap;
 	}
 
-	public Color[] CalculateSatelliteColourMap(int textureWidth, int textureHeight) {
+	public Color[] CalculateSatelliteColourMap(SatelliteImage satelliteImage, int textureWidth, int textureHeight) {
 		if (areaDisplay == null) {
 			areaDisplay = GameObject.FindObjectOfType<AreaDisplay>();
 		}
 
-		SatelliteImage satelliteImage = SatelliteImageService.getSatelliteImage ();
 		double scale = satelliteImage.getScale();
 
 		Color[] colourMap = new Color[(int) textureWidth * textureHeight];
@@ -196,12 +193,13 @@ public class MapDisplayData {
 
 	public Texture2D GenerateTexture() {
 		if (SatelliteImageService.getSatelliteImage ().hasSatelliteImage()) {
-			double scale = SatelliteImageService.getSatelliteImage ().getScale ();
+			SatelliteImage image = SatelliteImageService.getSatelliteImage ();
+			double scale = image.getScale ();
 
 			int textureWidth = (int) (mapData.GetWidth() * scale);
 			int textureHeight = (int) (mapData.GetHeight() * scale);
 
-			return TextureGenerator.TextureFromColourMap(CalculateSatelliteColourMap(textureWidth, textureHeight), textureWidth, textureHeight);
+			return TextureGenerator.TextureFromColourMap(CalculateSatelliteColourMap(image, textureWidth, textureHeight), textureWidth, textureHeight);
 		}
 		if (regions != null)
 			return TextureGenerator.TextureFromColourMap(CalculateColourMap(mapData), mapData.GetWidth(), mapData.GetHeight());
