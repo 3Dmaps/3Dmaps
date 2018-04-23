@@ -12,7 +12,7 @@ public static class ASCIIGridImporter {
 
     public static ASCIIGridMetadata ReadMetadata(string path) {
         ASCIIGridMetadata metadata = new ASCIIGridMetadata();
-        using (StreamReader input = new StreamReader(path)) {
+        using (StreamReader input = new StreamReader(StreamUtil.GetFileStream(path))) {
             string line;
             bool keepGoing = true;
             while (keepGoing && (line = input.ReadLine()) != null) {
@@ -36,7 +36,7 @@ public static class ASCIIGridImporter {
         }
         float[,] mapData = new float[metadata.ncols, metadata.nrows];
         float minHeight = float.MaxValue, maxHeight = float.MinValue;
-        using (StreamReader input = new StreamReader(path)) {
+        using (StreamReader input = new StreamReader(StreamUtil.GetFileStream(path))) {
             string line;
             int x = 0, y = 0;
             while ((line = input.ReadLine()) != null) {

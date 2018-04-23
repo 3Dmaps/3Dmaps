@@ -100,7 +100,7 @@ public class OSMDataImporter {
 
     private static void ReadXmlDocument(string path, XmlDocument xmlDoc) {
         try {
-            xmlDoc.Load(path);
+            xmlDoc.Load(StreamUtil.GetFileStream(path));
         }
         catch (Exception e) {
             Debug.Log("Got an exception in reading trail data file.");
