@@ -10,7 +10,8 @@ public class MapDisplayData {
     public DisplayReadySlice mapData;
 
 	public Texture2D texture;
-	private Mesh mesh;
+    public int textureLod;
+    private Mesh mesh;
 	public Mesh Mesh {
 		get {
 			return mesh;
@@ -40,11 +41,13 @@ public class MapDisplayData {
 		mapData.lod     = originalLod;
 	}
 
-    public Color[] CalculateColourMap(MapData mapData) {
+    public Color[] CalculateColourMap(MapData mapData, int lod) {
 		if(SatelliteImageService.UseSatelliteImage()) {
+            textureLod = 0;
             return TextureGenerator.ColorMapForSatelliteImage(mapData);
         } else {
-            return TextureGenerator.ColorMapForHeightAndAreas(mapData);
+            textureLod = lod;
+            return TextureGenerator.ColorMapForHeightAndAreas(mapData, lod);
         }
 	}
 
@@ -138,8 +141,8 @@ public class MapDisplayData {
         return mesh;
     }
 
-    public Texture2D GenerateTexture() {
-        return TextureGenerator.TextureFromColourMap(CalculateColourMap(mapData), mapData.GetWidth(), mapData.GetHeight());
+    public Texture2D GenerateTexture(int lod) {
+        return TextureGenerator.TextureFromColourMap(CalculateColourMap(mapData, lod), mapData.GetWidth(), mapData.GetHeight());
 	}
 
 	public void UpdateLOD(int lod) {

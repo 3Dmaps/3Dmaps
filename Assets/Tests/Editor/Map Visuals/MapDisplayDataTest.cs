@@ -103,7 +103,7 @@ public class MapDisplayDataTest {
 
         SatelliteImageService.satelliteImage = image;
 
-		Color[] colorMap = dispData.CalculateColourMap(data);
+		Color[] colorMap = dispData.CalculateColourMap(data, 0);
 		Assert.True (colorMap [0] == Color.red);
 		Assert.True (colorMap [99] == Color.blue);
 	}
@@ -129,7 +129,7 @@ public class MapDisplayDataTest {
 
         SatelliteImageService.satelliteImage = image;
 
-		Color[] colorMap = dispData.CalculateColourMap (data);
+		Color[] colorMap = dispData.CalculateColourMap (data, 0);
 		Assert.True (colorMap [0] == Color.red);
 		Assert.True (colorMap [99] == Color.blue);
 	}

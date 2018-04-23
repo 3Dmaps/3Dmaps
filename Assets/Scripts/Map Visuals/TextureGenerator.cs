@@ -20,12 +20,17 @@ public static class TextureGenerator {
 	}
 
 	public static Color GetRegionColour(float currentHeight) {
-        for (int i = 0; i < regions.Length; i++) {
-            if (currentHeight <= regions[i].height) {
-                return regions[i].colour;
-            }
-        }
-        return Color.white;
+		int min = 0, max = regions.Length - 1, mid = 0;
+		while(min < max) {
+			mid = (min + max) / 2;
+			float h = regions[mid].height;
+			if(regions[mid].height <= currentHeight) {
+				min = mid + 1;
+			} else {
+				max = mid - 1;
+			}
+		}
+		return regions[mid].colour;
     }
 
 	public static Color[] ColorMapForSatelliteImage(MapData mapData) {
@@ -47,7 +52,8 @@ public static class TextureGenerator {
 		return colourMap;
 	}
 
-	public static Color[] ColorMapForHeightAndAreas(MapData mapData) {
+	public static Color[] ColorMapForHeightAndAreas(MapData mapData, int lod = 0) {
+		lod = lod == 0 ? 1 : lod * 2;
 		int width  = mapData.GetWidth();
 		int height = mapData.GetHeight();
 		MapDataSlice slice = mapData.AsSlice();
@@ -56,8 +62,8 @@ public static class TextureGenerator {
 			areaDisplay = GameObject.FindObjectOfType<AreaDisplay>();
 		}
 
-		for (int y = 0; y < height; y++) {
-			for (int x = 0; x < width; x++) {
+		for (int y = 0; y < height; y += lod) {
+			for (int x = 0; x < width; x += lod) {
 				float currentHeight = mapData.GetSquished(x, y);
                 float scaledPosX = (slice.GetX() + x);
                 float scaledPosY = (slice.GetY() + y);
@@ -68,7 +74,11 @@ public static class TextureGenerator {
 					regionColor = Color.Lerp(areaColor, regionColor, colorLerpValue);
 				}
 
-                colourMap[y * width + x] = regionColor;
+				for(int actualY = y; actualY < y + lod && actualY < height; actualY++) {
+					for(int actualX = x; actualX < x + lod && actualX < width; actualX++) {
+						colourMap[actualY * width + actualX] = regionColor;
+					}
+				}
 			}
 		}
 		return colourMap;

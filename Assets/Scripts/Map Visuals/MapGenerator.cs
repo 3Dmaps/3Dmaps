@@ -37,8 +37,10 @@ public class MapGenerator : MonoBehaviour {
     public bool useSatelliteImage = true;
 
     private DisplayUpdater displayUpdater = new DisplayUpdater();
+    private TextureUpdater textureUpdater = new TextureUpdater();
     private int currentZoomValue = 0;
     public int displayUpdateRate = 4;
+    public int textureUpdateRate = 1;
     public Vector2 mapViewerPosition = Vector2.zero;
 
     public void Start() {
@@ -78,7 +80,7 @@ public class MapGenerator : MonoBehaviour {
 
     public void UpdateTextures() {
         foreach (MapDisplay display in displays) {
-
+            textureUpdater.Add(new UnupdatedDisplay(display.GetLOD(), display), display.GetLOD());
             display.UpdateMapTexture();
         }
     }
@@ -108,6 +110,13 @@ public class MapGenerator : MonoBehaviour {
         while (displaysUpdated < displayUpdateRate && !displayUpdater.IsEmpty()) {
             displayUpdater.UpdateNextDisplay();
             displaysUpdated++;
+        }
+
+        int texturesUpdated = 0;
+
+        while(texturesUpdated < textureUpdateRate && !textureUpdater.IsEmpty()) {
+            textureUpdater.UpdateNextDisplay();
+            texturesUpdated++;
         }
     }
 

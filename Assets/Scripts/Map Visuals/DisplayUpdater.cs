@@ -16,8 +16,12 @@ public class DisplayUpdater {
         UnupdatedDisplay ud = this.unupdatedDisplays.Dequeue();
         MapDisplay display = ud.display;
         if (display == null) return;
+        DoUpdate(display, ud.lod);
+    }
+
+    public virtual void DoUpdate(MapDisplay display, int lod) {
         display.SetStatus(MapDisplayStatus.VISIBLE);
-        display.UpdateLOD(ud.lod);
+        display.UpdateLOD(lod);
         display.DrawMap();
     }
 
