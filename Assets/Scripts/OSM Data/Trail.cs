@@ -11,6 +11,7 @@ public class Trail {
     List<OSMNode> nodeList;
     public long id;
 	public Color color;
+    public string trailName;
 
     public Trail(long id) {
         nodeList = new List<OSMNode>();
@@ -22,6 +23,7 @@ public class Trail {
         this.nodeList = way.GetNodeList();
         this.id = way.GetID();
         this.color = way.GetColor();
+        this.trailName = way.getName();
     
     }
 

@@ -30,6 +30,7 @@
     <tag k="EXPORT_POI" v="true" />
     <tag k="zmeuicon" v="city" />
   </node>
+  <node timestamp="2017-11-23T15:46:19Z" uid="1" user="zmeu" visible="true" version="1" changeset="1" id="1467648244" lat="36.1045442" lon="-112.0917127" />
   <node timestamp="2017-11-23T15:46:19Z" uid="1" user="zmeu" visible="true" version="1" changeset="1" id="173886087" lat="36.0176913" lon="-112.1253312" />
   <node timestamp="2017-11-23T15:46:19Z" uid="1" user="zmeu" visible="true" version="1" changeset="1" id="173895047" lat="36.0537344" lon="-112.1439038" />
   <node timestamp="2017-11-23T15:46:19Z" uid="1" user="zmeu" visible="true" version="1" changeset="1" id="173910289" lat="36.0383775" lon="-112.1872653" />
@@ -41,6 +42,7 @@
     <nd ref="173895047" />
     <nd ref="173910289" />
     <tag k="route" v="hiking" />
+    <tag k="name" v="Hiking Route" />
     <tag k="highway" v="path" />
     <tag k="EXPORT_ROUTE" v="true" />
     <tag k="originalMemberWays" v="100000000144" />

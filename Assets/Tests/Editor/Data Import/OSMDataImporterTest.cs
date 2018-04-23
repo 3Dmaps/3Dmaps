@@ -68,6 +68,20 @@ public class OSMDataImporterTest {
     public void CorrentIconFoundOnPoi() {
         Assert.True(osmData.poiNodes[0].icon.Equals("city"), "Wrong icon name");        
     }
+    [Test]
+    public void CorrectLabelName() {
+        bool hasCorrectLabelName = false;
+        foreach (Trail trail in osmData.trails) {
+            
+            if(trail.trailName.Equals("Hiking Route")) {
+                hasCorrectLabelName=true;
+            }
+            Assert.True(hasCorrectLabelName, "Name not found");
+
+        } 
+        
+        
+    }
 
     [Test]
     public void TrailNodeLatLonCorrect() {
