@@ -25,4 +25,8 @@ public class SatelliteImage {
 		}
 		return false;
 	}
+
+	public double getScale() {
+		return (double)texture.width / width;
+	}
 }

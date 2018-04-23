@@ -83,4 +83,50 @@ public class MapDisplayDataTest {
         checkVector(n2[0], Mathf.Sqrt(2)/2, Mathf.Sqrt(2)/2, 0); checkVector(n2[1], 1, 0, 0);
     }
 
+	[Test]
+	public void SatelliteImageCorrectlySlicedAndFlippedToForTopLeftSlice() {
+		MapDisplayData dispData = new MapDisplayData();
+		data.SetX (0);
+		data.SetY (0);
+		dispData.SetMapData(data);
+
+		SatelliteImage image = new SatelliteImage ();
+		Color[] textureMap = new Color[20*20];
+		Texture2D texture = new Texture2D (20, 20);
+		texture.SetPixels (textureMap);
+		image.texture = texture;
+		image.width = 10;
+		image.height = 10;
+
+		texture.SetPixel (0, 19, Color.red);
+		texture.SetPixel (9, 10, Color.blue);
+
+		Color[] colorMap = dispData.CalculateSatelliteColourMap (image, 10, 10);
+		Assert.True (colorMap [0] == Color.red);
+		Assert.True (colorMap [99] == Color.blue);
+	}
+
+
+	[Test]
+	public void SatelliteImageCorrectlySlicedAndFlippedToForBottomRightSlice() {
+		MapDisplayData dispData = new MapDisplayData();
+		data.SetX (5);
+		data.SetY (5);
+		dispData.SetMapData(data);
+
+		SatelliteImage image = new SatelliteImage ();
+		Color[] textureMap = new Color[20*20];
+		Texture2D texture = new Texture2D (20, 20);
+		texture.SetPixels (textureMap);
+		image.texture = texture;
+		image.width = 10;
+		image.height = 10;
+
+		texture.SetPixel (10, 9, Color.red);
+		texture.SetPixel (19, 0, Color.blue);
+
+		Color[] colorMap = dispData.CalculateSatelliteColourMap (image, 10, 10);
+		Assert.True (colorMap [0] == Color.red);
+		Assert.True (colorMap [99] == Color.blue);
+	}
 }
