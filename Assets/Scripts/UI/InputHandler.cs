@@ -7,6 +7,7 @@ public class InputHandler : MonoBehaviour {
 
     public Camera cam;
     public MapGenerator mapGenerator;
+	public TrailDisplay trailDisplay;
 
     public float perspectiveZoomSpeed = 0.5f;
     public float zoomMaxValue         = 100.0F;
@@ -26,6 +27,7 @@ public class InputHandler : MonoBehaviour {
         InputController.OnInputEnded      += OnInputEnded;
 
         target = mapGenerator.gameObject.transform.parent.transform;
+		this.trailDisplay = GameObject.Find ("OSMGenerator").GetComponent<TrailDisplay> ();
     }
 
     void Update()
@@ -33,6 +35,7 @@ public class InputHandler : MonoBehaviour {
         if (Input.GetAxis("Mouse ScrollWheel") != 0f)
         {
             ZoomCamera(Input.GetAxis("Mouse ScrollWheel") * 100);
+			trailDisplay.UpdateLabelPositions ();
         }
     }
 
@@ -49,6 +52,7 @@ public class InputHandler : MonoBehaviour {
             if (IsPinch(inputs))
                 HandleZoom(inputs);
         }
+		trailDisplay.UpdateLabelPositions ();
     }
 
     public void OnInputStarted(List<InputData> inputs) {
@@ -129,6 +133,7 @@ public class InputHandler : MonoBehaviour {
                                     target.eulerAngles.z
                                  );
         UpdateLod();
+
     }
 
     private void UpdateLod() {
