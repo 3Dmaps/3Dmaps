@@ -11,13 +11,16 @@ public class TrailDisplayTest {
 
 	[SetUp]
 	public void Setup() {
+		
 		GameObject trailDisplayObject = new GameObject ();
-
 		display = trailDisplayObject.AddComponent<TrailDisplay> ();
         display.material = new Material(Shader.Find("Unlit/Color"));
-        
+
 		MapMetadata metadata = MapDataImporter.ReadMetadata("Assets/Resources/testData.txt");
 		display.mapData = MapDataImporter.ReadMapData("Assets/Resources/testData.txt", metadata);
+	
+		display.labelGameObject = new GameObject();
+		display.trailName = "";
 	}
 
 	[Test]

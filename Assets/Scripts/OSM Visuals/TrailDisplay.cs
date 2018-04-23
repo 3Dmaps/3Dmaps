@@ -15,7 +15,9 @@ public class TrailDisplay : MonoBehaviour {
     public List<Vector3> nodePositions;
     public float lineWidthMultiplier = 0.01f;
 	public float lineHeightAdjustment = 0.005f;
-  
+    public GameObject labelGameObject;
+    public string trailName;
+    
     public Material material;
 
 	public void DisplayNodes(List<DisplayNode> nodeList)
@@ -51,13 +53,27 @@ public class TrailDisplay : MonoBehaviour {
         lineRenderer.widthMultiplier = lineWidthMultiplier;
         lineRenderer.useWorldSpace = false;
 
+        
         Material[] materials = new Material[1];
         materials[0] = new Material(material);
         
         newLine.GetComponent<Renderer>().sharedMaterials = materials;
-        newLine.GetComponent<Renderer>().sharedMaterial.color = trailColor;        
-                     
+        newLine.GetComponent<Renderer>().sharedMaterial.color = trailColor;
+        
+        if (!trailName.Equals("")) {
+            GenerateLabelGameObject(lineRenderer.GetPosition(1));        
+        }         
     }
+    public void GenerateLabelGameObject(Vector3 nodePosition) {
+        
+        GameObject newNode = Instantiate(labelGameObject);
+        newNode.name = trailName;
+        newNode.transform.SetParent(this.transform);
+		TextMesh text = newNode.GetComponent<TextMesh>();
+        text.text = trailName;
+        newNode.transform.position = nodePosition;
+        
+    } 
 }
 
 public class DisplayNode {
