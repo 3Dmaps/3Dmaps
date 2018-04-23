@@ -16,11 +16,12 @@ public static class SatelliteImageService {
 
 public class SatelliteImage {
 	public Texture2D texture;
+    public bool drawSatelliteImage;
 	public int width;
 	public int height;
 
 	public bool hasSatelliteImage() {
-		if (texture != null) {
+		if (texture != null && drawSatelliteImage) {
 			return true;
 		}
 		return false;
