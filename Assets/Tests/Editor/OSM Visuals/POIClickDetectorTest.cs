@@ -31,22 +31,22 @@ public class PoiClickDetectorTest {
 
 	[Test]
 	public void ClickTurnsPOILabelOn() {
-		nodeGameObject.GetComponent<POIClickDetector> ().handleClick ();
+		nodeGameObject.GetComponent<POIClickDetector> ().HandleClick ();
 		Assert.True (nodeGameObject.GetComponent<MeshRenderer> ().enabled == true, "The label was not turned on!");
 	}
 
 	[Test]
 	public void ClickingSecondTimeTurnsPOILabelOff() {
-		nodeGameObject.GetComponent<POIClickDetector> ().handleClick ();
-		nodeGameObject.GetComponent<POIClickDetector> ().handleClick ();
+		nodeGameObject.GetComponent<POIClickDetector> ().HandleClick ();
+		nodeGameObject.GetComponent<POIClickDetector> ().HandleClick ();
 		Assert.True (nodeGameObject.GetComponent<MeshRenderer> ().enabled == false, "The label was still on!");
 	}
 
 
 	[Test]
 	public void OnlyOnePOILabelEnabledAtOnce() {
-		nodeGameObject.GetComponent<POIClickDetector> ().handleClick ();
-		nodeGameObject2.GetComponent<POIClickDetector> ().handleClick ();
+		nodeGameObject.GetComponent<POIClickDetector> ().HandleClick ();
+		nodeGameObject2.GetComponent<POIClickDetector> ().HandleClick ();
 		Assert.True (nodeGameObject.GetComponent<MeshRenderer> ().enabled == false, "The earlier label was not turned off!");
 		Assert.True (nodeGameObject2.GetComponent<MeshRenderer> ().enabled == true, "The latter label was not turned on!");
 	}

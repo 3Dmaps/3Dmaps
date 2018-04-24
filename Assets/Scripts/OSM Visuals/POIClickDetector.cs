@@ -7,10 +7,10 @@ public class POIClickDetector : MonoBehaviour {
 	public POIDisplay poiDisplay;
 
 	private void OnMouseDown() {
-		handleClick ();
+		HandleClick ();
 	}
 
-	public void handleClick() {
+	public void HandleClick() {
 		GameObject previousLabel = poiDisplay.currentVisibleLabel;
 		if (previousLabel != null && previousLabel == this.gameObject) {
 			this.GetComponentInChildren<MeshRenderer> ().enabled = false;
