@@ -200,7 +200,7 @@ public class MapData {
         return (GetRaw(x, y) - metadata.GetMinHeight()) / (metadata.GetMaxHeight() - metadata.GetMinHeight());
     }
 
-    public MapDataSlice AsSlice() {
+    public virtual MapDataSlice AsSlice() {
         return new MapDataSlice(this, 0, 0, GetWidth(), GetHeight());
     }
 
