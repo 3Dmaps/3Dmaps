@@ -8,6 +8,8 @@ using System.Collections;
 
 public class MapDisplay : MonoBehaviour {
 
+	public const int lowTextureLod = 7;
+
 	public GameObject visualMap;
 	private Renderer textureRender;
 	public MeshFilter meshFilter;
@@ -25,13 +27,6 @@ public class MapDisplay : MonoBehaviour {
 	public void SetMapData(DisplayReadySlice mapData) {
 		if(this.displayData == null ) this.displayData = new MapDisplayData(mapData);
 		else this.displayData.SetMapData(mapData);
-	}
-
-	public void SetRegions(TerrainType[] regions) {
-		if(this.displayData == null) {
-			this.displayData = new MapDisplayData();
-			this.displayData.SetRegions(regions);
-		} else displayData.SetRegions(regions);
 	}
 
 	public MapDisplayStatus GetStatus() {
@@ -52,8 +47,8 @@ public class MapDisplay : MonoBehaviour {
 		}
 	}
 
-    public void UpdateMapTexture() {
-        Texture2D texture           = displayData.GenerateTexture();
+    public void UpdateMapTexture(int lod = lowTextureLod) {
+        Texture2D texture           = displayData.GenerateTexture(lod);
 		displayData.texture 		= texture;
         Material material           = new Material(meshRenderer.sharedMaterial);
         material.mainTexture        = texture;
@@ -62,6 +57,14 @@ public class MapDisplay : MonoBehaviour {
 
 	public void UpdateLOD(int lod) {
 		displayData.UpdateLOD(lod);
+	}
+
+	public int GetLOD() {
+		return displayData.mapData.lod;
+	}
+
+	public int GetTextureLOD() {
+		return displayData.textureLod;
 	}
 
     public int GetActualLOD() {
