@@ -7,16 +7,20 @@ public class POIClickDetector : MonoBehaviour {
 	public POIDisplay poiDisplay;
 
 	private void OnMouseDown() {
+		handleClick ();
+	}
+
+	public void handleClick() {
 		GameObject previousLabel = poiDisplay.currentVisibleLabel;
 		if (previousLabel != null && previousLabel == this.gameObject) {
-			this.GetComponentInChildren<MeshRenderer>().enabled = false;
+			this.GetComponentInChildren<MeshRenderer> ().enabled = false;
 			poiDisplay.currentVisibleLabel = null;
 		} else {
 			if (previousLabel != null) {
-				previousLabel.GetComponentInChildren<MeshRenderer>().enabled = false;
+				previousLabel.GetComponentInChildren<MeshRenderer> ().enabled = false;
 			}
 			poiDisplay.currentVisibleLabel = this.gameObject;
-			this.GetComponentInChildren<MeshRenderer>().enabled = true;
+			this.GetComponentInChildren<MeshRenderer> ().enabled = true;
 		}
 	}
 }
