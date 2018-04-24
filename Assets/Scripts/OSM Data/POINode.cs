@@ -12,9 +12,10 @@ public class POINode {
     public float lat;
     public float lon;
     public string icon;
+    public string name;
 
-    public POINode(string icon) {
-        this.icon=icon;               
+    public POINode(string icon, string name) {
+        this.icon=icon;
+        this.name=name;               
     }
-
 }
