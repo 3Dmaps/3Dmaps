@@ -75,7 +75,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trailColor: {r: 0, g: 0, b: 0, a: 0}
   nodePositions: []
-  lineWidthMultiplier: 0.01
+  lineWidthMultiplier: 0.003
   lineHeightAdjustment: 0.005
   labelGameObject: {fileID: 1132005558457232, guid: 34951f2665d3e4e40abe042f95c18797,
     type: 2}
@@ -118,6 +118,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeGameObject: {fileID: 1215510092995608, guid: e5c7ee0fdaa95794fa62d364c85a69ae,
     type: 2}
-  heightAdjustment: 0.05
+  heightAdjustment: 0.01
   lineWidthMultiplier: 0.005
   currentVisibleLabel: {fileID: 0}
