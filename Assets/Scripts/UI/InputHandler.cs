@@ -35,7 +35,7 @@ public class InputHandler : MonoBehaviour {
         if (Input.GetAxis("Mouse ScrollWheel") != 0f)
         {
             ZoomCamera(Input.GetAxis("Mouse ScrollWheel") * 100);
-			trailDisplay.UpdateLabelPositions ();
+			UpdateLabelPositions ();
         }
     }
 
@@ -52,7 +52,7 @@ public class InputHandler : MonoBehaviour {
             if (IsPinch(inputs))
                 HandleZoom(inputs);
         }
-		trailDisplay.UpdateLabelPositions ();
+		UpdateLabelPositions ();
     }
 
     public void OnInputStarted(List<InputData> inputs) {
@@ -142,6 +142,12 @@ public class InputHandler : MonoBehaviour {
             lodUpdateCounter = 0;
         }
     }
+
+	private void UpdateLabelPositions() {
+		if (trailDisplay != null) {
+			trailDisplay.UpdateLabelPositions ();
+		}
+	}
 
     private float Angle(Vector2 pos1, Vector2 pos2) {
         Vector2 from  = pos2 - pos1;
