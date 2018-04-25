@@ -18,6 +18,11 @@ public class DisplayReadySlice : MapDataSlice {
         this.displayNeighbors = new List<DisplayNeighborRelation>(expectedNumberOfNeighbors);
 	}
 
+    public override DisplayReadySlice AsDisplayReadySlice(int lod) {
+        this.lod = lod;
+        return this;
+    }
+
 	public int GetActualLOD() {
 		return lod == 0 ? 1 : lod * 2;
 	}

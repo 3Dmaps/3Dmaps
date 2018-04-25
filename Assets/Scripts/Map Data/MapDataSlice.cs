@@ -21,7 +21,11 @@ public class MapDataSlice : MapData {
     public MapDataSlice(MapDataSlice slice) : this(slice, slice.topLeftX, slice.topLeftY, slice.width, slice.height) {
     }
 
-    public DisplayReadySlice AsDisplayReadySlice(int lod) {
+    public override MapDataSlice AsSlice() {
+        return this;
+    }
+
+    public virtual DisplayReadySlice AsDisplayReadySlice(int lod) {
         DisplayReadySlice ret = new DisplayReadySlice(this, lod);
         foreach(MapNeighborRelation neighbor in neighbors) {
             ret.AddDisplayNeighbor(neighbor.AsDisplayNeighborRelation());

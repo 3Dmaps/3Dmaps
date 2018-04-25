@@ -14,7 +14,7 @@ using System;
 public class OSMDataImporter {
     private const string wayElement = "way", nodeElement = "node", childNodeElement = "nd", relationElement  = "relation";
 	private const string idAttribute = "id", latAttribute = "lat", lonAttribute = "lon", 
-			refAttribute = "ref", roleAttribute = "role", memberTypeAttribute = "member type", colorKeyValue = "zmeucolor", iconKeyValue="zmeuicon";
+			refAttribute = "ref", roleAttribute = "role", memberTypeAttribute = "member type", colorKeyValue = "zmeucolor", iconKeyValue="zmeuicon", labelName = "name", POIName = "name";
 	private const string tagElement = "tag";    
 
     public static OSMData ReadOSMData(string path) {
@@ -45,10 +45,10 @@ public class OSMDataImporter {
         foreach (OSMway way in ways.Values) {
             FillInWayNodeLatLon(way, wayNodes);
 
-            if (way.IsMeadow()) {                
-                osmData.AddArea(new Area (way, "meadow"));                                                                   
+            if (way.IsArea()) {
+                osmData.AddArea(new Area (way, way.LandUse()));
             }
-            else if (way.IsRiver()) {                
+            else if (way.IsRiver()) {
                 osmData.AddRiver(new River (way));                                                                   
             }
             else {
@@ -62,16 +62,24 @@ public class OSMDataImporter {
     private static void ReadTrailNode(OSMData trailData, Dictionary<long, OSMNode> wayNodes, XmlElement node) {
         OSMNode trailNode = new OSMNode();
         if (node.ChildNodes.Count > 0) {
+            string iconName = "";
+            string name = "";
             foreach (XmlElement childNode in node.ChildNodes) {
                 if (childNode.LocalName.Equals(tagElement) && childNode.GetAttribute("k").Equals(iconKeyValue)) {
-                    POINode poiNode = new POINode(childNode.GetAttribute("v"));
-                    poiNode.id      = long.Parse(node.GetAttribute(idAttribute));
-                    poiNode.lat     = float.Parse(node.GetAttribute(latAttribute));
-                    poiNode.lon     = float.Parse(node.GetAttribute(lonAttribute));
-                    trailData.AddPOI(poiNode);
+                    iconName = childNode.GetAttribute("v");
+                } else if (childNode.LocalName.Equals(tagElement) && childNode.GetAttribute("k").Equals(POIName)) {
+                    name = childNode.GetAttribute("v");
                 }
             }
+            if (!iconName.Equals("") && !name.Equals("")) {
+                POINode poiNode = new POINode(iconName, name);
+                poiNode.id      = long.Parse(node.GetAttribute(idAttribute));
+                poiNode.lat     = float.Parse(node.GetAttribute(latAttribute));
+                poiNode.lon     = float.Parse(node.GetAttribute(lonAttribute));
+                trailData.AddPOI(poiNode);
+            }
         }
+        
         trailNode.id  = long.Parse(node.GetAttribute(idAttribute));
 		trailNode.lat = float.Parse(node.GetAttribute(latAttribute));
 		trailNode.lon = float.Parse(node.GetAttribute(lonAttribute));
@@ -88,6 +96,8 @@ public class OSMDataImporter {
                 way.AddNode(wayNode);
             }
             if (childNode.LocalName.Equals (tagElement)) {
+                way.AddTag(childNode.GetAttribute ("k"), childNode.GetAttribute ("v"));
+            } else if(childNode.GetAttribute("k").Equals(labelName)) {
                 way.AddTag(childNode.GetAttribute ("k"), childNode.GetAttribute ("v"));
             }
         }

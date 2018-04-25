@@ -8,13 +8,18 @@ public class MapDisplayDataTest {
 
     [SetUp]
     public void Setup() {
-        data = MapData.ForTesting(new float[5, 5] {
-            {0.0F, 0.1F, 0.2F, 0.3F, 0.4F},
-            {1.0F, 1.1F, 1.2F, 1.3F, 1.4F},
-            {2.0F, 2.1F, 2.2F, 2.3F, 2.4F},
-            {3.0F, 3.1F, 3.2F, 3.3F, 3.4F},
-            {4.0F, 4.1F, 4.2F, 4.3F, 4.4F},
-        }).AsSlice().AsDisplayReadySlice(5);
+        data = MapData.ForTesting(new float[10, 10] {
+            {0.0F, 0.1F, 0.2F, 0.3F, 0.4F, 0F, 0F, 0F, 0F, 0F},
+            {1.0F, 1.1F, 1.2F, 1.3F, 1.4F, 0F, 0F, 0F, 0F, 0F},
+            {2.0F, 2.1F, 2.2F, 2.3F, 2.4F, 0F, 0F, 0F, 0F, 0F},
+            {3.0F, 3.1F, 3.2F, 3.3F, 3.4F, 0F, 0F, 0F, 0F, 0F},
+            {4.0F, 4.1F, 4.2F, 4.3F, 4.4F, 0F, 0F, 0F, 0F, 0F},
+            {0F, 0F, 0F, 0F, 0F, 0F, 0F, 0F, 0F, 0F},
+            {0F, 0F, 0F, 0F, 0F, 0F, 0F, 0F, 0F, 0F},
+            {0F, 0F, 0F, 0F, 0F, 0F, 0F, 0F, 0F, 0F},
+            {0F, 0F, 0F, 0F, 0F, 0F, 0F, 0F, 0F, 0F},
+            {0F, 0F, 0F, 0F, 0F, 0F, 0F, 0F, 0F, 0F},
+        }).GetSlices(5)[0].AsSlice().AsDisplayReadySlice(5);
     }
 
     [Test]
@@ -83,4 +88,56 @@ public class MapDisplayDataTest {
         checkVector(n2[0], Mathf.Sqrt(2)/2, Mathf.Sqrt(2)/2, 0); checkVector(n2[1], 1, 0, 0);
     }
 
+	[Test]
+	public void SatelliteImageCorrectlySlicedAndFlippedToForTopLeftSlice() {
+		MapDisplayData dispData = new MapDisplayData();
+		data.SetX (0);
+		data.SetY (0);
+		dispData.SetMapData(data);
+
+		SatelliteImage image = new SatelliteImage ();
+		Color[] textureMap = new Color[20*20];
+		Texture2D texture = new Texture2D (20, 20);
+		texture.SetPixels (textureMap);
+		image.texture = texture;
+		image.width = 10;
+		image.height = 10;
+
+		texture.SetPixel (0, 19, Color.red);
+		texture.SetPixel (9, 10, Color.blue);
+
+        SatelliteImageService.satelliteImage = image;
+        SatelliteImageService.useSatelliteImage = true;
+
+		Color[] colorMap = dispData.CalculateColourMap(data, 0);
+		Assert.True (colorMap [0] == Color.red);
+		Assert.True (colorMap [99] == Color.blue);
+	}
+
+
+	[Test]
+	public void SatelliteImageCorrectlySlicedAndFlippedToForBottomRightSlice() {
+		MapDisplayData dispData = new MapDisplayData();
+		data.SetX (5);
+		data.SetY (5);
+		dispData.SetMapData(data);
+
+		SatelliteImage image = new SatelliteImage ();
+		Color[] textureMap = new Color[20*20];
+		Texture2D texture = new Texture2D (20, 20);
+		texture.SetPixels (textureMap);
+		image.texture = texture;
+		image.width = 10;
+		image.height = 10;
+
+		texture.SetPixel (10, 9, Color.red);
+		texture.SetPixel (19, 0, Color.blue);
+
+        SatelliteImageService.satelliteImage = image;
+        SatelliteImageService.useSatelliteImage = true;
+
+		Color[] colorMap = dispData.CalculateColourMap (data, 0);
+		Assert.True (colorMap [0] == Color.red);
+		Assert.True (colorMap [99] == Color.blue);
+	}
 }

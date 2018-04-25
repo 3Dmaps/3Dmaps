@@ -8,9 +8,18 @@ using UnityEngine;
 public static class SatelliteImageService {
 
 	public static SatelliteImage satelliteImage;
+	public static bool useSatelliteImage = true;
 
 	public static SatelliteImage getSatelliteImage() {
 		return satelliteImage;
+	}
+
+	public static bool UseSatelliteImage() {
+		return satelliteImage != null && satelliteImage.hasSatelliteImage() && useSatelliteImage;
+	}
+
+	public static void ToggleUseSatelliteImage() {
+		useSatelliteImage = !useSatelliteImage;
 	}
 }
 
@@ -24,5 +33,9 @@ public class SatelliteImage {
 			return true;
 		}
 		return false;
+	}
+
+	public double getScale() {
+		return (double)texture.width / width;
 	}
 }

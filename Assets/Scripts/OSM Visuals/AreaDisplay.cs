@@ -61,7 +61,7 @@ public class AreaDisplay : MonoBehaviour {
 
     public Color GetPointColor(float x, float y) {
 		if (!showAreas) {
-			return Color.black;  
+			return Color.clear;  
 		}
 
         return GetAreaColor(x, y);
@@ -82,7 +82,7 @@ public class AreaDisplay : MonoBehaviour {
 				}
 			}
 		}
-		return Color.black;
+		return Color.clear;
     }
 
     public bool InRiver(List<DisplayNode> displayNodes, float x, float y) {

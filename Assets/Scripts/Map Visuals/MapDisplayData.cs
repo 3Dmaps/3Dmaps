@@ -8,96 +8,54 @@ public class MapDisplayData {
 
     private const int lowLod = 20;
     public DisplayReadySlice mapData;
-	private TerrainType[] regions;
 
 	public Texture2D texture;
+    public int textureLod;
     private Mesh mesh;
 	public Mesh Mesh {
-        get {
-            return mesh;
-        }
-        set {
-            if(mesh != null) {
-                MonoBehaviour.Destroy(mesh);
-            }
-            mesh = value;
-        }
-    }
+		get {
+			return mesh;
+		}
+		set {
+			if(mesh != null) {
+				MonoBehaviour.Destroy(mesh);
+			}
+			mesh = value;
+		}
+	}
 	public Mesh lowLodMesh;
 	public MapDisplayStatus status;
-    private AreaDisplay areaDisplay;
+	private AreaDisplay areaDisplay;
 
-    public MapDisplayData(){}
+	public MapDisplayData(){}
 
-    public MapDisplayData(DisplayReadySlice mapData) {
-        this.SetMapData(mapData);
-    }
+	public MapDisplayData(DisplayReadySlice mapData) {
+		this.SetMapData(mapData);
+	}
 
-    public void SetMapData(DisplayReadySlice mapData) {
-        this.mapData    = mapData;
+	public void SetMapData(DisplayReadySlice mapData) {
+		this.mapData    = mapData;
 		int originalLod = mapData.lod;
 		mapData.lod     = lowLod;
 		lowLodMesh      = GenerateMesh();
 		mapData.lod     = originalLod;
-    }
-
-    private Color[] CalculateColourMap(MapData mapData) {
-		int width  = mapData.GetWidth();
-		int height = mapData.GetHeight();
-        if (areaDisplay == null) {
-            areaDisplay = GameObject.FindObjectOfType<AreaDisplay>();
-        }
-	
-		SatelliteImage satelliteImage = SatelliteImageService.getSatelliteImage ();
-
-		Color[] colourMap = new Color[width * height];
-        MapDataSlice slice = (MapDataSlice)mapData;
-
-		if (satelliteImage.hasSatelliteImage ()) {
-			for (int y = 0; y < height; y++) {
-				int flippedY = satelliteImage.height - (slice.GetY() + y) - 1;
-				Array.ConstrainedCopy (satelliteImage.texture.GetPixels (slice.GetX (), flippedY, width, 1), 0, colourMap, y * width, width); 
-			}
-
-			return colourMap;
-		}
-
-        for (int y = 0; y < height; y++) {
-			for (int x = 0; x < width; x++) {
-				float currentHeight = mapData.GetSquished(x, y);
-                float scaledPosX = (slice.GetX() + x);
-                float scaledPosY = (slice.GetY() + y);
-                Color areaColor = areaDisplay.GetPointColor(scaledPosX, scaledPosY);
-				Color regionColor = GetRegionColour(currentHeight);
-
-				if (areaColor != Color.black) {
-					regionColor = areaColor - regionColor;
-				}
-
-                colourMap[y * width + x] = regionColor;
-			}
-		}
-		return colourMap;
 	}
 
-    public Color GetRegionColour(float currentHeight) {
-        for (int i = 0; i < regions.Length; i++) {
-            if (currentHeight <= regions[i].height) {
-                return regions[i].colour;
-            }
+    public Color[] CalculateColourMap(MapData mapData, int lod) {
+		if(SatelliteImageService.UseSatelliteImage()) {
+            textureLod = 0;
+            return TextureGenerator.ColorMapForSatelliteImage(mapData);
+        } else {
+            textureLod = lod;
+            return TextureGenerator.ColorMapForHeightAndAreas(mapData, lod);
         }
-        return Color.white;
-    }
-
-    public void SetRegions(TerrainType[] regions) {
-		this.regions = regions;
 	}
 
 	public void SetStatus(MapDisplayStatus newStatus) {
 		this.status = newStatus;
 	}
 
-    private Mesh GenerateMesh() {
+	private Mesh GenerateMesh() {
 		return FixNormals(MeshGenerator.GenerateTerrainMesh(mapData).CreateMesh());
 	}
 
@@ -183,27 +141,23 @@ public class MapDisplayData {
         return mesh;
     }
 
-    public Texture2D GenerateTexture() {
-		if (regions != null)
-			return TextureGenerator.TextureFromColourMap(CalculateColourMap(mapData), mapData.GetWidth(), mapData.GetHeight());
-		else
-			return TextureGenerator.TextureFromHeightMap(mapData);
+    public Texture2D GenerateTexture(int lod) {
+        return TextureGenerator.TextureFromColourMap(CalculateColourMap(mapData, lod), mapData.GetWidth(), mapData.GetHeight());
 	}
 
-    public void UpdateLOD(int lod) {
+	public void UpdateLOD(int lod) {
 		if(mapData.lod != lod) {
 			mapData.lod = lod;
 			Mesh = GenerateMesh();
 		}
 	}
 
-    public int GetActualLOD() {
-        return status == MapDisplayStatus.LOW_LOD ? lowLod * 2 : mapData.GetActualLOD();
-    }
+	public int GetActualLOD() {
+		return status == MapDisplayStatus.LOW_LOD ? lowLod * 2 : mapData.GetActualLOD();
+	}
 
     public MapDisplayStatus PrepareDraw() {
-        if(texture == null) texture = GenerateTexture();
-		switch(this.status) {
+        switch(this.status) {
 			case MapDisplayStatus.VISIBLE:
 				if(Mesh == null) Mesh = GenerateMesh();
 				break;
@@ -212,19 +166,19 @@ public class MapDisplayData {
 			case MapDisplayStatus.HIDDEN:
 				break;
 		}
-        return this.status;
-    }
+		return this.status;
+	}
 
-    public Mesh GetMesh() {
-        return (this.status == MapDisplayStatus.VISIBLE && Mesh != null) ? Mesh : lowLodMesh;
-    }
+	public Mesh GetMesh() {
+		return (this.status == MapDisplayStatus.VISIBLE && Mesh != null) ? Mesh : lowLodMesh;
+	}
 
-    public Texture2D GetTexture() {
-        return texture;
-    }
+	public Texture2D GetTexture() {
+		return texture;
+	}
 
-    public float GetScale() {
-        return mapData.GetScale();
-    }
-    
+	public float GetScale() {
+		return mapData.GetScale();
+	}
+
 }
