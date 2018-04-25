@@ -7,6 +7,7 @@ public class InputHandler : MonoBehaviour {
 
     public Camera cam;
     public MapGenerator mapGenerator;
+	public TrailDisplay trailDisplay;
 
     public float perspectiveZoomSpeed = 0.5f;
     public float zoomMaxValue         = 100.0F;
@@ -33,6 +34,7 @@ public class InputHandler : MonoBehaviour {
 		targetTrans = mapGenerator.gameObject.transform.parent.transform;
 		cameraOriginalRotation = cam.transform.rotation;
 		cameraStartPosition = cam.transform.position;
+		this.trailDisplay = GameObject.Find ("OSMGenerator").GetComponent<TrailDisplay> ();
     }
 
     void Update()
@@ -40,6 +42,7 @@ public class InputHandler : MonoBehaviour {
         if (Input.GetAxis("Mouse ScrollWheel") != 0f)
         {
             ZoomCamera(Input.GetAxis("Mouse ScrollWheel") * 100);
+			UpdateLabelPositions ();
         }
 
 		isGesture = Input.touchCount == 0 ? false : isGesture;
@@ -58,6 +61,7 @@ public class InputHandler : MonoBehaviour {
             if (IsPinch(inputs))
                 HandleZoom(inputs);
         }
+		UpdateLabelPositions ();
     }
 
     public void OnInputStarted(List<InputData> inputs) {
@@ -148,6 +152,7 @@ public class InputHandler : MonoBehaviour {
 									targetTrans.eulerAngles.z
                                  );
         UpdateLod();
+
     }
 
     private void UpdateLod() {
@@ -156,6 +161,12 @@ public class InputHandler : MonoBehaviour {
             lodUpdateCounter = 0;
         }
     }
+
+	private void UpdateLabelPositions() {
+		if (trailDisplay != null) {
+			trailDisplay.UpdateLabelPositions ();
+		}
+	}
 
     private float Angle(Vector2 pos1, Vector2 pos2) {
         Vector2 from  = pos2 - pos1;

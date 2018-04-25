@@ -5,7 +5,9 @@ using UnityEngine;
 /// <summary>
 /// Produces a representation of a trail by positioning each node 
 /// in a trail correctly relative to the map created from a MapData
-/// and drawing the path with LineRenderer.
+/// and drawing the path with LineRenderer. Also creates a label for
+/// each trail. The UpdateLabelPosition method updates the position 
+/// and visibility of labels during runtime based on camera position. 
 /// </summary>
 
 public class TrailDisplay : MonoBehaviour {
@@ -20,6 +22,8 @@ public class TrailDisplay : MonoBehaviour {
     
     public Material material;
 
+	public List<TrailLabel> labels = new List<TrailLabel>();
+
 	public void DisplayNodes(List<DisplayNode> nodeList)
     {
         nodePositions = new List<Vector3>();
@@ -31,7 +35,6 @@ public class TrailDisplay : MonoBehaviour {
         }                
     }    
 
-
     public void GenerateNode (DisplayNode node) {
 		if (!PositionService.IsWithinBounds(node.x, node.y, mapData)) {
 			return;
@@ -40,7 +43,6 @@ public class TrailDisplay : MonoBehaviour {
 
         this.nodePositions.Add(nodePosition);
     }
-
 
     public void GenerateLine()
     {
@@ -66,16 +68,61 @@ public class TrailDisplay : MonoBehaviour {
     }
     public void GenerateLabelGameObject(Vector3 nodePosition) {
         
-        GameObject newNode = Instantiate(labelGameObject);
-        newNode.name = trailName;
-        newNode.transform.SetParent(this.transform);
-		TextMesh text = newNode.GetComponent<TextMesh>();
+		GameObject newLabelObject = Instantiate(labelGameObject);
+        newLabelObject.name = trailName;
+        newLabelObject.transform.SetParent(this.transform);
+		TextMesh text = newLabelObject.GetComponent<TextMesh>();
         text.text = trailName;
-        newNode.transform.position = nodePosition;
-        
-    } 
-}
+        newLabelObject.transform.position = nodePosition;
+		newLabelObject.GetComponent<MeshRenderer> ().enabled = false;
 
+		labels.Add(new TrailLabel(nodePositions, newLabelObject, trailName));
+    } 
+		
+	public void UpdateLabelPositions() {
+		Plane[] planes = GeometryUtility.CalculateFrustumPlanes(Camera.main);
+
+		List<Bounds> activeBounds = new List<Bounds>();
+		List<string> usedNames = new List<string>();
+
+		foreach (TrailLabel label in labels) {
+			label.labelObject.GetComponent<MeshRenderer> ().enabled = false;
+			if (usedNames.Contains (label.name)) {
+				continue;
+			}
+			for (int posNum = 0; posNum < label.unityPositions.Count; posNum += 10) {
+				Vector3 position = label.unityPositions [posNum];
+
+				Bounds bounds = label.labelObject.GetComponent<MeshRenderer> ().bounds;
+				Bounds minBounds = new Bounds ();
+				Bounds maxBounds = new Bounds ();
+				minBounds.center = bounds.min - new Vector3(0.025f, 0.025f, 0.025f);
+				maxBounds.center = bounds.max + new Vector3(0.025f, 0.025f, 0.025f);;
+
+				if (GeometryUtility.TestPlanesAABB (planes, minBounds)
+					&& GeometryUtility.TestPlanesAABB (planes, maxBounds)
+					&& NoNearbyBounds(activeBounds, bounds)) {
+
+					usedNames.Add (label.name);
+					activeBounds.Add (bounds);
+					label.labelObject.GetComponent<MeshRenderer> ().enabled = true;
+					break;
+				}
+				label.labelObject.transform.localPosition = position;
+			}					
+		}
+	}
+
+	public bool NoNearbyBounds(List<Bounds> currentBounds, Bounds bounds) {
+		foreach (Bounds oldBounds in currentBounds) {
+			if (oldBounds.SqrDistance(bounds.center) < 0.002f) {
+				return false;
+			}
+		}
+		return true;
+	}
+}
+	
 public class DisplayNode {
 	public int x;
 	public int y;
