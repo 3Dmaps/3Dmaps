@@ -17,7 +17,12 @@ public class InputHandler : MonoBehaviour {
     private Vector2 combMem;
     private float origRot;
 	private bool isGesture = false;
-	public Transform target;
+	public Transform targetTrans;
+	private int currentZoomLevel = 0;
+
+	public bool isTiltMode = false;
+	private Quaternion cameraOriginalRotation;
+	private Vector3 cameraStartPosition;
 
     void Start() {
         InputController.OnSwipeDetected   += OnSwipeDetected;
@@ -25,7 +30,9 @@ public class InputHandler : MonoBehaviour {
         InputController.OnInput           += OnInput;
         InputController.OnInputEnded      += OnInputEnded;
 
-        target = mapGenerator.gameObject.transform.parent.transform;
+		targetTrans = mapGenerator.gameObject.transform.parent.transform;
+		cameraOriginalRotation = cam.transform.rotation;
+		cameraStartPosition = cam.transform.position;
     }
 
     void Update()
@@ -34,6 +41,8 @@ public class InputHandler : MonoBehaviour {
         {
             ZoomCamera(Input.GetAxis("Mouse ScrollWheel") * 100);
         }
+
+		isGesture = Input.touchCount == 0 ? false : isGesture;
     }
 
     public void OnInputEnded(List<InputData> inputs) {
@@ -48,8 +57,6 @@ public class InputHandler : MonoBehaviour {
                 RotateObject(inputs);
             if (IsPinch(inputs))
                 HandleZoom(inputs);
-			if (IsTilt (inputs))
-				HandleTilt (inputs);
         }
     }
 
@@ -57,11 +64,21 @@ public class InputHandler : MonoBehaviour {
 		isGesture = false;
         if (inputs.Count > 1) {
             combMem = CalculateTouchToTouchVec(inputs);
-            origRot = target.rotation.eulerAngles.y;
+			origRot = targetTrans.rotation.eulerAngles.y;
         }
     }
 
     private void OnSwipeDetected(Swipe direction, Vector2 swipeVelocity) {
+		if (isTiltMode) {
+			swipeVelocity = new Vector2 (Mathf.Clamp (swipeVelocity.x , -50, 50), Mathf.Clamp (swipeVelocity.y , -50, 50));
+			Vector3 originalEulers = cam.transform.eulerAngles;
+			cam.transform.Rotate(Vector3.right, swipeVelocity.y * Time.deltaTime * Mathf.Max(1, currentZoomLevel - mapGenerator.maxZoomValue));
+			cam.transform.Rotate(Vector3.down, swipeVelocity.x * Time.deltaTime * Mathf.Max(1, currentZoomLevel - mapGenerator.maxZoomValue));
+			cam.transform.eulerAngles = new Vector3 (cam.transform.eulerAngles.x, cam.transform.eulerAngles.y, originalEulers.z);
+			UpdateLod();
+			return;
+		}
+
 		if (isGesture)
 			return;
 		
@@ -78,15 +95,6 @@ public class InputHandler : MonoBehaviour {
         UpdateLod();
     }
 
-	private void HandleTilt(List<InputData> inputs) 
-	{
-		Debug.Log ("Tilt");
-		isGesture = true;
-		Vector2 velocity = inputs [0].currentPosition - inputs [0].prevPosition;
-		cam.gameObject.transform.Rotate(Vector3.left * velocity.y * Time.deltaTime);
-		cam.gameObject.transform.Rotate(Vector3.up * velocity.x * Time.deltaTime);
-	}
-
     private void HandleZoom(List<InputData> inputs)
     {
 		isGesture = true;
@@ -102,11 +110,12 @@ public class InputHandler : MonoBehaviour {
     {
         cam.fieldOfView += deltaMagnitudeDiff * perspectiveZoomSpeed;
         cam.fieldOfView = Mathf.Clamp(cam.fieldOfView, zoomMinValue, zoomMaxValue);
-
-		int currentZoomLevel = (int) (mapGenerator.maxZoomValue - ((cam.fieldOfView - 5) / 95) * mapGenerator.maxZoomValue); 
+		currentZoomLevel = (int) (mapGenerator.maxZoomValue - ((cam.fieldOfView - 5) / 95) * mapGenerator.maxZoomValue);
+		float step = Vector3.Distance(cameraStartPosition, Vector3.zero) / mapGenerator.maxZoomValue;
+		Vector3 targetPos = deltaMagnitudeDiff < 0 ? new Vector3(0,0.15F,-0.15F) : cameraStartPosition;
+		cam.transform.position = Vector3.MoveTowards (cam.transform.position, targetPos, step);
 		if(mapGenerator != null) mapGenerator.UpdateZoomLevel(currentZoomLevel);
-
-        cam.transform.LookAt(target);
+        cam.transform.LookAt(targetTrans);
     }
 
     private Vector2 CalculateTouchToTouchVec(List<InputData> inputs) {
@@ -131,24 +140,12 @@ public class InputHandler : MonoBehaviour {
         return turnAngleDelta > 0;
     }
 
-	private bool IsTilt(List<InputData> inputs) {
-
-		return Mathf.Abs (Vector2.Distance (inputs [0].currentPosition, inputs [1].currentPosition) - Vector2.Distance (inputs [0].prevPosition, inputs [1].prevPosition)) < 0.2F;
-
-		float x_diff_0 = Mathf.Abs (inputs [0].currentPosition.x - inputs [0].startPosition.x);
-		float x_diff_1 = Mathf.Abs (inputs [1].currentPosition.x - inputs [1].startPosition.x);
-		float y_diff_0 = Mathf.Abs (inputs [0].currentPosition.y - inputs [0].startPosition.y);
-		float y_diff_1 = Mathf.Abs (inputs [1].currentPosition.y - inputs [1].startPosition.y);
-		Debug.Log ((x_diff_0 - x_diff_1));
-		return Mathf.Abs (x_diff_0 - x_diff_1) < 0.3F || Mathf.Abs (y_diff_0 - y_diff_1) < 0.3F; 
-	}
-
     private void RotateObject(List<InputData> inputs) {
 		isGesture = true;
-        target.eulerAngles = new Vector3(
-                                    target.eulerAngles.x,
+		targetTrans.eulerAngles = new Vector3(
+									targetTrans.eulerAngles.x,
                                     origRot + (Vector2.SignedAngle(CalculateTouchToTouchVec(inputs), combMem)),
-                                    target.eulerAngles.z
+									targetTrans.eulerAngles.z
                                  );
         UpdateLod();
     }
