@@ -109,9 +109,10 @@ public class MapDisplayDataTest {
         SatelliteImageService.satelliteImage = image;
         SatelliteImageService.useSatelliteImage = true;
 
-		Color[] colorMap = dispData.CalculateColourMap(data, 0);
-		Assert.True (colorMap [0] == Color.red);
-		Assert.True (colorMap [99] == Color.blue);
+		Texture2D textureSlice = dispData.GenerateTexture(0);
+
+		Assert.True(textureSlice.GetPixel(0, 0) == Color.red);
+		Assert.True(textureSlice.GetPixel(9, 9) == Color.blue);
 	}
 
 
@@ -136,8 +137,13 @@ public class MapDisplayDataTest {
         SatelliteImageService.satelliteImage = image;
         SatelliteImageService.useSatelliteImage = true;
 
-		Color[] colorMap = dispData.CalculateColourMap (data, 0);
-		Assert.True (colorMap [0] == Color.red);
-		Assert.True (colorMap [99] == Color.blue);
+		//Color[] colorMap = dispData.GenerateTexture();
+		Texture2D textureSlice = dispData.GenerateTexture(0);
+
+		Assert.True(textureSlice.GetPixel(0, 0) == Color.red);
+		Assert.True(textureSlice.GetPixel(9, 9) == Color.blue);
+
+		//Assert.True (colorMap [0] == Color.red);
+		//Assert.True (colorMap [99] == Color.blue);
 	}
 }

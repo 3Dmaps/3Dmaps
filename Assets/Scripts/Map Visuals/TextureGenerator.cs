@@ -33,31 +33,31 @@ public static class TextureGenerator {
 		return regions[mid].colour;
     }
 
-	public static Color[] ColorMapForSatelliteImage(MapData mapData) {
+	public static ColorMap ColorMapForSatelliteImage(MapData mapData) {
 		SatelliteImage satelliteImage = SatelliteImageService.getSatelliteImage ();
 		double scale = satelliteImage.getScale ();
 
 		int textureWidth = (int) (mapData.GetWidth() * scale);
 		int textureHeight = (int) (mapData.GetHeight() * scale);
-		Color[] colourMap = new Color[textureWidth * textureHeight];
-		if(!satelliteImage.hasSatelliteImage()) return colourMap;
+		Color[] colorArray = new Color[textureWidth * textureHeight];
+		if(!satelliteImage.hasSatelliteImage()) return new ColorMap(colorArray, textureWidth, textureHeight);
 
         MapDataSlice slice = mapData.AsSlice();
 		for (int y = 0; y < textureHeight; y++) {
 			int sliceY = (int)(slice.GetY () * scale);
 			int flippedY = satelliteImage.texture.height - (int)(sliceY + y) - 1;
-			Array.ConstrainedCopy (satelliteImage.texture.GetPixels ((int)(slice.GetX () * scale), flippedY, textureWidth, 1), 0, colourMap, (y * textureWidth), textureWidth); 
+			Array.ConstrainedCopy (satelliteImage.texture.GetPixels ((int)(slice.GetX () * scale), flippedY, textureWidth, 1), 0, colorArray, (y * textureWidth), textureWidth); 
 		}
 
-		return colourMap;
+		return new ColorMap(colorArray, textureWidth, textureHeight);
 	}
 
-	public static Color[] ColorMapForHeightAndAreas(MapData mapData, int lod = 0) {
+	public static ColorMap ColorMapForHeightAndAreas(MapData mapData, int lod = 0) {
 		lod = lod == 0 ? 1 : lod * 2;
 		int width  = mapData.GetWidth();
 		int height = mapData.GetHeight();
 		MapDataSlice slice = mapData.AsSlice();
-		Color[] colourMap = new Color[width * height];
+		Color[] colorArray = new Color[width * height];
 		if(areaDisplay == null) {
 			areaDisplay = GameObject.FindObjectOfType<AreaDisplay>();
 		}
@@ -76,12 +76,12 @@ public static class TextureGenerator {
 
 				for(int actualY = y; actualY < y + lod && actualY < height; actualY++) {
 					for(int actualX = x; actualX < x + lod && actualX < width; actualX++) {
-						colourMap[actualY * width + actualX] = regionColor;
+						colorArray[actualY * width + actualX] = regionColor;
 					}
 				}
 			}
 		}
-		return colourMap;
+		return new ColorMap(colorArray, width, height);
 	}
 
 	public static Texture2D TextureFromColourMap(Color[] colourMap, int width, int height) {
@@ -108,4 +108,25 @@ public static class TextureGenerator {
 		return TextureFromColourMap (colourMap, width, height);
 	}
 
+	public static Texture2D GenerateTexture(MapData mapData, int lod) {
+		if (SatelliteImageService.UseSatelliteImage()) {
+			ColorMap colorMap = TextureGenerator.ColorMapForSatelliteImage(mapData);
+			return TextureGenerator.TextureFromColourMap(colorMap.colorArray, colorMap.width, colorMap.height);
+		} else {
+			ColorMap colorMap = TextureGenerator.ColorMapForHeightAndAreas(mapData, lod);
+			return TextureGenerator.TextureFromColourMap(colorMap.colorArray, colorMap.width, colorMap.height);
+		}
+	}
+}
+
+public class ColorMap {
+	public Color[] colorArray;
+	public int width;
+	public int height;
+
+	public ColorMap(Color[] colorArray, int width, int height) {
+		this.colorArray = colorArray;
+		this.width = width;
+		this.height = height;
+	}
 }
