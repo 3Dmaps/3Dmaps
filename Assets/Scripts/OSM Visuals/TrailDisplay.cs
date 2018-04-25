@@ -5,7 +5,9 @@ using UnityEngine;
 /// <summary>
 /// Produces a representation of a trail by positioning each node 
 /// in a trail correctly relative to the map created from a MapData
-/// and drawing the path with LineRenderer.
+/// and drawing the path with LineRenderer. Also creates a label for
+/// each trail. The UpdateLabelPosition method updates the position 
+/// and visibility of labels during runtime based on camera position. 
 /// </summary>
 
 public class TrailDisplay : MonoBehaviour {
@@ -21,7 +23,6 @@ public class TrailDisplay : MonoBehaviour {
     public Material material;
 
 	public List<TrailLabel> labels = new List<TrailLabel>();
-	public List<string> usedNames = new List<string>();
 
 	public void DisplayNodes(List<DisplayNode> nodeList)
     {
@@ -82,7 +83,7 @@ public class TrailDisplay : MonoBehaviour {
 		Plane[] planes = GeometryUtility.CalculateFrustumPlanes(Camera.main);
 
 		List<Bounds> activeBounds = new List<Bounds>();
-		/*HashSet<string>*/ usedNames = new List<string>();
+		List<string> usedNames = new List<string>();
 
 		foreach (TrailLabel label in labels) {
 			label.labelObject.GetComponent<MeshRenderer> ().enabled = false;
@@ -97,13 +98,6 @@ public class TrailDisplay : MonoBehaviour {
 				Bounds maxBounds = new Bounds ();
 				minBounds.center = bounds.min - new Vector3(0.025f, 0.025f, 0.025f);
 				maxBounds.center = bounds.max + new Vector3(0.025f, 0.025f, 0.025f);;
-
-				/*Bounds extendedBounds = new Bounds ();
-				extendedBounds.center = bounds.center;
-				extendedBounds.max = bounds.max;
-				extendedBounds.min = bounds.min;
-				extendedBounds.size = bounds.size;
-				extendedBounds.Expand (new Vector3 (0.05f, 0.05f, 0.05f));*/
 
 				if (GeometryUtility.TestPlanesAABB (planes, minBounds)
 					&& GeometryUtility.TestPlanesAABB (planes, maxBounds)
