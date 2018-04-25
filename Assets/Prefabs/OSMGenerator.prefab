@@ -77,7 +77,11 @@ MonoBehaviour:
   nodePositions: []
   lineWidthMultiplier: 0.01
   lineHeightAdjustment: 0.005
+  labelGameObject: {fileID: 1132005558457232, guid: 34951f2665d3e4e40abe042f95c18797,
+    type: 2}
+  trailName: 
   material: {fileID: 2100000, guid: 246dbc7e1d258e349b2a6451e22015e3, type: 2}
+  usedNames: []
 --- !u!114 &114233758517916284
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -115,3 +119,5 @@ MonoBehaviour:
   nodeGameObject: {fileID: 1215510092995608, guid: e5c7ee0fdaa95794fa62d364c85a69ae,
     type: 2}
   heightAdjustment: 0.05
+  lineWidthMultiplier: 0.005
+  currentVisibleLabel: {fileID: 0}
