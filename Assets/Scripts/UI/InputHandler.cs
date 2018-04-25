@@ -171,4 +171,11 @@ public class InputHandler : MonoBehaviour {
         return new Vector2(viewPort.x, viewPort.y);
     }
 
+	public void SetCameraTiltMode() {
+		isTiltMode = !isTiltMode;
+		if (!isTiltMode) {
+			cam.transform.rotation = cameraOriginalRotation;
+		}
+	}
+
 }
