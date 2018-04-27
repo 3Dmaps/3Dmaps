@@ -1,5 +1,5 @@
 # 3Dmaps
-3DMaps. Software production project course / Univ. of Helsinki, spring 2018
+3DMaps in Augmented Reality. Software production project course / Univ. of Helsinki, spring 2018. The project has two repositories. This repository contains the main software (Unity, C#). The [mapcreator](https://github.com/3Dmaps/mapcreator) repository contains the source data processing tool (Python).
 
 ## Project background information and definition
 
