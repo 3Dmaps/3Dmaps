@@ -41,16 +41,6 @@ public class MapDisplayData {
 		mapData.lod     = originalLod;
 	}
 
-    public Color[] CalculateColourMap(MapData mapData, int lod) {
-		if(SatelliteImageService.UseSatelliteImage()) {
-            textureLod = 0;
-            return TextureGenerator.ColorMapForSatelliteImage(mapData);
-        } else {
-            textureLod = lod;
-            return TextureGenerator.ColorMapForHeightAndAreas(mapData, lod);
-        }
-	}
-
 	public void SetStatus(MapDisplayStatus newStatus) {
 		this.status = newStatus;
 	}
@@ -142,7 +132,13 @@ public class MapDisplayData {
     }
 
     public Texture2D GenerateTexture(int lod) {
-        return TextureGenerator.TextureFromColourMap(CalculateColourMap(mapData, lod), mapData.GetWidth(), mapData.GetHeight());
+		if (SatelliteImageService.UseSatelliteImage ()) {
+			textureLod = 0;
+		} else {
+			textureLod = lod;
+		}
+		
+		return TextureGenerator.GenerateTexture (mapData, lod);
 	}
 
 	public void UpdateLOD(int lod) {
