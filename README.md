@@ -1,5 +1,5 @@
 # 3Dmaps
-3DMaps in augmented reality. Software production project course / Univ. of Helsinki, spring 2018
+3DMaps. Software production project course / Univ. of Helsinki, spring 2018
 
 ## Project background information and definition
 
@@ -46,7 +46,15 @@ The project uses Unity Cloud Build as its continous integration platform. Unity 
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system. *Not defined yet.*
+* Android
+Requirements: Unity 3D, Android device
+Open the project in Unity 3D and build the project for Android. The resulting file can then be transferred to Android.
+
+* iOS
+Requirements: Unity 3D, iOS device, Macintosh computer, Xcode, Apple ID / Apple Developer ID
+Connect the iOS device to the computer. Open the project in Unity 3D and build the project for iOS. Open the resulting package in Xcode, build the application using Apple ID or Apple Developer ID for the connected iOS device. The application will be transferred to the computer.
+
+
 
 ## Built With
 
@@ -60,15 +68,11 @@ Versioning. *Not defined yet.*
 ## Authors
 
 * **Julius Laitala**
-* **OlliPekka Väänänen**
+* **Ollipekka Väänänen**
 * **Sami Ollila**
 * **Mikko Kotola**
 * **Lauri Mäntylä**
 * **Jussi Rintala**
-
-## Contributing
-
-List of contributors.
 
 ## License
 
