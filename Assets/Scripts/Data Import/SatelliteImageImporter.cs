@@ -16,7 +16,7 @@ public static class SatelliteImageImporter {
 		byte[] imageData;
 
 		try {
-			imageData = File.ReadAllBytes (path);
+			imageData = StreamUtil.ReadAllBytes(path);
 		} catch (Exception e) {
 			Debug.Log (e.Message);
 			Debug.Log ("Satellite image at '" + path + "' not found!");

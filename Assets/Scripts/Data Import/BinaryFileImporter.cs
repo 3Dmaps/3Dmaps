@@ -8,7 +8,7 @@ public static class BinaryFileImporter {
 
     public static BinaryFileMetadata ReadMetadata(string path) {
         BinaryFileMetadata metadata = new BinaryFileMetadata();
-        using (StreamReader input = new StreamReader(path)) {
+        using (StreamReader input = new StreamReader(StreamUtil.GetFileStream(path))) {
             if (input.ReadLine() != fileStart) throw new System.ArgumentException(
                  "Binary file header should start with 'ENVI'!"
                  );
@@ -33,7 +33,7 @@ public static class BinaryFileImporter {
     public static MapData ReadMapData(string path, BinaryFileMetadata metadata) {
         float[,] data = new float[metadata.GetColumns(), metadata.GetRows()];
         float min = float.MaxValue, max = float.MinValue;
-        using (BinaryReader input = new BinaryReader(File.Open(path, FileMode.Open, FileAccess.Read))) {
+        using (BinaryReader input = new BinaryReader(StreamUtil.GetFileStream(path))) {
             for (int y = 0; y < metadata.GetRows(); y++) {
                 for (int x = 0; x < metadata.GetColumns(); x++) {
                     float next = ReadNext(input, metadata);
