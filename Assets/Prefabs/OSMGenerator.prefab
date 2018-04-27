@@ -56,12 +56,98 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   iconList:
+  - sprite: {fileID: 21300000, guid: 0af159a80543c8f4495bcc8a591fef96, type: 3}
+    name: aerialway_station
+  - sprite: {fileID: 21300000, guid: cdf51662b36dfc1448591c8be332af25, type: 3}
+    name: amphitheater
   - sprite: {fileID: 21300000, guid: 3c21e2afa205744ec9eba10f58d10e6c, type: 3}
     name: attraction
+  - sprite: {fileID: 21300000, guid: eaa222c6742f5ea4689bcb2c6bbbaae3, type: 3}
+    name: bicycle_attraction
+  - sprite: {fileID: 21300000, guid: ea4fce011b964ec48b26fa818bc72bee, type: 3}
+    name: bridge
+  - sprite: {fileID: 21300000, guid: 6dd758db767de0844bce07fd67b327ff, type: 3}
+    name: bus_stop
+  - sprite: {fileID: 21300000, guid: 7a1295af77b3b974d8f811d6c17328d2, type: 3}
+    name: cafe
+  - sprite: {fileID: 21300000, guid: 5780f73204164c04fa89985ccf09970b, type: 3}
+    name: campsite
+  - sprite: {fileID: 21300000, guid: 6b38f0e2a4fba704b82060705c3875d4, type: 3}
+    name: canoe_ramp
+  - sprite: {fileID: 21300000, guid: 3b187e482e0468640bb69f0ee55efef8, type: 3}
+    name: castle
+  - sprite: {fileID: 21300000, guid: 6ccf73f3549164b49962f6f7e6666bb7, type: 3}
+    name: cave
+  - sprite: {fileID: 21300000, guid: c328b70cdcc6e0a48a10c38e2602d52b, type: 3}
+    name: church
   - sprite: {fileID: 21300000, guid: 537e90d95d0de4ee1a9fa3da3e07e5f7, type: 3}
     name: city
+  - sprite: {fileID: 21300000, guid: ba73427ae3e24ca48a5d3e4efab96f19, type: 3}
+    name: cottage
+  - sprite: {fileID: 21300000, guid: 6217c10d528ae8046b4c3c7dfd0b45e9, type: 3}
+    name: drinkingwater
+  - sprite: {fileID: 21300000, guid: 899aa7508c9219043bb6214a98fa21fb, type: 3}
+    name: fireplace
+  - sprite: {fileID: 21300000, guid: 6b2a18c1df729c642bdbbbd85e383803, type: 3}
+    name: first_aid
+  - sprite: {fileID: 21300000, guid: 4554d9d43e708d14c95f5c43a9d90698, type: 3}
+    name: gate_icon
+  - sprite: {fileID: 21300000, guid: 67c30e3d96694c34d91a9ba375539f0e, type: 3}
+    name: grandcanyon
+  - sprite: {fileID: 21300000, guid: 9843db5647ba69547807948c02718230, type: 3}
+    name: haltia
+  - sprite: {fileID: 21300000, guid: db521604ce8d35645bb576ca08ea1e34, type: 3}
+    name: info
+  - sprite: {fileID: 21300000, guid: 2b13cb4b837c4dc48a768b1cac8d5c66, type: 3}
+    name: kota
+  - sprite: {fileID: 21300000, guid: 6bffd6c63a0fa4a4c88d0c488b6f4cb1, type: 3}
+    name: laavu
+  - sprite: {fileID: 21300000, guid: 1cef2d51ed8ec8f49bd7eb3a883831f2, type: 3}
+    name: lake
+  - sprite: {fileID: 21300000, guid: 4739cc820858a6e4faed099a1873755b, type: 3}
+    name: museum
+  - sprite: {fileID: 21300000, guid: 869f23f17a667f645a7c3165c3cbd6c4, type: 3}
+    name: national_park
+  - sprite: {fileID: 21300000, guid: ea742824a69b8d94f8c289b820a24c75, type: 3}
+    name: nuuksio
+  - sprite: {fileID: 21300000, guid: 952eb4eb44081e646a89c79090a536d3, type: 3}
+    name: panorama
+  - sprite: {fileID: 21300000, guid: 0d0f5f0db99cc99459d743045481a068, type: 3}
+    name: parking
+  - sprite: {fileID: 21300000, guid: 088307551d36d3045aeb50aeb3924d6e, type: 3}
+    name: peak
+  - sprite: {fileID: 21300000, guid: 5af234c6217789543bbddc9a645c7826, type: 3}
+    name: peakorange
+  - sprite: {fileID: 21300000, guid: 85feb9c6d64837c438cdb8257c989b49, type: 3}
+    name: picnic
+  - sprite: {fileID: 21300000, guid: 698a809ff54d8444aa1691d046840b13, type: 3}
+    name: pier
+  - sprite: {fileID: 21300000, guid: 49fdc83175443f44a9f920d7a626cafe, type: 3}
+    name: post_office
+  - sprite: {fileID: 21300000, guid: 8b905220eeed07d4488b39b22cd71806, type: 3}
+    name: ranger
+  - sprite: {fileID: 21300000, guid: 679575f6682284a4a9fec965e4af533b, type: 3}
+    name: restaurant
+  - sprite: {fileID: 21300000, guid: a0f8e57b806e2924490e2242724449d7, type: 3}
+    name: shop
+  - sprite: {fileID: 21300000, guid: 2ad7f44936508ae44a1446e7ee3fb5c0, type: 3}
+    name: star
+  - sprite: {fileID: 21300000, guid: 247b75343fa99b1439adcaab0f1b8d64, type: 3}
+    name: toilet
+  - sprite: {fileID: 21300000, guid: cbb166b9c45af9246b16febb8d3bd209, type: 3}
+    name: toiletpaper
+  - sprite: {fileID: 21300000, guid: 3c539626e2308084399a3c7d33bc3bbd, type: 3}
+    name: tower
+  - sprite: {fileID: 21300000, guid: 09c3d454d2887e34e94cdd2ed6f2b680, type: 3}
+    name: train_stop
   - sprite: {fileID: 21300000, guid: 4432dd3d290724bc39bf081aec6cca9b, type: 3}
     name: viewpoint
+  - sprite: {fileID: 21300000, guid: 21f87a5dd5ba5ba4d8416018bbf80ac5, type: 3}
+    name: waste
+  - sprite: {fileID: 21300000, guid: 609d7088729529e46bde8da93f1c5cbc, type: 3}
+    name: waterfall
+  - sprite: {fileID: 21300000, guid: a921997eaaedba64787149f96d2d622b, type: 3}
+    name: tower_new
 --- !u!114 &114221490288407454
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -81,7 +167,6 @@ MonoBehaviour:
     type: 2}
   trailName: 
   material: {fileID: 2100000, guid: 246dbc7e1d258e349b2a6451e22015e3, type: 2}
-  usedNames: []
 --- !u!114 &114233758517916284
 MonoBehaviour:
   m_ObjectHideFlags: 1
