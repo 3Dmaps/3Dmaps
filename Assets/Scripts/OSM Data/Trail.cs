@@ -24,7 +24,6 @@ public class Trail {
         this.id = way.GetID();
         this.color = way.GetColor();
         this.trailName = way.getName();
-    
     }
 
     public void AddNode(OSMNode trailNode) {
