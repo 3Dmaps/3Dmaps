@@ -12,6 +12,9 @@ using UnityEngine;
 
 public class TrailDisplay : MonoBehaviour {
 
+	private const float labelEdgeLimit = 0.025f;
+	private const float labelMinDistance = 0.0010f;
+
 	public MapData mapData;
 	public Color trailColor;
     public List<Vector3> nodePositions;
@@ -22,7 +25,9 @@ public class TrailDisplay : MonoBehaviour {
     
     public Material material;
 
-	public List<TrailLabel> labels = new List<TrailLabel>();
+	private List<TrailLabel> labels = new List<TrailLabel>();
+	private List<TrailLabel> activeLabels = new List<TrailLabel>();
+	public List<string> usedNames = new List<string>();
 
 	public void DisplayNodes(List<DisplayNode> nodeList)
     {
@@ -82,44 +87,102 @@ public class TrailDisplay : MonoBehaviour {
 	public void UpdateLabelPositions() {
 		Plane[] planes = GeometryUtility.CalculateFrustumPlanes(Camera.main);
 
-		List<Bounds> activeBounds = new List<Bounds>();
-		List<string> usedNames = new List<string>();
-
 		foreach (TrailLabel label in labels) {
-			label.labelObject.GetComponent<MeshRenderer> ().enabled = false;
-			if (usedNames.Contains (label.name)) {
+			
+			if (label.state == LabelState.visible && !LabelIsVisibleToCamera (label, planes)) {
+				StartCoroutine (FadeOutGradually (label));
+				activeLabels.Remove(label);
+				usedNames.Remove (label.name);
 				continue;
 			}
-			for (int posNum = 0; posNum < label.unityPositions.Count; posNum += 10) {
-				Vector3 position = label.unityPositions [posNum];
 
-				Bounds bounds = label.labelObject.GetComponent<MeshRenderer> ().bounds;
-				Bounds minBounds = new Bounds ();
-				Bounds maxBounds = new Bounds ();
-				minBounds.center = bounds.min - new Vector3(0.025f, 0.025f, 0.025f);
-				maxBounds.center = bounds.max + new Vector3(0.025f, 0.025f, 0.025f);;
+			if (label.state == LabelState.outOfSight) {
+				label.labelObject.GetComponent<MeshRenderer> ().enabled = false;
 
-				if (GeometryUtility.TestPlanesAABB (planes, minBounds)
-					&& GeometryUtility.TestPlanesAABB (planes, maxBounds)
-					&& NoNearbyBounds(activeBounds, bounds)) {
-
-					usedNames.Add (label.name);
-					activeBounds.Add (bounds);
-					label.labelObject.GetComponent<MeshRenderer> ().enabled = true;
-					break;
+				if (usedNames.Contains (label.name)) {
+					continue;
 				}
-				label.labelObject.transform.localPosition = position;
-			}					
+				for (int posNum = 0; posNum < label.unityPositions.Count; posNum += 10) {
+					Vector3 position = label.unityPositions [posNum];
+
+					if (LabelIsVisibleToCamera (label, planes)) {
+						usedNames.Add (label.name);
+						activeLabels.Add (label);
+
+						StartCoroutine (FadeInGradually (label));
+						break;
+					}
+					label.labelObject.transform.localPosition = position;
+				}
+			}
 		}
 	}
 
-	public bool NoNearbyBounds(List<Bounds> currentBounds, Bounds bounds) {
-		foreach (Bounds oldBounds in currentBounds) {
-			if (oldBounds.SqrDistance(bounds.center) < 0.002f) {
+	public bool LabelIsVisibleToCamera(TrailLabel label, Plane[] planes) {
+		Bounds bounds = label.labelObject.GetComponent<MeshRenderer> ().bounds;
+		Bounds minBounds = new Bounds ();
+		Bounds maxBounds = new Bounds ();
+		minBounds.center = bounds.min - new Vector3 (labelEdgeLimit, labelEdgeLimit, labelEdgeLimit);
+		maxBounds.center = bounds.max + new Vector3 (labelEdgeLimit, labelEdgeLimit, labelEdgeLimit);
+
+		if (GeometryUtility.TestPlanesAABB (planes, minBounds)
+			&& GeometryUtility.TestPlanesAABB (planes, maxBounds)
+			&& NoNearbyBounds(bounds)) {
+			return true;
+		}
+		return false;
+	}
+
+	public bool NoNearbyBounds(Bounds newBounds) {
+		foreach (TrailLabel label in activeLabels) {
+			Bounds existingBounds = label.labelObject.GetComponent<MeshRenderer> ().bounds;
+			if (existingBounds.Equals(newBounds)) {
+				continue;
+			}
+			if (existingBounds.SqrDistance (newBounds.center) < labelMinDistance) {
+				return false;
+			} else if (existingBounds.SqrDistance(newBounds.min) < labelMinDistance) {
+				return false;
+			} else if (existingBounds.SqrDistance(newBounds.max) < labelMinDistance) {
 				return false;
 			}
 		}
 		return true;
+	}
+		
+	IEnumerator FadeOutGradually(TrailLabel label) {
+		label.state = LabelState.fadingOut;
+		MeshRenderer labelRenderer = label.labelObject.GetComponent<MeshRenderer> ();
+		labelRenderer.enabled = true;
+
+		float opacity = 1;
+		Color fadeColor = labelRenderer.material.color;
+
+		while (opacity > 0) {
+			opacity -= Time.deltaTime * 8;
+			fadeColor.a = opacity;
+			labelRenderer.material.color = fadeColor;
+			yield return null;
+		}
+
+		label.state = LabelState.outOfSight;
+	}
+
+	IEnumerator FadeInGradually(TrailLabel label) {
+		label.state = LabelState.fadingIn;
+		MeshRenderer labelRenderer = label.labelObject.GetComponent<MeshRenderer> ();
+		labelRenderer.enabled = true;
+
+		float opacity = 0;
+		Color fadeColor = labelRenderer.material.color;
+
+		while (opacity < 1) {
+			opacity += Time.deltaTime * 16;
+			fadeColor.a = opacity;
+			labelRenderer.material.color = fadeColor;
+			yield return null;
+		}
+		label.state = LabelState.visible;	
 	}
 }
 	
