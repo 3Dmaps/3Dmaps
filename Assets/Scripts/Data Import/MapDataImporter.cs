@@ -6,7 +6,7 @@ using UnityEngine;
 
 
 public enum MapDataType {
-    ASCIIGrid, Binary
+    ASCIIGrid, Binary, Zipped
 }
 
 /// <summary>

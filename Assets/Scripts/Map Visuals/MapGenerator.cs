@@ -51,7 +51,10 @@ public class MapGenerator : MonoBehaviour {
         MapDataType mapDataType = GetMapFileTypeFromEnum(mapName);
 
         // A quick fix to enable binary map reading. Needs to be done better.
-        if (mapDataType == MapDataType.Binary) {
+        if(mapDataType == MapDataType.Zipped) {
+            mapFileName = DataImporter.UnzipData(mapFileName);
+            mapData = DataImporter.GetBinaryMapData(mapFileName);
+        } else if (mapDataType == MapDataType.Binary) {
             mapData = DataImporter.GetBinaryMapData(mapFileName);
         } else if (mapDataType == MapDataType.ASCIIGrid) {
             mapData = DataImporter.GetASCIIMapData(mapFileName);
@@ -165,7 +168,7 @@ public class MapGenerator : MonoBehaviour {
                 return "CanyonTestLow";
 
             case MapName.fromMapCreator:
-                return "heightfile0";
+                return "3dmapdata";
 
             case MapName.testData:
                 return "testData";
@@ -197,7 +200,7 @@ public class MapGenerator : MonoBehaviour {
                 return MapDataType.ASCIIGrid;
             
             case MapName.fromMapCreator:
-                return MapDataType.Binary;
+                return MapDataType.Zipped;
 
             case MapName.canyonTestBinary:
                 return MapDataType.Binary;

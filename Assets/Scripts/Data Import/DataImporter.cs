@@ -1,10 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public static class DataImporter {
 
+    private const string defaultMapName = "heightfile0";
+    private static string pathOverride;
+
     private static Dictionary<string, MapDataFrame> mapDataFrames = new Dictionary<string, MapDataFrame>();
+    
+    public static string UnzipData(string mapName) {
+        pathOverride = Unzipper.Unzip(GetFilePathByName(mapName, PathDataType.zip) + ".zip");
+        if(Application.platform == RuntimePlatform.Android) {
+            pathOverride = "file://" + pathOverride;
+        }
+        return defaultMapName;
+    }
     
     public static BinaryFileMetadata GetBinaryMapMetaData(string mapName) {
         CreateDataFrame(mapName);
@@ -69,6 +81,7 @@ public static class DataImporter {
     private static string GetFilePathByName(string mapName, PathDataType pathDataType) {
         switch (pathDataType) {
             case PathDataType.height:
+            case PathDataType.zip:
                 break;
             case PathDataType.trail:
                 mapName = mapName + "_trails";
@@ -76,20 +89,24 @@ public static class DataImporter {
             default:
                 break;
         }
-        #if UNITY_EDITOR
-            return Application.dataPath + "/StreamingAssets/" + mapName;
-        #endif
+        if(pathOverride == null) {
+            #if UNITY_EDITOR
+                return Application.dataPath + "/StreamingAssets/" + mapName;
+            #endif
 
-        #if UNITY_IPHONE
-            return Application.dataPath + "/Raw/" + mapName;
-        #endif
+            #if UNITY_IPHONE
+                return Application.dataPath + "/Raw/" + mapName;
+            #endif
 
-        #if UNITY_ANDROID
-            return "jar:file://" + Application.dataPath + "!/assets/" + mapName;
-        #endif
-        #pragma warning disable CS0162 // Unreachable code detected
-            return mapName;
-        #pragma warning restore CS0162 // Unreachable code detected
+            #if UNITY_ANDROID
+                return "jar:file://" + Application.dataPath + "!/assets/" + mapName;
+            #endif
+            #pragma warning disable CS0162 // Unreachable code detected
+                return mapName;
+            #pragma warning restore CS0162 // Unreachable code detected
+        } else {
+            return Path.Combine(pathOverride, mapName);
+        }
     }
 }
 
@@ -103,5 +120,5 @@ public struct MapDataFrame {
 }
 
 public enum PathDataType {
-    height, trail
+    height, trail, zip
 }
