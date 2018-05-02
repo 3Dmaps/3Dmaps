@@ -10,17 +10,15 @@ using UnityEngine;
 public class River {
     public List<OSMNode> nodeList;
     public long id;
-	
 
     public River(long id) {
         nodeList = new List<OSMNode>();
-        this.id = id;		
+        this.id = id;
     }
 
     public River(OSMway way) {
         this.nodeList = way.GetNodeList();
         this.id = way.GetID();
-       
     }
 
     public void AddNode(OSMNode riverNode) {

@@ -15,7 +15,17 @@ public class POINode {
     public string name;
 
     public POINode(string icon, string name) {
-        this.icon=icon;
-        this.name=name;               
+        this.icon = icon;
+        this.name = name;
+    }
+
+    public override bool Equals(object obj) {
+        var node = obj as POINode;
+        return node != null &&
+               id == node.id;
+    }
+
+    public override int GetHashCode() {
+        return 1877310944 + id.GetHashCode();
     }
 }

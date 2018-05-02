@@ -10,7 +10,7 @@ using UnityEngine;
 public class Area {
     public List<OSMNode> nodeList;
     public long id;
-	public string type;
+    public string type;
     public Color color;
 
     public Area(OSMway way, string type) {
