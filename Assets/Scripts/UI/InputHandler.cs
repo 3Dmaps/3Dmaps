@@ -3,6 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+///<summary>
+/// Handles rotation, zooming and scrolling/tilting
+/// </summary>
+
 public class InputHandler : MonoBehaviour {
 
     public Camera cam;
