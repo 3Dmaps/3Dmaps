@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Creates smoother color transitions for map texture.
+/// </summary>
 public class MapRegionSmoother {
     public TerrainType[] SmoothRegions( TerrainType[]regions, int amount)
     {
