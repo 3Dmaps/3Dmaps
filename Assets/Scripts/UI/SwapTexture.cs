@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// Swap texture
+/// Swaps textures
 /// </summary>
 public class SwapTexture : MonoBehaviour {
 
