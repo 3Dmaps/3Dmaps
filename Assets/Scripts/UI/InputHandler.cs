@@ -18,7 +18,12 @@ public class InputHandler : MonoBehaviour {
     private Vector2 combMem;
     private float origRot;
 	private bool isGesture = false;
-	public Transform target;
+	public Transform targetTrans;
+	private int currentZoomLevel = 0;
+
+	public bool isTiltMode = false;
+	private Quaternion cameraOriginalRotation;
+	private Vector3 cameraStartPosition;
 
     void Start() {
         InputController.OnSwipeDetected   += OnSwipeDetected;
@@ -26,7 +31,9 @@ public class InputHandler : MonoBehaviour {
         InputController.OnInput           += OnInput;
         InputController.OnInputEnded      += OnInputEnded;
 
-        target = mapGenerator.gameObject.transform.parent.transform;
+		targetTrans = mapGenerator.gameObject.transform.parent.transform;
+		cameraOriginalRotation = cam.transform.rotation;
+		cameraStartPosition = cam.transform.position;
 		this.trailDisplay = GameObject.Find ("OSMGenerator").GetComponent<TrailDisplay> ();
     }
 
@@ -37,6 +44,8 @@ public class InputHandler : MonoBehaviour {
             ZoomCamera(Input.GetAxis("Mouse ScrollWheel") * 100);
 			UpdateLabelPositions ();
         }
+
+		isGesture = Input.touchCount == 0 ? false : isGesture;
     }
 
     public void OnInputEnded(List<InputData> inputs) {
@@ -59,11 +68,21 @@ public class InputHandler : MonoBehaviour {
 		isGesture = false;
         if (inputs.Count > 1) {
             combMem = CalculateTouchToTouchVec(inputs);
-            origRot = target.rotation.eulerAngles.y;
+			origRot = targetTrans.rotation.eulerAngles.y;
         }
     }
 
     private void OnSwipeDetected(Swipe direction, Vector2 swipeVelocity) {
+		if (isTiltMode) {
+			swipeVelocity = new Vector2 (Mathf.Clamp (swipeVelocity.x , -50, 50), Mathf.Clamp (swipeVelocity.y , -50, 50));
+			Vector3 originalEulers = cam.transform.eulerAngles;
+			cam.transform.Rotate(Vector3.right, swipeVelocity.y * Time.deltaTime * Mathf.Max(1, currentZoomLevel - mapGenerator.maxZoomValue));
+			cam.transform.Rotate(Vector3.down, swipeVelocity.x * Time.deltaTime * Mathf.Max(1, currentZoomLevel - mapGenerator.maxZoomValue));
+			cam.transform.eulerAngles = new Vector3 (cam.transform.eulerAngles.x, cam.transform.eulerAngles.y, originalEulers.z);
+			UpdateLod();
+			return;
+		}
+
 		if (isGesture)
 			return;
 		
@@ -80,7 +99,6 @@ public class InputHandler : MonoBehaviour {
         UpdateLod();
     }
 
-
     private void HandleZoom(List<InputData> inputs)
     {
 		isGesture = true;
@@ -96,11 +114,12 @@ public class InputHandler : MonoBehaviour {
     {
         cam.fieldOfView += deltaMagnitudeDiff * perspectiveZoomSpeed;
         cam.fieldOfView = Mathf.Clamp(cam.fieldOfView, zoomMinValue, zoomMaxValue);
-
-		int currentZoomLevel = (int) (mapGenerator.maxZoomValue - ((cam.fieldOfView - 5) / 95) * mapGenerator.maxZoomValue); 
+		currentZoomLevel = (int) (mapGenerator.maxZoomValue - ((cam.fieldOfView - 5) / 95) * mapGenerator.maxZoomValue);
+		float step = Vector3.Distance(cameraStartPosition, Vector3.zero) / mapGenerator.maxZoomValue;
+		Vector3 targetPos = deltaMagnitudeDiff < 0 ? new Vector3(0,0.15F,-0.15F) : cameraStartPosition;
+		cam.transform.position = Vector3.MoveTowards (cam.transform.position, targetPos, step);
 		if(mapGenerator != null) mapGenerator.UpdateZoomLevel(currentZoomLevel);
-
-        cam.transform.LookAt(target);
+        cam.transform.LookAt(targetTrans);
     }
 
     private Vector2 CalculateTouchToTouchVec(List<InputData> inputs) {
@@ -127,10 +146,10 @@ public class InputHandler : MonoBehaviour {
 
     private void RotateObject(List<InputData> inputs) {
 		isGesture = true;
-        target.eulerAngles = new Vector3(
-                                    target.eulerAngles.x,
+		targetTrans.eulerAngles = new Vector3(
+									targetTrans.eulerAngles.x,
                                     origRot + (Vector2.SignedAngle(CalculateTouchToTouchVec(inputs), combMem)),
-                                    target.eulerAngles.z
+									targetTrans.eulerAngles.z
                                  );
         UpdateLod();
 
@@ -162,5 +181,12 @@ public class InputHandler : MonoBehaviour {
         Vector3 viewPort = Camera.main.ScreenToViewportPoint(new Vector3(worldPos.x, worldPos.y, 0));
         return new Vector2(viewPort.x, viewPort.y);
     }
+
+	public void SetCameraTiltMode() {
+		isTiltMode = !isTiltMode;
+		if (!isTiltMode) {
+			cam.transform.rotation = cameraOriginalRotation;
+		}
+	}
 
 }

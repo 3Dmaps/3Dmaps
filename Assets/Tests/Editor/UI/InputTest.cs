@@ -16,7 +16,7 @@ public class InputTest {
 		InputHandler handler = obj.AddComponent<InputHandler> ();
 		MapGenerator mapGenerator = child.AddComponent<MapGenerator> ();
 		handler.mapGenerator = mapGenerator;
-		handler.target = obj.transform;
+		handler.targetTrans = obj.transform;
 		Quaternion startRot = obj.transform.rotation;
 
 		List<InputData> inputs = new List<InputData> ();
