@@ -47,10 +47,14 @@ The project uses Unity Cloud Build as its continous integration platform. Unity 
 ## Deployment
 
 * Android
-Requirements: Unity 3D, Android device. Open the project in Unity 3D and build the project for Android. The resulting file can then be transferred to Android.
+Requirements: Unity 3D with Android module, Android device, computer with Android SDK installed.
+
+Open the project in Unity 3D and build the project for Android. The resulting .apk file is either automatically transferred to the Android device or can be moved to the device manually. The Android device may need to have its developer settings activated for the application to be launched.
 
 * iOS
-Requirements: Unity 3D, iOS device, Macintosh computer, Xcode, Apple ID / Apple Developer ID. Connect the iOS device to the computer. Open the project in Unity 3D and build the project for iOS. Open the resulting package in Xcode, build the application using Apple ID or Apple Developer ID for the connected iOS device. The application will be transferred to the computer.
+Requirements: Unity 3D with iOS device, iOS device, Macintosh computer, Xcode, Apple ID / Apple Developer ID. 
+
+Connect the iOS device to the computer. Open the project in Unity 3D and build the project for iOS. Open the resulting package in Xcode, select the connected iOS device as the build target and then build the application using Apple ID or Apple Developer ID for the device. The application will be transferred to the iOS device. To launch the application, you may need to accept the device developer ID in security settings.
 
 ## Built With
 
