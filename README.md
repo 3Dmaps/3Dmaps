@@ -10,13 +10,13 @@ Background information in Labtool: https://studies.cs.helsinki.fi/ohtuprojekti/t
 ## What the software does (in a nutshell)
 **Read source data**
 
-[Satellite image](/images/Sample_satellite_image.jpg =480x)
-[Height map](/images/Sample_height_map.png =480x)
-[Open Street Map data](/images/Sample_XML.png =480x)
+![Satellite image](/images/Sample_satellite_image.jpg =480x)
+![Height map](/images/Sample_height_map.png =480x)
+![Open Street Map data](/images/Sample_XML.png =480x)
 
 **Preprocess source data in mapcreator**
 
-[Mapcreator](/images/Sample_mapcreator.png =360x)
+![Mapcreator](/images/Sample_mapcreator.png =360x)
 
 **Create a 3d-model on IOS/Android device**
 *Image of 3dmap on iPhone here*
