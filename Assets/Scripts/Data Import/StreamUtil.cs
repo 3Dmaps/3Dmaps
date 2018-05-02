@@ -3,7 +3,9 @@ using System.IO;
 using UnityEngine;
 
 public static class StreamUtil {
-
+/// <summary>
+/// Handles platform reading independencies
+/// </summary>
     public static Stream GetFileStream(string path) {
         switch(Application.platform) {
             case RuntimePlatform.Android:

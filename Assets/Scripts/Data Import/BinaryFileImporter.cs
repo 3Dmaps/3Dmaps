@@ -1,6 +1,10 @@
 ﻿using System.IO;
 using UnityEngine;
 
+/// <summary>
+/// Reads height data and related metadata from an BinaryFileMetadata-file
+/// The data is stored in a MapData object and the metadata in a BinaryFileMetadata object
+/// </summary>
 public static class BinaryFileImporter {
 
     private const string fileStart = "ENVI", separator = "=";
