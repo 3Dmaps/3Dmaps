@@ -1,6 +1,9 @@
 ﻿using Priority_Queue;
 using System.Linq;
 
+/// <summary>
+/// Handles the re-drawing of MapDisplays.
+/// </summary>
 public class DisplayUpdater {
 
     private SimplePriorityQueue<UnupdatedDisplay> unupdatedDisplays;

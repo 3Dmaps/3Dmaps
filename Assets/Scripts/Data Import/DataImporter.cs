@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Imports data
+/// </summary>
 public static class DataImporter {
 
     private static Dictionary<string, MapDataFrame> mapDataFrames = new Dictionary<string, MapDataFrame>();
