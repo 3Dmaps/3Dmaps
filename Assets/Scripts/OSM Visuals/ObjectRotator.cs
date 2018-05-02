@@ -9,6 +9,7 @@ using UnityEngine;
 public class ObjectRotator : MonoBehaviour {
 
 	void Update () {
-		transform.LookAt (2 * transform.position - Camera.main.transform.position, Camera.main.transform.rotation * Vector3.up);
+		transform.LookAt(transform.position - Camera.main.transform.rotation * Vector3.back,
+			Camera.main.transform.rotation * Vector3.up);
 	}
 }
