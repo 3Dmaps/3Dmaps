@@ -1,7 +1,11 @@
+
 public enum NeighborType {
     LeftRight, TopBottom
 }
 
+/// <summary>
+/// Neighboring relationship between two MapData objects.
+/// </summary>
 public class MapNeighborRelation { 
     // Class instead of struct because we want to point to the same relation object from both members
     public MapData firstMember, secondMember;

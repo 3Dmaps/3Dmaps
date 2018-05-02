@@ -1,3 +1,7 @@
+/// <summary>
+/// Neighboring relationship between two DisplayReadySlices based on corresponding MapNeighborRelation.
+/// </summary>
+
 using UnityEngine;
 
 public class DisplayNeighborRelation : MapNeighborRelation { 
