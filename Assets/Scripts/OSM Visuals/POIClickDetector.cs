@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+///<summary>
+/// Detects click when clicking poi ico
+/// </summary>
 public class POIClickDetector : MonoBehaviour {
 
 	public POIDisplay poiDisplay;
