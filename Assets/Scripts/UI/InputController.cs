@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
  
+///<summary>
+/// Catches user events
+/// </summary>
 public class InputController : MonoBehaviour
 {
     #region Inspector Variables
