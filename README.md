@@ -8,17 +8,26 @@ The goal of the project is to create a 3D visualisation component for a smartpho
 Background information in Labtool: https://studies.cs.helsinki.fi/ohtuprojekti/topic_descriptions/199
 
 ## What the software does (in a nutshell)
-**Read source data**
+**Read in source data to mapcreator**
+
+Satellite image
 
 <img src="/images/Sample_satellite_image.jpg" width="480">
-![Height map](/images/Sample_height_map.png =480x)
-![Open Street Map data](/images/Sample_XML.png =480x)
+
+Height map
+
+<img src="/images/Sample_height_map.png" width="480">
+
+Open Street Map data
+
+<img src="/images/Sample_XML.png" width="480"> 
 
 **Preprocess source data in mapcreator**
 
-![Mapcreator](/images/Sample_mapcreator.png =360x)
+<img src="/images/Sample_mapcreator.png" width="480"> 
 
 **Create a 3d-model on IOS/Android device**
+
 *Image of 3dmap on iPhone here*
 
 ## How to use the application
